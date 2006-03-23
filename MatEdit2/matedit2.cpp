@@ -46,7 +46,7 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 // Konstanten und Statische Variablen
 //
 const int BPP = 8;
-const char *WINTITLE="GRX Scene";
+const char *WINTITLE="Plush Material Editor";
 const char *defFileName = "standard.scx";
 const char *CStdMat= "stdmat";
 const char *CStdObj = "stdobj";
