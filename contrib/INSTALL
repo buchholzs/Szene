@@ -1,0 +1,3 @@
+Unzip GRX 2.4.3 here. Then checkout project files and patches over the existing installation.
+
+Compile with make -f makefile.dj2
