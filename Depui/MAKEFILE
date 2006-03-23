@@ -1,0 +1,12 @@
+LIBNAME = lib/libdepui.a
+EXELIBRARIES = depui grx20
+EXEEXTRA = 
+
+INCLUDE_DIRS += ../contrib/grx243/include
+LIBRARY_DIRS += ../contrib/grx243/lib/dj2
+
+
+include mrules.inc
+include mdos.inc
+
+

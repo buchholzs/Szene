@@ -1,0 +1,23 @@
+BUGS
+____
+
+ - No keyboard focus switching.
+   
+ - blending does not work well for some platforms.
+
+ - TinyPTC driver is very slow since it redraws the entire screen everytime
+   the mouse moves!  I have to wait until there is a ptc_areaupdate function.
+
+ - Textarea has some problems handling <CR> and <LF>.  I'd like to fix this
+   but I don't know the best way to handle this.  What do other cross
+   platform projects do?
+
+ - Editor sometimes doesn't update textarea properly when resizing and traces
+   of the old scrollbar are left on screen.
+
+ - Nano-X platform does not fully support most keypresses.
+ 
+ - C++ example and startup example don't work with linux/svgalib.
+
+
+

@@ -1,0 +1,160 @@
+Future ideas
+____________
+
+At some point I would like to make the library network comatible. I will
+make a special MxDriverOutputSerial object that takes graphic requests and
+serializes them and spews them out some network connection.  On the other
+side of the network is a small program that interprets these graphic
+commands and draws stuff on the screen.  It will also serialize and keypresses
+and mouse movement and pass it back to the program through the network.
+
+On the client side there is a very small program that interprets serialized
+graphic commadns and drays them on the screen and takes user input and
+sends the user input back.  On the server side is some program using the
+library and MxDriverOutputSerial and MxDriverInputSerial drivers.  In this
+way it should be possible to run a program remotely!
+
+This puts some limitations on how the MxDriverOutput and MxDriverinput
+structs may be changed to geet a possible network enabled driver
+reasonably efficient.  There needs to be some way of limiting the amount
+of bitmap data that has to be passed across the network.
+
+
+TODO - Pretty soon
+__________________
+
+ - Look at consistancy of the API.
+   : Same order of arguments to construct/create functions
+   : Same naming convetions for functions i.e ListClear or ClearList
+   : Develop some capatilization stuff for global/local/static/public
+
+ - scroll list when a partially obscured element is selected so that a
+   selected element is always fully visible.
+   
+ - Scroller with client object of size zero crashes.
+
+ - Consistant zero==success or zero==failure decision. And document it
+
+ - Look at FLTK,FOX,GLUI,DINX and try to copy the functionality or
+   utility functions such as object packing etc...
+   
+ - Figure out how window/object focus should be handled.
+
+ - Fonts could have problems if the char with 0 index (first char added)
+   gets added more than once.
+
+ - Make objects: MxHtmlBox
+                 MxTooltip - share code with MxDragDrop?
+                 
+ - Keyboard focus handling does not work well with menus etc.
+ 
+
+TODO - Maybe someday
+____________________
+
+ - Make a window list in the desktop to give the focus to a specific window.
+   This can work like window start menu.
+
+ - The output driver is amazingly flexible.  We could even have output go
+   to a text mode screen!  The same lib with graphic or text output!
+   but we would have to change how objects are drawn, maybe with a 
+   style struct.
+
+ - Make as many indicies as possible to unsigned int to save tests!
+
+ - Make a generic Mx_ImageLoad function that knows about extensions in
+   some very clever way that doesn't link in code unless it actually gets
+   used.
+
+ - BMP load has some problems with certian color depths or RLE encoding.
+
+ - Freetype support
+
+ - Figure out how to have a clipboard.
+
+ - Figure out how to have click modifiers like control-click or alt-click
+
+ - Maybe some kind of gradient for menus and buttons.
+
+ - Make multi coloum listbox properly supported with changable coloum widths
+   and some kind of header title for each coloum.
+
+ - Make MxMove blit copy portions of screen as necessary for max speed.  This
+   is hard because you have to move the blocks in the correct order otherwize
+   portions will obscure other parts when only some of the rects are moved.
+
+ - Make some automated way of generating dependancies.  Right now I have to 
+   hand-edit a RHIDE generated makefile.
+
+ - Check out U_ASCII mode of Allegro for international handling. (advice 
+   from SET)
+
+ - Should the event queue be sorted for fastest checking if a event can be
+   dispatched. The function is called in the inner loop so it will affect
+   gui responsiveness.
+
+ - Finish PORT platform for easy porting to new platforms and use it to make
+   a Mode 13H platform.
+
+ - Object (esp window) centering into object args and handle in object constructor
+
+ - Need to rethink geometry handling so that we know which functions can be called
+   on running objects and which have to be called during init.
+
+ - Consider combining array handling of children, rectangles and event queue 
+   into one generalized array class.
+
+ - Add some kind of color creation/blending code into the output platform.
+
+ - Make font changing into function on platform so platform can see when it has
+   changed.
+
+ - Can you make scrollable textbox into textbox, so that user only sees textbox
+   whether or not it is scrollable?
+
+ - Make a more simple example of the drag/drop api.
+
+ - Can I put the drag/drop target passing into all textlines and list elements
+   to simplify drag drop in those cases and still make sure that drag/drop
+   code doesn't linked in unless used.
+
+ - Can I intersect the display region (from the queue) with the object regions
+   and therefore more efficiently draw the objects.
+
+ - Stop UTF8 support and make char width variable and make default string 
+   handling functions.  This makes DEPUI better match with the use of wide
+   characters in a platform driver.
+
+ - Maybe make a load TTF file example.
+
+ - Can we make object moves blit what is already on screen for fast moves?
+   Need to find an algorithm to do this since we can have overlapping
+   problems.
+
+ - Change most MxGeometry calls to MxGeometryQuery for efficiency.
+
+ - Make some intelligent TAB handling sonce Allegro prints tabs out as '^'
+
+ - Page up page down handling for textboxes.
+
+ - Fix some filenames to be more sensible
+
+ - Scrolling requests in lists
+
+ - Fix HList.
+
+ - Lists only need to update parts that gets changed when changing selecetion
+
+ - Double buffer should keep track of inverse of area and not area for best
+   region handling efficiency.
+
+ - Fix Nano-X keyboard handling code.
+
+ - We could easily make tear-off menus by resetting all the popup bits
+   in the menu!  But destruction/moving needs to be figued out.  Easiest way
+   is to make a special callback, and recognise this in the menu code.
+
+ - Maybe make callbacks accept events?
+
+
+

@@ -1,0 +1,241 @@
+DEPUI 2.0
+_________
+
+ - Mariano Alvarez Fernandez fixed the unresponsive keyboard problems for the
+   GRX platform.
+
+ - Added MxTextareaInsert/Delete function to further support derivation of an
+   editable textbox from MxTextbox.  I think if we log these transactions we
+   can support undo on this object.
+
+ - Removed MxEventRefresh, MxEventRefreshArea and AreaEvent type since they
+   cannot be efficient. The MxEnqueueRefresh functions should be used instead.
+
+ - Fixed small bugs to improve screen update efficiency.  Sometimes buttons 
+   would be drawn twice when selected and getting the focus at the same time.
+
+ - The dirty region list in the desktop is now saved as the inverse of the
+   area.  This makes updating an area more efficient, since adding a dirty 
+   region only causes a region clip. 
+
+ - Made example to show how to use drap/drop properly.  The examples is a 
+   little more complex that it should be, but it fairly cool.
+
+ - Dragdrop target put into desktop to make sure it gets cleared if the
+   target gets removed during the drop.
+
+ - Removed the UTF8 support.  One day when I know more about 
+   internationalization (or if someone contribues patches) it can be
+   replaced, but I simply can't reasonably support something I know so 
+   little about.  I would really appreciate someone with more experience in 
+   this to help me out.
+
+ - Removed the keyboard focus handling code and the Focusable object flag 
+   since it didn't work properly and I will definetly have to rewrite 
+   focus handling.
+
+ - Editable text object mostly working.  I'm still trying to figure out how
+   to make font/sizes change through the line and how to do text selection
+   and a clipboard.
+
+ - Made 2 examples how to use the editable textbox object.
+
+ - Put the resizing decoration back into the window from the client so that
+   the decoration will always be there even if the normal client isn't used.
+   I'd rather not do this since it wastes screen real estate, but I can't
+   think of any better solution.
+
+ - Removed events for making the desktop do opaque/outline moves to
+   functions.  This reduces event name pollution.
+
+ - Improved the Vesa1/DJGPP driver to work much better and to be quite a bit
+   faster.
+
+ - Removed the inform target from MxGeometryRequest as it wasn't used 
+   anywhere.
+
+ - Expanded number of key's recognized by almost all ports.  The X and
+   Svgalib key code isn't the most beautiful, but it does work.
+
+ - Removed the MxEventGot/LostSibling messages since they were not being used
+   for anything and can be potentially quite inefficient.
+
+ - Removed keyboard focus handling for list elements.  I need to design some
+   kind of unified keyboard focus handling before making objects keyboard
+   controllable.
+
+ - Focus handling taken out of root.c and put into the individual objects.
+
+ - Started a file selector and an example on how to use it.
+
+ - Changed the tabstop handling of MxBasicList to return a function that gives
+   the desired pixel width of each tabstop.  This should be a little safer
+   than returning an array like used previously.
+
+ - Removed the MxEventGot\LostChild events because the could have O(N^2)
+   behaviour and that is too slow for big lists.
+
+ - Removed the MxEventInsert/Remove events since they weren't being used for
+   anything.
+
+ - Changed some object and function names to be more consistant.
+
+ - Slightly changed the focus handling internals.  It's wrong for the
+   MxFocusSet function to try to find out the focus will be passed on.  This
+   isn't the normal case, and if the object really needs it, it can pass
+   the focus itself.
+
+ - Removed some geometry functions that weren't being used for anything.
+
+ - Make a MxGeomQuery function that asks an object what size it wants but
+   doesn't change anything, in contrast to MxGeomRequest.  This means that
+   stacking and scroll client sizing is more efficient.
+
+ - Started a text editor widget and made an example for it.  It's still pretty 
+   buggy, especially it's handling of <CR> and <LF> but I am no expert on what 
+   should really be happening.
+
+ - Slight change in the look of the sliders.  I really don't know if this looks
+   better or not.  It would look a lot nicer with some texture blits, but I'm 
+   not sure the best way to keep something like that portable and fast.
+
+ - Buttons/menus no longer send events they have a callback function which
+   is more efficient for speed and size than the events they used to use.
+
+ - Major change in the handling of textarea and lists.  Instead of having
+   sub-objects, they are now one object with the drawing logic in themselves.
+   This makes everything less modular, but greatly increases speed because
+   there is less message passing and object creation is MUCH faster.  With the
+   old method, opening a 200k file in a textarea took a half minute, while
+   with the new method it takes a fraction of a second.
+
+ - Change in list handling breaks MxHList.  Removed it until it gets 
+   rewritten.
+
+ - Added MxColorBlend and MxColorEncode functions to all platforms.  Not all
+   of the will/can be fully functional, but they can be improved.
+
+ - Recursive desktop applications are now possible.  If the desktop is the 
+   root, it will take up the whole screen.  If a desktop is already running
+   the desktop will be in a window inside the main desktop.  This should make
+   multi-window program designing easier and more modular.  Also made an
+   example on how this works.
+
+ - Make some C++ wrappers for some more useful objects and an C++ example.
+
+ - Simplified slider events. 
+
+DEPUI 1.1
+_________
+
+ - Nick Papadonis contributed code to make DEPUI work on NANO-X!  Thanks Nick!
+
+ - Added a semi-complete driver for X-Windows.  Still a little work to do
+   there, mostly regarding image manipulation, but the examples do work.
+
+ - Added driver for TinyPTC.  Tested it with DOS.  I cannot yet test it with 
+   windows. It is inefficient since the screen has to be entirely reblitted
+   whenever the mouse moves.  We have to wait till TinyPTC implements a 
+   ptc_area_upadte function before this will improve.
+
+ - Slight speedup for the DJVesa2 driver by only setting the video selector
+   once at graphics init and not at each pixel access.
+
+ - Added a VESA bank switched driver (DJVESA1)
+
+ - Modified MxEventPointer to make arguments more logical.
+
+ - Removed some event types that weren't used anywhere.
+
+ - Moved resize decoration from window to client to make more room in window
+   client area.  Also changed how the resize decoration looks.
+
+ - MxObject size from 36 to 28 bytes!  This was done by an indirection in the
+   MxRegion rectangle array and the object child array.  The arrays are now
+   structs with array memory tacked onto the end.  MxObject is well packed
+   for 32 bit compiler since the struct size is the same for 16 bit
+   compilers.
+
+ - Added a DEMODULE utility that prints a list of the source files used in an
+   DEPUI executable.  The library must be built with MX_DEBUG_MODULES
+   defined.
+
+ - Add a small util to compare the speed of a virtual function table with
+   event handlers.  On most platforms vtable is a bit faster than 1 event
+   handler and is 2 times as fast as 4 event handler levels.
+
+ - Added dependancies list in depend.inc.  It was generated from a RHIDE
+   makefile with a little hand editing.
+
+ - Added __dpmi_yield() function call to DJGPP platforms for better DOS/Win
+   multitasking performance.
+
+ - Added a MxButton->Style bitfield to choose between different button drawing
+   styles. 
+
+ - Started writing some basic docs.
+
+ - Added a PORT target that uses the basic minumum of requirements for a DEPUI
+   platform.  Just search through source/platform/port and 
+   include/platform/port for the character string ^^^.  This will show you what
+   you have to code to port DEPUI to another platform. 
+
+ - Fixed menu bugs (MxMenu object memory wasn't bieng initialized with 0 in 
+   constructor and Event was being sent twice)
+
+ - Fixed button bugs, events were bieng sent after MxSelect and is the object
+   kills itself (or it's parent) while handling MxSelect, the other events 
+   would have a bad target and segfault.  MxSelect should always be sent last.
+
+ - Event reserving code changed to be a little more logical and easy to use.
+
+ - Added text justification flags to MxStaticText object and offsets that are
+   recalculated in MxEventPostInit.  This allows maximally fast redraws of the
+   object. i.e. without recalculating the size of the string
+
+ - Derived MxButton class from MxStaticText to take advantage of the text 
+   justification code in MxStaticText.  Still need to modify list elements
+   and menu elments to share the same code.
+
+ - Made a MxBar object that can be used as a nice looking divider.  It can be
+   raised or sunken.
+
+ - Slight change in default button look suggested by Salvador Eduard Tropea.  
+   You can still get the old one back by setting the Style flag in the button 
+   Args.
+
+ - Created special MxCancelButton, MxExitButton and MxOkButton to simplify
+   some object creation things.
+
+ - If an button has an event but no target, the event gets sent to it's parent.
+
+ - Added some special DJGPP functions to the dos/djgpp/vesa drivers to reduce
+   executable size by a few bytes.
+
+ - Added a MxEventWantChild event that can have a parent redirect the 
+   addition of a child to it.  I may or may not keep this as it may actually
+   not be useful.
+
+ - MxTextLine converted to use char** instead of char*.  This should make an
+   editable textbox easier to make, since the char*'s don't need to be
+   updated.  Although it shouldn't make much difference since we still have
+   to update the line lengths stc. for word wrapping.
+
+ - Made a Opengui platform too, but the mouse code only works in DOS and only
+   in 8 bit modes.
+
+ - Fixed stupid bug in MxInsert that wasn't properly invalidating the regions
+   of objects insteted.  This sometimed caused redraw and display flicker.
+
+ - Changes all the DOS generic mouse handling stuff to calculate mouse
+   position with mouse mickeys because of the number if INT33 bugs that I have
+   been seeing.  I pilfered the code from Allegro DOS mouse drivers.
+   
+ - Put a #warning in the platforms output code to say which platform is being
+   compiled.  This will help debugging compiling problems on different 
+   platforms.
+
+DEPUI 1.0
+_________
+
+ - First release

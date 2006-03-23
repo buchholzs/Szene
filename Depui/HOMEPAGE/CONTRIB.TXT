@@ -1,0 +1,61 @@
+People who have contributed
+___________________________
+
+ - Nick Papadonis ported DEPUI to Nano-X. This greatly increases the number
+   of platforms that DEPUI will work on.
+
+ - Salvador Eduardo Tropea contribued some changes to button looks.  These 
+   changes are now the default button look.
+
+ - Achilleas Margaritis and I worked together on his MxWin project after
+   version 1.0 on a version that was never released.  I was making some
+   widgets for him, and DEPUI is actually a result of that work.  That is
+   where the Mx prefix originally comes from.  I thought a De prefix would
+   look stupid.  Very little of his original code remains, however his code
+   was the original inspiration that I had to write DEPUI.  Especially the
+   clipping region ideas originated from him.
+
+ - Some code for file handling (findfirst/findnext/drive validation) were
+   taken from Allegro graphics library.  So thanks to Michael Bukin who wrote
+   that part of Allegro.
+
+ - The authors and contributors of DJGPP have also helped immensely since
+   that is my default development platform.
+
+Contributions
+_____________
+
+I encourage people to contribute code and will put code that I think is
+appropriate into the library with the authour clearly named in the library.
+
+I do have some fairly strict rules for contributions though.
+
+I would really like to avoid having features work under one OS or compiler
+and not another.  If you contribute code to do some super cool thing, it
+either must be completely portable, or you must also contribute generic code
+so that your feature can work on all platforms.  DEPUI programs should 
+compile with absolutely no system specific header.  This is necessary to 
+maximize portability.
+
+I will most likely disallow any contributions of features to DEPUI that use 
+memory when the features are not actually used.  Maybe I will allow a static 
+global pointer or 1 bit field in the MxObject.  But not much more than that.  
+I have made considerable efforts to keep everything small, especially base 
+structures like MxObject.
+
+The drag-and-drop support is a good example of this.  There are no static
+data and no function pointers are taken and thus the code for drag-and-drop
+will not be linked in unless it is actually used.  You can actually code
+an object to accept drops but unless some object can start a drag, the
+drag/drop code will not be linked in.
+
+The library has a specific hierarchy of features and contributed code will
+be more likely to be accepted based on what advantages it gives and how
+high those features are in the hierarchy.  Right now the hierarchy is:
+
+1) Portable - Most important
+2) Small
+3) Simple
+4) Modular
+5) Speed - Least important
+

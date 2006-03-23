@@ -1,0 +1,237 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>DEPUI</title>
+</head>
+<body>
+<font size=+2>DEPUI 2.0: A portable graphical user interface&nbsp;</font><!-- Start of Nedstat Basic code --><a href="http://nl.nedstatbasic.net/cgi-bin/viewstat?name=depui"><img SRC="http://nl.nedstatbasic.net/cgi-bin/nedstat.gif?name=depui" ALT="" NOSAVE BORDER=0 height=22 width=22></a><script type="text/javascript" 
+language="JavaScript"> <!-- d=document; d.write("<img 
+src=\"http://nl.nedstatbasic.net"); d.write("/cgi-bin/referstat.gif?"); 
+d.write("name=depui&refer="); d.write(escape(top.document.referrer)); 
+d.write("\" width=1 height=1 align=\"right\">"); // --></script>
+<!-- End of Nedstat Basic code -->
+<br><a href="#Contact">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Download">Download</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#Features">Features</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Future">Future
+work</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Resources">Resources</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#License">Licence</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Screenshots">Screenshots</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#Platforms">Platforms</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#Widgets">Widgets</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#Links">Links</a>
+<p><img SRC="depui.jpg" NOSAVE height=280 width=394 align=LEFT><font size=+2>What's
+new</font>
+<br>- Small <a href="tutorial.htm">tutorial</a>
+<br>- Editable textbox
+<br>- Editor widget with menu
+<br>- Textbox now more efficient
+<br>- File selector
+<br>- C++ wrapper classes
+<br>- Justification for text and buttons
+<br>- Example for drag and drop
+<br>- Reduced memory usage
+<br>- Better keyboard handling
+<br>- Of course, some bug fixes
+<br>- Complete list:<a href="changlog.txt">changelog.txt</a>
+<br>&nbsp;
+<br>&nbsp;
+<p><font size=+2>What is DEPUI</font>
+<br>DEPUI is a very portable graphic user interface library written in
+the C language. There are some very minimal docs, but it is completely
+open source and should work and compile for a wide variety of platforms.
+DEPUI was written with a strong emphasis on keeping executable sizes as
+small as possible while maintaing reasonable performance. Features and
+objects that aren't used don't get included into your executable.
+<p><a NAME="Screenshots"></a><font size=+2>Screenshots</font>
+<br><a href="depui1.jpg">Screenshot1</a> - Some widgets with bitmapped
+8x8 font (Allegro/DJGPP)
+<br><a href="depui2.jpg">Screenshot2</a> - Some widgets with antialiased
+font (Generic driver)
+<br>In both the above screenshots, the total memory allocated is about
+3 kilobytes in 50 allocations.
+<br><a href="depui3.jpg">Screenshot3</a> - Editable textbox with antialiased
+font (Generic driver)
+<br><a href="depui4.jpg">Screenshot4</a> - Editor widget and File selector
+(Generic driver)
+<p><a NAME="Platforms"></a><font size=+2>Platforms</font>
+<br>It will compile for 32 or 16 bit targets. I am releasing this code
+in order to get feedback as to how everything works on different platforms
+and to encourage discussions on how to do things the best way and to encourage
+code contributions. Of course I will give full credit in the changelog
+for contributed changes/improvements. Right now it has drivers and I have
+tested it for the following platforms:
+<br>- DOS with <a href="http://www.delorie.com/">DJGPP</a> using <a href="http://www.talula.demon.co.uk/">Allegro</a>
+- Default Platform
+<br>- DOS with <a href="http://www.delorie.com/">DJGPP</a> using <a href="http://www.gnu.de/software/GRX/">GRX
+2.3</a>
+<br>- DOS with <a href="http://www.borland.com/">Borland 3.11</a> using
+BGI
+<br>- DOS with <a href="http://www.delorie.com/">DJGPP</a> using simple
+VESA 2.0
+<br>- DOS with <a href="http://www.delorie.com/">DJGPP</a> using simple
+VESA 1.0
+<br>- <a href="http://www.slackware.com/">Linux</a> using <a href="http://www.talula.demon.co.uk/">Allegro</a>
+<br>- <a href="http://www.slackware.com/">Linux</a> using <a href="http://www.gnu.de/software/GRX/">GRX
+2.3</a> (on top of
+<a href="http://www.svgalib.org/">Svgalib</a>)
+<br>- Linux using
+<a href="http://www.svgalib.org/">Svgalib</a> directly
+<br>- Linux using
+<a href="http://microwindows.censoft.com/">Nano-X</a><b>
+- </b>Contributed by Nick Papadonis
+<br>- Linux using X-Windows
+<br>- <a href="http://www.tutok.sk/fastgl/">OpenGUI</a> drivers (mouse/keyboard
+only work under DOS/DJGPP)
+<br>- DOS with <a href="http://www.gaffer.org/ptc/">TinyPTC</a> (still
+rather slow, but functional)
+<p>On each platform the font, bitmap and mouse support is either the generic
+built-in support, or specific to the platform. For example for a generic
+driver the MxFont struct is defined within the library. Under Allegro it
+is a typedef for a BITMAP. And there are standard interface functions for
+both types of underlying structures.
+<p><a NAME="Widgets"></a><font size=+2>Widgets</font>
+<br>Right now it has the following widgets:
+<br>- <b>NEW</b> - Editable textbox with (or without) scrollbars
+<br>- <b>NEW</b> - Editor object
+<br>- <b>NEW</b> - File selector
+<br>- Static text
+<br>- Push button
+<br>- Toggle button
+<br>- Radio button and radio button group
+<br>- Horizontal and vertical scrollbars
+<br>- Menu bars and popdown menus
+<br>- List with limited multi-coloum support
+<br>- Scrollable areas (with scrollbars as needed) that can scroll any
+object
+<br>- Multi line text
+<br>- Simple movable/resizeable/closeable windows (normal and modal)
+<br>- Panels (Raised, sunken, ridge, groove)
+<br>- Direct screen access (ensures no gui objects will overlap)
+<br>- Simple alert
+<br>- Vertical and horizontal bar
+<p><a NAME="Features"></a><font size=+2>Features</font>
+<br>A driver for DEPUI can be easily written for any platform provided
+there are the following functions:
+<br>- Graphic mode set
+<br>- Putpixel
+<br>- Getpixel
+<br>- Keyboard pressed and which key it was
+<br>- Reading mouse movement
+<p>Some graphics functions can easily be accelerated if the platform allows:
+<br>- Putpixel
+<br>- Getpixel
+<br>- Horizontal line
+<br>- Vertical line
+<br>- Rectfill
+<br>- Font drawing
+<br>- Bitmap drawing
+<p>Please note that this means that the following things are NOT required
+in the platform, and can be completely handled within the library:
+<br>- Mouse display
+<br>- Font handling
+<br>- Bitmap handling
+<p>Almost all clipping is done inside the library so the driver functions
+do not need to clip and can run at maximum speed.
+<p>The desktop has a message queue that can accept messages to be dispatched
+when the gui would otherwise be idle. The redraw messages in the queue
+are optimized to that parts of the screen don't get updated twice. This
+makes for efficient use of the screen drawing.
+<p>Objects can be non-rectangular and/or transparent.
+<p>Base object class (MxObject) is just 28 - 36 bytes! Almost every visible
+object is 'derived' from a base struct MxObject. This means that most things
+are easily interchangeable.
+<p>The generic font code supports antialiasing, provided the platform has
+a reasonably fast getpixel and color blending functions.
+<p>The library compiles *without warnings* with gcc with -O2 -W -Wall -pedantic,
+except for files that include the platform's headers, which may or may
+not be warning free. The library also compiles *without warnings* as C++
+program!
+<p>The entire library is in object oriented C. No bloat from C++ standard
+libraries or templates. Object and functions are written in a way that
+if they are not used, the code does not go into your executable. DEPUI
+executables are small and have low memory requirements.
+<p><a NAME="Future"></a><font size=+2>Future work</font>
+<br>- Driver for DOS with DJGPP using standard VGA (640x480x4)
+<br>- Driver for DOS with DJGPP using simple Mode 13H
+<br>- Driver for DOS with Borland 3.11 using standard VGA (640x480x4)
+<br>- Driver for DOS with Borland 3.11 using simple Mode 13H
+<br>- Driver for Linux with GCC using <a href="http://www.linuxdoc.org/HOWTO/Framebuffer-HOWTO.html">Framebuffer</a>
+<br>- Driver for Windows with
+<a href="http://www.mingw.org/">MinGW</a>
+or <a href="http://msdn.microsoft.com/visualc/">Visual C++</a>
+<br>- Driver for <a href="http://www.opengl.org/">OpenGL</a>
+<br>- Driver for Free <a href="http://www.borland.com/bcppbuilder/freecompiler/">Borland
+C++</a> compiler
+<br>- Driver for <a href="http://www.cdx.sk/main.htm">CDX</a>
+<br>- Driver for <a href="http://g2.sourceforge.net/">g2</a> graphical
+library
+<br>- Driver for Windows w
+<br>- Driver for <a href="http://www.netpedia.net/hosting/sparkgl/">SparkGL</a>
+<br>- Driver for <a href="http://www.libsdl.org/">SDL</a> Simple DirectMedia
+Layer
+<br>- Driver for <a href="http://www.gaffer.org/ptc/">OpenPTC</a>
+<br>- Driver for <a href="http://microwindows.censoft.com/">Microwindows</a>
+<br>- Driver for <a href="http://www.openwatcom.org/">Open Watcom</a> compiler
+(when it comes out)
+<br>- Driver for <a href="http://www.beos.com/">Beos</a>
+<br>- Driver for <a href="http://www.qnx.com/">QNX</a>
+<br>- Driver for whatever people contribute...
+<br>- Network compatible output driver that can display DEPUI programs
+over a network connection
+<br>- More complete multi-coloum list handling
+<br>- More complete documentation
+<p><a NAME="License"></a><font size=+2>License</font>
+<br>It has a license similar to Freetype project. Basically the license
+says that you can do whatever you want with the source code, even sell
+it commercially as closed source, but you may not pretend that you wrote
+it. If you use it you must give credit to the DEPUI project in your documentation.
+Of course, people who contribute to DEPUI will have their contribution
+recognized in the DEPUI docs (<a href="contrib.txt">contrib.txt</a>).
+<p><a NAME="Resources"></a><font size=+2>Resources</font>
+<br>- A project page at <a href="http://sourceforge.net/projects/depui/">Sourceforge</a>.
+<br>- A <a href="http://sourceforge.net/forum/?group_id=16956">Forum</a>
+at Sourceforge, which should be a great place to ask/answer questions.
+<br>- I think the
+<a href="mailto:depui-devel@lists.sourceforge.net">mailing-list</a>
+is working, but I'm not really sure since it doesn't get used much (yet).
+<br>- A nice page a <a href="http://freshmeat.net/projects/depui/?highlight=depui">Freshmeat</a>.
+<br>- You can also look at the <a href="changlog.txt">changelog.txt</a>.
+<br>- A small <a href="tutorial.htm">tutorial</a>.
+<p><a NAME="Download"></a><font size=+2>Download DEPUI (version 2.0)</font>
+<br><a href="http://www.oprit.rug.nl/eleveld/depui.zip">ZIP</a> file for
+DOS or Windows platforms or <a href="http://www.oprit.rug.nl/eleveld/depui.tgz">TGZ</a>
+(tar and gzipped) file for Linux platforms
+<p><a NAME="Contact"></a><font size=+2>Contact</font>
+<br>If you have any questions, comments or contributions you can email
+me <a href="mailto:deleveld@dds.nl">deleveld@dds.nl</a>. If that doesn't
+work you can try <a href="mailto:deleveld@dds.nl">deleveld@mailandnews.com</a>
+or possibly <a href="mailto:deleveld@dds.nl">deleveld@my-deja.com</a> or
+at my work <a href="mailto:deleveld@dds.nl">d.j.eleveld@anest.azg.nl</a>.
+<p><a NAME="Links"></a><font size=+2>Links</font>
+<br>Lots of other gui's at <a href="http://www.theoffice.net/guitool">The
+GUI Toolkit, Framework Page</a>
+<br>Excellent portable windowing gui at <a href="http://www.microwindows.org/">Microwindows</a>
+<br>Other guis for DJGPP: <a href="http://pages.infinit.net/pain/opengui/opengui.htm">OPENGUI</a>,
+<a href="http://193.55.36.92/enicolas/computer/sword/download/index.html">Sword</a>,
+<a href="http://strangesoft.hypermart.net/gui.html">AWL</a>
+<table BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<tr>
+<td ALIGN=LEFT VALIGN=TOP ROWSPAN="2" BGCOLOR="#000000"><b><font color="#FFFFFF">Allegro's
+WebRing&nbsp;</font></b></td>
+
+<td ALIGN=RIGHT VALIGN=TOP BGCOLOR="#000000"><b><font color="#FFFFFF"><a href="http://www.webring.org/cgi-bin/webring?ring=alleg&id=14&prev" target="_top">Previous
+Site</a></font> <font color="#FFFFFF"><a href="http://www.webring.org/cgi-bin/webring?home&ring=alleg" target="_top">Ring's
+Home</a></font> <font color="#FFFFFF"><a href="http://www.webring.org/cgi-bin/webring?ring=alleg&id=14&next" target="_top">Next
+Site</a></font></b></td>
+</tr>
+
+<tr>
+<td ALIGN=RIGHT VALIGN=TOP BGCOLOR="#000000"><b><font color="#FFFFFF"><a href="http://www.webring.org/cgi-bin/webring?ring=alleg&id=14&random" target="_top">Random
+Site</a></font> <font color="#FFFFFF"><a href="http://www.webring.org/cgi-bin/webring?ring=alleg&id=14&skip" target="_top">Skip
+Next Site</a></font> <font color="#FFFFFF"><a href="http://www.webring.org/cgi-bin/webring?ring=alleg&id=14&next5" target="_top">List
+Next 5</a></font></b></td>
+</tr>
+</table>
+
+<p><a href="index.htm">My Homepage</a>
+</body>
+</html>

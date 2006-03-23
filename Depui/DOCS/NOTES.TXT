@@ -1,0 +1,93 @@
+NOTES
+_____
+
+ - Rethink word wrapping structure to make easy HTML windows.
+
+ - Does fastdraw require child objects not to overlap?
+ : No, it only assumes the object will not overdraw it's children, so it's
+   children's area may be included in it's region and thus the region is simpler.
+
+ - Can we put the globals into an MxApplication structure, and run more than
+   one application at once?  Or should this be derived from the MxWindow?
+
+ - Should we move font drawing and blitting into image vtable?
+
+ - When we need to decide wether or not to send an image over the serial
+   connection we can look at the wasaquired flag.  If the image was aquired,
+   then it has most likely changed, and then it needs to resent over the serial
+   line to the display server.
+ : But this only works with the generic bitmaps.
+
+ - If we are really clever we can keep images on the display server side and
+   only update regions of the images that that show on screen.  That was only
+   a minimum of image data goes over the connection.
+
+DONT DO:
+
+ - Don't use a drawing style struct.  It's a waste of static mem and we
+   can do it better by wrapping the event handler if we want. <MAYBE>
+
+ - Don't add double clicks, so we can avoid having any fast timers for
+   maximum portability.  Only use clock() in the EventEnqueue function.
+
+ - Don't wrap all small variables in functions to save space.
+
+ - Never send events during a expose event! it might screw up the clipping.
+
+COMMENTS:
+
+ - Make a HTML style object placement as default.  All dialogs should
+   look like they were HTML.  This should be relatively easy with word warp
+
+ - Ignored space or enter are made into a fake button/press to the keyboard
+   window.
+
+ - When objects get/lose the focus they MUST draw themselevs differently.  A
+   redraw for all related objects is not automatically requested when the 
+   focus changes.
+
+ - RefreshArea events are tied to the position of the target and the desktop
+   and so the actual destination object of the event is irrelevant.
+   
+ - We don't need any timer or idle functions since we can do everything with
+   enqueud events!
+
+ - Events are only accepted for initialized objects.  In the initialization
+   process the handler is directly called.  This means that message handlers
+   are only directly called in three places: in EventSend, GeometryInit and Destroy
+
+ - Every file that includes something from platforms/support will be
+   surrounded by a MX_NEED_XXX define.  This is so that support files that
+   are not needed are not compiled into the library.
+
+ - Modal dialogs look different than normal dialogs.  They are raised panel
+   style, while normal windows are flat.
+
+ - If an objects fastdraw bit has been set, it is assumed that the children 
+   don't overlap and that the object itself doesn't draw in the area of the 
+   children.  First the objects is drawn and then the children from lowest
+   to highest.  The children may or may not also be fast draw.  This saves on
+   stack use when exposing large numbers of objects and will speed things up 
+   too.
+
+ - BMP and PCX loading code is from Allegro.  BMP does not work for all depths
+   properly yet.
+
+ - Try not to broadcast messages to entire tree unless really necessary. It's
+   possibly too slow/too much stack for very complex guis.
+   
+ - Hide means that all children are also hidden.
+
+RELEASING:
+ 
+ - Make a makefile from RHIDE.  Make sure that all dependancies are included.
+   copy the OBJFILES and dependancies to mrules.inc and depend.inc.  You will
+   have to remove some lines from dependancies and search and replace the
+   directory names to get the right paths.
+
+ - Make sure you run the source through indent (make indent) on a linux 
+   platform to have correct source formatting.
+
+ - Make Allegro the default platform
+
+

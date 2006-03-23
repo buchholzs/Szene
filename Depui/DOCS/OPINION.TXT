@@ -1,0 +1,32 @@
+Some GUI Opinions
+_________________
+
+Most GUI's are simply too bloated.  How many KB do you really need to run a 
+GUI?  I used some old Atari machines and they has a reasonably functional gui
+and had only 1 meg on the machine.  And what does a modern gui have that they
+didn't have?  Considering the advances in hardware since those machines were 
+made, running that little gui on modern hardware should be absolutely 
+blazingly fast.  Why do we need a gui that does very little more and uses
+literally megabytes of memory?
+
+I don't like icons because:
+1) They take up too much screen space.
+2) It's not obvious what they mean.
+
+What is the point of using icons for everything?  What is this little hand
+icon for?  'Get' a file?  'Save' a file?  If the hand is raised, then maybe
+it means 'Stop', or maybe it's waving 'Bye' and so the icon means exit. Is
+a little bit of text really so scary?
+
+I like to compare icons to written language.  We already have a special set
+of icons that we use everyday, and we combine those icons in wonderfull little
+ways to communicate many things.  They are called letters.  Why should we make
+an hard-to-decipher little hand icon for file saving when we can simply use
+four little icons 'S' 'A' 'V' 'E' and achieve the same thing?  
+
+I hate double-clicks. If you really need that extra functionality, use a 
+different mouse button, or a different button on the screen.  I know someone 
+with parkinsons disease, and you should just see him trying to double-click 
+some damn little icon to launch a program.  Typing is much easier for him
+because the computer waits for him and he is not required to do things on the
+computers time frame.

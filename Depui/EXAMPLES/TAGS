@@ -1,0 +1,139 @@
+
+_EX.C,600
+static MxDesktop desktop;5,65
+static void second_main(7,92
+static void desktop_exit(46,959
+static MxAlertArgs alertargs 54,1149
+MxWindow *w1,60,1300
+MxWindow *w1, *w2;60,1300
+static char filename[62,1320
+static void *DesktopHandler(64,1356
+static MxMenuDef SubSubmenu1[104,2439
+static MxMenuDef SubSubmenu2[112,2641
+char const *const MenuTearoff 120,2843
+static MxMenuDef Submenu1[122,2883
+static MxMenuDef Submenu2[131,3127
+static MxMenuDef Menu1[139,3322
+static MxListDef List1[147,3528
+static MxListDef shortlist[162,4020
+static const char *longstring 171,4260
+int main(187,5201
+
+EX0.C,88
+static MxDesktop desktop;3,26
+static void *OurDesktopHandler(5,53
+int GRXMain(37,846
+
+EX1.C,46
+static MxDesktop desktop;3,26
+int main(5,53
+
+EX10.C,46
+static MxDesktop desktop;3,26
+int main(5,53
+
+EX11.C,146
+static MxDesktop desktop;3,26
+static MxListDef thelist[5,53
+static int tabstop(21,577
+static MxListDef thecoloumlist[29,686
+int main(43,1215
+
+EX12.C,79
+static MxDesktop desktop;3,26
+static MxListDef thelist[5,53
+int main(19,496
+
+EX14.C,46
+static MxDesktop desktop;3,26
+int main(5,53
+
+EX15.C,46
+static MxDesktop desktop;3,26
+int main(5,53
+
+EX16.C,210
+static MxButton button;3,26
+static MxWindow ourwindow;4,50
+static MxDesktop desktop;5,77
+static void desktop_exit(7,104
+static MxAlertArgs alertargs 16,338
+static void alert_start(23,536
+int main(32,722
+
+EX17.C,210
+static MxDragdropType my_dragdrop_type 4,85
+static void cleanup_dragdrop(7,212
+static void *my_listarea_handler(13,333
+static MxListDef thelist1[62,1645
+static MxListDef thelist2[71,1858
+int main(80,2072
+
+EX18.C,47
+const char *longstring 5,65
+int main(32,1236
+
+EX19.C,47
+const char *longstring 5,65
+int main(32,1236
+
+EX2.C,77
+static MxDesktop desktop;3,26
+void *OurWindowHandler(5,53
+int main(21,389
+
+EX20.C,72
+static char filename[4,67
+static void callback(7,156
+int main(27,571
+
+EX21.C,113
+static MxDesktop desktop;5,65
+static void backswitch(7,92
+static void *DesktopHandler(29,581
+int main(40,881
+
+EX22.C,161
+int program1(3,26
+int program2(45,1116
+static void callback_program1(87,2206
+static void callback_program2(97,2379
+int program3(107,2552
+int main(154,3875
+
+EX3.C,79
+static MxDesktop desktop;3,26
+static void desktop_exit(5,53
+int main(13,243
+
+EX4.C,161
+static MxDesktop desktop;3,26
+void *MxButtonMakeOpaqueHandler(6,114
+void *MxButtonMakeOutlineHandler(17,487
+static void desktop_exit(27,801
+int main(35,991
+
+EX5.C,83
+static MxDesktop desktop;3,26
+static void button_callback(6,108
+int main(15,302
+
+EX6.C,286
+static MxDesktop desktop;3,26
+static void callback_new(5,53
+static void callback_open(20,344
+static void callback_exit(35,637
+static void callback_help(43,828
+static MxMenuDef helpmenu[58,1121
+static MxMenuDef filemenu[63,1230
+static MxMenuDef topmenu[70,1426
+int main(76,1570
+
+EX7.C,15
+int main(3,26
+
+EX8.C,15
+int main(3,26
+
+EX9.C,15
+int main(3,26

@@ -1,0 +1,571 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <title>DEPUI Tutorial</title>
+</head>
+<body>
+
+<center><font size=+2>DEPUI: Tutorial</font>
+<br>for <a href="http://huizen.dds.nl/~deleveld/depui.htm">DEPUI</a>
+<p>Doug Eleveld &lt;deleveld@dds.nl></center>
+
+<p>Much of this tutorial is taken from the Nano-X tutorial in the <a href="http://www.microwindows.org/">Microwindows</a>
+distribution. The two projects are quite similar and I found the tutorial
+to be very clear and simple.
+<p>This is a simple tutorial on using the DEPUI graphics system. I am not
+going to try to explain every concept in detail here, nor how to put it
+all together to make really fancy programs. Instead, I am only going to
+tell you just enough to let you make some simple graphics programs which
+work. Experience with simple test programs will enable you to build much
+fancier graphics programs much easier than trying to decipher what I could
+tell you.
+<p>I am assuming that you basically know what a screen, pixels, colors,
+keyboards, mice, buttons, and objects are. However, you probably don't
+know exactly what the properties of objects in this system are. Also, you
+might not know two other concepts which are important here, which are objects
+and events. So these things will be explained in this tutorial.
+<p><b>1. OBJECTS</b>
+<br>Objects are rectangular areas which can be drawn into. Objects have
+a position, specified by the x and y coordinates of their upper left corners,
+and also a size, specified by their width and height. Objects are arranged
+in a tree structure, with the parent objects controlling the child objects.
+The top of the tree is known as the root object. The root object is always
+present, and represents the total screen area.
+<p>Each child object is clipped by its parent object. This means that a
+object can be very large, but the only part of the object that can ever
+be seen is the part which shows through its parent object. This applies
+recursively, so that all of the parents of a object limit its visibility.
+The position of a object is specified relative to its parent, and not absolutely.
+This means that for example, when a object is moved, then all of its children
+will move with it. The position of a object can be negative.
+<p>Objects which have the same parent can clip each other. That is, there
+is a defined order among the children of a object as to which is more important.
+If two sibling objects overlap, then the more important object will be
+visible in preference to the less important object. The precedence of visibility
+of siblings can be dynamically adjusted. Clipping can also occur on a object
+by earlier siblings of any of the object's parents.
+<p>Objects can be hidden or transparent. Hidden objects are not visible,
+but can receive events. Children of a hidden object are implicitly also
+hidden. So an object is not visible unless none of its parents are hidden.
+The default for objects is not hidden.
+<p>Objects can be transparent. The objects behind a transparent object
+are always drawn before the object is drawn. The size and placement of
+the object is the same as if it was not transparent, i.e. the receiving
+of events relating to mouse movement (enter/leave) do not depend on an
+objects transparency. The default for objects is not transparent.
+<p>Objects do not have to appear rectangular, although the rectangular
+extent of the object will be used to determine it's position and size.
+A object can define a region mask that is removed from the rectangular
+region defining the position of the object. The receiving of mouse movement
+events (enter/leave) does depend on the region mask of the object. The
+default for object is not to have a region mask.
+<p>Objects do not have a background color. A object that does not draw
+anything in response to expose events will leave an empty space on the
+screen, probably filled with garbage. Non-transparent objects are responsible
+to fill their entire visible area on the screen. If you need an object
+that fills it's area with a solid color the panel object could be used.
+<p>Objects do not necessarily have a border, although some objects do.
+<p>Unlike many object toolkits, there is only one type of object. There
+is no input-output or input-only objects. All objects can be drawn to.
+You can simulate a input-only object by making a transparent object that
+draws nothing and monitoring it's events.
+<p>Objects are identified by pointers to an MxObject struct. The root object
+is initialised when the first MxDesktop object is created. Subsequent MxDesktop
+objects are shown inside a object as a child of the root object. Destroying
+the root object closes down the entire windowing system. Objects can be
+moved and resized.
+<p><b>2. EVENTS</b>
+<br>Events are the way in which the graphics system notifies your program
+of asynchronous changes in the state of the screen, mouse, or keyboard.
+Whenever the state changes, your program is notified of this change and
+can act on it. The word "event" is used both for the actual change that
+took place, and also for the data that is returned to your program which
+describes the change.
+<p>Events are generated for various different types of changes that may
+be useful for your program to know. Events directly related to the hardware
+are the keyboard and mouse events. Keyboard events are generated for each
+key which is pressed. The event contains the character which caused the
+event. Mouse events are generated when a button on the mouse is pressed
+or released, or when the mouse position moves. The mouse events contain
+the current position of the mouse. Other events are more subtle, and are
+based on non-physical changes, such as having the mouse move into or out
+of specific objects.
+<p>Events are tied to individual objects. Objects handle events and can
+choose to act on them or not. No events require an answer so if you do
+not wish to handle an event you can simply ignore it. If you wish to respond
+to an event an object's handler must return non NULL. Returning 0 from
+a handler indicates that the message was ignored.
+<p>The object that keyboard events are delivered to depends on the current
+mouse position or on the "focus". The focus is a way of specifying that
+keyboard events are to be delivered to a particular object, no matter where
+the mouse is currently pointing. Your program can change the input focus
+as desired. If a keyboard event is not used by the object with the focus,
+the event gets propagated upwards to the object's parent. This continues
+until a object uses the keyboard event.
+<p>If no object used the keyboard event, the keyboard event will be sent
+as an unbound keyboard event to the root object and will propagate downward
+through the objects of tree structure (if they set the object KeyProp flag)
+until an object uses the keyboard event. If the keyboard event is still
+not used it is simply ignored.
+<p>When the mouse enters or leaves the visible portion of a object the
+object will receive mouse enter/leave events. If the object wishes to monitor
+all mouse movements they can turn on mouse movements events. The object
+will then receive events every time the mouse changes position. If the
+mouse pointer then leaves the object and points to another object, mouse
+movement event are disabled.
+<p>An object can choose to "grab" the mouse, causing the system not to
+change the mouse pointer object even if the mouse pointer leaves the visible
+portion of that object. If the object does grab the mouse it should release
+it as soon as possible to that the objecting system correctly knows what
+object the mouse is pointing to.
+<p>Events are returned to your program as a structure containing the information
+about the event. This information is the event type and other event specific
+data. Events can be immediately sent, or stored in a queue, and are delivered
+to your program when the system would otherwise be idle, or at some specific
+time.
+<p>The important thing about programming with events is that your program
+should be written to run "upside-down". That is, you do not have a main
+routine which checks that the mouse has been moved, or the keyboard has
+been typed on, or which object the mouse is in. Instead, your objects just
+waits for an event, and handles it accordingly.
+<p>One obscure event is the exposure event. This is sent to your program
+when a object requires redrawing. For minimum memory use, the objects system
+does not attempt to save the data from the parts of objects which are covered
+by other objects. Therefore, when the obscured parts of the object are
+uncovered, your program must be told to redraw those parts. The exposure
+event contains a region which requires drawing. Your program can either
+just redraw that area, or if more convenient, redraw the whole object.
+You don't have to worry about the exposure region because the graphics
+functions will correctly clip any pixels outside of the region.
+<p>The following is a description of the various types of events which
+are available, and (in parenthesis) the typedef name for the structure
+that returns the event. Each event has a type field, which can be used
+to distinguish between the various events. For details on the data within
+the structures, refer to depui/event/event/h. The typedef MxEvent is a
+union which contains all of the possible event structures.
+<p>Here is a lost of the most common events:
+<p><tt>MxEventPreInit</tt>
+<br><tt>MxEventPostInit</tt>
+<br>These two events are sent when the object get initialized i.e. just
+after the object gets added to a running desktop, or when the desktop starts
+up.
+<p><tt>MxEventExit</tt>
+<br>Sending this event to the desktop or a window will cause them to destroy
+themselves.
+<p><tt>MxEventOk</tt>
+<br><tt>MxEventCancel</tt>
+<br>These events are common event types which can be used for buttons or
+menus.
+<p><tt>MxEventDestroy</tt>
+<br>This event will be sent to an object just before the object gets destroyed.
+An object should use this message to clean up and free any memory allocated.
+<p><tt>MxEventExpose /* RegionPtrEvent type */</tt>
+<br>This event requests an object to draw itself. The data points to a
+region describing the position of the object that will not be clipped.
+<p><tt>MxEventRegionMask /* RegionPtrEvent type */</tt>
+<br>If an object wishes to appear non-rectanular it must set it's HasMask
+flag. When this flag is set, this event is sent to the object when the
+visible portion of the object is calculated. The region pointed to by the
+event data should be clipped in the event. The remaining region will be
+considered the visible portion of the object.
+<p><tt>MxEventButtonLeftPress</tt>
+<br><tt>MxEventButtonLeftPressChild</tt>
+<br><tt>MxEventButtonLeftRelease</tt>
+<br><tt>MxEventButtonLeftReleaseChild</tt>
+<br><tt>MxEventButtonRightPress</tt>
+<br><tt>MxEventButtonRightPressChild</tt>
+<br><tt>MxEventButtonRightRelease</tt>
+<br><tt>MxEventButtonRightReleaseChild</tt>
+<br><tt>MxEventButtonCenterPress</tt>
+<br><tt>MxEventButtonCenterPressChild</tt>
+<br><tt>MxEventButtonCenterRelease</tt>
+<br><tt>MxEventButtonCenterReleaseChild /* PointerEvent type */</tt>
+<br>These events are sent to an object when the mouse button is clicked.
+The MxEventButtonXXXChild events are propagated upwards to the object's
+parent. The event data has information regarding the position of the mouse.
+<p><tt>MxEventPointerEnter</tt>
+<br><tt>MxEventPointerLeave</tt>
+<br>These events are sent to an object when the mouse pointer enters or
+leaves the visible portion of the object. Grabbing the mouse stops these
+messages. The event data has information regarding the position of the
+mouse.
+<p><tt>MxEventPointerMove /* PointerEvent type */</tt>
+<br>This event is not sent by default, but can be enabled by an object.
+The event data has information regarding the position of the mouse. If
+the mouse leaves the object then the event is disabled.
+<p><tt>MxEventKey</tt>
+<br><tt>MxEventKeyChild</tt>
+<br><tt>MxEventKeyUnbound /* KeypressEvent type */</tt>
+<br>These events are sent to objects when the user presses a key. The object
+with the focus gets the key event. If the event is not used (handler returns
+0) then the child event will be propagated upwards to the objects parents
+until one of them uses the key. If the key is not used by any of the parents,
+a unbound event is propagated down the object tree from the root object
+by all object that set the KeyProp flag.
+<p><tt>MxEventHotkey</tt>
+<br>This event is sent to th object with the input focus when a space or
+return is pressed.
+<p><tt>MxEventSlider /* MxEventSliderMove type */</tt>
+<br>These events are sent by sliders to their targets.&nbsp; The event
+data tells from which slider the event comes from and how far they should
+scroll.
+<p><tt>MxEventFocusGot</tt>
+<br><tt>MxEventFocusLost</tt>
+<br>These events indicate to an object that they got or lost the focus.
+<p><tt>MxEventFocusChild /* MxEvent Object type */</tt>
+<br>These events indicate to an object that a child of them got the focus.
+<p><tt>MxEventActiveGot</tt>
+<br><tt>MxEventActiveLost</tt>
+<br>These events are sent to windows that are the topmost window.
+<p><tt>MxEventGeomRequest</tt>
+<br><tt>MxEventGeomChanged /* GeomEvent type */</tt>
+<br>These events are sent to objects to determine what size the object
+prefers, or that the size of the object has changed.
+<p><tt>MxEventGeomParentChanged</tt>
+<br><tt>MxEventGeomChildChanged</tt>
+<br>These events indicate to objects that their parent or child has changed
+their position or size, and they might with to change themselves to accommodate.
+<p><tt>MxEventZOrderRequest /* MxEvent Object type */</tt>
+<br><tt>MxEventZOrderInform /* ZOrderEvent type */</tt>
+<br>These events are sent to object when the stacking order of objects
+is requested or changed.
+<p><tt>MxEventSelect</tt>
+<br><tt>MxEventDeselect</tt>
+<br><tt>MxEventIsSelected</tt>
+<br>These events are used by buttons to control selection.
+<p><tt>MxEventListareaSelected</tt>
+<br><tt>MxEventListareaEnter</tt>
+<br><tt>MxEventListareaLeave</tt>
+<br><tt>MxEventListareaDrag /* MxListareaElem type */</tt>
+<br>These events are sent to listarea object when during selection of a
+list entry.
+<p><tt>MxEventDropTarget</tt>
+<br><tt>MxEventDrop /* MxEventDragDrop type */</tt>
+<br>These events are used for drag-drop handling to determine if an object
+will accept a drop of data, or to inform an object that data has been dropped.
+The event data points to information about the drag-drop data.
+<p><tt>MxEventUserType</tt>
+<br>This event is a marker to allow the user to define their own message
+types.
+<p><b>2.1 CUSTOM EVENTS</b>
+<p>You can also make your own event types. You do this by defining a user
+event type, and then asking for the gui to reserve that event type for
+yourself The code looks like this:
+<p><tt>MxEvent MxEvent = MxEventUserType;</tt>
+<br><tt>MxEventReserveEvent(&amp;myevent);</tt>
+<p>This code will change the myevent.type variable to a unique type that
+will nor be used anywhere else in the program.
+<p><b>2.2 EVENT HANDLERS</b>
+<p>DEPUI uses message handlers to handle messages. Each handler tries to
+handle the message for an object and if it cannot, it can call a handler
+of a base class to handle it for them. The MxObjectHandler object always
+returns 0 in a message handler so you don't really ever have to call it.
+The handler of some user class will look something like this:
+<p><tt>void *MxMyHandler(MxObject * object, const MxEvent * const event)</tt>
+<br><tt>{</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; switch (event->type) {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; case MxEventExpose:</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Do whatever drawing
+stuff here */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; break;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; default:</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Call the base class
+event handler since we didn't handle the event here */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return Mx???Handler(object,
+event);</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; }</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; return 0;</tt>
+<br><tt>}</tt>
+<p>This is in contrast to some other guis that use callbacks or virtual
+function tables for message passing. Each method has it's advantages and
+disadvantages, but I choose message handlers because it fits best in the
+design goals of DEPUI. Message handler are the smallest of all the solutions,
+but they have the disadvantage that they can be slower than other methods.
+My experiments show that message handling is only a little bit slower than
+other methods so I think it's best.
+<p><b>3. IMAGES</b>
+<p>An MxImage is are bitmaps and/or pixmaps. They are whatever native bitmap
+of the platform. For example when building DEPUI for Allegro, MxImage is
+a typedef for a BITMAP struct.
+<p>If the platform has no native bitmap type, MxImage is a struct holding
+image data. There is code for bitmap depths of 1,2,4,8,16,24 and 32. Usually
+only one of these depths is available and is the same as the platform screen
+depth. These images are allocated in one continuos piece of memory. This
+reduces memory fragmentation and can allow very fast object deallocation.
+<p>There are functions do draw onto and read from the images. You can also
+read images from the screen or another image and write images to the screen
+or another image.
+<p>Not all platforms support images completely.
+<p><b>4. PLATFORM</b>
+<p>There are three structures that contain platform specific code. These
+structures contain function pointers for code to interface with the platform's
+system, graphics output, and input code. When constructing a desktop you
+must give pointers to these structures so that the windowing system knows
+how to properly interact with the platform.
+<p>You do not have to hard code the size of the screen or the number of
+colors available in your program. Instead, you can find this information
+out dynamically by calling some of the functions of the platform's graphic
+output structure.
+<p><b>5. LIMITS</b>
+<p>The coordinate system is limited to integers in the range available
+in an int. It depends on the platform whether this is 16 or 32 bits.
+<p><b>6. GRAPHICS</b>
+<p>Functions with the names MxXXXFast do no clipping so you must do that
+yourself.
+<p>You should only draw of the screen when handling an expose event in
+an object handler. Outside if the object handler or when not handling an
+expose event, the clipping for the graphics functions will be incorrect.
+<p><tt>MxColorFore</tt>
+<br><tt>MxColorBack</tt>
+<br><tt>MxColorObjectFore</tt>
+<br><tt>MxColorObjectBack</tt>
+<br><tt>MxColorSelectedFore</tt>
+<br><tt>MxColorSelectedBack</tt>
+<br><tt>MxColorLight</tt>
+<br><tt>MxColorMed</tt>
+<br><tt>MxColorDark</tt>
+<br><tt>MxColorDesktop</tt>
+<br><tt>MxColorFocus</tt>
+<br><tt>MxColorDisabled</tt>
+<br>These are the colors of the standard objects.
+<p><tt>MxColorBlend</tt>
+<br><tt>MxColorEncode</tt>
+<br>These functions allow the user to define their own colors in a platform
+independent way. They may not work on all platforms.
+<p><tt>MxImageCreate</tt>
+<br><tt>MxImageLoad</tt>
+<br><tt>MxImageDestroy</tt>
+<br><tt>MxImageWidth</tt>
+<br><tt>MxImageHeight</tt>
+<br><tt>MxImageDepth</tt>
+<br><tt>MxImagePixelFast</tt>
+<br><tt>MxImageGetPixelFast</tt>
+<br><tt>MxImageVLineFast</tt>
+<br><tt>MxImageHLineFast</tt>
+<br><tt>MxImageRectFillFast</tt>
+<br><tt>MxImagePixelTransFast</tt>
+<br><tt>MxImageAquire</tt>
+<br><tt>MxImageRelease</tt>
+<br>These functions allow the use to manipulate images.
+<p><tt>MxBlitFast</tt>
+<br><tt>MxBlitToScreenFast</tt>
+<br><tt>MxBlitFromScreenFast</tt>
+<br><tt>MxBlitScreenFast</tt>
+<br>These function allow images to be blitted to and from the screen and
+other images.
+<p><tt>MxDecorate</tt>
+<br>This draws a decoration onto the screen.
+<p><tt>MxScreenWidth</tt>
+<br><tt>MxScreenHeight</tt>
+<br><tt>MxScreenDepth</tt>
+<br><tt>MxScreenPixel</tt>
+<br><tt>MxScreenGetPixel</tt>
+<br><tt>MxScreenVLine</tt>
+<br><tt>MxScreenHLine</tt>
+<br><tt>MxScreenLine</tt>
+<br><tt>MxScreenRectFill</tt>
+<br><tt>MxScreenPixelTrans</tt>
+<br>These functions allow the user to draw on the screen. They will automatically
+clip properly as long as they are only used when handling an expose event
+for an object.
+<p><tt>MxScreenPixelFast</tt>
+<br><tt>MxScreenGetPixelFast</tt>
+<br><tt>MxScreenVLineFast</tt>
+<br><tt>MxScreenHLineFast</tt>
+<br><tt>MxScreenLineFast</tt>
+<br><tt>MxScreenRectFillFast</tt>
+<br><tt>MxScreenPixelTransFast</tt>
+<br>These functions allow the user to draw on the screen as fast as possible.
+They will NOT clip properly and the user is responsible that no invalid
+pixels are drawn.
+<p><tt>MxFontDefault</tt>
+<br><tt>MxFontLoad</tt>
+<br><tt>MxFontDestroy</tt>
+<br><tt>MxFontScreenRender</tt>
+<br><tt>MxFontImageRender</tt>
+<br><tt>MxFontLength</tt>
+<br><tt>MxFontHeight</tt>
+<br>These function handle text drawing. The font load function may not
+work on all platforms.
+<p><b>7. EXAMPLE PROGRAM</b>
+<p>The following simple program opens the graphics, and creates a button.
+When the mouse is clicked in the program will exit.
+<p><tt>#include "depui/depui.h"</tt>
+<p><tt>/* When the button is pressed, exit the root window */</tt>
+<br><tt>static void button_callback(MxObject * object, void *data, unsigned
+int selected)</tt>
+<br><tt>{</tt>
+<br><tt>(void) object;</tt>
+<br><tt>(void) data;</tt>
+<p><tt>if (selected)</tt>
+<br><tt>MxEventSendSimple(MxDesk, MxEventExit);</tt>
+<br><tt>}</tt>
+<p><tt>int main(int argc, char *argv[])</tt>
+<br><tt>{</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxButtonArgs buttonargs;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; /* Create some drivers specific to the system
+*/</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxDesktop desktop;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxDesktopArgs desktopargs;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxDriverSystem system = MxDriverSystemDefault;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxDriverOutput output = MxDriverOutputDefault;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxDriverInput input = MxDriverInputDefault;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; (void) argc;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; (void) argv;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; MxArgsInit(&amp;desktopargs);</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; desktopargs.desktop_w = 320;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; desktopargs.desktop_h = 200;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; desktopargs.desktop_c = 8;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; desktopargs.system = &amp;system;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; desktopargs.output = &amp;output;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; desktopargs.input = &amp;input;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; desktopargs.window.caption = "";</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; /* Initailize the library */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxDesktopConstruct(&amp;desktop, 0, 0, 0, 0,
+&amp;desktopargs);</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; if (!desktop.ok)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 1;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; /* Prepare some button arguments for an exit
+button */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxArgsInit(&amp;buttonargs);</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; buttonargs.stext.caption = "Hello world";</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; buttonargs.callback = button_callback;</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; /* Add a button to the dialog */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxButtonPushNew(MxDesk, 100, 100, MxDefault,
+MxDefault, &amp;buttonargs);</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; /* Run the desktop until it wants to exit */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; while (MxDesktopRun(&amp;desktop)) {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; };</tt>
+<p><tt>&nbsp;&nbsp;&nbsp; /* Close and go home */</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; MxDestroy(&amp;desktop.base.object);</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; return 0;</tt>
+<br><tt>}</tt>
+<p>For more complete demonstration programs, see the examples directory.
+<p><b>8. CODING CONVENTIONS</b>
+<p>You'll notice that all initialization functions and variables started
+with the letters Mx. All public functions in DEPUI start with the letters
+Mx so we can minimize the probability of having a name conflict with a
+user program function or variable.
+<p>Mx prefix is for public functions.
+<br>MX prefix is for internal defines.
+<br>mx prefix is for internal functions.
+<p>You'll also notice that the initialization function ended in Construct
+and it's first argument was the address of a struct that has a similar
+name to the construction function. After that there are some function arguments,
+and then the last argument is the address of an MxXXXArgs struct. This
+pattern is used very frequently in DEPUI.
+<p>Many objects need to be constructed or initialized before use. C does
+not do this automatically like some other languages, so we have to do it
+ourselves. If an object called XXX has an MxXXXInit or an MxXXXConstruct
+or an MxXXXNew function, then that function must be called before using
+the object. If an MxXXXConstruct or an MxXXXNew function is used, then
+there must also be a MxDestroy function call when the object isn't needed
+anymore. The MxDestroy function will release any object memory if necessary.
+<p>If an object (a struct) has a MxXXXInit function, then we do not have
+to call any special cleanup function.
+<p>The MxXXXConstruct function initializes an object that is already allocated.
+If you don't want to allocate the object yourself, you may be able to call
+MxXXXNew function. It will have exactly the same arguments as the MxXXXConstruct,
+except for the pointer to the object in the first argument. Instead the
+MxXXXNew function returns a pointer to a newly allocated and constructed
+object by allocating memory and calling MxXXXConstruct internally. Every
+call to MxXXXConstruct ot MxXXXNew must also be matched with a call to
+MxDestroy. Any memory allocated by the object will be properly released
+in the MxDestroy function call.
+<p>Basically, MxXXXNew (or MxXXXConstruct) and MxDestroy functions must
+be paired just like the standard C functions malloc and free, or the C++
+functuions new and delete.
+<p>Struct variables in lower case such as Object.hidden should be treated
+as read only. Struct variables in Upper case such as Object.Transparent
+can be written to if necessary, pretty much at any time.
+<p><b>9. INHERITANCE WITH C</b>
+<p>C has no support for class derivation so we have to define some habits
+or rules to make it posssible. Remember that the offsets of variables in
+a struct are strictly dependant on the declarartion order in the struct
+and the type of the variables. So, you can actually play dirty and do this:
+<p><tt>typedef struct Object {</tt>
+<br><tt>&nbsp;&nbsp; int a;</tt>
+<br><tt>&nbsp;&nbsp; int b;</tt>
+<br><tt>} Object;</tt>
+<p><tt>typedef struct Derived {</tt>
+<br><tt>&nbsp;&nbsp; int a;</tt>
+<br><tt>&nbsp;&nbsp; int b;</tt>
+<br><tt>&nbsp;&nbsp; int c;</tt>
+<br><tt>} Derived;</tt>
+<p><tt>Derived myderived;</tt>
+<br><tt>Object* basepointer = (Object*)&amp;myderived; /* This is the dirty
+part */</tt>
+<p><tt>basepointer->a = 1; /* This will set myderived.a to 1 */</tt>
+<br><tt>basepointer->b = 2; /* This will set myderived.b to 2 */</tt>
+<p>This works, but it's dirty and error prone. The errors can easily creep
+in because we have to do a cast to get our base pointer and in C we have
+very few restrictions on casting. If we cast, the compiler doesn't warn
+us about anything becasue it assumes that we know what we are doing. In
+this simple example it works, but I think it's bad style because we aren't
+using the compiler error checking and warning mechanisims to help us. We
+are just turing them off.
+<p>We have the extra burden that we have to keep constantly sure that our
+definitions of Object and Derived agree in the variable number and types.
+Change a Object definition and forget to change your Derived definition
+and all hell will break loose. You'll get bad data because you struct members
+will be misaligned.
+<p>A better way is to do this:
+<p><tt>typedef struct Object {</tt>
+<br><tt>&nbsp;&nbsp; int a;</tt>
+<br><tt>&nbsp;&nbsp; int b;</tt>
+<br><tt>} Object;</tt>
+<p><tt>typedef struct Derived {</tt>
+<br><tt>&nbsp;&nbsp; Object base;</tt>
+<br><tt>&nbsp;&nbsp; int c;</tt>
+<br><tt>} Derived;</tt>
+<p><tt>Derived myderived;</tt>
+<br><tt>Object* basepointer = &amp;myderived.base;</tt>
+<p><tt>basepointer->a = 1;</tt>
+<br><tt>basepointer->b = 2;</tt>
+<p>Here we do exactly the same thing, but without any nasty casts. We gain
+the advantage that if we change or base class definition our derived class
+will be automatically properly built. Since the Object part of derived
+is the first variable in the struct they must have the same address and
+we could cast directly from Derived to base if we wanted to.
+<p>Ok, so what do we do if we want to derive from the Derived class? We
+could do
+<p><tt>typedef struct Derived2 {</tt>
+<br><tt>&nbsp;&nbsp; Derived derived;</tt>
+<br><tt>&nbsp;&nbsp; int d;</tt>
+<br><tt>} Derived2;</tt>
+<p>This would work, but it would cause strange syntax. If you want to set
+a variable in the base, you have to walk down the entire tree to set it,
+like this:
+<p><tt>Derived2 myderived2;</tt>
+<br><tt>myderived2.derived.base.a = 1;</tt>
+<p>We can make this a lot easier by putting the lower classes in a union
+with a standardized name like this:
+<p><tt>typedef struct Derived {</tt>
+<br><tt>&nbsp;&nbsp; union {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Object object;</tt>
+<br><tt>&nbsp;&nbsp; } base;</tt>
+<br><tt>&nbsp;&nbsp; int c;</tt>
+<br><tt>} Derived;</tt>
+<p><tt>typedef struct Derived2 {</tt>
+<br><tt>&nbsp;&nbsp; union {</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Object object;</tt>
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Derived derived;</tt>
+<br><tt>&nbsp;&nbsp; } base;</tt>
+<br><tt>&nbsp;&nbsp; int d;</tt>
+<br><tt>} Derived2;</tt>
+<p>Here it is quite clear that Derived2 is derived fom Derived which is
+also derived from Object. We can easily set variables with a standard syntax:
+<p><tt>Derived2 myderived2;</tt>
+<br><tt>myderived2.base.object.a = 1;</tt>
+<br><tt>myderived2.base.object.b = 2;</tt>
+<br><tt>myderived2.base.derived.c = 3;</tt>
+<br><tt>myderived2.d = 4;</tt>
+<p>This is how object derivation is done in DEPUI. The base object MxObject
+defines some basic things for an object. It defines a very basic message
+handling function that ignores all messages, and some varibales to create
+children and keep track of parents, and to remember what areas of the object
+are visible on the screen.
+</body>
+</html>

@@ -1,0 +1,49 @@
+Announce: DEPUI 2.0 : A portable graphical user interface
+http://huizen.dds.nl/~deleveld/depui.htm
+
+DEPUI is a portable graphic user interface library written in the C
+language. The docs are quite minimal, but should still work and compile 
+for a very wide variety of platforms. 
+
+The code is very modular and (should be) fairly easy to understand. It will 
+compile for 32 or 16 bit targets and has been written in a very portable 
+way.
+
+You can find it at: http://huizen.dds.nl/~deleveld/depui.htm
+
+Right now it has drivers for the following platforms:
+     - DOS with DJGPP using Allegro
+     - DOS with DJGPP using GRX 2.3
+     - DOS with Borland 3.11 using BGI
+     - DOS with DJGPP using simple VESA 2.0
+     - DOS with DJGPP using simple VESA 1.0
+     - Linux using Allegro
+     - Linux using GRX 2.3 (on top of Svgalib)
+     - Linux using Svgalib directly
+     - Linux using Nano-X - Contributed by Nick Papadonis
+     - Linux using X-Windows
+     - OpenGUI drivers (mouse/keyboard only work under DOS/DJGPP)
+     - DOS with TinyPTC (still rather slow, but functional)
+
+Right now it has the following widgets:
+    - NEW - Editable textbox with (or without) scrollbars
+    - NEW - Editor object with menu
+    - NEW - File selector
+    - Static text
+    - Push button
+    - Toggle button
+    - Radio button and radio button group
+    - Horizontal and vertical scrollbars
+    - Menu bars and popdown menus
+    - List with limited multi-coloum support
+    - Scrollable areas (with scrollbars as needed) that can scroll any object
+    - Multi line text
+    - Simple movable/resizeable/closeable windows (normal and modal)
+    - Panels (Raised, sunken, ridge, groove)
+    - Direct screen access (ensures no gui objects will overlap)
+    - Simple alert
+    - Vertical and horizontal bar
+
+You can find it at: http://huizen.dds.nl/~deleveld/depui.htm
+
+Doug Eleveld
