@@ -1,0 +1,1036 @@
+From: <Mit Microsoft Internet Explorer 5 gespeichert>
+Subject: Spline Macro File Tutorial
+Date: Mon, 20 Mar 2006 10:07:35 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_0031_01C64C06.1C50A600"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2180
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: text/html;
+	charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file://C:\Temp\Spline Macro File Tutorial\spline.htm
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" =
+"http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML lang=3Den xml:lang=3D"en" =
+xmlns=3D"http://www.w3.org/1999/xhtml"><HEAD><TITLE>Spline Macro File =
+Tutorial</TITLE>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dwindows-1252">
+<META=20
+content=3D"Text and Graphics copyright =A9 2000, Chris Colefax =
+(ccolefax@yahoo.com)"=20
+name=3Dauthor><LINK=20
+href=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/tutorial.css"=20
+type=3Dtext/css rel=3Dstylesheet>
+<META content=3D"MSHTML 6.00.2900.2802" name=3DGENERATOR></HEAD>
+<BODY>
+<H1>Spline Macro File Tutorial</H1>
+<ADDRESS>Author: Copyright =A9 2000, <A =
+href=3D"mailto:ccolefax@yahoo.com">Chris=20
+Colefax</A> <BR>Created: 16 January 2000 <BR>Macro File Updated: 11 =
+February=20
+2003 </ADDRESS>
+<H2>Before You Begin</H2>
+<P>To render the example files in this tutorial with <A=20
+href=3D"http://www.povray.org/">POV-Ray</A> you will need to download =
+and install=20
+the <A=20
+href=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/splinemcr.zip">S=
+pline=20
+Macro File</A>. The ZIP package (11 Kb) includes Quick Reference =
+documentation,=20
+and the macro file itself, <B>spline.mcr</B>, which should be copied to =
+one of=20
+the directories in your list of POV-Ray library paths (e.g. =
+<I>C:\Program=20
+Files\POV-Ray for Windows 3.1\Include</I>). </P>
+<H2>1. Designing and Previewing Splines</H2>
+<H3>1.1 Introduction</H3>
+<P>If you've used the lathe or prism object in POV-Ray you should have a =
+pretty=20
+good understanding of how splines work. The Spline Macro File lets you =
+extend=20
+this idea of a curved shape into POV-Ray's full 3D space, so you can =
+design=20
+paths that twist and turn and loop back on themselves in whichever way =
+you wish.=20
+Then, you can use these paths to animate objects or to create objects =
+based on=20
+the shape of the spline path.=20
+<P>Specifically, the Spline Macro File lets you create cubic =
+interpolating=20
+splines. "Cubic" simply means the maths of the spline uses cubed =
+functions - all=20
+we need to know is that this lets us create smooth, flexible curves.=20
+"Interpolating" means that the curve passes through each of the points =
+we tell=20
+it to, so we know exactly where the path will travel. The Spline Macro =
+File=20
+actually lets you create these cubic interpolating splines in four =
+different=20
+ways, and gives you extra options to better control the shape of the =
+spline=20
+path. </P>
+<H3>1.2 Our first spline</H3>
+<P>To start, let's create a simple spline path and view the result: <IMG =
+
+style=3D"FLOAT: left" height=3D120 alt=3D"Image 1.2" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t101.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>camera {location &lt;0, 0, -4&gt; =
+look_at &lt;0, 0, 0&gt;}
+light_source {&lt;100, 200, -300&gt; rgb 1}
+background {rgb 0.5}
+
+#include "spline.mcr"
+
+#declare MySpline =3D create_spline (
+   array[4] {x, y, -x, -y},
+   create_default_spline)
+
+preview_spline (MySpline, default_options)
+</PRE><BR clear=3Dleft>
+<P>After defining our basic scene settings (camera, lights, and =
+background) the=20
+first thing we do is include the Spline Macro File. This gives us access =
+to the=20
+functions of the macro file, just like including textures.inc gives us =
+access to=20
+POV-Ray's predefined textures. Note that we only need to include the =
+Spline=20
+Macro File once at the beginning of our scene, even if we create many =
+different=20
+spline paths.=20
+<P>To actually define our spline path we must declare it using the=20
+<CODE>create_spline ()</CODE> macro function. This is just like =
+declaring any=20
+other POV-Ray object or value, and the same rules apply to naming our =
+spline=20
+identifier. Also, because <CODE>create_spline</CODE> is a macro function =
+we use=20
+curved brackets () rather than the usual braces {}.=20
+<P>The <CODE>create_spline</CODE> function requires us to first specify =
+a list=20
+of points we wish to interpolate. We do this using POV-Ray's array =
+feature,=20
+specifying the number of points as shown. This list of points is =
+followed by a=20
+list of options we wish to use when creating our spline path; to start, =
+we=20
+simply want the default spline so this is the option we specify.=20
+<P>Finally, having created our spline path we can quickly preview the =
+shape of=20
+our path using the <CODE>preview_spline ()</CODE> function. Again we use =
+curved=20
+brackets, inside of which we specify the identifier of the curve we want =
+to=20
+view, followed by the options we want to use (the default options, in =
+this=20
+case).=20
+<P>When we render this scene we will see that the spline path is a =
+smooth curve=20
+that passes through each of the four points we specified (shown in =
+yellow).=20
+Notice also that the colour of the previewed spline changes from red at =
+the=20
+first point to white at the last: this lets us know which direction the =
+spline=20
+is travelling in. </P>
+<H3>1.3 Basic Spline Options</H3>
+<P>Now that we've created a spline it's not too hard to see how we could =
+change=20
+its shape by adding extra points that we want the spline to pass =
+through. But=20
+looking at our first spline we can also see that there are many possible =
+curves=20
+we could have drawn through our points, not just the one created before. =
+So, in=20
+addition to altering the spline points we can also change the shape of =
+our=20
+spline using a number of options. The simplest is the =
+<CODE>spline_loop</CODE>=20
+option that makes the spline loop back to its beginning. To use this =
+option, we=20
+add it to our <CODE>create_spline ()</CODE> option list like this: <IMG=20
+height=3D120 alt=3D"Image 1.3a" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t102.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>#declare MySpline =3D create_spline (
+   array[4] {x, y, -x, -y},
+   create_default_spline + spline_loop (yes)
+   )
+</PRE><BR clear=3Dleft>
+<P>It's important to note that we use an actual addition (+) between the =
+
+options, rather than commas or plain spaces. Also, because we are using =
+macro=20
+functions we surround our option value with curved brackets (). =
+Rendering the=20
+above spline shows that the curve does indeed loop back on itself.=20
+<P>Another option we can use is the spline tension value, that changes =
+how tight=20
+the spline curve fits through the points. If we increase this value =
+above the=20
+default of zero, we can see how the curve tightens: <IMG height=3D120=20
+alt=3D"Image 1.3b" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t103.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>create_default_spline + spline_loop =
+(yes) + spline_tension (0.5)
+</PRE><BR clear=3Dleft>
+<P>and if we reduce it less than zero, we can see how the spline =
+loosens: <IMG=20
+height=3D120 alt=3D"Image 1.3c" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t104.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>create_default_spline + spline_loop =
+(yes) + spline_tension (-1)
+</PRE><BR clear=3Dleft>
+<P>Good values generally range from -1 to 1 (which actually tightens the =
+spline=20
+so much the curves become straight lines between each point). We can =
+also use=20
+values outside this range to create some pretty strange spline =
+curves...try it=20
+and see </P>
+<H3>1.4 More Spline Options</H3>
+<P>The next option we can try is the spline bias value: like the spline =
+tension=20
+this is normally zero, which means that the spline is curved equally on =
+either=20
+side of each point in the spline. If we increase this value we can see =
+how it=20
+makes the spline path more curved on one side of each point than the =
+other: <IMG=20
+height=3D120 alt=3D"Image 1.4a" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t105.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>spline_loop (yes) + spline_tension =
+(-1) + spline_bias (1)
+</PRE><BR clear=3Dleft>
+<P>Using a value of -1 would reverse the effect. Again, values outside =
+the -1 to=20
+1 range can be used for more eccentric curves.=20
+<P>The third option can we use to adjust the spline shape is the spline=20
+continuity value. Looking at the previous splines we can see how the =
+path always=20
+travels smoothly through each point - there are no sharp corners. The =
+continuity=20
+value lets us change this, by using values other than the default of =
+zero, eg:=20
+<IMG height=3D120 alt=3D"Image 1.4b" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t106.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>spline_loop (yes) + spline_continuity =
+(2)
+</PRE><BR clear=3Dleft>
+<P>or: <IMG height=3D120 alt=3D"Image 1.4c" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t107.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>spline_loop (yes) + spline_continuity =
+(-2)
+</PRE><BR clear=3Dleft>
+<P>Earlier we saw how increasing the spline tension to 1 allowed us to =
+create a=20
+straight line spline path. We can also achieve this by leaving the =
+tension at 0=20
+and increasing the continuity to 1. The results of either look pretty =
+much the=20
+same, but they are actually quite different and in general you should =
+use this=20
+second method (changing the continuity) to create linear splines (for =
+reasons we=20
+shall see later...).=20
+<P>By now we can see how there are an infinite number of possible curves =
+that=20
+can pass through a given set of points, and using the tension, =
+continuity, and=20
+bias values in various combinations allows us to create many of them. =
+One trick=20
+we can use when designing splines is the shortcut =
+<CODE>spline_TCB</CODE>=20
+option: this allows us to specify all three values in one set of =
+brackets, eg:=20
+<IMG height=3D120 alt=3D"Image 1.4d" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t108.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>spline_loop (yes) + spline_TCB (2, 2, =
+2)
+</PRE><BR clear=3Dleft>
+<P>or: <IMG height=3D120 alt=3D"Image 1.4e" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t109.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>spline_loop (yes) + spline_TCB (3, =
+-1, -1)
+</PRE><BR clear=3Dleft>
+<P>or: <IMG height=3D120 alt=3D"Image 1.4f" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t110.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>spline_loop (yes) + spline_TCB (4, =
+-3, 0)
+</PRE><BR clear=3Dleft>
+<H3>1.5 Spline Types</H3>
+<P>For the technically minded, using the tension, continuity, and bias =
+values=20
+creates what is known as a TCB spline, or Kochanek-Bartels spline (after =
+those=20
+who pioneered it) - this type of spline is quite common in professional =
+3D=20
+modelling software. Using just the tension value to adjust the spline =
+creates a=20
+cardinal spline, and leaving the TCB options at their defaults of zero =
+creates a=20
+Catmull-Rom spline (again quite commonly used in other software). The =
+last two=20
+are subsets of the first, and all the different types are indeed cubic=20
+interpolating splines.=20
+<P>There is another common cubic spline you are probably aware of: the =
+Bezier=20
+spline. This type of spline is used in many 2D design software packages =
+as well=20
+as POV-Ray bicubic patch and other spline objects, and is characterised =
+by the=20
+use of control handles at each point. These handles set the curvature of =
+the=20
+spline, and can be adjusted for sharp corners, tight or loose curves, =
+etc. To=20
+create bezier splines with the Spline Macro File, you specify a list of =
+points=20
+where every third point is actually interpolated (ie. joined). The two =
+points=20
+between each joined point set the ends of the control handles used to =
+shape the=20
+spline path, eg: <IMG height=3D120 alt=3D"Image 1.5a" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t111.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>#declare MyBezierSpline =3D =
+create_spline (
+   array [7] {&lt;-2, 0, 0&gt;, &lt;-2, 1, 0&gt;, &lt;-1, -1, 0&gt;, =
+&lt;0, 0, 0&gt;, &lt;1, -1, 0&gt;, &lt;2, 1, 0&gt;, &lt;2, 0, 0&gt;}
+create_bezier_spline)
+
+preview_spline (MyBezierSpline, spline_accuracy (2) + show_spline_hull =
+(yes) + show_spline_tangents (yes))
+</PRE><BR clear=3Dleft>
+<P>You will notice also that we've used some new options in the=20
+<CODE>preview_spline ()</CODE> function, improving the accuracy of the =
+spline=20
+path, and making visible the hull (the connections between the spline =
+points)=20
+and the tangents (the direction the spline path is travelling before and =
+after=20
+it reaches each control point, ie. the Bezier curve handles). Other =
+spline=20
+preview options are listed in the Spline Macro File reference.=20
+<P>Bezier splines have the advantage over TCB splines of allowing you to =
+set the=20
+curvature of the spline directly for each section, so you can create =
+some sharp=20
+corners and some smooth, and generally have more control over the =
+spline's=20
+shape.=20
+<P>Another way you can control the curvature of the spline at each point =
+is to=20
+create a hermite spline: this is expressed as a list of pairs of points =
+and=20
+tangents (ie. the velocity the spline is travelling at). This allows you =
+to=20
+create smooth curves but have direct control over the curvature at each =
+point,=20
+eg: <IMG height=3D120 alt=3D"Image 1.5b" hspace=3D10=20
+src=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t112.jpg" =
+width=3D160=20
+align=3Dleft vspace=3D20> </P><PRE>#declare MyHermiteSpline =3D =
+create_spline (
+   array [8] {x, x*2, y, -y*3, -x*2, y*3, -y, -x*2},
+   create_hermite_spline)
+
+preview_spline (MyHermiteSpline, spline_radius (0.03) + spline_accuracy =
+(2)
+   + show_spline_tangents (yes)
+   + spline_preview_pigment (pigment {rgb &lt;0.5, 0.8, 1&gt;})
+   + spline_preview_finish (finish {phong 0.5}))
+</PRE><BR clear=3Dleft>
+<P>Here we join x to y to -x to -y, but the direction at each point is =
+set by=20
+the tangent specified after it. Changing the length of the tangent =
+changes how=20
+much the path is curved. We can also adjust the tension and bias values =
+for both=20
+Bezier and hermite splines, to adjust all our tangents according to the =
+values=20
+we specify.=20
+<P>There is a final spline type you can create with the Spline Macro =
+File, using=20
+the <CODE>create_cubic_spline</CODE> option. This allows you to create a =
+default=20
+TCB spline as we first encountered, but the spline only connects the =
+points from=20
+the second to the second last. The very first and last points are used =
+to set=20
+the curvature of the spline at the beginning and end, just as with =
+POV-Ray's=20
+cubic spline used in the lathe and prism objects. </P>
+<P class=3Dnavbar><A href=3D"http://www.geocities.com/ccolefax">Home</A> =
+&nbsp;=20
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <A=20
+href=3D"mailto:ccolefax@yahoo.com">Email</A> &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp;=20
+&nbsp; &nbsp; &nbsp; <A=20
+href=3D"file:///C:/Temp/Spline%20Macro%20File%20Tutorial/tutorial2.html">=
+Next&nbsp;&gt;</A>=20
+</P>
+<CENTER></CENTER></LAYER>
+<DIV></DIV></SPAN></STYLE></TABLE><IMG height=3D1 alt=3D1=20
+src=3D"http://geo.yahoo.com/serv?s=3D76001067&amp;t=3D1142844533&amp;f=3D=
+us-w63"=20
+width=3D1> </BODY></HTML>
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t101.jpg
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsK
+CwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQU
+FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAB4AKADASIA
+AhEBAxEB/8QAGgABAAIDAQAAAAAAAAAAAAAAAAEFAgQGA//EACsQAAICAgECBQQDAAMAAAAAAAAB
+AgMEESEFMQYSIlFhExQyUhVBQiNicf/EABgBAQADAQAAAAAAAAAAAAAAAAABAgME/8QAKhEAAgED
+AgQEBwAAAAAAAAAAAAECAxEhMVESQWHwInGBkQQTUqGx4fH/2gAMAwEAAhEDEQA/AMAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABL0U/Vm411b8qsskoRcv1TbSb+O5DaWWXhCVSXDBNvZ
+ZYBNvlqy54rux7MiG9105Fdr0u7Xlk9r5XBBEZxmuKDTXTJM6c6dlOLV85Vsb5AALGYAAAAAAAAA
+AAAAAAAAADehKSim29Jd2WNkJ9DSg04dUnFSb3ziRfZLT4ta03+ievyb8sN2NIQ4svCWr75vkvwk
+2vC2mOA3XbFWZafqqfMKee0tP1S/69lvnb3Fa0pyss+pObnZrXnl317L2Xslwv6ISUUklpIEKNnd
+6l51W48EcR238939lySIshG6KjZCNsU9qM1tb9+TXcbsPTi55WMlzB7ndDnun/tfD9XfTlwjZBEo
+qWee5NKvKkuG14vWL0fXo+qs+V9TCm6vJphbTZG2qa3GcHtMzNDMqtwLJ5uLXK2L9WTiVrbsX71r
+91/a/wBLjvo3arYX1V21TVlVkVOE4valFraaIjJt8Mte896ezd61GKiqtJ3g99U/pfXZ4UllJNSj
+HIAGhyAAAAAAAAAAAAAAAFl0iMMWrJ6pbFWRxJQroqlHzRsyZqTr8yfDjBQlNp724xi1qRXNylKU
+pylZOTcpTm9yk3y23/bbLnqUIw8G+GpVy3XbldRdi1r/AJ08ZSXfnVX277L8mUpWLTu13bHe/kaS
+dkorz9+7f0AAsZgAAEptPa4ZX1R/jepqiMdYmdKU6tLiq9LcofCmk5L5jP3RvkTxaMyVNeRbKiqN
+9V31q6FfODhNS3GDnBNtJx/JcSf/AIY1cRc+cc7+nrp+zs+FqRjP5dR+CeH02lv4XaWMtJx0kyQF
+tpbWn7A2OMAAAAAAAAAAAAAAA6HwxX/P4WX4Ybl93mWxy+k+pKP3sIyi6Xvt9et+Ra72V46fCbXO
+wkpxTSa+GtNfDQnBWRcX2fsdP1Ob8c039WprivElFbt6rjVxjFZ0IqTlm1LfNijFO6CW292radnk
+A5kERkpxUotNPlNEgAAAAAAAAAAAAAAAAAAAAAAAAAzovuxMinIxr7sTKpmrKcjHsddlU12lGS5T
+XujAAHTWrp3jVxsoWL0PxROUnfTbbDH6d1Ft789cpNRxrnzuEmqpv8HW9QfPZuJkdM6hkYGdj3YO
+fjy8l2Jk1uu2p63qUXyuGn8po8ZRUotSSafDTL3C8Z9Tx8GrAzFieIOmUx8lGD1yj7qGOuOKZ7jb
+QvSuKrIL4AKMHpkWwvvnZDGpxISe1Rjux1w47L6k5y+eZPueZWLuk2rd9LoAAFgAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf//Z
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t102.jpg
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsK
+CwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQU
+FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAB4AKADASIA
+AhEBAxEB/8QAGgABAAIDAQAAAAAAAAAAAAAAAAQFAQIDBv/EADIQAAICAgAEBAUCBQUAAAAAAAAB
+AgMEEQUSITEGE0FRFCIyQmFTcRUWJjOBQ2KhwfD/xAAYAQEAAwEAAAAAAAAAAAAAAAAAAQIDBP/E
+ACoRAAIBAwIFAwQDAAAAAAAAAAABAgMRITFREkFhcfCBkbEEIqHhE0JS/9oADAMBAAIRAxEAPwDQ
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA0vvrxq1O6yFUHtJ2SUeZ+y33f4RDaWWXh
+TnVlwU4tvZK79kbg1ttqqzp4byKJZUW15dd0ZuWuu1pva16rob9iIzjNXg010yTOnUpWVSLjfKum
+rrfPIwACxmAAAAAAAAAAAAAAAAAAAG9LbOs4yxW4NctzScnvrWn6dH9Xbft2771Vu3c2p0+O7k7R
+Wr81b5L1dkm1zluLcV9aem2k1H8fl/8AC/PVLWEFXJyW+drTm3uT/d/9GUkkklpL0QIUbO7y/NPO
+5adZyj/HBcMNt+snzf4X9UlgxbXDIr8u6uF1e98lsVKO/wBmQ/LyOGpOnzMzEivmpk3O+HXvCT6z
+SX2v5vZvpEmgSipZ0e/nwTRrypLgteLy4vR9ej6pppYvZs542TVmY9d9FkbqbFuM4Paf/vY6FfmU
+3YF1mdh1SuUuuTh1rbu/31r9Re33Lp30Tqra8imu6matpsipwnHtKL7NERk2+GWvmV5j2btWoxjF
+VaTvB76p/wCZddnZKSykmpRjsADQ5AAAAAAAAAAAAAAACTiJVQsypR5lU1CEWtp2SUnHf4iouX+E
+vUjdfVtt9W29tv3ZYZldceA8HnXJy57cvzU4JctqdSaT29ry3U+y1zMrzOLUry7r2dvN+1joqvhU
+aa0ST9Wk/wAKy9L82AAaHOAAAZT09ruV1UVwziaojHWHnSlOvXaq9LcofhTScl+Yy90WBJ4ZwSrx
+FxGjCuyoYNcPMz5ZU6POdUMWqeTY1DcW266Zx6NfUY1cRc+cc7+nrp+zs+lqRjN06j+yeH02lv8A
+a7SxlpOOkmRgYi3KKbWm11XsZNjjAAAAAAAAAAAAAAALbglT4tVfwVc7ycmcbsCKa08mKa8vT/Vi
++Va7zjVvp2qIy5kmt/s1picFOLjJbTL3L/qmi7Pqiv41RW7M+iKS+LhFNyyoLfWajHdsUt97FtOf
+JXRml+KPVfH6+OxRgRkpJNNNPs0CxmAAAD0WI/5c8IZOZJ8vFPEVLxMOKa3Vw5WayLn7O2daoj7w
+jkejW+Hh/hGDLFlxzjsLJ+H6LfKji1TddvFL1p/DVS+2KTTstX9uL6bnKCcDjHGMvxBxXJ4lnyhL
+KyJJuNUeWqqKWoV1x+2uEUoxj6JJAEMAAAAAAAAAAAAAAAAAA3ovuxcirIx77cbJpmrKr6JuFlcl
+2lGS6pr3RoAD0FiwfFjU65Y3B/EMnKVtdtkKMHPbf1QlLUce3q24yarl15XW9QlSZuJkcM4hkYGd
+j3YWfjy5LsXJg67anrepRfVdGn/k5NKSaaTT7plzheLuI42DXgZPw3G+GVR5KcHjNPxNdC9qZNqy
+he6qnDfrsIs3co7r68etztnGuC7yk9I9RDwzR4alXk+L6b6Zb3X4cqsVWfkfLtO/1xKn8vWS8ySf
+yQ0+eMfE8ZZ3CakuC4nDfDl+mnm8Lon8Xp73y5N9lt1ff/TnD27FE9ysssk3OyyTnOcm3Kcm9uTb
+6tt92yE7pO1iCdxvjeX4iz1l5nlQ8utUY+LjQ8vHxKV9NNMPtgtv3bbcpOUm24IBJAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t103.jpg
+
+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
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/2Q==
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t104.jpg
+
+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
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t105.jpg
+
+/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsK
+CwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQU
+FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAB4AKADASIA
+AhEBAxEB/8QAGgABAAIDAQAAAAAAAAAAAAAAAAQFAgMGAf/EADMQAAICAgEDAgUBBgcBAAAAAAEC
+AAMEEQUGEiExQRMUIlGBYTJCQ1JxghUWJFNiZHKR/8QAGQEBAAMBAQAAAAAAAAAAAAAAAAECAwQF
+/8QALxEAAgEDAgMFBwUAAAAAAAAAAAECAxEhEjFBUWEEQnGBkRMiIzKhsfAUNFJiwf/aAAwDAQAC
+EQMRAD8AwiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAZV1Pc4StGsc+iopJ
+/wDgnhBViCCCDog+ojKx0eqmm2sOpUWujgMrFhtNjXspB/uMhvW/HIXp+JfjKCWxe7uZR67qLHxr
++Qnt16dvvjrk8pY+vp+Y64PS/TUrqk6lqjS3Vo3edLlfD4NtWUsNqK1EuJuzMdcPMvx1ysTN+C/Y
+b8DJTIpY6GwroSDreiPYgg+RNMvTqRqwjUpu8Wrprinszz5RlBuMlZoRES5UREQBERAEREAREQBE
+RAEREATbjYpzsqnHU9ptcIW1vtHu34Gz+JqkrGApwsrJZSWb/S0n2DMNufwmx/WxZSbajjc6Ozwj
+UqJTV4rL8Fl+bWF1saL7xk5FtwBC2OWUEaIX90fgaH4mERLJKKSXAyqVJVZyqTd3JtvxeWRb8Rxc
++TisleSwAdbN/Du16dwHoR7MPP32PExp5Ws3LRko2BlMSqVXkas9PNbj6X9R4Hkb8gSZMbaq8io1
+XVV31N612oGU/wBQfEzcGnqg7P6P85rzudsO0xlBUu0x1RWE07SiuSdmmv6yTt3XG7ZmQQdEankr
+l4ZsQa4/Ovwh41TaPmKB/ax7gP0V1A+0xbN5XCQHJ41M5NMWs4y3bDXpuqztJ39lLSPaOPzxfln7
+Z+hZdkp1f29aL6S+G/PU9HglUbfIs4kXA5TF5M3LjWlraCBdRYjV21EjYDowBHrJU0jJSV4u6OKr
+SqUJunVi4yXBqzzlb81lc1kRESxkIiIAiIgCIiAIieqjWOiVo1ljsEStFLMzE6AAHqSfaAbMbFuz
+smvGx0+JfYSEUkAemyST4AABJJ8AAmbuSyKbbq6cVmbCxVNVLH+J529mv+bef/IUe0l8gKeFwjx1
+FzvyVvcnJ2KB8NAGBWitw22H+54ALKACw3KmZRaqPUtlfpti+eHJ8VlXTR1z+DB0u8/m6W7vrmXV
+JcHdERNTkEREAREuenOnhzWNy+fk5ycXxHFY5fIznr+KxuZWFFFVex8S12G+3uUdqsSyiUnJQi5v
+gr4V3jkllvkluSld2OPzVGT1bxnwgvx8Si2zKs9xU47a0J99sSwBPjyfeW8h8Txy8Zh9hdrsi0/F
+yMizXdbYfUn7D2A9h+SZkrTjJXlLdu/hhL7LPXoeh26rTnKFKi7wpx0p/wAvelJu3BOUnpW6ja/v
+XERE1POEREAREQBERAEs+Lu/w7i+T5JCRlVvRg02BipoN4uLWA/ftoZB9jZv2ErJYcJz2b09lWXY
+diFLkNWRi5FYtx8ms/uW1nw6+435BAIIIBkNXVjSnLRNSWP8xh+W5XKoRQqjQHgAT2XwyOluSrX5
+jB5LprK+kG3inHIYZ8+T8ve6Wp+L39PC+03V9B5vKPrp3P43qzau4x+MuNeaFX13h3iu5jrzqtbB
+49YuV0vhn89Tm4h91ZF2PYrVZFLmu2i1SllbA6Ksp8qQfUEbiSVEREAl8PwvIdS8xg8PxNHzPKZ9
+y4+NV6Aufdj7KBtifYAn2l31x1Bh51mJwHA2BukuDZqsJ1XRz7zoX59h2SzWsCV2dLX2qoX6gcun
+mPT/AEV1Dz/aBl8if8uca21JT4iizOtAP1Dto7Kg6++UR7GcuqhVAA0B4AEAREQBERAEREAREQBE
+RAEREATG2lLlAdA4B2Nj0P3mUQDpKuvM3Mxq8LqSgdX8bWCtaclcwzcYf9fM82Jrx9Dd9fj9ia+V
+6Yxm4m/nOnc27luFoZvm6Mqta8/jAX0nzFakq6EFdX1/STsMKzpZz8lcTy2f0/yuPyfFZlnH8jjn
+dWRVrY36qQdhlI8FWBVh4IIixa99yKDsbHkTG2xaa3sY6VQWJ/QTr7uHx+v7LczpnArw+d7TZl9L
+4iAC7QYtdgKPLLobbHALr5K96/s1vQvDYXUfVBp5QFeC4ktmc8WBBoxqjt6nGwQ9jL8FV/aLP6eD
+qkJOUFKSs2tna66YusdG1yIas7E/r+qzhj050vYXVuC4xGyqrK1UpnZZ+ayBseT2rZRV5P8AB9py
+sk8py2R1By/I8vmIteZyWXdnXohJVXtdnZRv2BbQ/QCRpcgREQBERAEREAREQBERAEREAREQBERA
+PGQMVJ9VYMrA6KkeQQfYj7y75zrjqXqfBpwuZ6j5blsKrtK4+bmWWVkr6MwJ+ph/M2z+spYgm4iI
+ggREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQD//2Q==
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t106.jpg
+
+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
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t107.jpg
+
+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
+AEREAREQBERAEREAREQBERAP/9k=
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t108.jpg
+
+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
+/9k=
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t109.jpg
+
+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
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t110.jpg
+
+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
+IiJEIiJE/9k=
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t111.jpg
+
+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
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/t112.jpg
+
+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
+AIiIAiIgCIiA/9k=
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: base64
+Content-Location: http://geo.yahoo.com/serv?s=76001067&t=1142844533&f=us-w63
+
+R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
+
+------=_NextPart_000_0031_01C64C06.1C50A600
+Content-Type: text/css;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file:///C:/Temp/Spline%20Macro%20File%20Tutorial/tutorial.css
+
+BODY {
+	FONT-SIZE: x-small; BACKGROUND: #334488; COLOR: #eeeeee; FONT-FAMILY: =
+Arial, Helvetica, sans-serif
+}
+P {
+	FONT-SIZE: x-small; BACKGROUND: #334488; COLOR: #eeeeee; FONT-FAMILY: =
+Arial, Helvetica, sans-serif
+}
+UL {
+	FONT-SIZE: x-small; BACKGROUND: #334488; COLOR: #eeeeee; FONT-FAMILY: =
+Arial, Helvetica, sans-serif
+}
+H1 {
+	BORDER-RIGHT: #335588 3px solid; PADDING-RIGHT: 5px; BORDER-TOP: =
+#7799cc 3px solid; DISPLAY: block; PADDING-LEFT: 5px; FONT-WEIGHT: =
+normal; PADDING-BOTTOM: 5px; TEXT-TRANSFORM: lowercase; BORDER-LEFT: =
+#7799cc 3px solid; WIDTH: 100%; COLOR: #eeeeee; PADDING-TOP: 5px; =
+BORDER-BOTTOM: #335588 3px solid; FONT-FAMILY: Arial, Helvetica, =
+sans-serif; LETTER-SPACING: 0.1em; BACKGROUND-COLOR: #5577aa
+}
+H2 {
+	BORDER-RIGHT: #335588 3px solid; PADDING-RIGHT: 5px; BORDER-TOP: =
+#7799cc 3px solid; DISPLAY: block; PADDING-LEFT: 5px; FONT-WEIGHT: =
+normal; PADDING-BOTTOM: 5px; TEXT-TRANSFORM: lowercase; BORDER-LEFT: =
+#7799cc 3px solid; WIDTH: 100%; COLOR: #eeeeee; PADDING-TOP: 5px; =
+BORDER-BOTTOM: #335588 3px solid; FONT-FAMILY: Arial, Helvetica, =
+sans-serif; LETTER-SPACING: 0.1em; BACKGROUND-COLOR: #5577aa
+}
+H3 {
+	BORDER-RIGHT: #335588 3px solid; PADDING-RIGHT: 5px; BORDER-TOP: =
+#7799cc 3px solid; DISPLAY: block; PADDING-LEFT: 5px; FONT-WEIGHT: =
+normal; PADDING-BOTTOM: 5px; TEXT-TRANSFORM: lowercase; BORDER-LEFT: =
+#7799cc 3px solid; WIDTH: 100%; COLOR: #eeeeee; PADDING-TOP: 5px; =
+BORDER-BOTTOM: #335588 3px solid; FONT-FAMILY: Arial, Helvetica, =
+sans-serif; LETTER-SPACING: 0.1em; BACKGROUND-COLOR: #5577aa
+}
+H4 {
+	BORDER-RIGHT: #335588 3px solid; PADDING-RIGHT: 5px; BORDER-TOP: =
+#7799cc 3px solid; DISPLAY: block; PADDING-LEFT: 5px; FONT-WEIGHT: =
+normal; PADDING-BOTTOM: 5px; TEXT-TRANSFORM: lowercase; BORDER-LEFT: =
+#7799cc 3px solid; WIDTH: 100%; COLOR: #eeeeee; PADDING-TOP: 5px; =
+BORDER-BOTTOM: #335588 3px solid; FONT-FAMILY: Arial, Helvetica, =
+sans-serif; LETTER-SPACING: 0.1em; BACKGROUND-COLOR: #5577aa
+}
+P.navbar {
+	BORDER-RIGHT: #335588 3px solid; PADDING-RIGHT: 5px; BORDER-TOP: =
+#7799cc 3px solid; DISPLAY: block; PADDING-LEFT: 5px; FONT-WEIGHT: =
+normal; PADDING-BOTTOM: 5px; TEXT-TRANSFORM: lowercase; BORDER-LEFT: =
+#7799cc 3px solid; WIDTH: 100%; COLOR: #eeeeee; PADDING-TOP: 5px; =
+BORDER-BOTTOM: #335588 3px solid; FONT-FAMILY: Arial, Helvetica, =
+sans-serif; LETTER-SPACING: 0.1em; BACKGROUND-COLOR: #5577aa
+}
+H1 {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 10px; FONT-SIZE: 240%; =
+PADDING-BOTTOM: 10px; PADDING-TOP: 10px; LETTER-SPACING: 0.25em; =
+TEXT-ALIGN: center
+}
+H2 {
+	FONT-SIZE: 180%
+}
+H3 {
+	FONT-SIZE: 140%
+}
+H4 {
+	FONT-SIZE: 120%
+}
+P.navbar {
+	WHITE-SPACE: nowrap; TEXT-ALIGN: center
+}
+ADDRESS {
+	FONT-SIZE: x-small; COLOR: #eeeeee; FONT-STYLE: normal; FONT-FAMILY: =
+Arial, Helvetica, sans-serif
+}
+PRE {
+	FONT-SIZE: 9pt; FONT-STYLE: normal; FONT-FAMILY: "Lucida Console", =
+"Courier New", monospace
+}
+CODE {
+	FONT-SIZE: 9pt; FONT-STYLE: normal; FONT-FAMILY: "Lucida Console", =
+"Courier New", monospace
+}
+PRE {
+	PADDING-RIGHT: 10px; DISPLAY: block; PADDING-LEFT: 10px; BACKGROUND: =
+#8899bb; PADDING-BOTTOM: 10px; WIDTH: 100%; COLOR: #000000; =
+BORDER-TOP-STYLE: none; PADDING-TOP: 10px; BORDER-RIGHT-STYLE: none; =
+BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none; whitespace: pre
+}
+PRE {
+	BORDER-RIGHT: #445599 3px solid; BORDER-TOP: #112266 3px solid; =
+BORDER-LEFT: #112266 3px solid; BORDER-BOTTOM: #5566aa 3px solid
+}
+IMG {
+	BORDER-RIGHT: #445599 3px solid; BORDER-TOP: #112266 3px solid; =
+BORDER-LEFT: #112266 3px solid; BORDER-BOTTOM: #5566aa 3px solid
+}
+A {
+	COLOR: #aaddff; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #cceeff; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #cceeff; TEXT-DECORATION: underline
+}
+A IMG {
+	BORDER-LEFT-COLOR: #99ccff; BORDER-BOTTOM-COLOR: #99ccff; =
+BORDER-TOP-COLOR: #99ccff; BORDER-RIGHT-COLOR: #99ccff
+}
+A:hover IMG {
+	BORDER-LEFT-COLOR: #cceeff; BORDER-BOTTOM-COLOR: #cceeff; =
+BORDER-TOP-COLOR: #cceeff; BORDER-RIGHT-COLOR: #cceeff
+}
+A:active IMG {
+	BORDER-LEFT-COLOR: #cceeff; BORDER-BOTTOM-COLOR: #cceeff; =
+BORDER-TOP-COLOR: #cceeff; BORDER-RIGHT-COLOR: #cceeff
+}
+
+------=_NextPart_000_0031_01C64C06.1C50A600--
