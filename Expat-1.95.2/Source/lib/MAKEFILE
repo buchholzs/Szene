@@ -1,0 +1,24 @@
+#
+# Szene makefile for DJGPP version (GNU-make)
+#
+
+OBJECTS=xmlparse.o \
+	xmlrole.o \
+	xmltok.o
+
+LIB = ../../libs/libexpat.a
+CFLAGS += -I. -gstabs+ -DVERSION=\"expat_1.95.2\" -fexceptions
+
+all: $(LIB)
+
+$(LIB): $(OBJECTS)
+	$(AR) rs $@ $?
+
+clean:
+	rm $(OBJECTS) $(LIB)
+
+install:
+
+uninstall:
+
+
