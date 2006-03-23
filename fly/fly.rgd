@@ -1,0 +1,13 @@
+[BREAKPOINTS]
+TYPE: 5
+FUNCTION: set_palette
+[WATCHES]
+[IDE]
+SCREENMODE: 3
+SOURCEDIR: z:/Szene/Copy of fly
+SOURCEDIR: z:/Szene/plush/src
+TABSIZE: 8
+VERBOSEGDB: 1
+MAIN: main
+USE_DUAL: 0
+PROGRAM: fly.exe
