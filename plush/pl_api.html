@@ -1,0 +1,453 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0046)http://www.nullsoft.com/free/plush/pl_api.html -->
+<HTML><HEAD><TITLE>Plush 1.1 API Documentation</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 6.00.2900.2769" name=GENERATOR></HEAD>
+<BODY>
+<H1 align=center>Plush v1.1 API Documentation</H1>
+<H3 align=center>by Justin Frankel</H3>
+<H2 align=center>(Document revision 0.1)</H2>
+<H3>Table of Contents:</H3>
+<OL>
+  <LI><A 
+  href="http://www.nullsoft.com/free/plush/pl_api.html#preface">Preface</A> 
+  <LI><A href="http://www.nullsoft.com/free/plush/pl_api.html#notes">Some 
+  Notes</A> 
+  <LI><A 
+  href="http://www.nullsoft.com/free/plush/pl_api.html#defs">Definitions</A> 
+  <LI><A href="http://www.nullsoft.com/free/plush/pl_api.html#types">Types</A> 
+  <LI><A 
+  href="http://www.nullsoft.com/free/plush/pl_api.html#functions">Functions 
+  &amp; Variables</A> 
+  <UL>
+    <LI>Variables 
+    <LI>Material Functions </LI></UL></LI></OL>
+<HR SIZE=10>
+<A name=preface>
+<H3>Preface</H3>
+<UL>Welcome to the Plush v1.1 API Documentation. This doc serves totally as a 
+  reference. For examples and a tutorial, please see [whatever]. </UL>
+<HR SIZE=10>
+<A name=notes>
+<H3>Some Notes</H3>
+<UL>Here are some general notes about the way Plush works: 
+  <UL>
+    <LI><A name=WorldSpace>Worldspace is in a unusual coordinate system. For 
+    example, if the camera is at the origin and not rotated, X is positive to 
+    the right, Y is positive upward, and Z is positive going into the screen. 
+    I.e. behind the camera is negative Z. 
+    <LI>None more at this time. </LI></UL></UL>
+<HR SIZE=10>
+<A name=defs>
+<H3>Definitions</H3>
+<UL>These are #defines that can be found in pl_defs.h and pl_conf.h:<BR><BR>
+  <TABLE width="90%" border=5>
+    <TBODY>
+    <TR>
+      <TH>Name</TH>
+      <TH>Value/Meaning</TH></TR>
+    <TR>
+      <TD><A name=PL_PI>PL_PI</A></TD>
+      <TD>3.14159265359</TD></TR>
+    <TR>
+      <TD><A name=PL_SHADE_>PL_SHADE_*</A></TD>
+      <TD>Shade types for use with <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Mat">pl_Mat</A>.ShadeType.
+        <UL>
+          <LI>PL_SHADE_NONE: no shading 
+          <LI>PL_SHADE_FLAT: flat light shading. If no lights, behaves just like 
+          PL_SHADE_NONE 
+          <LI>PL_SHADE_FLAT_DISTANCE: flat distance shading. Note: this can be 
+          bitwise ORed (i.e. |) with PL_SHADE_FLAT for both. 
+          <LI>PL_SHADE_GOURAUD: Gouraud light shading. 
+          <LI>PL_SHADE_GOURAUD_DISTANCE: Gouraud distance shading. Note: this 
+          can be bitwise ORed (i.e. |) with PL_SHADE_GOURAUD for both. 
+      </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=PL_LIGHT_>PL_LIGHT_*</A></TD>
+      <TD>Light Modes for use with <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#plLightSet">plLightSet()</A> 
+        and <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Light">pl_Light</A>.Type.
+        <UL>
+          <LI>PL_LIGHT_NONE: no light (why would you use this?) 
+          <LI>PL_LIGHT_VECTOR: vector light at an infinite distance. 
+          <LI>PL_LIGHT_POINT_DISTANCE: point proximity light. The closer an 
+          object is to this the brighter it is. 
+          <LI>PL_LIGHT_POINT_ANGLE: point light, with intensity calculated by 
+          angle between light-&gt;object vector and normal of object. 
+          <LI>PL_LIGHT_POINT: a combination of the previous two. </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=PL_MAX_CHILDREN>PL_MAX_CHILDREN</A></TD>
+      <TD>The maximum number of children a <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Obj">pl_Obj</A> 
+        can have. (Typically 16)</TD></TR></TBODY></TABLE></UL>
+<HR SIZE=10>
+<A name=types>
+<H3>Types</H3>
+<UL>Plush has a number of different types that you might need to use in your 
+  programs. They are all defined in pl_conf.h (simple types) pl_types.h 
+  (complicated structure types). Here they are:<BR><BR>
+  <TABLE width="90%" border=5>
+    <TBODY>
+    <TR>
+      <TH colSpan=2><FONT size=+2>Simple Types</FONT></TH></TR>
+    <TR>
+      <TH>Name</TH>
+      <TH>Definition</TH></TR>
+    <TR>
+      <TD><A name=pl_ZBuffer>pl_ZBuffer</A></TD>
+      <TD>The Z-buffer type. Usually used when allocating a zbuffer, usually 
+        float. </TD></TR>
+    <TR>
+      <TD><A name=pl_Float>pl_Float</A></TD>
+      <TD>General floating point type, usually float or double </TD></TR>
+    <TR>
+      <TD><A name=pl_IEEEFloat32>pl_IEEEFloat32</A></TD>
+      <TD>32 bit IEEE floating point, usually float or double. Only really 
+        used with .3DS reader </TD></TR>
+    <TR>
+      <TD><A name=pl_sInt32>pl_sInt32</A></TD>
+      <TD>Signed 32 bit integer, usually signed long int </TD></TR>
+    <TR>
+      <TD><A name=pl_uInt32>pl_uInt32</A></TD>
+      <TD>Unsigned 32 bit integer, usually unsigned long int </TD></TR>
+    <TR>
+      <TD><A name=pl_sInt16>pl_sInt16</A></TD>
+      <TD>Signed 16 bit integer, usually signed short int </TD></TR>
+    <TR>
+      <TD><A name=pl_uInt16>pl_uInt16</A></TD>
+      <TD>Unsigned 16 bit integer, usually unsigned short int </TD></TR>
+    <TR>
+      <TD><A name=pl_sInt>pl_sInt</A></TD>
+      <TD>Signed optimal integer, usually signed int </TD></TR>
+    <TR>
+      <TD><A name=pl_uInt>pl_uInt</A></TD>
+      <TD>Unsigned optimal bit integer, usually unsigned int </TD></TR>
+    <TR>
+      <TD><A name=pl_Bool>pl_Bool</A></TD>
+      <TD>Fake boolean value. Usually char. </TD></TR>
+    <TR>
+      <TD><A name=pl_uChar>pl_uChar</A></TD>
+      <TD>Unsigned 8 bit type, usually unsigned char </TD></TR>
+    <TR>
+      <TD><A name=pl_sChar>pl_sChar</A></TD>
+      <TD>Signed 8 bit type, usually signed char </TD></TR></TBODY></TABLE><BR><BR>
+  <TABLE width="90%" border=5>
+    <TBODY>
+    <TR>
+      <TH colSpan=2><FONT size=+2>Non-Simple Types</FONT></TH></TR>
+    <TR>
+      <TH>Name</TH>
+      <TH>Definition</TH></TR>
+    <TR>
+      <TD><A name=pl_Cam>pl_Cam</A></TD>
+      <TD>Camera type. See <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#CameraFunc">plCamera*()</A>. 
+        Contents:
+        <UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Fov: Field of view in degrees. Should be between 1 and 179 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Aspect ratio: Aspect ratio, normally 1.0, but in wierd resolutions, 
+          this should be something like "screenwidth/screenheight * 3.0/4.0." 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sChar">pl_sChar</A> 
+          Sort: How shall <A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#RenderFunc">plRender*()</A> 
+          sort polygons? 0: no sorting. -1: front to back. 1: back to front. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          ClipBack: sets the far clip plane. Any value less than or equal to 0.0 
+          disables the far clip plane. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt">pl_sInt</A> 
+          ClipTop, ClipLeft, ClipBottom, ClipRight: screen clipping coords. 
+          Usually 0, 0, screenheight, screenwidth respectively. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uInt">pl_uint</A>ScreenWidth, 
+          ScreenHeight: the screen width (line width) and screen height of the 
+          framebuffer. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt">pl_sInt</A> 
+          CenterX, CenterY: the place on the screen where 0,0,z projects to. 
+          Usually screenwidth/2 and screenheight/2 respectively. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          X, Y, Z: The X Y and Z coordinates of the Camera in <A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#WorldSpace">Worldspace.</A> 
+
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Pitch, Pan, Roll: The rotation of the Camera in <A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#WorldSpace">Worldpsace</A>. 
+          Pitch is the up-down rotation, with positive being up. Pan is 
+          left-right rotation, with positive being right, and Roll is rotation 
+          around the viewing axis, with positive being clockwise. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uChar">pl_uChar 
+          *</A> frameBuffer: a pointer to the buffer of type pl_uChar, and 
+          dimensions screenwidth*screenheight to which rendering will occur. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_ZBuffer">pl_ZBuffer 
+          *</A> zBuffer: a pointer to the buffer of type pl_ZBuffer, and 
+          dimensions screenwidth*screenheight to which Z-buffering will occur. 
+          Or NULL, to disable Z-buffering. </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=pl_Light>pl_Light</A></TD>
+      <TD>Light type. See <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#LightFunc">plLight*()</A>. 
+        Contents:
+        <UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uChar">pl_uChar</A> 
+          Type: Type of light, one of <A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#PL_LIGHT_">PL_LIGHT_*</A> 
+
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Xp, Yp, Zp: This can mean two things: 
+          <UL>
+            <LI>If Type is PL_LIGHT_VECTOR: the unit vector of the light 
+            <LI>If Type is PL_LIGHT_POINT_*: the position of the light </LI></UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Intensity: The intensity of the light. Usually from 0.0 to 1.0. Can be 
+          greater and brightness will be clipped. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          HalfDistSquared: The square of the distance at which <A 
+          href="http://www.nullsoft.com/free/plush/PL_LIGHT_POINT">PL_LIGHT_POINT</A> 
+          or <A 
+          href="http://www.nullsoft.com/free/plush/PL_LIGHT_POINT_DISTANCE">PL_LIGHT_POINT_DISTANCE</A> 
+          will be 1/2 brightness. </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=pl_Obj>pl_Obj</A></TD>
+      <TD>Object type. See <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#ObjFunc">plObj*()</A>. 
+        Contents:
+        <UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uInt32">pl_uInt32</A> 
+          NumVertices: the number of vertices in the object. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uInt32">pl_uInt32</A> 
+          NumFaces: the number of faces (triangles) in the object. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Vertex">pl_Vertex 
+          *</A> Vertices: a pointer to an array of "NumVertices" vertices. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Face">pl_Face 
+          *</A> Faces: a pointer to an array of "NumFaces" faces. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Obj">pl_Obj</A> 
+          Children[ <A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#PL_MAX_CHILDREN">PL_MAX_CHILDREN</A>]: 
+          a list of children. Either pointers to the children, or 0 if no 
+          children. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Bool">pl_Bool</A> 
+          BackfaceCull: are backfacing triangles drawn in this object? 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Bool">pl_Bool</A> 
+          BackfaceIllumination: are triangles illuminated from lights that are 
+          behind them? 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Bool">pl_Bool</A> 
+          GenMatrix: generate a transformation matrix from the following? 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Xp, Yp, Zp, Xa, Ya, Za: Translation and Rotation values. Translation 
+          values are in object space. Rotation values are in degrees. Rotations 
+          happen around the X then Y then Z. These are only used if GenMatrix is 
+          set (see above) 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Matrix[16]: A 4x4 transformation matrix which is used if GenMatrix is 
+          not set. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          RotMatrix[16]: A 4x4 transformation matrix for normals (i.e. no 
+          translation) which is used if GenMatrix is not set. </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=pl_Vertex>pl_Vertex</A></TD>
+      <TD>Vertex type. Used with <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Obj">pl_Obj</A>. 
+        Contents:
+        <UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          x, y, z: the <A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#WorldSpace">WorldSpace</A> 
+          coordinates of the point. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          xformedx, xformedy, xformedz: the transformed coordinates of the 
+          point. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          nx, ny, nz: the <A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#WorldSpace">WorldSpace</A> 
+          normal of the point. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          xformednx, xformedny, xformednz: the transformed normal of the point. 
+          </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=pl_Face>pl_Face</A></TD>
+      <TD>Face (triangle) type. Used with <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Obj">pl_Obj</A>. 
+        Contents:
+        <UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Vertex">pl_Vertex</A> 
+          *Vertices[3]: pointers to the three vertices of the triangle. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          nx, ny, nz: the normal of the triangle in object space. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Mat">pl_Mat</A> 
+          *Material: the material of the face. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt32">pl_sInt32</A> 
+          Scrx[3], Scry[3]: the projected screen coordinates of the vertices, in 
+          16.16 fixed point. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Scrz[3]: the reciprocal of the transformed Z of the vertices. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt32">pl_sInt32</A> 
+          MappingU[3], MappingV[3]: the 16.16 fixed point mapping coordinates of 
+          the face 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt32">pl_sInt32</A> 
+          eMappingU[3], eMappingV[3]: the 16.16 fixed point environment mapping 
+          coordinates of the face (generated on the fly) 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          fShade: the shade of the face (for flat shading), 0.0-&gt;1.0 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          sLighting: the static lighting value for flat shading, usually 0.0 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          Shades[3]: the shades of the vertices (for Gouraud shading), 
+          0.0-&gt;1.0 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          vsLighting[3]: the static lighting values for Gouraud shading, usually 
+          0.0 </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=pl_Mat>pl_Mat</A></TD>
+      <TD>Material Type. Used with <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Face">pl_Face</A>. 
+        See <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#MatFunc">plMat*()</A> 
+        Contents:
+        <UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt">pl_sInt</A> 
+          Ambient[3]: RGB of surface color (0-255 is a good range) 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt">pl_sInt</A> 
+          Diffuse[3]: RGB of diffuse reflection (0-255 is a good range) 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt">pl_sInt</A> 
+          Specular[3]: RGB of "specular" highlights (0-255 is a good range) 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uInt">pl_uInt</A> 
+          Shininess: Shininess of material. 1 is dullest, 2 is shinier, etc. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          FadeDist: For distance shading, distance at which intensity is 0 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uChar">pl_uChar</A> 
+          ShadeType: Shade type: <A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#PL_SHADE_">PL_SHADE_*</A> 
+
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uChar">pl_uChar</A> 
+          Transparent: Transparency index (0 = none, 4 = alot) Note: 
+          transparencies disable textures 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uChar">pl_uChar</A> 
+          PerspectiveCorrect: Correct textures every n pixels. Will be rounded 
+          down to the nearest power of two. i.e. 20 will become 16. Values over 
+          64 will become 64. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Texture">pl_Texture</A> 
+          *Texture: Texture map, or NULL if none. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Texture">pl_Texture</A> 
+          *Environment: Environment map, or NULL if none. Note: if both Texture 
+          and Environment are set, shading will be disabled. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          TexScaling: Texture map scaling (usually 1.0) 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          EnvScaling: Environment map scaling (usually 1.0) 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Bool">pl_Bool</A> 
+          zBufferable: Can this material be zbuffered? Usually true. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uInt">pl_uInt</A> 
+          NumGradients: Desired number of gradients to be used 
+          <LI>_*: Internal variables (see pl_types.h for more info) 
+    </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=pl_Texture>pl_Texture</A></TD>
+      <TD>Texture Type. Used with <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Mat">pl_Mat</A>. 
+        See <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#TexFuncs">plTex*()</A>. 
+        Contents:
+        <UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uChar">pl_uChar</A> 
+          *Data: the texture data, one byte per pixel. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uChar">pl_uChar</A> 
+          *PaletteData: the palette data, 256 RGB triplets. Each value should be 
+          0-255. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uChar">pl_uChar</A> 
+          Width, Height: the log2 of dimensions. i.e. 8, 8 for a 256x256 
+          texture. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uInt">pl_uInt</A> 
+          iWidth, iHeight: the actual dimensions. i.e. 256,256 for a 256x256 
+          texture. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          uScale, vScale: the texture scaling, usually 1.0, 1.0 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_uInt">pl_uInt</A> 
+          NumColors: the number of colors used in the texture. </LI></UL></TD></TR>
+    <TR>
+      <TD><A name=pl_Spline>pl_Spline</A></TD>
+      <TD>Spline Type. See <A 
+        href="http://www.nullsoft.com/free/plush/pl_api.html#SplineFuncs">plSpline*()</A>. 
+        Contents:
+        <UL>
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          *keys: the key data, keyWidth*numKeys plFloats. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt">pl_sInt</A> 
+          keyWidth: number of pl_Floats per key. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_sInt">pl_sInt</A> 
+          numKeys: number of keys in spline 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          cont: The continuity of the spline. Should be between -1.0 and 1.0. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          bias: The bias of the spline. Should be between -1.0 and 1.0. 
+          <LI><A 
+          href="http://www.nullsoft.com/free/plush/pl_api.html#pl_Float">pl_Float</A> 
+          tens: The tension of the spline. Should be between -1.0 and 1.0. 
+        </LI></UL></TD></TR></TBODY></TABLE></UL></A></BODY></HTML>

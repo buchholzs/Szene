@@ -1,0 +1,40 @@
+#
+# Szene makefile for DJGPP version (GNU-make)
+#
+
+OBJECTS=CAM.o \
+	CLIP.o \
+	LIGHT.o \
+	MAKE.o \
+	MAT.o \
+	MATH.o \
+	OBJ.o \
+	PF_PTEX.o \
+	PF_SOLID.o \
+	PF_TEX.o \
+	PF_TRANS.o \
+	PLUSH.o \
+	READ_3DS.o \
+	READ_COB.o \
+	READ_JAW.o \
+	READ_PCX.o \
+	RENDER.o \
+	SPLINE.o \
+	TEXT.o
+LIB = ../libplush.a
+
+CXXFLAGS += -gstabs+ -xc -fexceptions
+
+all: $(LIB)
+
+$(LIB): $(OBJECTS)
+	$(AR) rs $@ $?
+
+clean:
+	rm $(OBJECTS) $(LIB)
+
+install:
+
+uninstall:
+
+
