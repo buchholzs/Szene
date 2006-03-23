@@ -1,0 +1,25 @@
+EXELIBRARIES = plush
+
+INCLUDE_DIRS += ../plush/src
+LIBRARY_DIRS += ../plush
+
+EXELIBS = $(addprefix -l,$(EXELIBRARIES))
+INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
+LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
+
+LDLIBS = $(LIB_DIRS) $(EXELIBS)
+
+#CFLAGS=-m486 -O3 -fomit-frame-pointer -ffast-math -funroll-loops 
+CFLAGS=-gstabs+
+CFLAGS+=$(INCLUDES) -DplVersionString=\"1.0\" -DplCopyrightString=\"JF\"
+
+all: fly.exe
+
+fly.o: fly.c
+
+fly.exe: fly.o
+	$(LINK.o) $^ $(LDLIBS) -o $@
+
+clean:
+	del fly.o 
+	del fly.exe
