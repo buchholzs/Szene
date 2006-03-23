@@ -1,0 +1,21 @@
+SCC = This is a Source Code Control file
+
+[scene.dsp]
+SCC_Aux_Path = "\\demfile07\buchholzs$\Projekte\VSS"
+SCC_Project_Name = "$/Szene/Scene", AQEAAAAA
+
+[scene.dsw]
+SCC_Aux_Path = "\\demfile07\buchholzs$\Projekte\VSS"
+SCC_Project_Name = "$/Szene/Scene", AQEAAAAA
+
+[scenelib.dsp]
+SCC_Aux_Path = "\\demfile07\buchholzs$\Projekte\VSS"
+SCC_Project_Name = "$/Szene/Scene", AQEAAAAA
+
+[sceneplayer.dsp]
+SCC_Aux_Path = "\\demfile07\buchholzs$\Projekte\VSS"
+SCC_Project_Name = "$/Szene/Scene", AQEAAAAA
+
+[scenetst.dsp]
+SCC_Aux_Path = "\\demfile07\buchholzs$\Projekte\VSS"
+SCC_Project_Name = "$/Szene/Scene", AQEAAAAA

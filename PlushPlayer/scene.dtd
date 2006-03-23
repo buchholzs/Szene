@@ -1,0 +1,167 @@
+<?xml encoding='ISO-8859-1'?>
+<!-- ************************************************** -->
+<!--                                                    -->
+<!-- Diese DTD beschreibt eine Szene von Plush-Objekten -->
+<!--                                                    -->
+<!--    DTD Version : 1.0                               -->
+<!--    Datum: 02.05.2002                               -->
+<!--    Autor: Steffen Buchholz                         -->
+<!-- ************************************************** -->
+<!-- ************************************************** -->
+<!-- Entity Declarations                                -->
+<!-- ************************************************** -->
+
+<!ELEMENT scene (cameras,textures?,materials,lights,objects,transformations?)>
+
+<!ELEMENT cameras (camera)+>
+<!ELEMENT textures (texture)+>
+<!ELEMENT materials (material)+>
+<!ELEMENT lights (light)+>
+<!ELEMENT objects (plane|box|sphere|cone|cylinder|torus|o3ds|jaw|cob)+>
+<!ELEMENT transformations (translate|rotate)+>
+
+<!ELEMENT camera EMPTY>
+<!ATTLIST camera id  ID  #REQUIRED
+                 fov CDATA #REQUIRED
+                 sort (0|-1|1) "1"
+                 x   CDATA #IMPLIED
+                 y   CDATA #IMPLIED
+                 z   CDATA #IMPLIED
+                 pitch CDATA #IMPLIED
+                 pan   CDATA #IMPLIED
+                 roll  CDATA #IMPLIED                                   
+>
+
+<!ELEMENT texture EMPTY>
+<!ATTLIST texture id  ID  #REQUIRED
+		  src CDATA #REQUIRED
+		  rescale (yes|no) "yes"
+		  optimize (yes|no) "yes"
+>
+
+<!ELEMENT material EMPTY>
+<!ATTLIST material id  ID  #REQUIRED
+                 ambient0  CDATA #IMPLIED
+                 ambient1  CDATA #IMPLIED
+                 ambient2  CDATA #IMPLIED
+                 diffuse0  CDATA #IMPLIED
+                 diffuse1  CDATA #IMPLIED
+                 diffuse2  CDATA #IMPLIED
+                 specular0  CDATA #IMPLIED
+                 specular1  CDATA #IMPLIED
+                 specular2  CDATA #IMPLIED
+                 shininess CDATA #IMPLIED
+                 fadedist  CDATA #IMPLIED
+                 shadetype (PL_SHADE_NONE | 
+                            PL_SHADE_FLAT |
+			    PL_SHADE_FLAT_DISTANCE |
+			    PL_SHADE_GOURAUD |
+			    PL_SHADE_GOURAUD_DISTANCE) #REQUIRED
+                 transparent (0|1|2|3|4) #IMPLIED
+                 perspectivecorrect CDATA #IMPLIED
+                 texture IDREF #IMPLIED
+                 environment IDREF #IMPLIED
+                 texscaling CDATA #IMPLIED
+                 envscaling CDATA #IMPLIED      
+                 texenvmode (PL_TEXENV_ADD |
+			    PL_TEXENV_MUL |
+			    PL_TEXENV_AVG |
+			    PL_TEXENV_TEXMINUSENV |
+			    PL_TEXENV_ENVMINUSTEX |
+			    PL_TEXENV_MIN |
+			    PL_TEXENV_MAX) "PL_TEXENV_ADD"
+                 numgradients CDATA #IMPLIED
+>
+
+<!ELEMENT light EMPTY>
+<!ATTLIST light id  ID  #REQUIRED
+                 type (PL_LIGHT_NONE|
+                       PL_LIGHT_VECTOR|
+                       PL_LIGHT_POINT|
+                       PL_LIGHT_POINT_DISTANCE|
+                       PL_LIGHT_POINT_ANGLE) "PL_LIGHT_NONE"
+                 xp CDATA #REQUIRED
+                 yp CDATA #REQUIRED
+                 zp CDATA #REQUIRED
+                 intensity CDATA #REQUIRED
+                 falloff CDATA #REQUIRED 
+>
+
+<!ELEMENT plane EMPTY>
+<!ATTLIST plane id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          w CDATA #REQUIRED
+          d CDATA #REQUIRED
+          res CDATA #REQUIRED
+>
+
+<!ELEMENT box EMPTY>
+<!ATTLIST box id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          w CDATA #REQUIRED
+          d CDATA #REQUIRED
+          h CDATA #REQUIRED
+>
+
+<!ELEMENT sphere EMPTY>
+<!ATTLIST sphere id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          r CDATA #REQUIRED
+          divr CDATA #REQUIRED
+          divh CDATA #REQUIRED>
+
+<!ELEMENT cone EMPTY>
+<!ATTLIST cone id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          r CDATA #REQUIRED
+          h CDATA #REQUIRED
+          divr CDATA #REQUIRED
+          cap (yes|no) #REQUIRED>
+
+<!ELEMENT cylinder EMPTY>
+<!ATTLIST cylinder id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          r CDATA #REQUIRED
+          h CDATA #REQUIRED
+          divr CDATA #REQUIRED
+          captop (yes|no) #REQUIRED
+          capbottom (yes|no) #REQUIRED>
+
+<!ELEMENT torus EMPTY>
+<!ATTLIST torus id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          r1 CDATA #REQUIRED
+          r2 CDATA #REQUIRED
+          divr CDATA #REQUIRED
+          divh CDATA #REQUIRED>
+
+<!ELEMENT o3ds EMPTY>
+<!ATTLIST o3ds id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          src CDATA #REQUIRED>
+
+<!ELEMENT jaw EMPTY>
+<!ATTLIST jaw id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          src CDATA #REQUIRED>
+
+<!ELEMENT cob EMPTY>
+<!ATTLIST cob id  ID  #REQUIRED
+          material  IDREF #REQUIRED
+          src CDATA #REQUIRED>
+
+<!ELEMENT translate EMPTY>
+<!ATTLIST translate obj  IDREF  #REQUIRED
+          relative (yes|no) "no"
+          xp CDATA #IMPLIED
+          yp CDATA #IMPLIED
+          zp CDATA #IMPLIED
+>
+
+<!ELEMENT rotate EMPTY>
+<!ATTLIST rotate obj  IDREF  #REQUIRED
+          relative (yes|no) "no"
+          xa CDATA #IMPLIED
+          ya CDATA #IMPLIED
+          za CDATA #IMPLIED
+>

@@ -1,0 +1,87 @@
+#
+# Szene makefile for DJGPP version (GNU-make)
+#
+vpath_src = src
+vpath %.cpp $(vpath_src)
+
+EXELIBRARIES = depui grx20 plush expat 
+
+LIBOBJ=	sc_tokens.o Scene.o Controller.o Desktop.o MoveMode.o \
+	WalkMode.o FlyMode.o Hud.o Command.o HudRefreshCmd.o
+
+INCLUDE_DIRS += src ../contrib/grx243/include ../depui/include ../expat-1.95.2/source/lib ../plush/src
+LIBRARY_DIRS += ../contrib/grx243/lib/dj2 ../depui/lib ../expat-1.95.2/libs ../plush
+
+EXELIBS = $(addprefix -l,$(EXELIBRARIES))
+INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
+LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
+
+CC = gxx
+CPPFLAGS += -gstabs+
+CPPFLAGS += $(INCLUDES)
+
+LDLIBS = $(LIB_DIRS) $(EXELIBS)
+
+all: lib exe
+
+lib: libscene.a $(LIBOBJ)
+
+exe: sceneplr.exe scenetst.exe 
+
+sceneplr.exe: App.o
+	$(LINK.o) $^ $(LDLIBS) -o $@
+
+libscene.a: $(LIBOBJ)
+	$(AR) rs $@ $^
+
+%exe : %o
+	$(LINK.o) $^ $(LDLIBS) -o $@
+
+clean:
+	for %j in ( *.exe *.a *.o) do del %j  
+
+
+# Dependencies
+
+scenetst.o: src/scenetst.cpp
+
+sc_tokens.o: src/sc_tokens.cpp src/sc_tokens.h
+
+Scene.o: src/Scene.cpp src/Scene.h
+
+scenetst.exe: scenetst.o libscene.a
+
+sceneplr.exe: App.o libscene.a
+
+App.o: src/sc_tokens.h src/WalkMode.h src/MoveMode.h src/FlyMode.h \
+	src/MoveMode.h src/Hud.h src/Desktop.h src/Scene.h
+
+Command.o: src/Command.cpp \
+	src/Command.h
+
+Controller.o: src/Controller.cpp \
+	src/Controller.h \
+	src/MoveMode.h src/Scene.h src/sc_tokens.h
+
+Desktop.o: src/Desktop.cpp \
+	src/Controller.h src/MoveMode.h \
+	src/Scene.h src/sc_tokens.h src/WalkMode.h src/MoveMode.h src/FlyMode.h \
+	src/MoveMode.h src/Hud.h src/HudRefreshCmd.h src/Command.h
+
+FlyMode.o: src/FlyMode.cpp src/FlyMode.h \
+	src/MoveMode.h src/Scene.h src/sc_tokens.h
+
+Hud.o: src/Hud.cpp src/Hud.h
+
+HudRefreshCmd.o: src/HudRefreshCmd.cpp src/HudRefreshCmd.h \
+	src/Command.h src/Hud.h
+
+MoveMode.o: src/MoveMode.cpp src/MoveMode.h
+
+sc_tokens.o: src/sc_tokens.cpp src/sc_tokens.h
+
+Scene.o: src/Scene.cpp src/Scene.h src/sc_tokens.h \
+	src/Command.h
+
+WalkMode.o: src/WalkMode.cpp src/WalkMode.h \
+	src/MoveMode.h src/Scene.h src/sc_tokens.h
