@@ -1,0 +1,45 @@
+EXELIBRARIES = grx20 plush
+
+LIBOBJ=ex.c ex1.o ex2.o ex3.o ex4.o flurry.o flurry2.o
+
+INCLUDE_DIRS += ../plush/src ../contrib/grx243/include
+LIBRARY_DIRS += ../plush ../contrib/grx243/lib/dj2
+
+EXELIBS = $(addprefix -l,$(EXELIBRARIES))
+INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
+LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
+
+CPPFLAGS += -gstabs+
+CPPFLAGS += -DplVersionString=\"1.2.0\"
+CPPFLAGS += $(INCLUDES)
+
+LDLIBS = $(LIB_DIRS) $(EXELIBS)
+
+# use this for slow computers to speed up framerate
+CFLAGS += -DNO_RETRACE_WAIT
+default: ex1.exe ex2.exe ex3.exe ex4.exe flurry.exe
+
+
+%exe : %o
+	$(LINK.o) $^ $(LDLIBS) -o $@
+
+clean:
+	del ex*.exe 
+	del ex*.o
+
+# Dependencies
+ex1.exe: ex1.o ex.o
+ex2.exe: ex2.o ex.o
+ex3.exe: ex3.o ex.o
+ex4.exe: ex4.o ex.o
+
+ex1.o: ex1.c
+ex2.o: ex2.c
+ex3.o: ex3.c
+ex4.o: ex4.c
+
+ex.o: ex.c ex.h
+
+flurry.o: flurry.c
+
+flurry.exe: flurry.o ex.o
