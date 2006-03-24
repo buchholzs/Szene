@@ -300,8 +300,8 @@ void Desktop::display() {
 					 0, 0, 
 					 desktop_.base.object.position.x1, 
 					 desktop_.base.object.position.y1,
-					 desktop_.base.object.position.x2 - desktop_.base.object.position.x1 + 1, 
-					 desktop_.base.object.position.y2 - desktop_.base.object.position.y1 + 1);
+					 desktop_.base.object.position.x2 - desktop_.base.object.position.x1, 
+					 desktop_.base.object.position.y2 - desktop_.base.object.position.y1);
 		
 	} else {
 		MxRefresh(&getDesktop()->base.object);
