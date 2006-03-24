@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="sceneplayer" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="plushplr" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** NICHT BEARBEITEN **
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
-CFG=sceneplayer - Win32 Debug
+CFG=plushplr - Win32 Release
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
 !MESSAGE 
-!MESSAGE NMAKE /f "sceneplayer.mak".
+!MESSAGE NMAKE /f "plushplr.mak".
 !MESSAGE 
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
 !MESSAGE 
-!MESSAGE NMAKE /f "sceneplayer.mak" CFG="sceneplayer - Win32 Debug"
+!MESSAGE NMAKE /f "plushplr.mak" CFG="plushplr - Win32 Release"
 !MESSAGE 
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
 !MESSAGE 
-!MESSAGE "sceneplayer - Win32 Release" (basierend auf  "Win32 (x86) Application")
-!MESSAGE "sceneplayer - Win32 Debug" (basierend auf  "Win32 (x86) Application")
+!MESSAGE "plushplr - Win32 Release" (basierend auf  "Win32 (x86) Application")
+!MESSAGE "plushplr - Win32 Debug" (basierend auf  "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project
@@ -29,7 +29,7 @@ CPP=cl.exe
 MTL=midl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "sceneplayer - Win32 Release"
+!IF  "$(CFG)" == "plushplr - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -54,12 +54,12 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
 
-!ELSEIF  "$(CFG)" == "sceneplayer - Win32 Debug"
+!ELSEIF  "$(CFG)" == "plushplr - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "sceneplayer___Win32_Debug"
-# PROP BASE Intermediate_Dir "sceneplayer___Win32_Debug"
+# PROP BASE Output_Dir "plushplr___Win32_Debug"
+# PROP BASE Intermediate_Dir "plushplr___Win32_Debug"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
@@ -68,7 +68,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\plush\src" /I "..\Expat-1.95.2\Source\lib" /I "..\depui\include" /I "..\contrib\grx243\include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D main=GRXMain /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\plush\src" /I "..\Expat-1.95.2\Source\lib" /I "..\depui\include" /I "..\contrib\grx243\include" /I "../scene/src" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D main=GRXMain /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
@@ -78,14 +78,14 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 scene.lib expat.lib plush.lib depui.lib grx243.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept /libpath:"Debug" /libpath:"..\plush\Debug" /libpath:"..\contrib\grx243\Debug" /libpath:"..\expat-1.95.2\libs" /libpath:"..\depui\debug"
+# ADD LINK32 scene.lib expat.lib plush.lib depui.lib grx243.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept /libpath:"..\scene\Debug" /libpath:"..\plush\Debug" /libpath:"..\contrib\grx243\debug" /libpath:"..\expat-1.95.2\libs"
 
 !ENDIF 
 
 # Begin Target
 
-# Name "sceneplayer - Win32 Release"
-# Name "sceneplayer - Win32 Debug"
+# Name "plushplr - Win32 Release"
+# Name "plushplr - Win32 Debug"
 # Begin Group "Quellcodedateien"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"

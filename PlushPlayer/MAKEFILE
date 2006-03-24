@@ -21,9 +21,9 @@ LDLIBS = $(LIB_DIRS) $(EXELIBS)
 
 all: exe
 
-exe: sceneplr.exe scenetst.exe 
+exe: plushplr.exe scenetst.exe 
 
-sceneplr.exe: App.o
+plushplr.exe: App.o
 	$(LINK.o) $^ $(LDLIBS) -o $@
 
 %exe : %o
@@ -37,4 +37,4 @@ clean:
 
 scenetst.exe: scenetst.o ../Scene/libscene.a
 
-sceneplr.exe: App.o ../Scene/libscene.a
+plushplr.exe: App.o ../Scene/libscene.a
