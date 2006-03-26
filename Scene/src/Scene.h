@@ -60,6 +60,11 @@ class Scene {
     init(screenWidth, screenHeight, aspectRatio);
   }
   virtual ~Scene ();
+  
+  	// Setzt die Hintergrundfarbe
+	void setBackground(const pl_uChar col) {
+		background_=col;
+	}
 
   // Liefert die z.Zt. selektierte Kamera
   void	setCurrCamera (pl_Cam *cam);
@@ -143,6 +148,15 @@ class Scene {
   // Erzeugt eine Transformation anhand der Attributliste
   void createTransformation(enum sc_Tokens tok, const char **attr);
 
+	// Setzt die Hintergrundfarbe
+	void setBackground(const char **attr);
+
+	// Skalierung anhand der Attributliste
+	void doScale(enum sc_Tokens tok, const char **attr);
+
+	// Camera target setzen anhand der Attributliste
+	void setTarget(const char **attr);
+
   /*
   ** Berechnet eine Palette aus den vorhandenen Materialien 
   ** und mappt diese anschlieﬂend auf die Palette
@@ -177,6 +191,7 @@ class Scene {
   pl_ZBuffer *zBuffer_; // Z Buffer
   pl_uChar *frameBuffer_; // Frame buffer (screenWidth_ * screenHeight_)
   pl_Float aspectRatio_;	// Aspect ratio (normalerweise 1.0)
+  pl_uChar background_;	// Hintergrundfarbe
 };
 
 } // scene

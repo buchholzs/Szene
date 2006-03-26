@@ -103,8 +103,14 @@ startElement(void *userData, const char *name, const char **atts)
   sc_TokenPair *res = sc_search(name);
   if (res) {
 	  switch (res->val) {
+	  case TOK_background:
+		  scene->setBackground(atts);
+		  break;
 	  case TOK_camera:
 		  scene->createCamera(atts);
+		  break;
+	  case TOK_target:
+		  scene->setTarget(atts);
 		  break;
 	  case TOK_light:
 		  scene->createLight(atts);
@@ -125,6 +131,14 @@ startElement(void *userData, const char *name, const char **atts)
 	  case TOK_translate: case TOK_rotate:
 		  scene->createTransformation(res->val, atts);
 		  break;
+	  case TOK_scale:
+		  scene->doScale(res->val, atts);
+		  break;
+	  case TOK_scene: case TOK_global: case TOK_cameras: case TOK_textures:
+	  case TOK_materials: case TOK_lights: case TOK_objects: case TOK_transformations:
+		  break;
+	  default:
+		  throw domain_error(string("Unerwartetes Token: ") + name);
 	  }
   } else {
 	  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -385,7 +399,26 @@ void Scene::clear ()
 	for_each(actions_.begin(), actions_.end(), am );
 	actions_.clear();
 }
+void Scene::setBackground(const char **attr)
+{
+	for (int i = 0; attr[i]; i += 2) {
+		const char *name = attr[ i ];
+		const char *val = attr[ i  + 1 ];
 
+	    sc_TokenPair *res = sc_search(name);
+		if (res) {
+		  switch (res->val) {
+		  case TOK_color:
+			  setBackground(atoi(val));
+			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
+		  }
+	  } else {
+		  throw domain_error(string("Unerwartetes Token: ") + name);
+	  }		
+	} // end for
+}
 void Scene::createCamera(const char **attr) 
 {	
 	pl_Cam *cam = plCamCreate(screenWidth_,
@@ -431,6 +464,8 @@ void Scene::createCamera(const char **attr)
 		  case TOK_roll:
 			  cam->Roll = atof(val);
 			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
 		  }
 	  } else {
 		  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -441,6 +476,42 @@ void Scene::createCamera(const char **attr)
 		// Erste Kamera: Defaultkamera
 		setCurrCamera( cam );
 	}
+}
+
+void Scene::setTarget(const char **attr) 
+{	
+	pl_Float x = 0;
+	pl_Float y = 0;
+	pl_Float z = 0; 
+	pl_Cam *cam = getCurrCamera();
+	if (cam == NULL) {
+		throw invalid_argument(string("Keine Kamera als Ziel"));
+	}
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char *name = attr[ i ];
+		const char *val = attr[ i  + 1 ];
+
+	    sc_TokenPair *res = sc_search(name);
+		if (res) {
+		  switch (res->val) {
+		  case TOK_x:
+			  x = atof(val);
+			  break;
+		  case TOK_y:
+			  y = atof(val);
+			  break;
+		  case TOK_z:
+			  z = atof(val);
+			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
+		  }
+	  } else {
+		  throw domain_error(string("Unerwartetes Token: ") + name);
+	  }		
+	} // end for
+	plCamSetTarget(cam, x, y, z);
 }
 
 void Scene::createLight(const char **attr) 
@@ -487,6 +558,8 @@ void Scene::createLight(const char **attr)
 				case TOK_PL_LIGHT_POINT_ANGLE:
 					mode = PL_LIGHT_POINT_ANGLE;
 					break;
+				default:
+				    throw domain_error(string("Unerwartetes Token: ") + name);
 				}
 			  }
 			  break;
@@ -505,6 +578,8 @@ void Scene::createLight(const char **attr)
 		  case TOK_falloff:
 			  halfDist = atof(val);
 			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
 		  }
 	  } else {
 		  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -541,6 +616,8 @@ void Scene::createTexture(const char **attr)
 		  case TOK_optimize:
 			  optimize = toYesNo(val);
 			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
 		  }
 	  } else {
 		  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -625,6 +702,8 @@ void Scene::createMaterial(const char **attr)
 					case TOK_PL_SHADE_GOURAUD_DISTANCE:
 						mat->ShadeType = PL_SHADE_GOURAUD_DISTANCE;
 						break;
+					default:
+						throw domain_error(string("Unerwartetes Token: ") + name);
 					}
 				}
 				break;
@@ -684,12 +763,16 @@ void Scene::createMaterial(const char **attr)
 					case TOK_PL_TEXENV_MAX:
 						mat->TexEnvMode = PL_TEXENV_MAX;
 						break;
+				    default:
+					    throw domain_error(string("Unerwartetes Token: ") + name);
 					}
 				}
 				break;
 			case TOK_numgradients:
 				mat->NumGradients = atoi(val);
 				break;
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
 		  }
 	  } else {
 		  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -772,6 +855,8 @@ void Scene::createObject(enum sc_Tokens tok, const char **attr)
 		  case TOK_w:
 			  w = atof(val);
 			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
 		  }
 	  } else {
 		  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -797,7 +882,8 @@ void Scene::createObject(enum sc_Tokens tok, const char **attr)
 	case TOK_torus:
 		obj = plMakeTorus(r1, r2, divr, divh, material);
 		break;
-
+	default:
+		throw domain_error(string("Unerwartetes Token: ") +(char)tok);
 	}
 	assert(obj != NULL);
 	objects_.insert(make_pair(id, obj));
@@ -831,6 +917,8 @@ void Scene::createObjectFromFile(enum sc_Tokens tok, const char **attr)
 		  case TOK_src:
 			  src = val;
 			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
 		  }
 		} else {
 			throw domain_error(string("Unerwartetes Token: ") + name);
@@ -847,6 +935,8 @@ void Scene::createObjectFromFile(enum sc_Tokens tok, const char **attr)
 	case TOK_jaw:
 		obj = plReadJAWObj( (char *)src.c_str(), material);
 		break;
+	default:
+		throw domain_error(string("Unerwartetes Token: ") + (char)tok);
 	}
 	assert(obj != NULL);
 	objects_.insert(make_pair(id, obj));
@@ -889,6 +979,8 @@ void Scene::createTransformation(enum sc_Tokens tok, const char **attr)
 		  case TOK_za:
 			  Za = atof(val);
 			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
 		  }
 	  } else {
 		  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -922,7 +1014,49 @@ void Scene::createTransformation(enum sc_Tokens tok, const char **attr)
 			obj->Zp = Zp;
 		}
 		break;
+	default:
+		throw domain_error(string("Unerwartetes Token: ") + (char)tok);
 	}
+}
+
+void Scene::doScale(enum sc_Tokens tok, const char **attr) 
+{
+	pl_Float X = 0.0, Y = 0.0, Z = 0.0;
+	bool relative = false;	// #DEFAULT
+	string id;
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char *name = attr[ i ];
+		const char *val = attr[ i + 1 ];
+
+	    sc_TokenPair *res = sc_search(name);
+		if (res) {
+		  switch (res->val) {
+		  case TOK_obj:
+			  id = val;				
+			  break;
+		  case TOK_x:
+			  X = atof(val);
+			  break;
+		  case TOK_y:
+			  Y = atof(val);
+			  break;
+		  case TOK_z:
+			  Z = atof(val);
+			  break;
+		  default:
+			  throw domain_error(string("Unerwartetes Token: ") + name);
+		  }
+	  } else {
+		  throw domain_error(string("Unerwartetes Token: ") + name);
+	  }		
+	} // end for
+
+	pl_Obj *obj = findObject( id );
+	if (obj == NULL) {
+		throw domain_error(string("Objekt nicht gefunden: ") + id);
+	}
+	plObjStretch(obj, X, Y, Z);
 }
 
 void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)

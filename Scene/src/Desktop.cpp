@@ -293,19 +293,19 @@ void Desktop::display() {
 		scene_.render();
 		frames_++;
 		scene_.execute(avgDifftime_);
+		if (direct_) { 
+			  MxBlitToScreenFast(ctx_, NULL, 
+						 0, 0, 
+						 desktop_.base.object.position.x1, 
+						 desktop_.base.object.position.y1,
+						 desktop_.base.object.position.x2 - desktop_.base.object.position.x1, 
+						 desktop_.base.object.position.y2 - desktop_.base.object.position.y1);
+			
+		} else {
+			MxRefresh(&getDesktop()->base.object);
+		}
 	}
 
-	if (direct_) { 
-		  MxBlitToScreenFast(ctx_, NULL, 
-					 0, 0, 
-					 desktop_.base.object.position.x1, 
-					 desktop_.base.object.position.y1,
-					 desktop_.base.object.position.x2 - desktop_.base.object.position.x1, 
-					 desktop_.base.object.position.y2 - desktop_.base.object.position.y1);
-		
-	} else {
-		MxRefresh(&getDesktop()->base.object);
-	}
 }
 
 void Desktop::mouse_reset() 
