@@ -1,5 +1,7 @@
 #pragma warning (disable : 4786)
 
+#include "matedit2.h"
+
 #include <assert.h>
 #include <algorithm>
 #include <iomanip>
@@ -15,7 +17,6 @@
 #include <unistd.h>
 #endif
 
-#include "depui/depui.h"
 #include "depui/graphics/clip.h"
 #define GrContext GrContext2
 #define GrFont GrFont2
@@ -25,7 +26,9 @@
 #undef GrFont 
 
 #include "Scene.h"
-#include "matedit2.h"
+
+using namespace std;
+using namespace scene;
 
 #ifdef WIN32
 const int screen_w = 640;
@@ -461,7 +464,11 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
   }
 
   // Shininess / Transparent
-  const char *sl_grp2[] = {"Shininess", "Transparent"};
+  const char *sl_grp2[] = {"Shin Transp", "Fad TxSc Per"};
+  MxSlider **sliderInit[2][3] = {
+	  {&sliderShininess, &slider, &sliderTransparent},
+	  {&sliderFadeDist, &sliderTexScaling, &sliderPerspectiveCorrect}
+	};
   for (row = 0; row < 2; row++) {
     MxArgsInit(&rbgargs);
     rbgargs.caption = sl_grp2[row];
@@ -469,31 +476,31 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
     f_x1 = 115;
     f_y1 = 5 + (145*row);
     MxRadioGroupNew(matWin->client, f_x1, f_y1, f_w, f_h, &rbgargs);
-    slider = MxSliderVNew(matWin->client, 155, 20 + (145*row), MxDefault, 90, &sliderargs);
-    switch (row) {
-    case 0:
-      sliderShininess = slider;
-      break;
-    case 1:
-      sliderTransparent = slider;
-      break;
-    default:
-      assert (row<3);
-    }
+    for (col = 0; col < 3; col++) {
+		if (row==0 && col == 1)
+			continue;
+		if (col==0 && row==1) {
+		  sliderargs.range = 10000;
+		} else {
+		  sliderargs.range = 0;
+		}
+		slider = MxSliderVNew(matWin->client, 125 + (30*col), 20 + (145*row), MxDefault, 90, &sliderargs);
+		*sliderInit[row][col] = slider;
 
-    /* Display the count */
-    MxArgsInit(&textargs);
-    sprintf(buffer,"%3d",slider->index); 
-    textargs.caption = (const char *)MxMalloc(strlen(buffer)+1);
-    strcpy((char *)textargs.caption, buffer);
-    textargs.ownscaption = 1;
-    textargs.len = strlen(textargs.caption);
-    textargs.just = (MxStatictextJustify) (MxJustifyVCenter | MxJustifyHCenter);
-    staticTextForSlider = MxStatictextNew(matWin->client, 147, 115 + (145*row), MxDefault, MxDefault, &textargs);
+		/* Display the count */
+		MxArgsInit(&textargs);
+		sprintf(buffer,"%3d",slider->index); 
+		textargs.caption = (const char *)MxMalloc(strlen(buffer)+1);
+		strcpy((char *)textargs.caption, buffer);
+		textargs.ownscaption = 1;
+		textargs.len = strlen(textargs.caption);
+		textargs.just = (MxStatictextJustify) (MxJustifyVCenter | MxJustifyHCenter);
+		staticTextForSlider = MxStatictextNew(matWin->client, 117 + (30*col), 115 + (145*row), MxDefault, MxDefault, &textargs);
 
-    /* Make the slider call the text update handler */
-    slider->target = &staticTextForSlider->base.object;   // send MxEventSlider to target staticTextForSlider
-    staticTextForSlider->base.object.handler = MxSliderStaticTextHandler;
+		/* Make the slider call the text update handler */
+		slider->target = &staticTextForSlider->base.object;   // send MxEventSlider to target staticTextForSlider
+		staticTextForSlider->base.object.handler = MxSliderStaticTextHandler;
+	}
   }
 
   // Textures
@@ -531,6 +538,15 @@ void MatEdit::updateMatWin() {
 
 	  matChanged |= (mat->Transparent != sliderTransparent->index);
 	  mat->Transparent = sliderTransparent->index;
+
+	  matChanged |=  (mat->FadeDist != sliderFadeDist->index);
+	  mat->FadeDist = sliderFadeDist->index;
+
+	  matChanged |=  (mat->TexScaling != sliderTexScaling->index);
+	  mat->TexScaling = sliderTexScaling->index;
+
+	  matChanged |=  (mat->PerspectiveCorrect != sliderPerspectiveCorrect->index);
+	  mat->PerspectiveCorrect = sliderPerspectiveCorrect->index;
   }
 
   if (matChanged) {
@@ -570,6 +586,9 @@ void MatEdit::OnChangedScene() {
     }
 	mx_slider_scroll_to(sliderShininess, mat ? mat->Shininess : 126);
 	mx_slider_scroll_to(sliderTransparent, mat ? mat->Transparent : 126);
+	mx_slider_scroll_to(sliderFadeDist, mat ? mat->FadeDist : 10000);
+	mx_slider_scroll_to(sliderTexScaling, mat ? mat->TexScaling : 0);
+	mx_slider_scroll_to(sliderPerspectiveCorrect, mat ? mat->PerspectiveCorrect : 0);
 }
 
 inline void checkPal() {

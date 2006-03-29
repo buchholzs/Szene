@@ -1,5 +1,9 @@
 // Copyright (c) 2006 Steffen Buchholz
 
+#include <string>
+#include <list>
+#include "depui/depui.h"
+#include "Scene.h"
 
 /*
  * Applikation zum Editieren von Materialeigenschaften
@@ -7,24 +11,24 @@
 class MatEdit {
 public:
 	// Konstruktor
-	MatEdit(string filename);
+	MatEdit(std::string filename);
 	// Ausgabe der Szene und der GUI
 	void run();
 	// Szene löschen
 	void newScene();
 	// Szene neu laden
-	void loadScene(const string &filename);
+	void loadScene(const std::string &filename);
 	// Textur des ausgeählten Materials neu laden
-	void loadTexture(const string &filename);
+	void loadTexture(const std::string &filename);
 private:
 	// erzeugt ein Fenster mit dem Materialeditor
 	void createMatWin(MxDesktop *desktop);
 	// Erzeugt den Desktop
 	int createDesktop(MxDesktop *desktop);
 	// Ausgabe von Zusatzinfos
-	void printLines(const pl_Cam *cam, const list<string> &lines);
+	void printLines(const pl_Cam *cam, const std::list<std::string> &lines);
 	// Ausgabe der Materialien in eine Liste
-	void dumpMaterial(pl_Mat *mat, list<string> &l);
+	void dumpMaterial(pl_Mat *mat, std::list<std::string> &l);
 	// Palette neu laden
 	void reloadPalette();
 	// MatEdit aktualisieren
@@ -33,8 +37,8 @@ private:
 	void OnChangedScene();	
 	friend void *MatWinHandler(MxObject * object, const MxEvent * const event);
 
-	string filename; // Filename der Szene
-	Scene scene; // Szene
+	std::string filename; // Filename der Szene
+	scene::Scene scene; // Szene
 	bool matChanged; // material changed
 
 	char lastmessage[256]; // Message for Alert
@@ -53,6 +57,9 @@ private:
 	MxSlider *sliderSpecular[3];
 	MxSlider *sliderShininess;
 	MxSlider *sliderTransparent;
+	MxSlider *sliderFadeDist;
+	MxSlider *sliderTexScaling;
+	MxSlider *sliderPerspectiveCorrect;
 
 	MxStatictext *staticTextTexture;
 };

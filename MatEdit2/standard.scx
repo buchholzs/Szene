@@ -6,10 +6,6 @@
 <camera id="camera" fov="90.0" z="-200"/>
 </cameras>
 <materials>
-<material id="planemat" numgradients="100" shadetype="PL_SHADE_GOURAUD_DISTANCE" 
-ambient0="0" ambient1="0" ambient2="0" 
-diffuse0="0" diffuse1="0" diffuse2="20"
-/>
 
 <material id="stdmat" numgradients="100"
 shadetype="PL_SHADE_GOURAUD"
@@ -24,11 +20,6 @@ specular0="138" specular1="86" specular2="38" />
 intensity="1.0" falloff="1.0"/>
 </lights>
 <objects>
-<plane id="plane" material="planemat" w="1000.0" d="1000" res="32"/>
 <sphere id="stdobj" material="stdmat" r="50.0" divr="48" divh="48"/>
 </objects>
-<transformations>
-<rotate obj="plane" relative="yes" xa="30"/>
-<translate obj="plane" relative="yes" yp="-100"/>
-</transformations>
 </scene>
