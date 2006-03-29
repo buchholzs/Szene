@@ -2,6 +2,9 @@
 
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
+  <global>
+    <background color="9"/>
+  </global>
 <cameras>
 <camera id="camera" fov="90.0" z="-300" y="50" pitch="-20"/>
 </cameras>
