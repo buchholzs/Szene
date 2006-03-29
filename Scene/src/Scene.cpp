@@ -291,7 +291,7 @@ void Scene::render ()
 		memset(zBuffer_,0,screenWidth_*screenHeight_*sizeof(pl_ZBuffer));
 	}
 	if (frameBuffer_) {
-	    memset(frameBuffer_,0,screenWidth_*screenHeight_); // clear framebuffer for next frame
+	    memset(frameBuffer_,background_,screenWidth_*screenHeight_); // clear framebuffer for next frame
 	}
 	const pl_Cam *cam = getCurrCamera();
 	assert(cam != NULL);
