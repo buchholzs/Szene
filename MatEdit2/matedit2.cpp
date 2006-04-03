@@ -44,6 +44,7 @@ static void fileNewHandler(MxObject * object, void *data, unsigned int selected)
 static void fileOpenHandler(MxObject * object, void *data, unsigned int selected);
 static void fileExitHandler(MxObject * object, void *data, unsigned int selected);
 static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent * const event);
+static void resizeFileSelector(MxFileselector *fs);
 
 //////////////////////////////////////////////////////////////////////////////
 // Konstanten und Statische Variablen
@@ -137,7 +138,17 @@ static void fileOpenHandler(MxObject * object, void *data, unsigned int selected
   args.window.caption = "Select scene file";
 
   /* Start the file selector */
-  MxFileselectorStart(&args, MxParent(object), &okSel->base.object);
+  MxFileselector *fs = MxFileselectorStart(&args, MxParent(object), &okSel->base.object);
+  resizeFileSelector(fs);
+}
+
+static void resizeFileSelector(MxFileselector *fs) {
+  /* Change the window size to fit the desktop size */
+   MxObject *parent = MxParent(&fs->base.object);
+  MxGeomSize(&fs->base.object, MxW(&fs->base.object), MxH(parent)/2);
+  MxGeomPosition(&fs->base.object, fs->base.object.position.x1, MxH(parent)/4);
+  MxEventSendSimple(&fs->base.object, MxEventGeomChanged);
+  MxEnqueueRefresh(&fs->base.object, MxTrue);
 }
 
 static void fileExitHandler(MxObject * object, void *data, unsigned int selected) {
@@ -300,7 +311,8 @@ static void TextureButtonHandler(MxObject * object, void *data, unsigned int sel
   args.window.caption = "File Selector";
 
   /* Start the file selector */
-  MxFileselectorStart(&args, MxParent(&btn->base.object), &okSel->base.object);
+  MxFileselector *fs = MxFileselectorStart(&args, MxParent(&btn->base.object), &okSel->base.object);
+  resizeFileSelector(fs);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -413,7 +425,7 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
   windowargs.unresizeable = MxTrue;
 
   /* Add our window to the desktop  */
-  matWin = MxWindowNew(&desktop->base.object, screen_w / 2, 19, 220, 10 + MxFontHeight(MxFontDefault)+ 145 * 3, &windowargs);
+  matWin = MxWindowNew(&desktop->base.object, screen_w / 2, 0, screen_w / 2, screen_h, &windowargs);
   matWin->base.object.handler = MatWinHandler;
 
   /* Make some sliders */
@@ -473,7 +485,7 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
     MxArgsInit(&rbgargs);
     rbgargs.caption = sl_grp2[row];
     rbgargs.len = strlen(rbgargs.caption);
-    f_x1 = 115;
+    f_x1 = 110;
     f_y1 = 5 + (145*row);
     MxRadioGroupNew(matWin->client, f_x1, f_y1, f_w, f_h, &rbgargs);
     for (col = 0; col < 3; col++) {
@@ -501,6 +513,23 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
 		slider->target = &staticTextForSlider->base.object;   // send MxEventSlider to target staticTextForSlider
 		staticTextForSlider->base.object.handler = MxSliderStaticTextHandler;
 	}
+  }
+
+  // Shade modes
+  const char *sl_grp3[] = {"None", "Flat", "Flt Dist", "Gouraud", "Grd Dist"};
+  MxButton **btnInit[] = {
+	  &radioNone, &radioFlat, &radioFlatDistance, &radioGouraud, &radioGouraudDistance
+  };
+  MxArgsInit(&btnargs);
+  MxArgsInit(&rbgargs);
+  rbgargs.caption = "Shade modes";
+  rbgargs.len = strlen(rbgargs.caption);
+  f_x1 = 215;
+  f_y1 = 5;
+  MxRadioGroup *group = MxRadioGroupNew(matWin->client, f_x1, f_y1, f_w, f_h, &rbgargs);
+  for (row = 0; row < 5; row++) {
+	btnargs.stext.caption = sl_grp3[row];
+	*btnInit[row] = MxRadioButtonNew(&group->base.object, 10, 16 + (row*25), MxDefault, MxDefault, &btnargs);
   }
 
   // Textures
@@ -547,6 +576,10 @@ void MatEdit::updateMatWin() {
 
 	  matChanged |=  (mat->PerspectiveCorrect != sliderPerspectiveCorrect->index);
 	  mat->PerspectiveCorrect = sliderPerspectiveCorrect->index;
+
+	  int shadeType = radio2ShadeType();
+	  matChanged |= (mat->ShadeType != shadeType);
+	  mat->ShadeType = shadeType;
   }
 
   if (matChanged) {
@@ -589,7 +622,51 @@ void MatEdit::OnChangedScene() {
 	mx_slider_scroll_to(sliderFadeDist, mat ? mat->FadeDist : 10000);
 	mx_slider_scroll_to(sliderTexScaling, mat ? mat->TexScaling : 0);
 	mx_slider_scroll_to(sliderPerspectiveCorrect, mat ? mat->PerspectiveCorrect : 0);
+	if (mat) {
+		shadeType2Radio(mat->ShadeType);
+	}
 }
+
+//
+// shadeType -> Radio
+void MatEdit::shadeType2Radio(int shadeType) {
+	MxButton *btn = NULL;
+	switch (shadeType) {
+		case PL_SHADE_NONE:
+			btn = radioNone;
+			break;
+		case PL_SHADE_FLAT:
+			btn = radioFlat;
+			break;
+		case PL_SHADE_FLAT_DISTANCE:
+			btn = radioFlatDistance;
+			break;
+		case PL_SHADE_GOURAUD:
+			btn = radioGouraud;
+			break;
+		case PL_SHADE_GOURAUD_DISTANCE:
+			btn = radioGouraudDistance;
+			break;
+	}
+    MxEventSendSimple(&btn->base.object, MxEventSelect);
+}
+
+// Radio -> shadeType
+int MatEdit::radio2ShadeType() {
+	int shadeType;
+	if (radioNone->pressed)
+		shadeType = PL_SHADE_NONE;
+	else if (radioFlat->pressed)
+		shadeType = PL_SHADE_FLAT;
+	else if (radioFlatDistance->pressed)
+		shadeType = PL_SHADE_FLAT_DISTANCE;
+	else if (radioGouraud->pressed)
+		shadeType = PL_SHADE_GOURAUD;
+	else if (radioGouraudDistance->pressed) 
+		shadeType = PL_SHADE_GOURAUD_DISTANCE;
+	return shadeType;
+}
+
 
 inline void checkPal() {
 #if 0
@@ -631,6 +708,7 @@ void MatEdit::dumpMaterial(pl_Mat *mat, list<string> &l) {
   }
 }
 
+// Palette neu laden
 void MatEdit::reloadPalette() 
 {
   int i;
@@ -770,6 +848,9 @@ void MatEdit::run() {
   GrSetMode( GR_default_text );
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// Hauptfunktion
+//
 extern "C" int
 GRXMain(int argc, char **argv)
 {

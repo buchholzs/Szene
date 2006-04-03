@@ -34,8 +34,13 @@ private:
 	// MatEdit aktualisieren
 	void updateMatWin();
 	// MatWin aktualisieren
-	void OnChangedScene();	
+	void OnChangedScene();
+	// MatWin Handler
 	friend void *MatWinHandler(MxObject * object, const MxEvent * const event);
+	// shadeMode -> Radio
+	void shadeType2Radio(int shadeType);
+	// Radio -> shadeMode
+	int radio2ShadeType();
 
 	std::string filename; // Filename der Szene
 	scene::Scene scene; // Szene
@@ -60,6 +65,12 @@ private:
 	MxSlider *sliderFadeDist;
 	MxSlider *sliderTexScaling;
 	MxSlider *sliderPerspectiveCorrect;
+
+	MxButton *radioNone;
+	MxButton *radioFlat;
+	MxButton *radioFlatDistance;
+	MxButton *radioGouraud;
+	MxButton *radioGouraudDistance;
 
 	MxStatictext *staticTextTexture;
 };
