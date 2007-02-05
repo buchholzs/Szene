@@ -18,8 +18,10 @@ public:
 	void newScene();
 	// Szene neu laden
 	void loadScene(const std::string &filename);
-	// Textur des ausgeählten Materials neu laden
+	// Textur des ausgewählten Materials neu laden
 	void loadTexture(const std::string &filename);
+	// Textur des ausgewählten Materials entfernen
+	void resetTexture();
 private:
 	// erzeugt ein Fenster mit dem Materialeditor
 	void createMatWin(MxDesktop *desktop);
