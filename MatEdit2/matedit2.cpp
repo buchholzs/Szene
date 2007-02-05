@@ -24,7 +24,6 @@
 #include <grxkeys.h>
 #undef GrContext 
 #undef GrFont 
-
 #include "Scene.h"
 
 using namespace std;
@@ -55,7 +54,7 @@ const char *defFileName = "standard.scx";
 const char *CStdMat= "stdmat";
 const char *CStdObj = "stdobj";
 
-const int texTextLen = 11;
+const int texTextLen = 22;
 const int CTextColor = 9;	// Idx of text color
 const int CWinColors = 20;	// Readonly colors
 const int CFixColors = CWinColors + 3;	// used for text and background
@@ -315,6 +314,15 @@ static void TextureButtonHandler(MxObject * object, void *data, unsigned int sel
   resizeFileSelector(fs);
 }
 
+// Button "Reset Texture" pressed
+static void ResetTextureButtonHandler(MxObject * object, void *data, unsigned int selected) {
+  MxButton *btn = (MxButton *) object;
+
+  if (!selected)
+    return;
+  matedit->resetTexture();
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // Methoden
 //
@@ -414,6 +422,7 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
   MxStatictextArgs textargs;
   MxRadioGroupArgs rbgargs;
   MxButtonArgs btnargs;
+  MxButton *button;
 
   int col, row;
   int f_x1, f_w, f_y1, f_h;
@@ -537,14 +546,19 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
   MxArgsInit(&btnargs);
   btnargs.stext.caption = "Texture";
   btnargs.callback = TextureButtonHandler;
-  MxButton *b1 = MxPushButtonNew(matWin->client, 115, 301, 100, MxDefault, &btnargs);
+  button = MxPushButtonNew(matWin->client, 110, 301, MxDefault, MxDefault, &btnargs);
   // Text
   MxArgsInit(&textargs);
   textargs.caption = strdup(string(texTextLen,' ').c_str());
   textargs.len = strlen(textargs.caption);
   textargs.ownscaption = MxTrue;
   textargs.just = (MxStatictextJustify) (MxJustifyVCenter | MxJustifyHCenter);
-  staticTextTexture = MxStatictextNew(matWin->client, 115, 326, 100, MxDefault, &textargs);
+  staticTextTexture = MxStatictextNew(matWin->client, 115, 326, 200, MxDefault, &textargs);
+  // Reset Button
+  MxArgsInit(&btnargs);
+  btnargs.stext.caption = "Reset";
+  btnargs.callback = ResetTextureButtonHandler;
+  button = MxPushButtonNew(matWin->client, 220, 301, MxDefault, MxDefault, &btnargs);
 }
 
 // MatEdit aktualisieren nach GUI Änderungen
@@ -702,6 +716,12 @@ void MatEdit::dumpMaterial(pl_Mat *mat, list<string> &l) {
     l.push_back(buf.str()); buf.seekp(0);
     buf << "Transparent:" << setw(4) << (int)mat->Transparent << ends;
     l.push_back(buf.str()); buf.seekp(0);
+    buf << "FadeDistance:" << setw(4) << (int)mat->FadeDist << ends;
+    l.push_back(buf.str()); buf.seekp(0);
+    buf << "TexScaling:" << setw(4) << (int)mat->TexScaling << ends;
+    l.push_back(buf.str()); buf.seekp(0);
+    buf << "PerspectiveCorrect:" << setw(4) << (int)mat->PerspectiveCorrect << ends;
+    l.push_back(buf.str()); buf.seekp(0);
   } else {
     buf << "Kein Material ausgewählt." << ends;
     l.push_back(buf.str()); buf.seekp(0);
@@ -780,7 +800,7 @@ void MatEdit::loadScene(const string &filename) {
   }
 }
 
-// Szene neu laden
+// Textur des ausgewählten Materials neu laden
 void MatEdit::loadTexture(const string &filename) {
   try {
     pl_Texture *tex = plReadPCXTex((char *)filename.c_str(), true, true);
@@ -818,6 +838,19 @@ void MatEdit::loadTexture(const string &filename) {
     MxAlertStart(&msgOk, &desktop.base.object);
     return;
   }
+}
+
+// Textur des ausgewählten Materials entfernen
+void MatEdit::resetTexture() {
+    // apply to material
+    if (mat) {
+      mat->Texture = NULL;
+    }
+    MxStatictextSet(staticTextTexture, "", 0);
+	MxEnqueueRefresh(&staticTextTexture->base.object, MxFalse);
+
+    matChanged = true;
+    strcpy(lastmessage, "Texture reset.");
 }
 
 // Ausgabe der Szene und der GUI
