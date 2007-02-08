@@ -4,7 +4,7 @@
 vpath_src = src
 vpath %.cpp $(vpath_src)
 
-LIBOBJ=	sc_tokens.o Scene.o Controller.o Desktop.o MoveMode.o \
+LIBOBJ=	sc_tokens.o Scene.o Controller.o SceneDesktop.o MoveMode.o \
 	WalkMode.o FlyMode.o Hud.o Command.o HudRefreshCmd.o
 
 INCLUDE_DIRS += src ../contrib/grx243/include ../depui/include ../expat-1.95.2/source/lib ../plush/src
@@ -22,9 +22,6 @@ LDLIBS = $(LIB_DIRS) $(EXELIBS)
 all: lib
 
 lib: libscene.a $(LIBOBJ)
-
-sceneplr.exe: App.o
-	$(LINK.o) $^ $(LDLIBS) -o $@
 
 libscene.a: $(LIBOBJ)
 	$(AR) rs $@ $^
