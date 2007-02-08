@@ -6,10 +6,9 @@
 #ifndef _Controller_H_
 #define _Controller_H_
 
-#include <plush.h>
-#include <string>
-
 #include "MoveMode.h"
+
+struct SceneDesktop;
 
 namespace scene {
 
@@ -28,6 +27,8 @@ public:
 	void	pitchView (const float pitch) {moveMode_->pitchView(pitch); }
 	void	setMoveMode (MoveMode* moveMode) { moveMode_ = moveMode; }
 	const MoveMode* getMoveMode () { return moveMode_; }
+	void	loadScene(SceneDesktop *desktop);
+	void	saveScene(SceneDesktop *desktop);
 private:
 	MoveMode*	moveMode_;
 	Scene	*scene_;
