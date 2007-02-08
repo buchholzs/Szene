@@ -361,6 +361,7 @@ void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio
 	zBuffer_ = new pl_ZBuffer[screenWidth * screenHeight];
 	frameBuffer_ = new pl_uChar[screenWidth * screenHeight];
 	aspectRatio_ = aspectRatio;
+	background_ = 0;
 }
 
 // delete action
