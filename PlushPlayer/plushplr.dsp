@@ -68,7 +68,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "..\plush\src" /I "..\Expat-1.95.2\Source\lib" /I "..\depui\include" /I "..\contrib\grx243\include" /I "../scene/src" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D main=GRXMain /FR /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "..\plush\src" /I "..\Expat-1.95.2\Source\lib" /I "..\depui\include" /I "..\contrib\grx243\include" /I "..\Scene\src" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D main=GRXMain /FR /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
@@ -91,16 +91,12 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\src\App.cpp
+SOURCE=.\src\PlushPlayer.cpp
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=.\src\App.h
-# End Source File
 # End Group
 # Begin Group "Ressourcendateien"
 
