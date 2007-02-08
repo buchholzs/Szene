@@ -93,10 +93,6 @@ SOURCE=.\src\Controller.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\Desktop.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\FlyMode.cpp
 # End Source File
 # Begin Source File
@@ -118,6 +114,10 @@ SOURCE=.\src\sc_tokens.cpp
 # Begin Source File
 
 SOURCE=.\src\Scene.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\SceneDesktop.cpp
 # End Source File
 # Begin Source File
 
@@ -162,6 +162,10 @@ SOURCE=.\src\sc_tokens.h
 # Begin Source File
 
 SOURCE=.\src\Scene.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\SceneDesktop.h
 # End Source File
 # Begin Source File
 
