@@ -40,8 +40,11 @@ void Hud::display (GrContext* ctx)
   int sizex = ctx->gc_xmax + 1;
   int sizey = ctx->gc_ymax + 1;
 
-  const GrContext *oldctx = GrCurrentContext();
+  GrContext oldctx;
+  GrSaveContext(&oldctx);
+
   GrSetContext(ctx);
+  //GrClearContext( GrBlack() );
 
   str << setprecision(1) << fixed << "FPS=" << fps_;
   GrTextXY(5, ypos , (char*)str.str().c_str(), statusColor_, GrNOCOLOR);
@@ -60,9 +63,7 @@ void Hud::display (GrContext* ctx)
   GrLine(sizex/2 - 10, sizey/2, sizex/2 + 10, sizey/2, statusColor_);
   GrLine(sizex/2, sizey/2 - 10, sizex/2, sizey/2 + 10, statusColor_);
 
-
-
-  GrSetContext(oldctx);
+  GrSetContext(&oldctx);
 }
 
 
