@@ -81,12 +81,20 @@ void renderScene(string file) {
   bool doInit = true;
 
   float prevtime = clock() / (float) CLOCKS_PER_SEC; 
-  float currtime = prevtime , difftime = 0.0; 
+  float currtime = prevtime , difftime, avgfps, elapsedtime = 0.0; 
+  int frames = 0;
   mouse_reset();
   while( 1 ) {
+	frames ++;
     currtime = (clock() / (float) CLOCKS_PER_SEC);
     difftime = currtime - prevtime;
     prevtime = currtime;
+	elapsedtime += difftime;
+	if (frames == 20) {
+		avgfps = frames / elapsedtime;
+		elapsedtime = frames = 0;
+	}
+	
     
     if (doInit) {
       doInit = false;
@@ -156,8 +164,8 @@ void renderScene(string file) {
 		 ( pl_sChar *)"Pitch=%.2f Pan=%.2f Roll=%.2f MX=%d MY=%d",
 		 cam->Pitch,cam->Pan, cam->Roll, mouse_x, mouse_y);
     plTextPrintf(cam,cam->ClipLeft+5,cam->ClipBottom-24, 0.0,CText,
-		 ( pl_sChar *)"X=%.2f Y=%.2f Z=%.2f FPS=%.1f", 
-		 cam->X, cam->Y, cam->Z, 1.0 / difftime);
+		 ( pl_sChar *)"X=%.2f Y=%.2f Z=%.2f FPS=%3.1f", 
+		 cam->X, cam->Y, cam->Z, avgfps);
     plTextPrintf(cam,cam->ClipLeft+5,cam->ClipBottom-36, 0.0,CText,
 		 lastmessage);
     GrBitBlt(NULL, 0, 0,ctx,
