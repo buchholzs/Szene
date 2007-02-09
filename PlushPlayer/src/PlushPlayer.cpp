@@ -53,76 +53,9 @@ static char filename[MX_MAX_PATH] = "";
 const int refresh_ivl = 200; // Refresh-Inteval in msec
 
 
-//////////////////////////////////////////////////////////////////////////////
-// Forward declarations
-//
-static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent * const event);
-
-// File | Open Filedialog OK selected
-static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent * const event) {
-  MxStatictext *okSel	= (MxStatictext *)object;
-
-  switch (event->type) {
-  case MxEventOk: 
-	  {
-		// change dir
-#ifdef WIN32
-		char *lbs = strrchr(filename, '/');
-		if (lbs != NULL) {
-			  *lbs='\0';
-		}
-		char *newDir= lbs == NULL ? NULL : strdup(filename);
-		const char *fileName = lbs == NULL ? filename : ++lbs;
-#else
-		char *newDir = dirname(filename);
-		const char *fileName = basename(filename);
-#endif
-		if (newDir != NULL) {
-		  chdir(newDir);
-		  free(newDir);
-		}
-		loadScene((SceneDesktop *)MxParent(&okSel->base.object), fileName);
-		MxDestroy(object);	// destroy okSel
-	  }
-	break;
-  default:
-	return MxStatictextHandler(object, event);
-  }
-  return 0;
-}
-
-
-/* Button calback to call up a file selector */
-static void fileOpenHandler(MxObject * object, void *data, unsigned int selected)
-{
- if (selected) {
-  /* text for filename */
-  MxStatictextArgs textargs;
-  MxArgsInit(&textargs);
-  textargs.caption = "Hallo";
-  MxStatictext *okSel = MxStatictextNew(MxParent(object), 0, 0, 0, 0, &textargs);
-  okSel->base.object.handler = fileOpenOKSelectedHandler;
-//  MxHide(&okSel->base.object, MxTrue);
-
-  /* Setup the file selector arguments */
-  MxFileselectorArgs args;
-
-  MxArgsInit(&args);
-  args.file = (char *)filename;
-  strcpy(args.file, "");
-  args.pattern = "*.SCX;*.scx";
-  args.attrib = FA_RDONLY | FA_DIREC;
-  args.window.caption = "Select scene file";
-
-  /* Start the file selector */
-  MxFileselector *fs = MxFileselectorStart(&args, MxParent(object), &okSel->base.object);
- }
-}
-
 extern "C" int GRXMain(int argc, char *argv[])
 {
 	 MxButton myexit;
-	 MxButton button;
 	 MxButtonArgs buttonargs;
 
 	 /* Create some drivers specific to the system */
@@ -151,12 +84,6 @@ extern "C" int GRXMain(int argc, char *argv[])
 	 MxArgsInit(&buttonargs);
 	 MxExitButtonConstruct(&myexit, &desktop.base.object, 0, 0, MxDefault, MxDefault, 0);
 
-	 /* Make a button that will open up a file selector */
-	 MxArgsInit(&buttonargs);
-	 buttonargs.stext.caption = "Open file selector";
-	 buttonargs.callback = fileOpenHandler;
-	 MxPushButtonConstruct(&button, &desktop.base.object, 10, 30, MxDefault, MxDefault, &buttonargs);
-
 	  /* Run the desktop until it wants to exit */
 	  clock_t oldclk = clock();
 	  clock_t newclk;
@@ -176,7 +103,9 @@ extern "C" int GRXMain(int argc, char *argv[])
 		newclk = clock();  
 		if (((newclk - oldclk)*1000/CLOCKS_PER_SEC) > refresh_ivl) {
 		  oldclk = newclk;
-		  updateScene(&desktop);
+		  if (desktop.directDisplay) {
+			updateScene(&desktop);
+		  }
 		}
 
 		if (sceneToLoad) {
