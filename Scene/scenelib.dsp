@@ -137,10 +137,6 @@ SOURCE=.\src\Controller.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\Desktop.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\FlyMode.h
 # End Source File
 # Begin Source File
