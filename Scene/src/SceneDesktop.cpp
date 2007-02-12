@@ -1,3 +1,4 @@
+#pragma warning (disable : 4786)
 #include "SceneDesktop.h"
 
 #include <assert.h>
@@ -15,14 +16,27 @@
 #include <depui/object/object.h>
 #include <depui/graphics/clip.h>
 
+#include "Controller.h"
+#include "Hud.h"
+#include "HudRefreshCmd.h"
+#include "MoveMode.h"
+#include "FlyMode.h"
+#include "Scene.h"
+#include "WalkMode.h"
+
 using namespace std;
 using namespace scene;
-
 //////////////////////////////////////////////////////////////////////////////
 // Konstanten und Statische Variablen
 //
+static void mouse_reset(SceneDesktop * desktop);
+static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
+
 const int CFixColors = 20;	// Readonly colors
 const float velocity  = 200.0f / 1000.0f;	// m/s
+const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
+const int reset_area = 20;	// constraint mouse movement around center
+const int avg_frame_window = 10; // average time over n frames
 
 static char lastmessage[256] = "";
 
@@ -37,8 +51,44 @@ static MxAlertArgs msgOk = { "Alert", lastmessage,
 void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 {
   SceneDesktop *desktop = (SceneDesktop *) object;
+  int screen_w = ((GrContext2 *)desktop->ctx)->gc_xmax + 1;
+  int screen_h = ((GrContext2 *)desktop->ctx)->gc_ymax + 1;
+  int mouse_x, mouse_y;
  
   switch (event->type) {
+  case MxEventDestroy:
+	  delete desktop->scn;
+	  GrDestroyContext((struct _GR_context *)desktop->ctx);
+	  delete desktop->walkMode;
+	  delete desktop->flyMode;
+	  delete desktop->controller;
+	  break;
+
+  case MxEventPointerEnter:
+	  if (desktop->directDisplay) {
+		GrMouseWarp(screen_w / 2, screen_h / 2);
+		desktop->old_mouse_x = screen_w / 2;
+		desktop->old_mouse_y = screen_h / 2;
+		MxPointerWantMove(object, MxTrue);
+		  /* Fall through */
+	  } else {
+		break;
+	  }
+
+  case MxEventPointerMove: 
+	  if (desktop->directDisplay) {
+		mouse_x = event->point.x;
+		mouse_y = event->point.y;
+		mouse_get(desktop, event, mouse_x, mouse_y);
+		desktop->controller->panView(mouse_x*mouse_sens);
+		desktop->controller->pitchView(mouse_y*mouse_sens);
+
+		if (!((event->point.x >= reset_area && event->point.x <= screen_w - reset_area) &&
+			(event->point.y >= reset_area && event->point.y <= screen_h - reset_area)))
+			mouse_reset(desktop);
+	  }
+	  break;						   
+
     /* Escape key */
   case MxEventKeyUnbound:
 	  switch (event->key.code) {
@@ -145,6 +195,18 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	// create controller
 	desktop->controller = new Controller(desktop->walkMode, desktop->scn);
 
+	// hud
+	desktop->hud = new Hud(LIGHTGRAY);
+
+	// direct display
+	desktop->directDisplay = true;
+
+	desktop->frames = 0;
+	desktop->prevtime = 0;
+	desktop->elapsedTime = 0;
+	desktop->difftime = 0;
+	desktop->prevtime = clock(); 
+
 }
 
 // Szene neu laden
@@ -152,7 +214,16 @@ void loadScene(SceneDesktop * desktop, const std::string &filename) {
   try {
     desktop->scn->loadXML(filename);
 	reloadPalette(desktop);
+	Scene::ActionMap *am = desktop->scn->getAllActions();
+	scene::Command *hudRefreshCmd = new scene::HudRefreshCmd(desktop->hud,
+		(_GR_context*)desktop->ctx);
+	string id = "HudRefreshCmd";	
+	am->insert(make_pair(id, hudRefreshCmd));
+
     strcpy(lastmessage, (std::string(filename) + " loaded.").c_str());
+	desktop->hud->setStatus(lastmessage);
+
+	desktop->directDisplay = true;
   } catch (Scene::IOError &) {
     ostringstream msg;
     msg << filename << ": file not found"; 
@@ -175,20 +246,41 @@ void updateScene(SceneDesktop * desktop) {
   assert(desktop->prevtime <= currtime);
   desktop->difftime = (float)(currtime - desktop->prevtime)*1000.0 / (float) CLOCKS_PER_SEC;
   assert((long)difftime >= 0);
-  //selapsedTime_ += difftime_;
+  desktop->elapsedTime += desktop->difftime; // in msec
 
   desktop->prevtime = currtime;
   pl_Cam*	cam = desktop->scn->getCurrCamera ();
+
+  if (desktop->elapsedTime > 0 && desktop->frames >= avg_frame_window) {
+	desktop->hud->setFPS((float)desktop->frames*1000.0 / (float)desktop->elapsedTime);
+	desktop->elapsedTime = desktop->frames = 0;
+  }
+  if (cam) {
+	desktop->hud->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
+  } else {
+	desktop->hud->setPosition(0,0,0,0,0,0);
+  }
+  
   if (cam) {
 	desktop->scn->render();
-	list<string> l;
+	desktop->frames++;
+	desktop->scn->execute(desktop->difftime);
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
 	GrClearContext( MxColorDesktop );
 	GrTextXY(5,((GrContext2*)desktop->ctx)->gc_ymax-15,lastmessage,GrBlack(),MxColorDesktop);
 	GrSetContext(NULL);
   }
-  MxRefresh(&desktop->base.object);
+  if (desktop->directDisplay) {
+		  MxBlitToScreenFast(desktop->ctx, NULL, 
+					 0, 0, 
+					 desktop->base.object.position.x1, 
+					 desktop->base.object.position.y1,
+					 desktop->base.object.position.x2 - desktop->base.object.position.x1, 
+					 desktop->base.object.position.y2 - desktop->base.object.position.y1);
+  } else {
+	MxRefresh(&desktop->base.object);
+  }
 }
 
 void reloadPalette(SceneDesktop * desktop) 
@@ -199,4 +291,31 @@ void reloadPalette(SceneDesktop * desktop)
   for (i = CFixColors; i < 256; i++) {
     GrSetColor(i, desktop->ThePalette[ i*3 ], desktop->ThePalette[ i*3 + 1], desktop->ThePalette[ i*3 + 2 ]);
   }
+}
+
+static void mouse_reset(SceneDesktop * desktop) 
+{
+  MxImage *ctx = desktop->ctx;
+  int screen_w = ((GrContext2 *)ctx)->gc_xmax - 1;
+  int screen_h = ((GrContext2 *)ctx)->gc_ymax - 1;
+
+  GrMouseEvent evt;
+  GrMouseWarp(screen_w / 2, screen_h / 2);
+  do {
+    GrMouseGetEventT(GR_M_EVENT | GR_M_NOPAINT, &evt,0L);
+  } while (evt.flags != 0);
+  desktop->old_mouse_x = evt.x;
+  desktop->old_mouse_y = evt.y;
+}
+
+static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y) 
+{
+  static signed short int mx = 0 , my = 0;
+
+  mouse_x = ((desktop->old_mouse_x - event->point.x) + mx) * 6 / 10;
+  mouse_y = ((desktop->old_mouse_y - event->point.y) + my) * 6 / 10;
+  mx = mouse_x;
+  my = mouse_y;
+  desktop->old_mouse_x = event->point.x;
+  desktop->old_mouse_y = event->point.y;
 }
