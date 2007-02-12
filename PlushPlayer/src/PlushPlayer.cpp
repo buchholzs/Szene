@@ -50,7 +50,7 @@ const int screen_h = 480;
   /* Place to put the selected filename */
 static char filename[MX_MAX_PATH] = "";
 
-const int refresh_ivl = 200; // Refresh-Inteval in msec
+const int refresh_ivl = 5; // Refresh-Inteval in msec
 
 
 extern "C" int GRXMain(int argc, char *argv[])
