@@ -1,45 +1,52 @@
 #ifndef SCENE_DESKTOP_H
 #define SCENE_DESKTOP_H
 
+#include <string>
 #include "depui/object/object.h"
 #include "depui/desktop/desktop.h"
-
 #define GrContext GrContext2
 #define GrFont GrFont2
 #include <grx20.h>
 #undef GrContext
 #undef GrFont
-
-#include "Controller.h"
-#include "Hud.h"
-#include "HudRefreshCmd.h"
-#include "MoveMode.h"
-#include "FlyMode.h"
-#include "Scene.h"
-#include "WalkMode.h"
+#include <plush.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+namespace scene {
+	class Controller;
+	class Hud;
+	class FlyMode;
+	class WalkMode;
+	class Scene;
+}
 //////////////////////////////////////////////////////////////////////////////
 // Typen
 //
 typedef struct SceneDesktop {
-		  union {
-				MxObject object;
-				MxDesktop desktop;
-		  } base;
-		  scene::Scene *scn;
-		  scene::Controller *controller;
-		  scene::WalkMode *walkMode;
-		  scene::FlyMode *flyMode;
+		union {
+			MxObject object;
+			MxDesktop desktop;
+		} base;
+		scene::Controller *controller;
+		scene::FlyMode *flyMode;
+		scene::Hud *hud;				// HUD
+		scene::WalkMode *walkMode;
+		scene::Scene *scn;
 
-		  pl_uChar ThePalette[768];
-		  MxImage *ctx;
-		  bool directDisplay;
-		  float prevtime;
-		  float difftime;
+		pl_uChar ThePalette[768];
+		MxImage *ctx;
+		
+		signed short int old_mouse_x;
+		signed short int old_mouse_y;
+
+		int frames; // count frames for calculating fps
+		clock_t prevtime; //
+		float elapsedTime; // for calculating fps, in msec
+		float difftime; // diff (current frame - last frame) in msec
+		bool directDisplay; // display indirect in event loop or direct in display
 	 } SceneDesktop;
 
 	 typedef struct SceneDesktopArgs {
