@@ -647,8 +647,8 @@ void MatEdit::OnChangedScene() {
     }
 	mx_slider_scroll_to(sliderShininess, mat ? mat->Shininess : 126);
 	mx_slider_scroll_to(sliderTransparent, mat ? mat->Transparent : 126);
-	mx_slider_scroll_to(sliderFadeDist, mat ? mat->FadeDist : 10000);
-	mx_slider_scroll_to(sliderTexScaling, mat ? mat->TexScaling : 0);
+	mx_slider_scroll_to(sliderFadeDist, mat ? (int)mat->FadeDist : 10000);
+	mx_slider_scroll_to(sliderTexScaling, mat ? (int)mat->TexScaling : 0);
 	mx_slider_scroll_to(sliderPerspectiveCorrect, mat ? mat->PerspectiveCorrect : 0);
 	if (mat) {
 		shadeType2Radio(mat->ShadeType);
@@ -810,8 +810,8 @@ void MatEdit::loadScene(const string &filename) {
     }
     mat = matMap->begin()->second; // material of object
 
-	MxListDef *def = (MxListDef *)malloc((matMap->size() + 1) * sizeof MxListDef);
-	memset(def, 0, (matMap->size() + 1) * sizeof MxListDef);
+	MxListDef *def = (MxListDef *)malloc((matMap->size() + 1) * sizeof(MxListDef));
+	memset(def, 0, (matMap->size() + 1) * sizeof(MxListDef));
 	int i = 0;
 	Scene::MatMap::const_iterator it;
 	for (it = matMap->begin(); it != matMap->end(); ++it) {
