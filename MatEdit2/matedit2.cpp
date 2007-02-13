@@ -99,9 +99,11 @@ static MxMenuDef mainMenu[] = {
 	 {"File", 0, fileMenu, 0, 0, 0, 0, 0},
 	 {0, 0, 0, 0, 0, 0, 0, 0}
 };
+
 inline int GrWidth(struct MxImage *ctx) {
   return ((GrContext2 *)ctx)->gc_xmax + 1;
 }
+
 inline int GrHeight(struct MxImage *ctx) {
   return ((GrContext2 *)ctx)->gc_ymax + 1;
 }
@@ -323,6 +325,13 @@ static void ResetTextureButtonHandler(MxObject * object, void *data, unsigned in
   matedit->resetTexture();
 }
 
+// Materialliste selektiert
+static void MatSelectHandler(MxObject * object, void *data, unsigned int selected) {
+  if (!selected)
+    return;
+  matedit->setMaterial((pl_Mat *)data);
+  matedit->OnChangedScene();
+}
 //////////////////////////////////////////////////////////////////////////////
 // Methoden
 //
@@ -541,6 +550,11 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
 	*btnInit[row] = MxRadioButtonNew(&group->base.object, 10, 16 + (row*25), MxDefault, MxDefault, &btnargs);
   }
 
+  // Materialienliste
+  MxListArgs listargs;
+  MxArgsInit(&listargs);
+  matList = MxListNew(matWin->client, 215, 150, f_w, f_h, &listargs);
+
   // Textures
   // Button
   MxArgsInit(&btnargs);
@@ -639,6 +653,21 @@ void MatEdit::OnChangedScene() {
 	if (mat) {
 		shadeType2Radio(mat->ShadeType);
 	}
+	if (!mat) {
+		MxListDefSet(&matList->listarea, 0, MxFalse);;
+	}
+	if (mat) {
+		reloadPalette();
+	}
+	if (cam) {
+		scene.render();
+		list<string> l;
+		dumpMaterial(mat, l);
+		printLines(cam, l);		
+		plTextPrintf(cam,cam->ClipLeft+5,cam->ClipBottom-15, 0.0,CTextColor,
+		 (pl_sChar *)lastmessage);
+	}
+	MxRefresh(&desktop.base.object);
 }
 
 //
@@ -754,6 +783,7 @@ void MatEdit::newScene() {
 	mat = NULL;
 	obj = NULL;
 
+
     MxEventSendSimple(&matWin->base.object, (MxEventType)MatEditSceneChanged);
 	matChanged = true;
 	strcpy(lastmessage, "Scene cleared.");
@@ -772,14 +802,27 @@ void MatEdit::loadScene(const string &filename) {
       MxAlertStart(&msgOk, &desktop.base.object);
       return;
     }
-    obj = objMap->begin()->second; // first object
-    if (obj->NumFaces == 0) {
+	const Scene::MatMap *matMap = scene.getAllMaterials();
+    if (matMap->empty()) {
       strcpy(lastmessage, "No materials found.");
       MxAlertStart(&msgOk, &desktop.base.object);
       return;
     }
-    mat = obj->Faces[0].Material; // material of object
+    mat = matMap->begin()->second; // material of object
 
+	MxListDef *def = (MxListDef *)malloc((matMap->size() + 1) * sizeof MxListDef);
+	memset(def, 0, (matMap->size() + 1) * sizeof MxListDef);
+	int i = 0;
+	Scene::MatMap::const_iterator it;
+	for (it = matMap->begin(); it != matMap->end(); ++it) {
+		def[i].caption = it->first.c_str();
+		def[i].data = it->second;
+		def[i].callback = MatSelectHandler;
+		def[i].selected = i == 0;
+		i++;
+	}
+	MxListDefSet( &matList->listarea, def, MxTrue);
+	
     this->filename = filename; // filename of scene
 
     MxEventSendSimple(&matWin->base.object, (MxEventType)MatEditSceneChanged);
