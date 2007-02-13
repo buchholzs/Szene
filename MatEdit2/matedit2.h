@@ -22,6 +22,10 @@ public:
 	void loadTexture(const std::string &filename);
 	// Textur des ausgewählten Materials entfernen
 	void resetTexture();
+	// wählt ein Material zur Bearbeitung aus
+	void setMaterial(pl_Mat *mat) {this->mat = mat;}
+	// MatWin aktualisieren
+	void OnChangedScene();
 private:
 	// erzeugt ein Fenster mit dem Materialeditor
 	void createMatWin(MxDesktop *desktop);
@@ -35,10 +39,6 @@ private:
 	void reloadPalette();
 	// MatEdit aktualisieren
 	void updateMatWin();
-	// MatWin aktualisieren
-	void OnChangedScene();
-	// MatWin Handler
-	friend void *MatWinHandler(MxObject * object, const MxEvent * const event);
 	// shadeMode -> Radio
 	void shadeType2Radio(int shadeType);
 	// Radio -> shadeMode
@@ -52,7 +52,7 @@ private:
 	MxAlertArgs msgOk; // Alert
 
 	pl_Cam *cam; // Kamera
-	pl_Mat *mat; // Materialien
+	pl_Mat *mat; // selektiertes Material
 	pl_Obj *obj; // selektiertes Object
 
 	int lastNewTexture_; // letzte erzeugte Texture
@@ -75,5 +75,6 @@ private:
 	MxButton *radioGouraudDistance;
 
 	MxStatictext *staticTextTexture;
+	MxList *matList;
 };
 
