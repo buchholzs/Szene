@@ -104,7 +104,7 @@ class Scene {
   pl_Obj*	findObject (const std::string &name);
 
   // Liefert alle Objekte aus der Szenebeschreibung
-  const Scene::ObjMap *getAllObjects() { return &objects_; }
+  Scene::ObjMap *getAllObjects() { return &objects_; }
 
   // Liefert eine Textur aus der Szenebeschreibung
   pl_Texture*	findTexture (const std::string &name);
