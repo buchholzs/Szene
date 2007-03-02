@@ -7,7 +7,6 @@ using namespace std;
 
 #include <plush.h>
 
-
 void read_float(const string &txt, pl_Float &out, pl_Float def) {
 	string buffer;
 	cerr << txt << " [" << setprecision(1) << std::fixed << def << "] = "; cerr.flush();
