@@ -794,9 +794,11 @@ void Scene::createObject(enum sc_Tokens tok, const char **attr)
 	pl_Float r = 0.0;
 	pl_uInt resolution = 0;
 	pl_Float w = 0.0;
+        bool backfacecull = true;
 	bool cap = false;
 	bool capbottom = false;
 	bool captop = false;
+        bool flipnormals = false;
 	pl_Float r1 = 0.0;
 	pl_Float r2 = 0.0;
 	string id;
@@ -820,6 +822,12 @@ void Scene::createObject(enum sc_Tokens tok, const char **attr)
 				material = mat;
 			  }
 			  break;
+                  case TOK_backfacecull:
+			  backfacecull = toYesNo(val);
+                          break;
+                  case TOK_flipnormals:
+			  flipnormals = toYesNo(val);
+                          break;                          
 		  case TOK_cap:
 			  cap = toYesNo(val);
 			  break;
@@ -887,6 +895,10 @@ void Scene::createObject(enum sc_Tokens tok, const char **attr)
 		throw domain_error(string("Unerwartetes Token: ") +(char)tok);
 	}
 	assert(obj != NULL);
+
+        if (!backfacecull) obj->BackfaceCull = 0;
+        if (flipnormals) plObjFlipNormals(obj);
+
 	objects_.insert(make_pair(id, obj));
 }
 
