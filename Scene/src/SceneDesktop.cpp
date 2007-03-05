@@ -32,7 +32,7 @@ using namespace scene;
 static void mouse_reset(SceneDesktop * desktop);
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
 
-const int CFixColors = 20;	// Readonly colors
+const int CFixColors = 23;	// Readonly colors
 const float velocity  = 200.0f / 1000.0f;	// m/s
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
