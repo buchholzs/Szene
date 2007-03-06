@@ -62,6 +62,7 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 	  delete desktop->walkMode;
 	  delete desktop->flyMode;
 	  delete desktop->controller;
+	  delete desktop->hud;
 	  break;
 
   case MxEventPointerEnter:
