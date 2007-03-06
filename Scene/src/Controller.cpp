@@ -38,9 +38,10 @@ void Controller::loadScene (SceneDesktop *desktop)
   MxStatictextArgs textargs;
   MxArgsInit(&textargs);
   textargs.caption = (const char *)MxMalloc(MX_MAX_PATH);
+  *(char *)textargs.caption = '\0';
   textargs.len = 0;
   textargs.ownscaption = 1;
-  MxStatictext *okSel = MxStatictextNew(&desktop->base.object, 0, 0, 0, 0, &textargs);
+  MxStatictext *okSel = MxStatictextNew(&desktop->base.object, 0, 0, 50, 50, &textargs);
   okSel->base.object.handler = fileOpenOKSelectedHandler;
   MxHide(&okSel->base.object, MxTrue);
 
