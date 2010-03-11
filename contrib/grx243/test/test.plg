@@ -1,0 +1,245 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: test - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\WINNT\Profiles\BUCHHO~1.000\LOCALS~1\Temp\RSPA9.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /I "../include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"test___Win32_Debug/test.pch" /YX /Fo"test___Win32_Debug/" /Fd"test___Win32_Debug/" /FD /GZ /c 
+"C:\Projekte\Szene\contrib\grx243\test\demogrx.c"
+"C:\Projekte\Szene\contrib\grx243\test\gfaz.c"
+]
+Creating command line "cl.exe @C:\WINNT\Profiles\BUCHHO~1.000\LOCALS~1\Temp\RSPA9.tmp" 
+Creating temporary file "C:\WINNT\Profiles\BUCHHO~1.000\LOCALS~1\Temp\RSPAA.tmp" with contents
+[
+grx243.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /incremental:yes /pdb:"test___Win32_Debug/test.pdb" /debug /machine:I386 /out:"Debug/test.exe" /pdbtype:sept /libpath:"../Debug" 
+.\test___Win32_Debug\demogrx.obj
+.\test___Win32_Debug\gfaz.obj
+]
+Creating command line "link.exe @C:\WINNT\Profiles\BUCHHO~1.000\LOCALS~1\Temp\RSPAA.tmp"
+<h3>Output Window</h3>
+Compiling...
+demogrx.c
+gfaz.c
+Linking...
+grx243.lib(gengiscl.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(genblit.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(tmpbuff.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(rblit_14.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(ram4.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(ram1.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fd_win32.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(genptscl.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(ram32l.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(ram24.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(ram16.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(ram8.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(buildaux.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(vd_mem.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(scancnvx.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(ram32h.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(drawpoly.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(scanpoly.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fdv_bgi.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fdv_grx.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(drawcurs.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(bldcurs.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(drwcpoly.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(solidfil.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fframe.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(putscl.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(drawstrg.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fillboxn.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(colors.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(vd_win32.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(buildfnt.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fgeom.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(custbox.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(polygon.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fillpoly.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(pixel.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(mscursor.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(colorbw.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(colorega.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(setmode.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(bitblt.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(clearctx.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(setdrvr.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(w32inp.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(pnm2ctx.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(drwstrg.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(drvinfo.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(clearclp.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(box.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(line.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fillbox.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(context.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(ctx2pnm.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(w32misc.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(loadfont.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(plot.obj) : error LNK2001: unresolved external symbol __RTC_CheckEsp
+grx243.lib(fd_win32.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(genblit.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(rblit_14.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(drwcpoly.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(scancnvx.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(ram4.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(ram1.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(vd_win32.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(fontpath.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(buildfnt.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(bldcurs.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(setmode.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(custbox.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(polygon.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(fillpoly.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(drwstrg.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(setdrvr.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(w32inp.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(mscursor.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(ctx2pnm.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(loadfont.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(context.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(pnm2ctx.obj) : error LNK2001: unresolved external symbol @_RTC_CheckStackVars@8
+grx243.lib(rblit_14.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(shiftscl.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(gengiscl.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(pblitr2r.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(genblit.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(tmpbuff.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(ram4.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(ram1.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fd_win32.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(genptscl.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(ram32l.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(ram24.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(ram16.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(ram8.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(propwdt.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(vd_mem.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(scancnvx.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(ram32h.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(scanpoly.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fdv_bgi.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fdv_grx.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(buildaux.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(bldcurs.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(drwcpoly.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(solidfil.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(drawpoly.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(putscl.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(drawstrg.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fillboxn.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(drawcurs.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fontpath.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(buildfnt.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fgeom.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fframe.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fillpoly.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(pixel.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(colors.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(vd_win32.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(colorega.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(setmode.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(custbox.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(polygon.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(setdrvr.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(w32inp.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(mscursor.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(colorbw.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(clip.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(clearclp.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(bitblt.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(clearctx.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(pnm2ctx.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(drwstrg.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(drvinfo.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(version.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(box.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(line.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(fillbox.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(context.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(ctx2pnm.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(w32misc.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(loadfont.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(plot.obj) : error LNK2001: unresolved external symbol __RTC_Shutdown
+grx243.lib(rblit_14.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(shiftscl.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(gengiscl.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(pblitr2r.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(genblit.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(tmpbuff.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ram4.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ram1.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fd_win32.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(genptscl.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ram32l.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ram24.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ram16.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ram8.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(propwdt.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(vd_mem.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(scancnvx.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ram32h.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(scanpoly.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fdv_bgi.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fdv_grx.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(buildaux.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(bldcurs.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(drwcpoly.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(solidfil.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(drawpoly.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(putscl.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(drawstrg.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fillboxn.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(drawcurs.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fontpath.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(buildfnt.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fgeom.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fframe.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fillpoly.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(pixel.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(colors.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(vd_win32.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(colorega.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(setmode.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(custbox.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(polygon.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(setdrvr.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(w32inp.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(mscursor.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(colorbw.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(clip.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(clearclp.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(bitblt.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(clearctx.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(pnm2ctx.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(drwstrg.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(drvinfo.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(version.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(box.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(line.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(fillbox.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(context.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ctx2pnm.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(w32misc.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(loadfont.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(plot.obj) : error LNK2001: unresolved external symbol __RTC_InitBase
+grx243.lib(ctx2pnm.obj) : error LNK2001: unresolved external symbol __ftol2
+grx243.lib(pnm2ctx.obj) : error LNK2001: unresolved external symbol __ftol2
+grx243.lib(loadfont.obj) : error LNK2001: unresolved external symbol __chvalidator
+grx243.lib(fontpath.obj) : error LNK2001: unresolved external symbol __chvalidator
+grx243.lib(pnm2ctx.obj) : error LNK2001: unresolved external symbol __RTC_UninitUse
+Debug/test.exe : fatal error LNK1120: 7 unresolved externals
+Error executing link.exe.
+
+
+
+<h3>Results</h3>
+test.exe - 209 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

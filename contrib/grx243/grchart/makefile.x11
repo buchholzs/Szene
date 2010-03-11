@@ -1,0 +1,8 @@
+test: test.o grchart.a
+	gcc -o test test.o grchart.a libgrx20X.a -L/usr/X11R6/lib -lX11
+test.o: test.c grchart.h
+	gcc -c test.c -D__X11__
+grchart.a: grchart.o
+	ar -r grchart.a grchart.o
+grchart.o: grchart.c grchart.h
+	gcc -c grchart.c -D__X11__

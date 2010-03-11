@@ -1,0 +1,40 @@
+#
+# GRX makefile for LINUX/svgalib distribution version
+#
+
+GRXVLNX=y
+
+include makedefs.grx
+
+all: libs test bgitest
+
+libs:
+	$(MAKE) -C src -f makefile.lnx
+
+test: libs
+	$(MAKE) -C test -f makefile.lnx
+ifeq ($(INCLUDE_GPC_SUPPORT),y)
+	$(MAKE) -C pascal -f makefile.lnx
+endif
+
+bgitest: libs
+	$(MAKE) -C test/bgi -f makefile.lnx
+ifeq ($(INCLUDE_GPC_SUPPORT),y)
+	$(MAKE) -C pascal/bgi -f makefile.lnx
+endif
+
+clean:
+	$(MAKE) -C test          -f makefile.lnx clean
+	$(MAKE) -C test/bgi      -f makefile.lnx clean
+	$(MAKE) -C src  STATIC=1 -f makefile.lnx clean
+	$(MAKE) -C src  SHARED=1 -f makefile.lnx clean
+ifeq ($(INCLUDE_GPC_SUPPORT),y)
+	$(MAKE) -C pascal -f makefile.lnx clean
+	$(MAKE) -C pascal/bgi -f makefile.lnx clean
+endif
+
+install:
+	$(MAKE) -C src -f makefile.lnx install
+ 
+uninstall:
+	$(MAKE) -C src -f makefile.lnx uninstall 
