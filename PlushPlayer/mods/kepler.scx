@@ -3,14 +3,18 @@
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
 <cameras>
-<!-- <camera id="camera" fov="90.0" x="-1500" z="-3300"/> -->
+<camera id="camera" fov="90.0" x="-1500" z="-3300"/>
 
-<camera id="camera" fov="90.0" x="-100" z="-358" pan="-20"/>
+<!-- <camera id="camera" fov="90.0" x="-100" z="-358" pan="-20"/> -->
 </cameras>
 <textures>
+<texture id="mercurymap" src="maps/mercurymap.pcx" rescale="yes" optimize="yes"/>
+<texture id="venusmap" src="maps/venusmap.pcx" rescale="yes" optimize="yes"/>
 <texture id="moonmap" src="maps/moonmap.pcx" rescale="yes" optimize="yes"/>
 <texture id="earthmap" src="maps/earthma.pcx" rescale="yes" optimize="yes"/>
-<texture id="jupmap" src="maps/jupmap.pcx" rescale="yes" optimize="yes"/>
+<texture id="marsmap" src="maps/marsmap.pcx" rescale="yes" optimize="yes"/>
+<texture id="jupmap" src="maps/jupitermap.pcx" rescale="yes" optimize="yes"/>
+<texture id="saturnmap" src="maps/saturnmap.pcx" rescale="yes" optimize="yes"/>
 <texture id="sky2map" src="sky2.pcx" rescale="yes" optimize="yes"/>
 </textures>
 <materials>
@@ -19,15 +23,27 @@ shininess="10"
 ambient0="250" ambient1="250" ambient2="0" 
 diffuse0="0" diffuse1="0" diffuse2="0" />
 specular0="200" specular1="200" specular2="0" />
+<material id="mercurymat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
+diffuse0="0" diffuse1="0" diffuse2="0" 
+texture="mercurymap" perspectivecorrect="0"/>
+<material id="venusmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
+diffuse0="0" diffuse1="0" diffuse2="0" 
+texture="venusmap" perspectivecorrect="0"/>
 <material id="moonmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
 diffuse0="0" diffuse1="0" diffuse2="0" 
 texture="moonmap" perspectivecorrect="0"/>
 <material id="earthmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
 diffuse0="0" diffuse1="0" diffuse2="0" 
 texture="earthmap" perspectivecorrect="0"/>
+<material id="marsmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
+diffuse0="0" diffuse1="0" diffuse2="0" 
+texture="marsmap" perspectivecorrect="0"/>
 <material id="jupmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
 diffuse0="0" diffuse1="0" diffuse2="0" 
 texture="jupmap" perspectivecorrect="0"/>
+<material id="saturnmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
+diffuse0="0" diffuse1="0" diffuse2="0" 
+texture="saturnmap" perspectivecorrect="0"/>
 <material id="sky2mat" numgradients="1500" shadetype="PL_SHADE_NONE"
 diffuse0="0" diffuse1="0" diffuse2="0" 
 ambient0="0" ambient1="0" ambient2="0"
@@ -41,16 +57,24 @@ intensity="1.0" falloff="200.0"/>
 intensity="1.0" falloff="200.0"/>
 </lights>
 <objects>
-<sphere id="sun" material="sunmat" r="100.0" divr="10" divh="10"/>
-<sphere id="earth" material="earthmat" r="10.0" divr="10" divh="10"/>
-<sphere id="moon" material="moonmat" r="5.0" divr="10" divh="10"/>
-<sphere id="jupiter" material="jupmat" r="50.0" divr="10" divh="10"/>
+<sphere id="sun" material="sunmat" r="1390.0" divr="10" divh="10"/>
+<sphere id="mercury" material="mercurymat" r="4.8" divr="10" divh="10"/>
+<sphere id="venus" material="venusmat" r="12.1" divr="10" divh="10"/>
+<sphere id="earth" material="earthmat" r="12.7" divr="10" divh="10"/>
+<sphere id="moon" material="moonmat" r="3.4" divr="10" divh="10"/>
+<sphere id="mars" material="marsmat" r="6.8" divr="10" divh="10"/>
+<sphere id="jupiter" material="jupmat" r="142.0" divr="10" divh="10"/>
+<sphere id="saturn" material="saturnmat" r="120.0" divr="10" divh="10"/>
 <sphere id="sky2" material="sky2mat" r="65000" divr="10" divh="10" flipnormals="yes"/>
 </objects>
 
 <transformations>
-<translate obj="earth" relative="yes" xp="-2000" />
-<translate obj="moon" relative="yes" xp="-2100" />
-<translate obj="jupiter" relative="yes" xp="-3000" />
+<translate obj="mercury" relative="yes" xp="-2000" />
+<translate obj="venus" relative="yes" xp="-2500" />
+<translate obj="earth" relative="yes" xp="-3000" />
+<translate obj="moon" relative="yes" xp="-3100" />
+<translate obj="mars" relative="yes" xp="-3500" />
+<translate obj="jupiter" relative="yes" xp="-4000" />
+<translate obj="saturn" relative="yes" xp="-4500" />
 </transformations>
 </scene>
