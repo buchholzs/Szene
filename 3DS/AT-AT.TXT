@@ -1,0 +1,63 @@
+
+                         --- Imperial AT-AT ---
+
+Here's another ultra-high detail model of a StarWars vehicle done by me. The
+first was the Millenium Falcon, called BIG_falcon.zip. Both were modeled after
+plastic models, sparing no expense, down to the last rivet and panel. This 
+one took considerably less time than the Falcon, only about 2 weeks. There's 
+also a short animation of the Walker taking a few steps and firing it's guns 
+several times waiting to be rendered in the Keyframer. 
+
+I've seen several other models of StarWars ships and vehicles and most
+have been pretty accurate and well done but all were lacking one thing: detail
+It was the intense detail of objects like the Imperial Star Destroyer and 
+Death Star and so on that blew my mind when i first saw the movies about 300
+years ago. IMHO it's the detail that makes the stuff look so damn cool. Pipes
+feeding into boxes and rivets on panels and hinges on access hatches, you name
+it. It gives the object a sense of scale and even functionality. 
+
+Now if you're thinking i'm a bit whacked in the head because of the lengths I 
+went to to include every last bit of detail, you may be right. But after a 
+few frustrating hours of high detail work I soon came to discover a couple 
+tricks which make creating and placing all those panels and pipes and rivets 
+and hatches very quick and simple. Take a look for yourself...... 
+
+I've actually created several animations with the AT-AT and Falcon but on a 
+P90 with 16 Megs of RAM things tend to go reeeeaalllllyyyy slllloooowwwwww...
+like 2-6 hours a frame at 640x480.....so if anyone out there has about $15,000 
+to spare then buy me an SGI...:)
+
+The included GIF image is rendered in 640x480. Check it out....
+
+The model was created entirely with Autodesk 3D-Studio vers.4 
+
+                                                         Iven Connary
+                                                         November 15, 1995 
+
+
+P.S. If and when I can find the time my next project is gonna be an Imperial
+Star Destroyer...I figure I'm gonna try to recreate the chase scene with
+the Destroyers and the Falcon in the second movie. Maybe ILM will hire me ;)
+
+
+------------------------------IMPORTANT!!!-----------------------------------
+
+This model is not Shareware, Freeware or Public Domain. You may not use this 
+model in any type or form of commercial production. In fact I don't think I'm 
+allowed to either, since I modeled it but did not actually design it. But feel
+free to download it, render it, look at it, drool over it, show to your 
+friends, let them drool over it, and whatever else you may wish to do with it 
+as long as it doesn't involve making money. 
+
+One more thing, feel free to HIRE ME, as i am currently looking for a job.
+Here's a few ways to get a hold of me:
+        
+        E-mail...........thak@kiwi.pyrotechnics.com
+        IRC..............Thak (sometimes Thak_ or _Thak or _Thak_)
+        Snail Mail.......Iven Connary
+                         8936 Lavergne Ave.
+                         Skokie, Illinois 60077
+                         U.S.A.
+
+
+
