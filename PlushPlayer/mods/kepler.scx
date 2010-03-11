@@ -1,0 +1,56 @@
+<!-- Kepler: various planets orbiting sun -->
+
+<!DOCTYPE scene SYSTEM "scene.dtd">
+<scene>
+<cameras>
+<!-- <camera id="camera" fov="90.0" x="-1500" z="-3300"/> -->
+
+<camera id="camera" fov="90.0" x="-100" z="-358" pan="-20"/>
+</cameras>
+<textures>
+<texture id="moonmap" src="maps/moonmap.pcx" rescale="yes" optimize="yes"/>
+<texture id="earthmap" src="maps/earthma.pcx" rescale="yes" optimize="yes"/>
+<texture id="jupmap" src="maps/jupmap.pcx" rescale="yes" optimize="yes"/>
+<texture id="sky2map" src="sky2.pcx" rescale="yes" optimize="yes"/>
+</textures>
+<materials>
+<material id="sunmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
+shininess="10"
+ambient0="250" ambient1="250" ambient2="0" 
+diffuse0="0" diffuse1="0" diffuse2="0" />
+specular0="200" specular1="200" specular2="0" />
+<material id="moonmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
+diffuse0="0" diffuse1="0" diffuse2="0" 
+texture="moonmap" perspectivecorrect="0"/>
+<material id="earthmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
+diffuse0="0" diffuse1="0" diffuse2="0" 
+texture="earthmap" perspectivecorrect="0"/>
+<material id="jupmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
+diffuse0="0" diffuse1="0" diffuse2="0" 
+texture="jupmap" perspectivecorrect="0"/>
+<material id="sky2mat" numgradients="1500" shadetype="PL_SHADE_NONE"
+diffuse0="0" diffuse1="0" diffuse2="0" 
+ambient0="0" ambient1="0" ambient2="0"
+specular0="0" specular1="0" specular2="0"
+shininess="1" texture="sky2map" texscaling="45.0" perspectivecorrect="2"/>
+</materials>
+<lights>
+<light id="light1" type="PL_LIGHT_POINT" xp="0.0" yp="0.0" zp="0.0"
+intensity="1.0" falloff="200.0"/>
+<light id="light2" type="PL_LIGHT_VECTOR" xp="0.0" yp="0.0" zp="0.0"
+intensity="1.0" falloff="200.0"/>
+</lights>
+<objects>
+<sphere id="sun" material="sunmat" r="100.0" divr="10" divh="10"/>
+<sphere id="earth" material="earthmat" r="10.0" divr="10" divh="10"/>
+<sphere id="moon" material="moonmat" r="5.0" divr="10" divh="10"/>
+<sphere id="jupiter" material="jupmat" r="50.0" divr="10" divh="10"/>
+<sphere id="sky2" material="sky2mat" r="65000" divr="10" divh="10" flipnormals="yes"/>
+</objects>
+
+<transformations>
+<translate obj="earth" relative="yes" xp="-2000" />
+<translate obj="moon" relative="yes" xp="-2100" />
+<translate obj="jupiter" relative="yes" xp="-3000" />
+</transformations>
+</scene>
