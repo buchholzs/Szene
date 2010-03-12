@@ -122,6 +122,9 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 		  case 'd':
 			desktop->controller->moveRight(desktop->difftime);
 			return object;
+		  case 'r':
+			loadScene(desktop, *desktop->filename);
+			return object;
 	  }
 	  break;
 
@@ -207,13 +210,14 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->elapsedTime = 0;
 	desktop->difftime = 0;
 	desktop->prevtime = clock(); 
-
+        desktop->filename = new string("");
 }
 
 // Szene neu laden
 void loadScene(SceneDesktop * desktop, const std::string &filename) {
   try {
     desktop->scn->loadXML(filename);
+    *desktop->filename = filename;
 	reloadPalette(desktop);
 	Scene::ActionMap *am = desktop->scn->getAllActions();
 	scene::Command *hudRefreshCmd = new scene::HudRefreshCmd(desktop->hud,

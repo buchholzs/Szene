@@ -35,6 +35,7 @@ typedef struct SceneDesktop {
 		scene::Hud *hud;				// HUD
 		scene::WalkMode *walkMode;
 		scene::Scene *scn;
+		std::string *filename;  
 
 		pl_uChar ThePalette[768];
 		MxImage *ctx;
