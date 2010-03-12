@@ -33,24 +33,44 @@
 <textures>
 <texture id="tex_karte_cw" src="karte-CW.PCX" rescale="yes" optimize="yes"/>
 <texture id="tex_karte" src="karte.PCX" rescale="yes" optimize="yes"/>
+<texture id="tex_panel" src="PANEL.PCX" rescale="yes" optimize="yes"/>
+<texture id="tex_panel2" src="PANEL2.PCX" rescale="yes" optimize="yes"/>
+<texture id="tex_led0" src="LED0.PCX" rescale="yes" optimize="yes"/>
+<texture id="tex_entry" src="ENTRY.PCX" rescale="yes" optimize="yes"/>
 </textures>
 <materials>
 <material id="cubemat" numgradients="100" shadetype="PL_SHADE_FLAT" 
 ambient0="32" ambient1="0" ambient2="16" 
 diffuse0="200" diffuse1="100" diffuse2="150" />
-<material id="karte_cw_mat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
+<material id="karte_cw_mat" numgradients="50" shadetype="PL_SHADE_GOURAUD"
   texture="tex_karte_cw" perspectivecorrect="1"
   ambient0="12" ambient1="12" ambient2="12" 
   diffuse0="25" diffuse1="25" diffuse2="25"/>
-<material id="karte_mat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
+<material id="karte_mat" numgradients="50" shadetype="PL_SHADE_GOURAUD"
   texture="tex_karte" perspectivecorrect="8"
+  ambient0="12" ambient1="12" ambient2="12" 
+  diffuse0="25" diffuse1="25" diffuse2="25"/>
+<material id="panel_mat" numgradients="50" shadetype="PL_SHADE_GOURAUD"
+  texture="tex_panel" perspectivecorrect="8"
+  ambient0="12" ambient1="12" ambient2="12" 
+  diffuse0="25" diffuse1="25" diffuse2="25"/>
+<material id="panel2_mat" numgradients="50" shadetype="PL_SHADE_GOURAUD"
+  texture="tex_panel2" perspectivecorrect="8"
+  ambient0="12" ambient1="12" ambient2="12" 
+  diffuse0="25" diffuse1="25" diffuse2="25"/>
+<material id="led0_mat" numgradients="50" shadetype="PL_SHADE_GOURAUD"
+  texture="tex_led0" perspectivecorrect="8"
+  ambient0="12" ambient1="12" ambient2="12" 
+  diffuse0="25" diffuse1="25" diffuse2="25"/>
+<material id="entry_mat" numgradients="50" shadetype="PL_SHADE_GOURAUD"
+  texture="tex_entry" perspectivecorrect="8"
   ambient0="12" ambient1="12" ambient2="12" 
   diffuse0="25" diffuse1="25" diffuse2="25"/>
 <material id="bdy_mat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
 shininess="255"
-ambient0="83" ambient1="83" ambient2="83" 
-diffuse0="83" diffuse1="83" diffuse2="83"
-specular0="99" specular1="99" specular2="99"/>
+ambient0="150" ambient1="150" ambient2="150" 
+diffuse0="150" diffuse1="150" diffuse2="150"
+specular0="165" specular1="165" specular2="165"/>
 <material id="Copper_Texture" numgradients="100"
 shadetype="PL_SHADE_GOURAUD"
 shininess="160"
@@ -82,8 +102,10 @@ intensity="0.33" falloff="10.0"/>
 <box id="TSweep3" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
 <box id="TSweep4" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
 <box id="TSweep5" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
-<box id="panel2" material="karte_cw_mat" w="2" d="2" h="2"/>
-<box id="panel3" material="karte_cw_mat" w="2" d="2" h="2"/>
+<box id="panel1" material="panel_mat" w="2" d="2" h="2"/>
+<box id="panel2" material="panel2_mat" w="2" d="2" h="2"/>
+<box id="led" material="led0_mat" w="2" d="2" h="2"/>
+<box id="schlitz" material="entry_mat" w="2" d="2" h="2"/>
 <cylinder id="fuss1" material="tx_foot" r="1" h="1" divr="10"
 captop="yes" capbottom="yes" />
 <cylinder id="fuss2" material="tx_foot" r="1" h="1" divr="10"
@@ -110,22 +132,29 @@ captop="yes" capbottom="yes" />
 <rotate obj="c_bdy_3" xa="-18.464005" />
 <translate obj="c_bdy_3" relative="yes" xp="3" zp="0.6" yp="3.82" />
 
+<scale obj="led" x="1.35" z="0.5" y="0.8" />
+<rotate obj="led" xa="-18.556498" />
+<translate obj="led" relative="yes" xp="3" zp="0.212497" yp="3.889269" />
+
+<scale obj="schlitz" x="1.5" z="1" y="1" />
+<rotate obj="schlitz" xa="90" />
+<translate obj="schlitz" relative="yes" xp="2.967000" zp="0.529198" yp="1.387014" />
 
 <translate obj="fuss1" relative="yes" yp="0.5" /> 
 <translate obj="fuss2" relative="yes" yp="0.5" /> 
 <translate obj="fuss3" relative="yes" yp="0.5" /> 
 <translate obj="fuss4" relative="yes" yp="0.5" /> 
-<scale obj="fuss1" x="0.5" z="0.75" y="0.5" />
-<rotate obj="fuss1" xa="90" />
+<scale obj="fuss1" x="0.5" z="0.75" y="1" />
+<rotate obj="fuss1" xa="0" />
 <translate obj="fuss1" relative="yes" xp="0.75" zp="1.5" yp="-1" /> 
-<scale obj="fuss2" x="0.5" z="0.75" y="0.5" />
-<rotate obj="fuss2" xa="90" />
+<scale obj="fuss2" x="0.5" z="0.75" y="1" />
+<rotate obj="fuss2" xa="0" />
 <translate obj="fuss2" relative="yes" xp="0.75" zp="10.5" yp="-1" />
-<rotate obj="fuss3" xa="90" />
-<scale obj="fuss3" x="0.5" z="0.75" y="0.5" />
+<rotate obj="fuss3" xa="0" />
+<scale obj="fuss3" x="0.5" z="0.75" y="1" />
 <translate obj="fuss3" relative="yes" xp="5.25" zp="1.5" yp="-1" />
-<scale obj="fuss4" x="0.5" z="0.75" y="0.5" />
-<rotate obj="fuss4" xa="90" />
+<scale obj="fuss4" x="0.5" z="0.75" y="1" />
+<rotate obj="fuss4" xa="0" />
 <translate obj="fuss4" relative="yes" xp="5.25" zp="10.5" yp="-1" />
 
 <scale obj="Tisch" x="15" z="12.11095" y="0.5" />
@@ -150,13 +179,13 @@ captop="yes" capbottom="yes" />
 <translate obj="TSweep5" xp="-2.634862" zp="5.496456" yp="-0.640539" />
 <rotate obj="TSweep5" ya="-155.404526" relative="yes"/>
 
+<scale obj="panel1" x="0.7" z="0.5" y="2.42" />
+<rotate obj="panel1" xa="-18.464005" />
+<translate obj="panel1" relative="yes" xp="0.75" zp="-0.25" yp="2.529" />
+
 <scale obj="panel2" x="0.7" z="0.5" y="2.42" />
 <rotate obj="panel2" xa="-18.464"/>
 <translate obj="panel2" xp="5.25" zp="-0.25" yp="2.529"/>
-
-<scale obj="panel3" x="0.7" z="0.5" y="2.42" />
-<rotate obj="panel3" xa="-18.464005" />
-<translate obj="panel3" relative="yes" xp="0.75" zp="-0.25" yp="2.529" />
 
 </transformations>
 </scene>
