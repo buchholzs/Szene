@@ -81,7 +81,7 @@
 				OutputFile=".\Debug/Matedit2.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\Expat-1.95.2\Libs,..\Depui\Debug,..\contrib\grx243\Debug,..\Scene\Debug,..\plush\debug"
+				AdditionalLibraryDirectories="&quot;..\Expat-1.95.2\Libs&quot;;..\Depui\Lib\Debug;..\contrib\grx243\Debug;..\Scene\Debug;..\plush\debug"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/Matedit2.pdb"
 				SubSystem="2"

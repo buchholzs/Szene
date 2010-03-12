@@ -168,7 +168,7 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 	  {
 		// change dir
 #ifdef WIN32
-		char *lbs = strrchr(okSel->caption, '/');
+		char *lbs = strrchr((char *)okSel->caption, '/');
 		if (lbs != NULL) {
 			  *lbs='\0';
 		}

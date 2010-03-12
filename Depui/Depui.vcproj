@@ -1,592 +1,863 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.00"
+	Version="9,00"
 	Name="Depui"
 	ProjectGUID="{69F2DFB8-DEDF-45EF-8681-BAC9C1DE415A}"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="Lib\Debug"
 			IntermediateDirectory="Lib\Debug"
 			ConfigurationType="4"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="C:\Projekte\Szene\Depui\SOURCE;..\contrib\grx243\include;INCLUDE"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName).lib"/>
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="Release"
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC70.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				OmitFramePointers="TRUE"
+				OmitFramePointers="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				StringPooling="TRUE"
-				RuntimeLibrary="4"
-				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="3"
+				StringPooling="true"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="2"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/Depui.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
+	<References>
+	</References>
 	<Files>
 		<Filter
 			Name="Quelldateien"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
+			>
 			<File
-				RelativePath="SOURCE\OBJECT\ALERT.C">
+				RelativePath="SOURCE\OBJECT\ALERT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DEBUG\ALLOC.C">
+				RelativePath="SOURCE\DEBUG\ALLOC.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\ANIMATE.C">
+				RelativePath="SOURCE\OBJECT\ANIMATE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\BAR.C">
+				RelativePath="SOURCE\OBJECT\BAR.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\BLIT.C">
+				RelativePath="SOURCE\GRAPHICS\BLIT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\BLITFS.C">
+				RelativePath="SOURCE\GRAPHICS\BLITFS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\BLITS.C">
+				RelativePath="SOURCE\GRAPHICS\BLITS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\BLITTS.C">
+				RelativePath="SOURCE\GRAPHICS\BLITTS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\BTN.C">
+				RelativePath="SOURCE\OBJECT\BTN.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\BTNCANC.C">
+				RelativePath="SOURCE\OBJECT\BTNCANC.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\BTNEXIT.C">
+				RelativePath="SOURCE\OBJECT\BTNEXIT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\BTNOK.C">
+				RelativePath="SOURCE\OBJECT\BTNOK.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\BTNPUSH.C">
+				RelativePath="SOURCE\OBJECT\BTNPUSH.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\BTNRADIO.C">
+				RelativePath="SOURCE\OBJECT\BTNRADIO.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\BTNTOGG.C">
+				RelativePath="SOURCE\OBJECT\BTNTOGG.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\PLATFORM\BUFFDBL.C">
+				RelativePath="SOURCE\PLATFORM\BUFFDBL.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\CHECK.C">
+				RelativePath="SOURCE\GRAPHICS\CHECK.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\CHECK1.C">
+				RelativePath="SOURCE\OBJECT\CHECK1.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\CHECKBOX.C">
+				RelativePath="SOURCE\OBJECT\CHECKBOX.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\CLIP.C">
+				RelativePath="SOURCE\GRAPHICS\CLIP.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\CLIPBLIT.C">
+				RelativePath="SOURCE\GRAPHICS\CLIPBLIT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\CLOSE.C">
+				RelativePath="SOURCE\GRAPHICS\CLOSE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\CURSOR.C">
+				RelativePath="SOURCE\OBJECT\CURSOR.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\DECORATE.C">
+				RelativePath="SOURCE\GRAPHICS\DECORATE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\DEFSIZE.C">
+				RelativePath="SOURCE\OBJECT\DEFSIZE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DESKTOP\DESKTOP.C">
+				RelativePath="SOURCE\DESKTOP\DESKTOP.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\DIRECT.C">
+				RelativePath="SOURCE\OBJECT\DIRECT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DRAGDROP.C">
+				RelativePath=".\SOURCE\SUPPORT\dirent.c"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DRAW\DRAW.C">
+				RelativePath="SOURCE\DRAGDROP.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\EDITAREA.C">
+				RelativePath="SOURCE\DRAW\DRAW.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\EDITLINE.C">
+				RelativePath="SOURCE\OBJECT\EDITAREA.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\EDITOR.C">
+				RelativePath="SOURCE\OBJECT\EDITLINE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\EDITSCRL.C">
+				RelativePath="SOURCE\OBJECT\EDITOR.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\PLATFORM\EMPTYIN.C">
+				RelativePath="SOURCE\OBJECT\EDITSCRL.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\PLATFORM\EMPTYOUT.C">
+				RelativePath="SOURCE\PLATFORM\EMPTYIN.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\PLATFORM\EMPTYSYS.C">
+				RelativePath="SOURCE\PLATFORM\EMPTYOUT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\EVENT\EVENT.C">
+				RelativePath="SOURCE\PLATFORM\EMPTYSYS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\EVENT\EVENT2.C">
+				RelativePath="SOURCE\EVENT\EVENT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FILE1.C">
+				RelativePath="SOURCE\EVENT\EVENT2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FILE2.C">
+				RelativePath="SOURCE\SUPPORT\FILE1.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FILE3.C">
+				RelativePath="SOURCE\SUPPORT\FILE2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FILE4.C">
+				RelativePath="SOURCE\SUPPORT\FILE3.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\EVENT\FOCUS.C">
+				RelativePath="SOURCE\SUPPORT\FILE4.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONT.C">
+				RelativePath=".\SOURCE\OBJECT\FILESEL.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTAA.C">
+				RelativePath=".\SOURCE\SUPPORT\FINDFIRS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTADD.C">
+				RelativePath="SOURCE\EVENT\FOCUS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTDEF.C">
+				RelativePath="SOURCE\SUPPORT\FONT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTDEF2.C">
+				RelativePath="SOURCE\SUPPORT\FONTAA.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTDEF3.C">
+				RelativePath="SOURCE\SUPPORT\FONTADD.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTDEF4.C">
+				RelativePath="SOURCE\SUPPORT\FONTDEF.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTDEF5.C">
+				RelativePath="SOURCE\SUPPORT\FONTDEF2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTDUMP.C">
+				RelativePath="SOURCE\SUPPORT\FONTDEF3.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\FONTPIX.C">
+				RelativePath="SOURCE\SUPPORT\FONTDEF4.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\FRAME.C">
+				RelativePath="SOURCE\SUPPORT\FONTDEF5.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\FRAME1.C">
+				RelativePath="SOURCE\SUPPORT\FONTDUMP.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\FRAME2.C">
+				RelativePath="SOURCE\SUPPORT\FONTPIX.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GEOMETRY\GEOM1.C">
+				RelativePath="SOURCE\GRAPHICS\FRAME.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GEOMETRY\GEOM2.C">
+				RelativePath="SOURCE\GRAPHICS\FRAME1.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GEOMETRY\GEOMENCL.C">
+				RelativePath="SOURCE\GRAPHICS\FRAME2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GEOMETRY\GEOMETRY.C">
+				RelativePath="SOURCE\GEOMETRY\GEOM1.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GEOMETRY\GEOMJC.C">
+				RelativePath="SOURCE\GEOMETRY\GEOM2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GEOMETRY\GEOMJC2.C">
+				RelativePath="SOURCE\GEOMETRY\GEOMENCL.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\GETPIX.C">
+				RelativePath="SOURCE\GEOMETRY\GEOMETRY.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\GETPIXS.C">
+				RelativePath="SOURCE\GEOMETRY\GEOMJC.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GLOBALS.C">
+				RelativePath="SOURCE\GEOMETRY\GEOMJC2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\HIDE.C">
+				RelativePath="SOURCE\GRAPHICS\GETPIX.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\HLINE.C">
+				RelativePath="SOURCE\GRAPHICS\GETPIXS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\HLINES.C">
+				RelativePath="SOURCE\GLOBALS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IBLIT.C">
+				RelativePath="SOURCE\OBJECT\HIDE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IHLINE.C">
+				RelativePath="SOURCE\GRAPHICS\HLINE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\ILOAD.C">
+				RelativePath="SOURCE\GRAPHICS\HLINES.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\ILOAD2.C">
+				RelativePath="SOURCE\SUPPORT\IBLIT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\ILOADBMP.C">
+				RelativePath="SOURCE\SUPPORT\IHLINE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\ILOADPCX.C">
+				RelativePath="SOURCE\SUPPORT\ILOAD.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IMAGE.C">
+				RelativePath="SOURCE\SUPPORT\ILOAD2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IMAGE1.C">
+				RelativePath="SOURCE\SUPPORT\ILOADBMP.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IMAGE16.C">
+				RelativePath="SOURCE\SUPPORT\ILOADPCX.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IMAGE24.C">
+				RelativePath="SOURCE\SUPPORT\IMAGE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IMAGE32.C">
+				RelativePath="SOURCE\SUPPORT\IMAGE1.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IMAGE4.C">
+				RelativePath="SOURCE\SUPPORT\IMAGE16.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IMAGE8.C">
+				RelativePath="SOURCE\SUPPORT\IMAGE24.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IRECT.C">
+				RelativePath="SOURCE\SUPPORT\IMAGE32.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\IVLINE.C">
+				RelativePath="SOURCE\SUPPORT\IMAGE4.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\LIST.C">
+				RelativePath="SOURCE\SUPPORT\IMAGE8.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\LISTAREA.C">
+				RelativePath="SOURCE\SUPPORT\IRECT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\LISTDEF.C">
+				RelativePath="SOURCE\SUPPORT\IVLINE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\MENU.C">
+				RelativePath="SOURCE\OBJECT\LIST.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\MENUPD.C">
+				RelativePath="SOURCE\OBJECT\LISTAREA.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\SUPPORT\MOUSE.C">
+				RelativePath="SOURCE\OBJECT\LISTDEF.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DRAW\MOVE.C">
+				RelativePath="SOURCE\OBJECT\MENU.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\MOVER.C">
+				RelativePath="SOURCE\OBJECT\MENUPD.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\OBJECT.C">
+				RelativePath="SOURCE\SUPPORT\MOUSE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DESKTOP\OBJEXIST.C">
+				RelativePath="SOURCE\DRAW\MOVE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\OBJINS.C">
+				RelativePath="SOURCE\OBJECT\MOVER.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\OBJNEW.C">
+				RelativePath="SOURCE\OBJECT\OBJECT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\OBJREM.C">
+				RelativePath="SOURCE\DESKTOP\OBJEXIST.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\OBJSORT.C">
+				RelativePath="SOURCE\OBJECT\OBJINS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\OBJZOR2.C">
+				RelativePath="SOURCE\OBJECT\OBJNEW.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\OBJZORD.C">
+				RelativePath="SOURCE\OBJECT\OBJREM.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\PANEL.C">
+				RelativePath="SOURCE\OBJECT\OBJSORT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\PIXEL.C">
+				RelativePath="SOURCE\OBJECT\OBJZOR2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\PIXELCL.C">
+				RelativePath="SOURCE\OBJECT\OBJZORD.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\PIXELCL2.C">
+				RelativePath="SOURCE\OBJECT\PANEL.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\PIXELCLT.C">
+				RelativePath="SOURCE\GRAPHICS\PIXEL.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\PIXELS.C">
+				RelativePath="SOURCE\GRAPHICS\PIXELCL.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\PIXELT.C">
+				RelativePath="SOURCE\GRAPHICS\PIXELCL2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\PIXELTS.C">
+				RelativePath="SOURCE\GRAPHICS\PIXELCLT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\PLATFORM\PLATFORM.C">
+				RelativePath="SOURCE\GRAPHICS\PIXELS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\PLATFORM\PLATIN.C">
+				RelativePath="SOURCE\GRAPHICS\PIXELT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\PLATFORM\PLATOUT.C">
+				RelativePath="SOURCE\GRAPHICS\PIXELTS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\PLATFORM\PLATSYS.C">
+				RelativePath="SOURCE\PLATFORM\PLATFORM.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\POINTER\POINTER.C">
+				RelativePath="SOURCE\PLATFORM\PLATIN.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\POINTER\POINTHLD.C">
+				RelativePath="SOURCE\PLATFORM\PLATOUT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\POINTER\POINTMVE.C">
+				RelativePath="SOURCE\PLATFORM\PLATSYS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DESKTOP\POP.C">
+				RelativePath="SOURCE\POINTER\POINTER.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\POSMCH.C">
+				RelativePath="SOURCE\POINTER\POINTHLD.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\POSMCW.C">
+				RelativePath="SOURCE\POINTER\POINTMVE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\POSMOVE.C">
+				RelativePath="SOURCE\DESKTOP\POP.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\POSMX.C">
+				RelativePath="SOURCE\OBJECT\POSMCH.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\POSMY.C">
+				RelativePath="SOURCE\OBJECT\POSMCW.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\POSSIZE.C">
+				RelativePath="SOURCE\OBJECT\POSMOVE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\EVENT\QUEUE.C">
+				RelativePath="SOURCE\OBJECT\POSMX.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\RADIO.C">
+				RelativePath="SOURCE\OBJECT\POSMY.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\RADIOGRP.C">
+				RelativePath="SOURCE\OBJECT\POSSIZE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\RECT.C">
+				RelativePath="SOURCE\EVENT\QUEUE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\RECTS.C">
+				RelativePath="SOURCE\GRAPHICS\RADIO.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DRAW\REGION.C">
+				RelativePath="SOURCE\OBJECT\RADIOGRP.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DRAW\REGION2.C">
+				RelativePath="SOURCE\GRAPHICS\RECT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DRAW\REGION3.C">
+				RelativePath="SOURCE\GRAPHICS\RECTS.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DRAW\REGION4.C">
+				RelativePath="SOURCE\DRAW\REGION.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\RELATION.C">
+				RelativePath="SOURCE\DRAW\REGION2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\RESIZE.C">
+				RelativePath="SOURCE\DRAW\REGION3.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\RESIZE2.C">
+				RelativePath="SOURCE\DRAW\REGION4.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\DESKTOP\ROOT.C">
+				RelativePath="SOURCE\OBJECT\RELATION.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\SCROLL.C">
+				RelativePath="SOURCE\OBJECT\RESIZE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\SCROLL2.C">
+				RelativePath="SOURCE\GRAPHICS\RESIZE2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\SLIDER.C">
+				RelativePath="SOURCE\DESKTOP\ROOT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\SLIDERH.C">
+				RelativePath="SOURCE\OBJECT\SCROLL.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\SLIDERV.C">
+				RelativePath="SOURCE\OBJECT\SCROLL2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\STATICT.C">
+				RelativePath="SOURCE\OBJECT\SLIDER.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\STATICT2.C">
+				RelativePath="SOURCE\OBJECT\SLIDERH.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\STATICT3.C">
+				RelativePath="SOURCE\OBJECT\SLIDERV.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXT.C">
+				RelativePath="SOURCE\OBJECT\STATICT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXT1.C">
+				RelativePath="SOURCE\OBJECT\STATICT2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXT2.C">
+				RelativePath="SOURCE\OBJECT\STATICT3.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXT3.C">
+				RelativePath="SOURCE\OBJECT\TEXT.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXT4.C">
+				RelativePath="SOURCE\OBJECT\TEXT1.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXT5.C">
+				RelativePath="SOURCE\OBJECT\TEXT2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXT6.C">
+				RelativePath="SOURCE\OBJECT\TEXT3.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXTARE2.C">
+				RelativePath="SOURCE\OBJECT\TEXT4.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXTARE3.C">
+				RelativePath="SOURCE\OBJECT\TEXT5.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXTARE4.C">
+				RelativePath="SOURCE\OBJECT\TEXT6.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXTAREA.C">
+				RelativePath="SOURCE\OBJECT\TEXTARE2.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXTARSC.C">
+				RelativePath="SOURCE\OBJECT\TEXTARE3.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXTLIN3.C">
+				RelativePath="SOURCE\OBJECT\TEXTARE4.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXTLIN4.C">
+				RelativePath="SOURCE\OBJECT\TEXTAREA.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\TEXTLINE.C">
+				RelativePath="SOURCE\OBJECT\TEXTARSC.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\VLINE.C">
+				RelativePath="SOURCE\OBJECT\TEXTLIN3.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\GRAPHICS\VLINES.C">
+				RelativePath="SOURCE\OBJECT\TEXTLIN4.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\WINDOW.C">
+				RelativePath="SOURCE\OBJECT\TEXTLINE.C"
+				>
 			</File>
 			<File
-				RelativePath="SOURCE\OBJECT\WINDOW2.C">
+				RelativePath="SOURCE\GRAPHICS\VLINE.C"
+				>
+			</File>
+			<File
+				RelativePath="SOURCE\GRAPHICS\VLINES.C"
+				>
+			</File>
+			<File
+				RelativePath="SOURCE\OBJECT\WINDOW.C"
+				>
+			</File>
+			<File
+				RelativePath="SOURCE\OBJECT\WINDOW2.C"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
-			Filter="h;hpp;hxx;hm;inl;inc">
+			Filter="h;hpp;hxx;hm;inl;inc"
+			>
+			<File
+				RelativePath=".\INCLUDE\DEPUI\_CONFIG.H"
+				>
+			</File>
+			<File
+				RelativePath=".\INCLUDE\DEPUI\CONFIG.H"
+				>
+			</File>
+			<File
+				RelativePath=".\INCLUDE\DEPUI\DEPUI.H"
+				>
+			</File>
+			<File
+				RelativePath=".\INCLUDE\DEPUI\DRAGDROP.H"
+				>
+			</File>
+			<File
+				RelativePath=".\INCLUDE\DEPUI\MACROS.H"
+				>
+			</File>
+			<File
+				RelativePath=".\INCLUDE\DEPUI\TYPES.H"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+			>
 		</Filter>
 	</Files>
 	<Globals>
