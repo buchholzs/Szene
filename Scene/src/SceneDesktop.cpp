@@ -63,6 +63,7 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 	  delete desktop->flyMode;
 	  delete desktop->controller;
 	  delete desktop->hud;
+	  delete desktop->filename;
 	  break;
 
   case MxEventPointerEnter:
@@ -71,10 +72,11 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 		desktop->old_mouse_x = screen_w / 2;
 		desktop->old_mouse_y = screen_h / 2;
 		MxPointerWantMove(object, MxTrue);
-		  /* Fall through */
+		  // Fall through
 	  } else {
 		break;
 	  }
+	  break;
 
   case MxEventPointerMove: 
 	  if (desktop->directDisplay) {
@@ -96,6 +98,10 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 		  case 0x1b:
 			/* Make an event to force an exit */
 			MxEventSendSimple(&desktop->base.object, MxEventExit);
+			return object;
+		  case 0x3B: // f1
+			desktop->directDisplay = false;
+			desktop->controller->showHelp(desktop);
 			return object;
 		  case 0x3D: // f3
 			desktop->directDisplay = false;
@@ -202,21 +208,22 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	// hud
 	desktop->hud = new Hud(LIGHTGRAY);
 
-	// direct display
-	desktop->directDisplay = true;
+	desktop->ignorePointerMove = false;
 
 	desktop->frames = 0;
 	desktop->prevtime = 0;
 	desktop->elapsedTime = 0;
 	desktop->difftime = 0;
 	desktop->prevtime = clock(); 
-        desktop->filename = new string("");
+	desktop->filename = new string("");
+	desktop->directDisplay = true;
 }
 
 // Szene neu laden
 void loadScene(SceneDesktop * desktop, const std::string &filename) {
   try {
     desktop->scn->loadXML(filename);
+	mouse_reset(desktop);
     *desktop->filename = filename;
 	reloadPalette(desktop);
 	Scene::ActionMap *am = desktop->scn->getAllActions();

@@ -48,6 +48,7 @@ typedef struct SceneDesktop {
 		float elapsedTime; // for calculating fps, in msec
 		float difftime; // diff (current frame - last frame) in msec
 		bool directDisplay; // display indirect in event loop or direct in display
+		bool ignorePointerMove; // ignore last MxEventPointerMove event
 	 } SceneDesktop;
 
 	 typedef struct SceneDesktopArgs {
