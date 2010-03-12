@@ -6,7 +6,7 @@
 #include "MoveMode.h"
 
 struct SceneDesktop;
-class MxFileselector;
+struct MxFileselector;
 
 namespace scene {
 
@@ -27,6 +27,7 @@ public:
 	const MoveMode* getMoveMode () { return moveMode_; }
 	void	loadScene(SceneDesktop *desktop);
 	void	saveScene(SceneDesktop *desktop);
+	void	showHelp(SceneDesktop *desktop);
 private:
         void resizeFileSelector(MxFileselector *fs);
 	MoveMode*	moveMode_;
