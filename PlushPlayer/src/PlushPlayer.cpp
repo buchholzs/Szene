@@ -97,7 +97,7 @@ extern "C" int GRXMain(int argc, char *argv[])
 		  strcpy(filename, argv[1]);
 	  }
 	  bool sceneToLoad = filename[0] != '\0';
-
+	  bool initialLoad = true;
 
 	  while (MxDesktopRun(&desktop.base.desktop)) {
 		newclk = clock();  
@@ -110,7 +110,14 @@ extern "C" int GRXMain(int argc, char *argv[])
 
 		if (sceneToLoad) {
 			sceneToLoad=false;
+			initialLoad=false;
 			loadScene(&desktop, filename);
+		} else if (initialLoad) {
+			initialLoad = false;
+			MxEvent event;
+			event.type = MxEventKeyUnbound;
+			event.key.code = 0x3D; // F3 - Load
+			MxEnqueue(&desktop.base.object, &event, 0);
 		}
 	  }
 
