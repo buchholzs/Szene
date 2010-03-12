@@ -32,13 +32,18 @@
 </cameras>
 <textures>
 <texture id="tex_karte_cw" src="karte-CW.PCX" rescale="yes" optimize="yes"/>
+<texture id="tex_karte" src="karte.PCX" rescale="yes" optimize="yes"/>
 </textures>
 <materials>
 <material id="cubemat" numgradients="100" shadetype="PL_SHADE_FLAT" 
 ambient0="32" ambient1="0" ambient2="16" 
 diffuse0="200" diffuse1="100" diffuse2="150" />
-<material id="karte_mat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
+<material id="karte_cw_mat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
   texture="tex_karte_cw" perspectivecorrect="1"
+  ambient0="12" ambient1="12" ambient2="12" 
+  diffuse0="25" diffuse1="25" diffuse2="25"/>
+<material id="karte_mat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
+  texture="tex_karte" perspectivecorrect="8"
   ambient0="12" ambient1="12" ambient2="12" 
   diffuse0="25" diffuse1="25" diffuse2="25"/>
 <material id="bdy_mat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
@@ -73,11 +78,11 @@ intensity="0.33" falloff="10.0"/>
 <box id="c_bdy_3" material="bdy_mat" w="2" d="2" h="2" />
 <box id="Tisch" material="Copper_Texture" w="2" d="2" h="2"/>
 <box id="TSweep001" material="karte_mat" w="2.002" d="3.003" h="0.1001"/>
-<box id="TSweep2" material="karte_mat" w="2.002" d="3.003" h="0.1001" />
-<box id="TSweep3" material="karte_mat" w="2.002" d="3.003" h="0.1001" />
-<box id="TSweep4" material="karte_mat" w="2.002" d="3.003" h="0.1001" />
-<box id="TSweep5" material="karte_mat" w="2.002" d="3.003" h="0.1001" />
-<box id="panel2" material="karte_mat" w="2" d="2" h="2"/>
+<box id="TSweep2" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
+<box id="TSweep3" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
+<box id="TSweep4" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
+<box id="TSweep5" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
+<box id="panel2" material="karte_cw_mat" w="2" d="2" h="2"/>
 <cylinder id="fuss1" material="tx_foot" r="1" h="1" divr="10"
 captop="yes" capbottom="yes" />
 <cylinder id="fuss2" material="tx_foot" r="1" h="1" divr="10"
