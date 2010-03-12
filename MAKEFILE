@@ -1,0 +1,50 @@
+#
+# Szene makefile for DJGPP version (GNU-make)
+#
+
+EXE=plushplr.exe matedit2.exe
+
+LIB=plush/libplush.a contrib/grx243/lib/dj2/libgrx20.a Depui/Lib/libdepui.a Scene/libscene.a
+
+# Rules
+all: lib exe
+
+MatEdit2/matedit2.exe:
+	$(MAKE) -C MatEdit2 -f MAKEFILE
+
+PlushPlayer/plushplr.exe:
+	$(MAKE) -C PlushPlayer -f MAKEFILE
+
+Scene/libscene.a:
+	$(MAKE) -C Scene -f MAKEFILE
+
+plush/libplush.a:
+	$(MAKE) -C plush/src -f MAKEFILE	
+
+Depui/Lib/libdepui.a:
+	$(MAKE) -C Depui -f MAKEFILE	
+
+contrib/grx243/lib/dj2/libgrx20.a:
+	$(MAKE) -C contrib/grx243 -f makefile.dj2
+
+clean:
+	rm -f $(EXE)
+	$(MAKE) -C plush/src -f MAKEFILE clean	
+	$(MAKE) -C contrib/grx243 -f makefile.dj2 clean
+	rm -f contrib/grx243/lib/dj2/libgrx20.a
+	$(MAKE) -C Depui -f MAKEFILE clean
+	$(MAKE) -C Scene -f MAKEFILE clean
+	$(MAKE) -C MatEdit2 -f MAKEFILE clean
+	$(MAKE) -C PlushPlayer -f MAKEFILE clean
+
+# Dependencies
+
+exe: $(EXE)
+
+plushplr.exe: PlushPlayer/plushplr.exe
+	cp PlushPlayer/plushplr.exe .	
+
+matedit2.exe: MatEdit2/matedit2.exe
+	cp MatEdit2/matedit2.exe .
+
+lib: $(LIB)
