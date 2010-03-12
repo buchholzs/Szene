@@ -83,6 +83,7 @@ intensity="0.33" falloff="10.0"/>
 <box id="TSweep4" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
 <box id="TSweep5" material="karte_cw_mat" w="2.002" d="3.003" h="0.1001" />
 <box id="panel2" material="karte_cw_mat" w="2" d="2" h="2"/>
+<box id="panel3" material="karte_cw_mat" w="2" d="2" h="2"/>
 <cylinder id="fuss1" material="tx_foot" r="1" h="1" divr="10"
 captop="yes" capbottom="yes" />
 <cylinder id="fuss2" material="tx_foot" r="1" h="1" divr="10"
@@ -149,8 +150,13 @@ captop="yes" capbottom="yes" />
 <translate obj="TSweep5" xp="-2.634862" zp="5.496456" yp="-0.640539" />
 <rotate obj="TSweep5" ya="-155.404526" relative="yes"/>
 
-<scale obj="panel2" x="1.385" z="0.5" y="2.42" />
+<scale obj="panel2" x="0.7" z="0.5" y="2.42" />
 <rotate obj="panel2" xa="-18.464"/>
-<translate obj="panel2" xp="10.499765" zp="-0.260638" yp="2.88"/>
+<translate obj="panel2" xp="5.25" zp="-0.25" yp="2.529"/>
+
+<scale obj="panel3" x="0.7" z="0.5" y="2.42" />
+<rotate obj="panel3" xa="-18.464005" />
+<translate obj="panel3" relative="yes" xp="0.75" zp="-0.25" yp="2.529" />
+
 </transformations>
 </scene>
