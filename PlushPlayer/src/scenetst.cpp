@@ -29,7 +29,9 @@ const char *WINTITLE = "GRX Scene";
 
 const float velocity = 20.0; // m/s
 const int reset_area = 20;
-const int CText = 1;
+const int CBackground = 1;
+const int CText = 2;
+const int CFirstFreeColor = CText + 1;
 
 //////////////////////////////////////////////////////////////////////////////
 // Static variables
@@ -102,11 +104,12 @@ void renderScene(string file) {
       cam = scene.getCurrCamera();
       cout << "Make palette" << endl;
       scene.makePalette(ThePalette, 2, 255);
-      for (int i = 2; i < 256; i++) {
+      for (int i = CFirstFreeColor; i < 256; i++) {
 	GrSetColor(i, ThePalette[ i*3 ], 
 		   ThePalette[ i*3 + 1], 
 		   ThePalette[ i*3 + 2 ]);
       }
+      GrSetColor(CBackground, 255, 255, 255);
       GrSetColor(CText, 0, 192, 0);
     }
     assert(cam != NULL);
