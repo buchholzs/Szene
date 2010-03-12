@@ -1,7 +1,4 @@
-// Copyright (c) 2006, Steffen Buchholz
-
-// NOTE: please use a PRESERVE:BEGIN/PRESERVE:END comment block
-//       to preserve your hand-coding across code generations.
+// Copyright (c) 2006,2010 Steffen Buchholz
 
 
 #include "Controller.h"
@@ -57,7 +54,18 @@ void Controller::loadScene (SceneDesktop *desktop)
 
   /* Start the file selector */
   MxFileselector *fs = MxFileselectorStart(&args, &desktop->base.object, &okSel->base.object);
+  resizeFileSelector(fs);
   return;
+}
+
+// ------------------------------------------------------------
+void Controller::resizeFileSelector(MxFileselector *fs) {
+  /* Change the window size to fit the desktop size */
+   MxObject *parent = MxParent(&fs->base.object);
+  MxGeomSize(&fs->base.object, MxW(&fs->base.object), MxH(parent)/2);
+  MxGeomPosition(&fs->base.object, fs->base.object.position.x1, MxH(parent)/4);
+  MxEventSendSimple(&fs->base.object, MxEventGeomChanged);
+  MxEnqueueRefresh(&fs->base.object, MxTrue);
 }
 
 // File | Open Filedialog OK selected

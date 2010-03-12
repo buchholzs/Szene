@@ -1,7 +1,4 @@
-// Copyright (c) 2006, Steffen Buchholz
-
-// NOTE: please use a PRESERVE:BEGIN/PRESERVE:END comment block
-//       to preserve your hand-coding across code generations.
+// Copyright (c) 2006,2010 Steffen Buchholz
 
 #ifndef _Controller_H_
 #define _Controller_H_
@@ -9,6 +6,7 @@
 #include "MoveMode.h"
 
 struct SceneDesktop;
+class MxFileselector;
 
 namespace scene {
 
@@ -30,6 +28,7 @@ public:
 	void	loadScene(SceneDesktop *desktop);
 	void	saveScene(SceneDesktop *desktop);
 private:
+        void resizeFileSelector(MxFileselector *fs);
 	MoveMode*	moveMode_;
 	Scene	*scene_;
 };
