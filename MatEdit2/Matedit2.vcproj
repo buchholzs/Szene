@@ -148,6 +148,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..\Scene\src,..\plush\src,..\Depui\INCLUDE,..\contrib\grx243\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -172,9 +173,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="grx243.lib depui.lib scene.lib plush.lib expat.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/Matedit2.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="&quot;..\Expat-1.95.2\Libs&quot;;..\Depui\Lib\Release;..\contrib\grx243\Release;..\Scene\Release;..\plush\Release"
 				ProgramDatabaseFile=".\Release/Matedit2.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"

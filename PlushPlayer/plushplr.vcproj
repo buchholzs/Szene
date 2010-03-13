@@ -147,6 +147,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..\plush\src,..\Expat-1.95.2\Source\lib,..\depui\include,..\contrib\grx243\include,..\Scene\src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -171,9 +172,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="scene.lib expat.lib plush.lib depui.lib grx243.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/plushplr.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="..\depui\Lib\Release;..\scene\Release;..\plush\Release;..\contrib\grx243\Release;&quot;..\expat-1.95.2\libs&quot;"
 				ProgramDatabaseFile=".\Release/plushplr.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"

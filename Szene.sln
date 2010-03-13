@@ -33,6 +33,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plushplr", "PlushPlayer\plu
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EXAMPLES", "Depui\EXAMPLES.vcproj", "{CBEE8FCD-5C69-4932-BC94-749145194299}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8D871BA3-F337-4FB7-99AF-525685D5D52B} = {8D871BA3-F337-4FB7-99AF-525685D5D52B}
+		{69F2DFB8-DEDF-45EF-8681-BAC9C1DE415A} = {69F2DFB8-DEDF-45EF-8681-BAC9C1DE415A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

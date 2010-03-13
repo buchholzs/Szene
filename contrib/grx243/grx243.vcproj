@@ -42,6 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="include;src\include;src"
 				PreprocessorDefinitions="WIN32,NDEBUG,_LIB"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -1489,15 +1490,11 @@
 				>
 			</File>
 			<File
-				RelativePath="src\include\bcc\allocate.h"
-				>
-			</File>
-			<File
 				RelativePath="src\include\allocate.h"
 				>
 			</File>
 			<File
-				RelativePath="src\include\bcc\arith.h"
+				RelativePath="src\include\bcc\allocate.h"
 				>
 			</File>
 			<File
@@ -1506,6 +1503,10 @@
 			</File>
 			<File
 				RelativePath="src\include\arith.h"
+				>
+			</File>
+			<File
+				RelativePath="src\include\bcc\arith.h"
 				>
 			</File>
 			<File
@@ -1613,10 +1614,6 @@
 				>
 			</File>
 			<File
-				RelativePath="src\include\watcom\memfill.h"
-				>
-			</File>
-			<File
 				RelativePath="src\include\gcc\memfill.h"
 				>
 			</File>
@@ -1626,6 +1623,10 @@
 			</File>
 			<File
 				RelativePath="src\include\memfill.h"
+				>
+			</File>
+			<File
+				RelativePath="src\include\watcom\memfill.h"
 				>
 			</File>
 			<File
@@ -1645,10 +1646,6 @@
 				>
 			</File>
 			<File
-				RelativePath="src\include\gcc\mempeek.h"
-				>
-			</File>
-			<File
 				RelativePath="src\include\bcc\mempeek.h"
 				>
 			</File>
@@ -1658,6 +1655,10 @@
 			</File>
 			<File
 				RelativePath="src\include\watcom\mempeek.h"
+				>
+			</File>
+			<File
+				RelativePath="src\include\gcc\mempeek.h"
 				>
 			</File>
 			<File
