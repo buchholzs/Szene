@@ -1,0 +1,335 @@
+#
+# GRX Library Makefile for DJGPP v2. Needs GNU Make.
+# Make sure your shell is command.com !
+#
+.PHONY : clean cleanall install uninstall \
+	 install-bin uninstall-bin install-fonts uninstall-fonts \
+	 install-info uninstall-info
+
+GRXVDJ2=y
+
+include ../makedefs.grx
+
+INCDIR= -I. -I./include -I../include
+
+ifdef GRX_DEFAULT_FONT_PATH
+CCOPT += -DGRX_DEFAULT_FONT_PATH=\"$(GRX_DEFAULT_FONT_PATH)\"
+endif
+
+TAG = $(DOS_DJGPP_V2)
+
+GRX20ln    = libgrx20.a
+GRX20ST    = ../lib/$(GRX_LIB_SUBDIR)/$(GRX20ln)
+ifeq ($(HAVE_UNIX_TOOLS),y)
+GRX20STdos = $(GRX20ST)
+INSTALLDIRdos   = $(INSTALLDIR)
+else
+GRX20STdos = $(subst /,\,$(GRX20ST))
+INSTALLDIRdos   = $(subst /,\,$(INSTALLDIR))
+endif
+
+OX=.o
+OP=
+
+include ./stdobjs.mak
+
+# Keep things a little smaller when building the lib ...
+STD_Oa= $(STD_1) $(STD_2)  $(STD_3)  $(STD_4) $(STD_5) $(STD_6)
+STD_Ob= $(STD_7) $(STD_8) $(STD_9) $(STD_10) $(STD_11) $(STD_12)
+BGI_Oa= $(BGI_1) $(BGI_2) $(BGI_3)
+BGI_Ob= $(BGI_4) $(BGI_5) $(BGI_6)
+
+ADDON_O=
+ifdef DEBUG
+ ADDON_O += $(DBG_1)
+endif
+
+ifeq ($(HAVE_LIBTIFF),y)
+  ADDON_O += $(TIF_1)
+endif
+
+ifeq ($(HAVE_LIBJPEG),y)
+  ADDON_O += $(JPG_1)
+else
+  ADDON_O += $(NOJPG_1)
+endif
+
+ifeq ($(HAVE_LIBPNG),y)
+  ADDON_O += $(PNG_1)
+else
+  ADDON_O += $(NOPNG_1)
+endif
+
+ifeq ($(INCLUDE_PRINTING_CODE),y)
+  ADDON_O += $(PRN_1)
+  INCDIR += -I../addons/print
+ifeq ($(INCLUDE_BGI_SUPPORT),y)
+  BGI_Ob += $(PRNBGI_1)
+endif
+endif
+
+ifeq ($(INCLUDE_BMP_CODE),y)
+  ADDON_O += $(BMP_1)
+  INCDIR  += -I../addons/bmp
+endif
+
+DJ_O=   $(ADDON_O)              \
+	fdrivers/egavga1.o      \
+	fdrivers/ega4.o         \
+	fdrivers/herc1.o        \
+	fdrivers/lfb16.o        \
+	fdrivers/lfb24.o        \
+	fdrivers/lfb32h.o       \
+	fdrivers/lfb32l.o       \
+	fdrivers/lfb8.o         \
+	fdrivers/lfbbltrv.o     \
+	fdrivers/lfbbltvr.o     \
+	fdrivers/lfbbltvv.o     \
+	fdrivers/ram24.o        \
+	fdrivers/ram32l.o       \
+	fdrivers/ram32h.o       \
+	fdrivers/svga16.o       \
+	fdrivers/svga24.o       \
+	fdrivers/svga32h.o      \
+	fdrivers/svga32l.o      \
+	fdrivers/svga4.o        \
+	fdrivers/svga8.o        \
+	fdrivers/vga8x.o        \
+	mouse/dosinput.o        \
+	mouse/doskeys.o         \
+	misc/dosmisc.o          \
+	vdrivers/ati28800.o     \
+	vdrivers/cl5426.o       \
+	vdrivers/et4000.o       \
+	vdrivers/herc.o         \
+	vdrivers/mach64.o       \
+	vdrivers/s3.o           \
+	vdrivers/stdega.o       \
+	vdrivers/stdvga.o       \
+	vdrivers/u_egavga.o     \
+	vdrivers/u_vesa.o       \
+	vdrivers/u_vsvirt.o     \
+	vdrivers/vesa.o
+
+ALL_O = $(STD_Oa) $(STD_Ob) $(DJ_O)
+
+ifeq ($(INCLUDE_BGI_SUPPORT),y)
+  ALL_O += $(BGI_Oa) $(BGI_Ob)
+endif
+
+UTILP = ../bin/bin2c.exe        \
+	../bin/fnt2c.exe        \
+	../bin/vesainfo.exe     \
+	../bin/modetest.exe
+
+all:    $(GRX20ST) $(UTILP)
+
+clean:
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f */*.o ../addons/*.o ../addons/*/*.o $(TAG)
+else
+	if exist bgi\*.o      del bgi\*.o
+	if exist draw\*.o     del draw\*.o
+	if exist fdrivers\*.o del fdrivers\*.o
+	if exist fonts\*.o    del fonts\*.o
+	if exist image\*.o    del image\*.o
+	if exist gformats\*.o del gformats\*.o
+	if exist mouse\*.o    del mouse\*.o
+	if exist misc\*.o     del misc\*.o
+	if exist pattern\*.o  del pattern\*.o
+	if exist setup\*.o    del setup\*.o
+	if exist shape\*.o    del shape\*.o
+	if exist text\*.o     del text\*.o
+	if exist user\*.o     del user\*.o
+	if exist utilprog\*.o del utilprog\*.o
+	if exist utils\*.o    del utils\*.o
+	if exist vdrivers\*.o del vdrivers\*.o
+	if exist wideline\*.o del wideline\*.o
+	if exist ..\addons\*.o del ..\addons\*.o
+	if exist ..\addons\print\*.o del ..\addons\print\*.o
+	if exist ..\addons\bmp\*.o   del ..\addons\bmp\*.o
+	if exist $(TAG)       del $(TAG)
+endif
+
+cleanall: clean
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f $(GRX20STdos) ../bin/*.exe
+else
+	if exist $(GRX20STdos) del $(GRX20STdos)
+	if exist ..\bin\*.exe del ..\bin\*.exe
+endif
+
+install: $(GRX20ST)
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	cp $(GRX20STdos) $(INSTALLDIRdos)/lib
+	cp ../include/grx20.h ../include/grxkeys.h \
+	   ../include/libbcc.h $(INSTALLDIRdos)/include
+ifeq ($(INCLUDE_PRINTING_CODE),y)
+	cp ../addons/print/grxprint.h $(INSTALLDIRdos)/include
+endif
+ifeq ($(INCLUDE_GPC_SUPPORT),y)
+	mkdir -p $(INSTALLDIRdos)/units
+	cp ../pascal/grx.pas ../pascal/bgi/graph.pas $(INSTALLDIRdos)/units
+endif
+else
+	copy $(GRX20STdos) $(INSTALLDIRdos)\lib
+	copy ..\include\grx20.h $(INSTALLDIRdos)\include
+	copy ..\include\grxkeys.h $(INSTALLDIRdos)\include
+	copy ..\include\libbcc.h $(INSTALLDIRdos)\include
+ifeq ($(INCLUDE_PRINTING_CODE),y)
+	copy ..\addons\print\grxprint.h $(INSTALLDIRdos)\include
+endif
+ifeq ($(INCLUDE_GPC_SUPPORT),y)
+	if not exist $(INSTALLDIRdos)\units\nul mkdir $(INSTALLDIRdos)\units
+	copy ..\pascal\grx.pas $(INSTALLDIRdos)\units
+	copy ..\pascal\bgi\graph.pas $(INSTALLDIRdos)\units
+endif
+endif
+
+uninstall:
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f $(INSTALLDIRdos)/lib/$(GRX20ln) $(INSTALLDIRdos)/include/grx20.h \
+	      $(INSTALLDIRdos)/include/grxkeys.h $(INSTALLDIRdos)/include/libbcc.h
+ifeq ($(INCLUDE_PRINTING_CODE),y)
+	rm -f $(INSTALLDIRdos)/include/grxprint.h
+endif
+ifeq ($(INCLUDE_GPC_SUPPORT),y)
+	rm -f $(INSTALLDIRdos)/units/grx.pas $(INSTALLDIRdos)/units/graph.pas
+endif
+else
+	if exist $(INSTALLDIRdos)\lib\$(GRX20ln)    del $(INSTALLDIRdos)\lib\$(GRX20ln)
+	if exist $(INSTALLDIRdos)\include\grx20.h   del $(INSTALLDIRdos)\include\grx20.h
+	if exist $(INSTALLDIRdos)\include\grxkeys.h del $(INSTALLDIRdos)\include\grxkeys.h
+	if exist $(INSTALLDIRdos)\include\libbcc.h del $(INSTALLDIRdos)\include\libbcc.h
+ifeq ($(INCLUDE_PRINTING_CODE),y)
+	if exist $(INSTALLDIRdos)\include\grxprint.h del $(INSTALLDIRdos)\include\grxprint.h
+endif
+ifeq ($(INCLUDE_GPC_SUPPORT),y)
+	if exist $(INSTALLDIRdos)\units\grx.pas del $(INSTALLDIRdos)\units\grx.pas
+	if exist $(INSTALLDIRdos)\units\graph.pas del $(INSTALLDIRdos)\units\graph.pas
+endif
+endif
+
+install-info:
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	cp ../doc/grx*um.inf $(INSTALLDIRdos)/info/grx.inf
+	install-info $(INSTALLDIRdos)/info/grx.inf $(INSTALLDIRdos)/info/dir
+else
+	copy ..\doc\grx*um.inf $(INSTALLDIRdos)\info\grx.inf
+	install-info $(INSTALLDIRdos)\info\grx.inf $(INSTALLDIRdos)\info\dir
+endif
+
+uninstall-info:
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f $(INSTALLDIRdos)/info/grx.inf
+	install-info -r $(INSTALLDIRdos)/info/grx.inf $(INSTALLDIRdos)/info/dir
+else
+	if exist $(INSTALLDIRdos)\info\grx.inf del $(INSTALLDIRdos)\info\grx.inf
+	install-info -r $(INSTALLDIRdos)\info\grx.inf $(INSTALLDIRdos)\info\dir
+endif
+
+install-bin: $(UTILP)
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	cp ../bin/bin2c.exe ../bin/fnt2c.exe ../bin/vesainfo.exe \
+	   ../bin/modetest.exe $(INSTALLDIRdos)/bin
+else
+	copy ..\bin\bin2c.exe $(INSTALLDIRdos)\bin
+	copy ..\bin\fnt2c.exe $(INSTALLDIRdos)\bin
+	copy ..\bin\vesainfo.exe $(INSTALLDIRdos)\bin
+	copy ..\bin\modetest.exe $(INSTALLDIRdos)\bin
+endif
+
+uninstall-bin:
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f $(INSTALLDIRdos)/bin/bin2c.exe $(INSTALLDIRdos)/bin/fnt2c.exe \
+	      $(INSTALLDIRdos)/bin/vesainfo.exe $(INSTALLDIRdos)/bin/modetest.exe
+else
+	if exist $(INSTALLDIRdos)\bin\bin2c.exe del $(INSTALLDIRdos)\bin\bin2c.exe
+	if exist $(INSTALLDIRdos)\bin\fnt2c.exe del $(INSTALLDIRdos)\bin\fnt2c.exe
+	if exist $(INSTALLDIRdos)\bin\vesainfo.exe del $(INSTALLDIRdos)\bin\vesainfo.exe
+	if exist $(INSTALLDIRdos)\bin\modetest.exe del $(INSTALLDIRdos)\bin\modetest.exe
+endif
+
+ifdef GRX_DEFAULT_FONT_PATH
+ifeq ($(HAVE_UNIX_TOOLS),y)
+FONTPATHdos = $(GRX_DEFAULT_FONT_PATH)
+else
+FONTPATHdos = $(subst /,\,$(GRX_DEFAULT_FONT_PATH))
+endif
+install-fonts:
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	mkdir -p $(FONTPATHdos)
+	cp ../fonts/* $(FONTPATHdos)
+else
+	if not exist $(FONTPATHdos)\nul mkdir $(FONTPATHdos)
+	copy ..\fonts\*.* $(FONTPATHdos)
+endif
+uninstall-fonts:
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f $(FONTPATHdos)/*
+else
+	del $(FONTPATHdos)\*.*
+endif
+endif
+                        
+dep:
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f depend.tmp
+else
+	if exist depend.tmp del depend.tmp
+endif
+	$(CC) -MM $(CCOPT) $(INCDIR) $(ALL_O:.o=.c) >depend.tmp
+	sed 's#^.*: \(.*\)\.c#\1.o: \1.c#g'   <depend.tmp >depend.dj2
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f depend.tmp
+else
+	if exist depend.tmp del depend.tmp
+endif
+
+depend.b: depend.new
+	sed "s#\.o:#.obj:#g" <depend.new >depend.b
+	sed "s#\.o:#.asm:#g" <depend.new >>depend.b
+
+$(GRX20ST): $(TAG) $(ALL_O)
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f $(GRX20STdos)
+else
+	if exist $(GRX20STdos) del $(GRX20STdos)
+endif
+	$(AR) -r $(GRX20ST) $(STD_Oa)
+	$(AR) -r $(GRX20ST) $(STD_Ob)
+ifeq ($(INCLUDE_BGI_SUPPORT),y)
+	$(AR) -r $(GRX20ST) $(BGI_Oa)
+	$(AR) -r $(GRX20ST) $(BGI_Ob)
+endif
+	$(AR) -r $(GRX20ST) $(DJ_O)
+	$(RANLIB) $(GRX20ST)
+
+$(UTILP): ../bin/%.exe : utilprog/%.o $(GRX20ST)
+	$(CC) $(LDOPT) -o $@ utilprog/$*.o $(GRX20ST)
+	$(EXE_COMPRESS) $@
+
+$(DOS_DJGPP_V2):
+	$(MAKE) -f makefile.dj2 clean
+ifeq ($(HAVE_UNIX_TOOLS),y)
+	rm -f $(SYSTEM_TAG_PREFIX).*
+else
+	if exist $(SYSTEM_TAG_PREFIX).* del $(SYSTEM_TAG_PREFIX).*
+endif
+	echo DOS_DJGPP_V2_TARGET > $(DOS_DJGPP_V2)
+
+$(ALL_O): $(TAG)
+
+$(ALL_O:.o=.i) : %.i : %.c
+	$(CC) -E $(CCOPT) $(INCDIR) $*.c > $*.i
+
+$(ALL_O:.o=.dm) : %.dm : %.c
+	$(CC) -dM -E $(CCOPT) $(INCDIR) $*.c > $*.dm
+
+.c.s:
+	$(CC) -S $(CCOPT) $(INCDIR) $*.c -o $*.s
+
+.c.o:
+	$(CC) -c $(CCOPT) $(INCDIR) $*.c -o $*.o
+
+include depend.dj2
