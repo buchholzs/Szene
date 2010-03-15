@@ -31,6 +31,7 @@ using namespace scene;
 //
 static void mouse_reset(SceneDesktop * desktop);
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
+static void handleError(SceneDesktop * desktop, const string &msg);
 
 const int CFixColors = 23;	// Readonly colors
 const float velocity  = 200.0f / 1000.0f;	// m/s
@@ -241,20 +242,26 @@ void loadScene(SceneDesktop * desktop, const std::string &filename) {
   } catch (Scene::IOError &) {
     ostringstream msg;
     msg << filename << ": file not found"; 
-    strcpy(lastmessage, msg.str().c_str());
-    MxAlertStart(&msgOk, &desktop->base.object);
+    handleError(desktop, msg.str()); 
     return;
   } catch (Scene::ParseError &pe) {
     ostringstream msg;
-    msg << filename << ':' << pe.getLine() << ": error: " << pe.what(); 
-    strcpy(lastmessage, msg.str().c_str());
-    MxAlertStart(&msgOk, &desktop->base.object);
+    msg << filename << ':' << pe.getLine() << ": error: " << pe.what();
+    handleError(desktop, msg.str()); 
     return;
   }
 }
 
+// Szene mit Hintergrundfarbe löschen und Fehlermeldung anzeigen
+static void handleError(SceneDesktop * desktop, const string &msg) {
+    desktop->directDisplay = false;
+    desktop->scn->clear();  // destroy all objects in scene and clear with black
+    updateScene(desktop); // shows blue background in scene
+    strcpy(lastmessage, msg.c_str());
+    MxAlertStart(&msgOk, &desktop->base.object);
+}
+
 // MatEdit aktualisieren nach GUI Änderungen
-//
 void updateScene(SceneDesktop * desktop) {
   clock_t currtime = clock();
   assert(desktop->prevtime <= currtime);
