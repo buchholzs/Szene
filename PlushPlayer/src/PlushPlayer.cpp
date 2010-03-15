@@ -85,8 +85,13 @@ extern "C" int GRXMain(int argc, char *argv[])
 	 MxExitButtonConstruct(&myexit, &desktop.base.object, 0, 0, MxDefault, MxDefault, 0);
 
 	  /* Run the desktop until it wants to exit */
+#ifdef WIN32
 	  clock_t oldclk = clock();
 	  clock_t newclk;
+#else
+	  uclock_t oldclk = uclock();
+	  uclock_t newclk;
+#endif
 
       if (argc != 2 && argc != 1) {
         std::cerr << "Usage: " << argv[0] << " [<scene.scx>]" << std::endl;
@@ -99,9 +104,14 @@ extern "C" int GRXMain(int argc, char *argv[])
 	  bool sceneToLoad = filename[0] != '\0';
 	  bool initialLoad = true;
 
-	  while (MxDesktopRun(&desktop.base.desktop)) {
+          while (MxDesktopRun(&desktop.base.desktop)) {
+#ifdef WIN32
 		newclk = clock();  
 		if (((newclk - oldclk)*1000/CLOCKS_PER_SEC) > refresh_ivl) {
+#else 
+		newclk = uclock();  
+		if (((newclk - oldclk)*1000/UCLOCKS_PER_SEC) > refresh_ivl) {
+#endif
 		  oldclk = newclk;
 		  if (desktop.directDisplay) {
 			updateScene(&desktop);

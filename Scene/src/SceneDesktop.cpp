@@ -265,8 +265,9 @@ void updateScene(SceneDesktop * desktop) {
   desktop->prevtime = currtime;
   pl_Cam*	cam = desktop->scn->getCurrCamera ();
 
-  if (desktop->elapsedTime > 0 && desktop->frames >= avg_frame_window) {
-	desktop->hud->setFPS((float)desktop->frames*1000.0 / (float)desktop->elapsedTime);
+  if (desktop->elapsedTime > 0.0 && desktop->frames >= avg_frame_window) {
+	float fps = ((float)desktop->frames)*1000.0 / desktop->elapsedTime;
+	desktop->hud->setFPS(fps);        
 	desktop->elapsedTime = desktop->frames = 0;
   }
   if (cam) {
