@@ -3,7 +3,7 @@
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
 <cameras>
-<camera id="camera" fov="90.0" z="-300" y="50"/>
+<camera id="camera" fov="90.0" x="42" z="-787.00" y="50"/>
 </cameras>
 <materials>
 <material id="cubemat" numgradients="100" shadetype="PL_SHADE_FLAT" 
