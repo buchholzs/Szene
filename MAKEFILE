@@ -10,7 +10,7 @@ LIB=plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a Depui/Lib/libdepui.a Scen
 all: lib exe
 
 contrib/grx248/lib/dj2/libgrx20.a:
-	$(MAKE) -C contrib/grx248 -f makefile.dj2
+	$(MAKE) -C contrib/grx248 -f makefile.dj2 libs
 
 plush/libplush.a:
 	$(MAKE) -C plush/src -f MAKEFILE	
