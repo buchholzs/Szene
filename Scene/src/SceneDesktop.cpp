@@ -129,7 +129,9 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 			desktop->controller->moveRight(desktop->difftime);
 			return object;
 		  case 'r':
-			loadScene(desktop, *desktop->filename);
+			if (*desktop->filename != "") {
+			  loadScene(desktop, *desktop->filename);
+			}
 			return object;
 	  }
 	  break;

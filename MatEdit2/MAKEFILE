@@ -1,7 +1,7 @@
 EXELIBRARIES = depui grx20 scene expat plush
 
-INCLUDE_DIRS += ../contrib/grx243/include ../depui/include ../plush/src ../Scene/src
-LIBRARY_DIRS += ../contrib/grx243/lib/dj2 ../depui/lib ../plush ../Scene ../expat-1.95.2/libs
+INCLUDE_DIRS += ../contrib/grx248/include ../depui/include ../plush/src ../Scene/src
+LIBRARY_DIRS += ../contrib/grx248/lib/dj2 ../depui/lib ../plush ../Scene ../expat-1.95.2/libs
 
 EXELIBS = $(addprefix -l,$(EXELIBRARIES))
 INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))

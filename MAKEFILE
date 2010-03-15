@@ -4,13 +4,13 @@
 
 EXE=plushplr.exe matedit2.exe
 
-LIB=plush/libplush.a contrib/grx243/lib/dj2/libgrx20.a Depui/Lib/libdepui.a Scene/libscene.a
+LIB=plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a Depui/Lib/libdepui.a Scene/libscene.a
 
 # Rules
 all: lib exe
 
-contrib/grx243/lib/dj2/libgrx20.a:
-	$(MAKE) -C contrib/grx243 -f makefile.dj2
+contrib/grx248/lib/dj2/libgrx20.a:
+	$(MAKE) -C contrib/grx248 -f makefile.dj2
 
 plush/libplush.a:
 	$(MAKE) -C plush/src -f MAKEFILE	
@@ -30,8 +30,8 @@ PlushPlayer/plushplr.exe: $(LIB)
 clean:
 	rm -f $(EXE)
 	$(MAKE) -C plush/src -f MAKEFILE clean	
-	$(MAKE) -C contrib/grx243 -f makefile.dj2 clean
-	rm -f contrib/grx243/lib/dj2/libgrx20.a
+	$(MAKE) -C contrib/grx248 -f makefile.dj2 clean
+	rm -f contrib/grx248/lib/dj2/libgrx20.a
 	$(MAKE) -C Depui -f MAKEFILE clean
 	$(MAKE) -C Scene -f MAKEFILE clean
 	$(MAKE) -C MatEdit2 -f MAKEFILE clean
