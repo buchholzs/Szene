@@ -1,0 +1,26 @@
+<!-- Szene 1: Flat shaded cube -->
+
+<!DOCTYPE scene SYSTEM "scene.dtd">
+<scene>
+<cameras>
+<camera id="camera" fov="90.0" z="-300"/>
+</cameras>
+<materials>
+<material id="cubemat" numgradients="100" shadetype="PL_SHADE_FLAT" 
+ambient0="32" ambient1="0" ambient2="16" 
+diffuse0="200" diffuse1="100" diffuse2="150"
+/>
+</materials>
+<lights>
+<light id="light" type="PL_LIGHT_VECTOR" xp="0.0" yp="0.0" zp="0.0"
+intensity="1.0" falloff="1.0"/>
+</lights>
+<objects>
+<box id="cube" material="cubemat" w="100.0" d="100.0" h="100.0"/>
+</objects>
+
+<transformations>
+
+<rotate obj="cube" relative="yes" xa="45" ya="45"/>
+</transformations>
+</scene>

@@ -1,0 +1,69 @@
+<!-- Szene 1: Flat shaded cube -->
+
+<!DOCTYPE scene SYSTEM "scene.dtd">
+<scene>
+  <global>
+    <background color="9"/>
+  </global>
+<cameras>
+<camera id="camera" fov="90.0" z="-300" y="50" pitch="-20"/>
+</cameras>
+<textures>
+<texture id="skytex" src="sky.pcx" />
+<texture id="groundtex" src="ground.pcx" />
+</textures>
+<materials>
+<material id="cubemat" numgradients="100" shadetype="PL_SHADE_FLAT" 
+ambient0="32" ambient1="0" ambient2="16" 
+diffuse0="200" diffuse1="100" diffuse2="150" />
+<material id="torusmat" numgradients="100"
+shadetype="PL_SHADE_GOURAUD" 
+shininess="32"
+ambient0="60" ambient1="54" ambient2="23" 
+diffuse0="40" diffuse1="36" diffuse2="15"
+specular0="100" specular1="100" specular2="90"
+/>
+<material id="planemat" numgradients="1500" shadetype="PL_SHADE_GOURAUD_DISTANCE"
+ambient0="-255" ambient1="-255" ambient2="-255" 
+diffuse0="127" diffuse1="127" diffuse2="127"
+specular0="127" specular1="127" specular2="127"
+shininess="1"
+texture="groundtex" 
+fadedist="10000" texscaling="52" perspectivecorrect="16"
+/>
+<material id="skymat" numgradients="1500" shadetype="PL_SHADE_GOURAUD_DISTANCE" 
+ambient0="-255" ambient1="-255" ambient2="-255" 
+diffuse0="127" diffuse1="127" diffuse2="127"
+specular0="127" specular1="127" specular2="127"
+shininess="1"
+texture="skytex" 
+fadedist="10000" texscaling="52" perspectivecorrect="32"
+/>
+</materials>
+<lights>
+<light id="light" type="PL_LIGHT_VECTOR" xp="0.0" yp="0.0" zp="0.0"
+intensity="1.0" falloff="1.0"/>
+</lights>
+<objects>
+<box id="cube" material="cubemat" w="100.0" d="100.0" h="100.0"/>
+<torus id="torus" material="torusmat" r1="40.0" r2="100.0" divr="10" divh="8"/>
+<cone id="cone" material="cubemat" r="40.0" h="100.0" divr="10" cap="yes"/>
+<cylinder id="cylinder" material="cubemat" r="40.0" h="100.0" divr="10" 
+      captop="yes" capbottom="yes" />
+<plane id="plane" material="planemat" w="65000" d="65000" res="31"/>
+<plane id="sky" material="skymat" w="65000" d="65000" res="1"/>
+</objects>
+
+<transformations>
+<translate obj="plane" relative="yes" yp="-100"/>
+<rotate obj="cube" relative="yes" xa="45" ya="45"/>
+<translate obj="torus" relative="yes" xp="-70" />
+<rotate obj="torus" relative="yes" xa="45" ya="45"/>
+<translate obj="cone" relative="yes" xp="+100" />
+<rotate obj="cylinder" relative="yes" xa="45" ya="45"/>
+<translate obj="cylinder" relative="yes" xp="+200" />
+<rotate obj="cone" relative="yes" xa="45" ya="45"/>
+<rotate obj="sky" relative="yes" xa="180" />
+<translate obj="sky" relative="yes" yp="2000"/>
+</transformations>
+</scene>
