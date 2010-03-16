@@ -53,7 +53,7 @@ static char filename[MX_MAX_PATH] = "";
 const int refresh_ivl = 5; // Refresh-Inteval in msec
 
 
-extern "C" int GRXMain(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	 MxButton myexit;
 	 MxButtonArgs buttonargs;

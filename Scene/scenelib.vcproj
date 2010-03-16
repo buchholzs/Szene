@@ -44,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\plush\src,..\Expat-1.95.2\Source\lib,..\depui\include,..\contrib\grx243\include"
+				AdditionalIncludeDirectories="..\plush\src,..\Expat-1.95.2\Source\lib,..\depui\include,..\contrib\grx248\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -120,7 +120,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\plush\src,..\Expat-1.95.2\Source\lib,..\depui\include,..\contrib\grx243\include"
+				AdditionalIncludeDirectories="..\plush\src,..\Expat-1.95.2\Source\lib,..\depui\include,..\contrib\grx248\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"

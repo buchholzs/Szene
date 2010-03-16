@@ -2,9 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Matedit2"
-	ProjectGUID="{DFDC6382-ADA6-403D-8E07-620ECAB0DFAA}"
-	RootNamespace="Matedit2"
+	Name="EXAMPLES"
+	ProjectGUID="{CBEE8FCD-5C69-4932-BC94-749145194299}"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -43,19 +42,18 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/Matedit2.tlb"
+				TypeLibraryName=".\Debug/EXAMPLES.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Scene\src,..\plush\src,..\Depui\INCLUDE,..\contrib\grx248\include"
+				AdditionalIncludeDirectories="..\Depui\INCLUDE,..\contrib\grx248\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;main=GRXMain"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				RuntimeTypeInfo="true"
-				PrecompiledHeaderFile=".\Debug/Matedit2.pch"
+				PrecompiledHeaderFile=".\Debug/EXAMPLES.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
@@ -77,14 +75,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="grx248.lib depui.lib scene.lib plush.lib expat.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\Debug/Matedit2.exe"
+				AdditionalDependencies="GRX248.lib Depui.lib"
+				OutputFile=".\Debug/EXAMPLES.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\Expat-1.95.2\Libs&quot;;..\Depui\Lib\Debug;..\contrib\grx248\Debug;..\Scene\Debug;..\plush\debug"
+				AdditionalLibraryDirectories="..\Depui\Lib\Debug,..\contrib\grx248\Debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/Matedit2.pdb"
-				SubSystem="1"
+				ProgramDatabaseFile=".\Debug/EXAMPLES.pdb"
+				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
@@ -101,7 +99,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/Matedit2.bsc"
+				OutputFile=".\Debug/EXAMPLES.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -141,19 +139,19 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Release/Matedit2.tlb"
+				TypeLibraryName=".\Release/EXAMPLES.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\Scene\src,..\plush\src,..\Depui\INCLUDE,..\contrib\grx248\include"
+				AdditionalIncludeDirectories="..\Depui\INCLUDE,..\contrib\grx248\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release/Matedit2.pch"
+				PrecompiledHeaderFile=".\Release/EXAMPLES.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/"
@@ -173,13 +171,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="grx243.lib depui.lib scene.lib plush.lib expat.lib odbc32.lib odbccp32.lib"
-				OutputFile=".\Release/Matedit2.exe"
+				AdditionalDependencies="GRX248.lib Depui.lib"
+				OutputFile=".\Release/EXAMPLES.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\Expat-1.95.2\Libs&quot;;..\Depui\Lib\Release;..\contrib\grx248\Release;..\Scene\Release;..\plush\Release"
-				ProgramDatabaseFile=".\Release/Matedit2.pdb"
-				SubSystem="1"
+				AdditionalLibraryDirectories="..\Depui\Lib\Release;..\contrib\grx248\Release"
+				ProgramDatabaseFile=".\Release/EXAMPLES.pdb"
+				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
@@ -196,7 +194,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release/Matedit2.bsc"
+				OutputFile=".\Release/EXAMPLES.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -217,35 +215,14 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="matedit2.cpp"
+				RelativePath=".\EXAMPLES\EX21a.C"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="matedit2.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"
