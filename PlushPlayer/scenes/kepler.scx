@@ -3,7 +3,7 @@
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
 <cameras>
-<camera id="camera" fov="90.0" x="-1500" z="-3300"/>
+<camera id="camera" fov="90.0" x="-1428" z="-4019" pan="2.5"/>
 
 <!-- <camera id="camera" fov="90.0" x="-100" z="-358" pan="-20"/> -->
 </cameras>
@@ -48,7 +48,7 @@ texture="saturnmap" perspectivecorrect="0"/>
 diffuse0="0" diffuse1="0" diffuse2="0" 
 ambient0="0" ambient1="0" ambient2="0"
 specular0="0" specular1="0" specular2="0"
-shininess="1" texture="sky2map" texscaling="5.0" perspectivecorrect="2"/>
+shininess="1" texture="sky2map" texscaling="4.0" perspectivecorrect="2"/>
 </materials>
 <lights>
 <light id="light1" type="PL_LIGHT_POINT" xp="0.0" yp="0.0" zp="0.0"
