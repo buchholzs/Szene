@@ -56,8 +56,7 @@ const char *CStdObj = "stdobj";
 
 const int texTextLen = 22;
 const int CTextColor = 9;	// Idx of text color
-const int CWinColors = 20;	// Readonly colors
-const int CFixColors = CWinColors + 3;	// used for text and background
+const int CWinColors = 16;	// Readonly colors
 
 enum MatEditEventType {
 	MatEditSceneChanged = MxEventUserType + 1
@@ -443,7 +442,7 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
   windowargs.unresizeable = MxTrue;
 
   /* Add our window to the desktop  */
-  matWin = MxWindowNew(&desktop->base.object, screen_w / 2, 0, screen_w / 2, screen_h, &windowargs);
+  matWin = MxWindowNew(&desktop->base.object, screen_w / 2, 0, screen_w / 2 - 1, screen_h - 1, &windowargs);
   matWin->base.object.handler = MatWinHandler;
 
   /* Make some sliders */
@@ -597,10 +596,10 @@ void MatEdit::updateMatWin() {
 	  mat->Transparent = sliderTransparent->index;
 
 	  matChanged |=  (mat->FadeDist != sliderFadeDist->index);
-	  mat->FadeDist = sliderFadeDist->index;
+	  mat->FadeDist = (pl_Float)sliderFadeDist->index;
 
 	  matChanged |=  (mat->TexScaling != sliderTexScaling->index);
-	  mat->TexScaling = sliderTexScaling->index;
+	  mat->TexScaling = (pl_Float)sliderTexScaling->index;
 
 	  matChanged |=  (mat->PerspectiveCorrect != sliderPerspectiveCorrect->index);
 	  mat->PerspectiveCorrect = sliderPerspectiveCorrect->index;
@@ -761,16 +760,17 @@ void MatEdit::dumpMaterial(pl_Mat *mat, list<string> &l) {
 void MatEdit::reloadPalette() 
 {
   int i;
-  // Fixed colors
-  for (i = CWinColors; i < CFixColors; ++i) {
-    GrSetColor(i, 0, 0, 0);
-  }
-  GrSetColor(CTextColor, 0, 192, 0); // Textcolor
-  checkPal();
 
-  scene.makePalette(ThePalette, CFixColors, 255);
-  for (i = CFixColors; i < 256; i++) {
-    GrSetColor(i, ThePalette[ i*3 ], ThePalette[ i*3 + 1], ThePalette[ i*3 + 2 ]);
+  for (i = CWinColors; i < 256; i++) {
+	  GrFreeCell(i);
+  }
+
+  scene.makePalette(ThePalette, CWinColors, 255);
+  int r,g,b;
+  for (i = CWinColors; i < 256; i++) {
+	GrColor cell = GrAllocCell();
+	assert ( cell == i );
+    GrSetColor(cell, ThePalette[ i*3 ], ThePalette[ i*3 + 1], ThePalette[ i*3 + 2 ]);
     checkPal();
   }
 }
@@ -927,8 +927,7 @@ void MatEdit::run() {
 //////////////////////////////////////////////////////////////////////////////
 // Hauptfunktion
 //
-extern "C" int
-GRXMain(int argc, char **argv)
+int main(int argc, char **argv)
 {
   try 
     {
