@@ -130,8 +130,8 @@ void MxDesktopConstruct(MxDesktop * desktop, int x, int y, int w, int h, MxDeskt
 				   size for mouse range initialization */
 				desktop->base.object.position.x1 = 0;
 				desktop->base.object.position.y1 = 0;
-				desktop->base.object.position.x2 = MxScreenWidth(0) - 1;
-				desktop->base.object.position.y2 = MxScreenHeight(0) - 1;
+				desktop->base.object.position.x2 = MxScreenWidth(0);
+				desktop->base.object.position.y2 = MxScreenHeight(0);
 
 				/* Initialize the input driver */
 				ret = mx_input->Init();
