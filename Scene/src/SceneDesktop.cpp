@@ -33,7 +33,7 @@ static void mouse_reset(SceneDesktop * desktop);
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
 static void handleError(SceneDesktop * desktop, const string &msg);
 
-const int CFixColors = 23;	// Readonly colors
+const int CFixColors = 16;	// Readonly colors
 const float velocity  = 200.0f / 1000.0f;	// m/s
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
@@ -140,7 +140,7 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
   case MxEventExpose:
     {
       /* Blit the Szene */
-      for (int i = 0; i < MxRegionNumber(mx_region); i++) {
+      for (unsigned int i = 0; i < MxRegionNumber(mx_region); i++) {
 		const MxRect *const s = MxRegionRect(mx_region, i);
 
 		int x1 = s->x1, y1 = s->y1, x2 = s->x2, y2 = s->y2;
@@ -227,8 +227,9 @@ void loadScene(SceneDesktop * desktop, const std::string &filename) {
   try {
     desktop->scn->loadXML(filename);
 	mouse_reset(desktop);
+	string temp = filename;
     delete desktop->filename;
-    desktop->filename = new string(filename);
+    desktop->filename = new string(temp);
 	reloadPalette(desktop);
 	Scene::ActionMap *am = desktop->scn->getAllActions();
 	scene::Command *hudRefreshCmd = new scene::HudRefreshCmd(desktop->hud,
@@ -266,7 +267,7 @@ static void handleError(SceneDesktop * desktop, const string &msg) {
 void updateScene(SceneDesktop * desktop) {
   clock_t currtime = clock();
   assert(desktop->prevtime <= currtime);
-  desktop->difftime = (float)(currtime - desktop->prevtime)*1000.0 / (float) CLOCKS_PER_SEC;
+  desktop->difftime = (float)(currtime - desktop->prevtime)*1000.0f / (float) CLOCKS_PER_SEC;
   assert((long)difftime >= 0);
   desktop->elapsedTime += desktop->difftime; // in msec
 
@@ -274,9 +275,10 @@ void updateScene(SceneDesktop * desktop) {
   pl_Cam*	cam = desktop->scn->getCurrCamera ();
 
   if (desktop->elapsedTime > 0.0 && desktop->frames >= avg_frame_window) {
-	float fps = ((float)desktop->frames)*1000.0 / desktop->elapsedTime;
-	desktop->hud->setFPS(fps);        
-	desktop->elapsedTime = desktop->frames = 0;
+	float fps = ((float)desktop->frames)*1000.0f / desktop->elapsedTime;
+	desktop->hud->setFPS(fps);
+	desktop->frames = 0;
+	desktop->elapsedTime = 0.0f;
   }
   if (cam) {
 	desktop->hud->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
@@ -312,15 +314,21 @@ void reloadPalette(SceneDesktop * desktop)
   // Fixed colors
   desktop->scn->makePalette(desktop->ThePalette, CFixColors, 255);
   for (i = CFixColors; i < 256; i++) {
-    GrSetColor(i, desktop->ThePalette[ i*3 ], desktop->ThePalette[ i*3 + 1], desktop->ThePalette[ i*3 + 2 ]);
+	  GrFreeCell(i);
   }
+  for (i = CFixColors; i < 256; i++) {
+	GrColor cell = GrAllocCell();
+	assert ( cell == i );
+    GrSetColor(cell, desktop->ThePalette[ i*3 ], desktop->ThePalette[ i*3 + 1], desktop->ThePalette[ i*3 + 2 ]);
+  }
+  GrRefreshColors();
 }
 
 static void mouse_reset(SceneDesktop * desktop) 
 {
   MxImage *ctx = desktop->ctx;
-  int screen_w = ((GrContext2 *)ctx)->gc_xmax - 1;
-  int screen_h = ((GrContext2 *)ctx)->gc_ymax - 1;
+  int screen_w = ((GrContext2 *)ctx)->gc_xmax + 1;
+  int screen_h = ((GrContext2 *)ctx)->gc_ymax + 1;
 
   GrMouseEvent evt;
   GrMouseWarp(screen_w / 2, screen_h / 2);
