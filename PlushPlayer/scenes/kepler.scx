@@ -15,7 +15,7 @@
 <texture id="marsmap" src="maps/marsmap.pcx" rescale="yes" optimize="yes"/>
 <texture id="jupmap" src="maps/jupitmap.pcx" rescale="yes" optimize="yes"/>
 <texture id="saturnmap" src="maps/saturmap.pcx" rescale="yes" optimize="yes"/>
-<texture id="sky2map" src="maps/sky2.pcx" rescale="yes" optimize="yes"/>
+<texture id="sky2map" src="maps/stars.pcx" rescale="yes" optimize="yes"/>
 </textures>
 <materials>
 <material id="sunmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
@@ -48,7 +48,7 @@ texture="saturnmap" perspectivecorrect="0"/>
 diffuse0="0" diffuse1="0" diffuse2="0" 
 ambient0="0" ambient1="0" ambient2="0"
 specular0="0" specular1="0" specular2="0"
-shininess="1" texture="sky2map" texscaling="45.0" perspectivecorrect="2"/>
+shininess="1" texture="sky2map" texscaling="5.0" perspectivecorrect="2"/>
 </materials>
 <lights>
 <light id="light1" type="PL_LIGHT_POINT" xp="0.0" yp="0.0" zp="0.0"
