@@ -126,7 +126,7 @@ static void loadcolor(int c, int r, int g, int b)
     color.rgbRed = r;
     color.rgbReserved = 0;
 	GdiFlush();
-			WaitForSingleObject(colorTableMutex, INFINITE);
+	WaitForSingleObject(colorTableMutex, INFINITE);
     res = SetDIBColorTable(hDCMem, c, 1, &color);
 	if (res != 1) {
 		DWORD error = GetLastError();
