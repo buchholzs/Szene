@@ -33,8 +33,8 @@ void MxObjectConstruct(MxObject * object, MxObject * parent, int x, int y, int w
 	 object->handler = MxObjectHandler;
 	 object->position.x1 = x;
 	 object->position.y1 = y;
-	 object->position.x2 = object->position.x1 + width;
-	 object->position.y2 = object->position.y1 + height;
+	 object->position.x2 = object->position.x1 + width - 1;
+	 object->position.y2 = object->position.y1 + height - 1;
 	 object->constructed = MxTrue;
 
 	 MxRegionConstruct(&object->region);
