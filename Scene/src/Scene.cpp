@@ -380,6 +380,7 @@ void Scene::clear ()
 	typedef void (*plActionFun)(Command*);
 
 	setCurrCamera( NULL );
+	background_ = 0; // black
 	memset(frameBuffer_,0,screenWidth_*screenHeight_);
 	applyMap<CamMap::value_type, plCamFun> cm(plCamDelete);
 	for_each(cameras_.begin(), cameras_.end(), cm );
