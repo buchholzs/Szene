@@ -227,7 +227,8 @@ void loadScene(SceneDesktop * desktop, const std::string &filename) {
   try {
     desktop->scn->loadXML(filename);
 	mouse_reset(desktop);
-    *desktop->filename = filename;
+    delete desktop->filename;
+    desktop->filename = new string(filename);
 	reloadPalette(desktop);
 	Scene::ActionMap *am = desktop->scn->getAllActions();
 	scene::Command *hudRefreshCmd = new scene::HudRefreshCmd(desktop->hud,

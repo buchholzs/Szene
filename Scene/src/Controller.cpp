@@ -145,6 +145,7 @@ void Controller::showHelp(SceneDesktop *desktop) {
 		 desktop->base.object.position.y2, 
 		 &editorargs);
 	 MxEditareaSet(&editor->scrledit.editarea, buffer, MxFalse, MxTrue);
+	 MxEnqueueRefresh(&editor->base.object, MxTrue);
 }
 
 // ------------------------------------------------------------
