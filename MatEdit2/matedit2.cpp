@@ -761,16 +761,10 @@ void MatEdit::reloadPalette()
 {
   int i;
 
-  for (i = CWinColors; i < 256; i++) {
-	  GrFreeCell(i);
-  }
-
   scene.makePalette(ThePalette, CWinColors, 255);
   int r,g,b;
   for (i = CWinColors; i < 256; i++) {
-	GrColor cell = GrAllocCell();
-	assert ( cell == i );
-    GrSetColor(cell, ThePalette[ i*3 ], ThePalette[ i*3 + 1], ThePalette[ i*3 + 2 ]);
+    GrSetColor(i, ThePalette[ i*3 ], ThePalette[ i*3 + 1], ThePalette[ i*3 + 2 ]);
     checkPal();
   }
 }
