@@ -16,7 +16,7 @@ plush/libplush.a:
 	$(MAKE) -C plush/src -f MAKEFILE	
 
 Depui/Lib/libdepui.a:
-	$(MAKE) -C Depui -f MAKEFILE	
+	$(MAKE) -C Depui -f MAKEFILE lib
 
 Scene/libscene.a:
 	$(MAKE) -C Scene -f MAKEFILE
