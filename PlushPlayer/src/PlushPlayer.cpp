@@ -104,7 +104,8 @@ int main(int argc, char *argv[])
 	  bool sceneToLoad = filename[0] != '\0';
 	  bool initialLoad = true;
 
-          while (MxDesktopRun(&desktop.base.desktop)) {
+	  updateScene(&desktop); // show the blue desktop
+      while (MxDesktopRun(&desktop.base.desktop)) {
 #ifdef WIN32
 		newclk = clock();  
 		if (((newclk - oldclk)*1000/CLOCKS_PER_SEC) > refresh_ivl) {
