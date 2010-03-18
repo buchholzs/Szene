@@ -144,8 +144,8 @@ void mx_grx_screen_pixel(struct MxImage *image, int x1, int y1, MxColor color)
 		  GrSetContext(GrScreenContext());
 		  screen_context = 1;
 	 }
-	 GrPlotNC(x1, y1, color);
-//  GrPlot(x1, y1, color);
+	// GrPlotNC(x1, y1, color);
+    GrPlot(x1, y1, color);
 }
 
 MxColor mx_grx_screen_get_pixel(struct MxImage *image, int x1, int y1)
