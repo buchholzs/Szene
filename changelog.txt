@@ -1,0 +1,17 @@
+Copyright (C) Steffen Buchholz 2007-2010
+
+Changelog for PlushPlayer
+
+Version 0.2: 2010-03-16
+=======================
+- Added the scene cardrdr.scx (shows a card reader and cards)
+- Added the scene kepler.scx (shows the solar system)
+- Bigger file selector in plushplr
+- Reload scene with "r"
+- PlushPlayer shows key help with F1
+- PlushPlayer now shows the correct error message after loading an invalid scene
+- reset the background color before loading a new scene
+
+Version 0.1: 2007-02-12
+=======================
+- Initial release
