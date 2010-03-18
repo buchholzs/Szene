@@ -4,6 +4,7 @@
 	Version="9,00"
 	Name="grx248"
 	ProjectGUID="{8D871BA3-F337-4FB7-99AF-525685D5D52B}"
+	RootNamespace="grx248"
 	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
@@ -793,10 +794,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\bgi\linkall.c"
-				>
-			</File>
-			<File
 				RelativePath="src\bgi\lnestyle.c"
 				>
 			</File>
@@ -1526,15 +1523,15 @@
 				>
 			</File>
 			<File
+				RelativePath="src\include\bcc\arith.h"
+				>
+			</File>
+			<File
 				RelativePath="src\include\gcc\arith.h"
 				>
 			</File>
 			<File
 				RelativePath="src\include\arith.h"
-				>
-			</File>
-			<File
-				RelativePath="src\include\bcc\arith.h"
 				>
 			</File>
 			<File
@@ -1642,19 +1639,19 @@
 				>
 			</File>
 			<File
-				RelativePath="src\include\watcom\memfill.h"
-				>
-			</File>
-			<File
-				RelativePath="src\include\gcc\memfill.h"
-				>
-			</File>
-			<File
 				RelativePath="src\include\bcc\memfill.h"
 				>
 			</File>
 			<File
 				RelativePath="src\include\memfill.h"
+				>
+			</File>
+			<File
+				RelativePath="src\include\watcom\memfill.h"
+				>
+			</File>
+			<File
+				RelativePath="src\include\gcc\memfill.h"
 				>
 			</File>
 			<File
@@ -1674,19 +1671,19 @@
 				>
 			</File>
 			<File
-				RelativePath="src\include\gcc\mempeek.h"
-				>
-			</File>
-			<File
-				RelativePath="src\include\bcc\mempeek.h"
-				>
-			</File>
-			<File
 				RelativePath="src\include\mempeek.h"
 				>
 			</File>
 			<File
 				RelativePath="src\include\watcom\mempeek.h"
+				>
+			</File>
+			<File
+				RelativePath="src\include\gcc\mempeek.h"
+				>
+			</File>
+			<File
+				RelativePath="src\include\bcc\mempeek.h"
 				>
 			</File>
 			<File
