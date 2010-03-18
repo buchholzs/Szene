@@ -77,7 +77,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="grx248.lib depui.lib scene.lib plush.lib expat.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="grx20.lib depui.lib scene.lib plush.lib expat.lib"
 				OutputFile=".\Debug/Matedit2.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -173,7 +173,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="grx243.lib depui.lib scene.lib plush.lib expat.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="grx20.lib depui.lib scene.lib plush.lib expat.lib"
 				OutputFile=".\Release/Matedit2.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
