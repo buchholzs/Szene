@@ -2,12 +2,15 @@
 # Szene makefile for DJGPP version (GNU-make)
 #
 
-EXE=plushplr.exe matedit2.exe
+EXE=PlushPlayer/plushplr.exe MatEdit2/matedit2.exe
 
-LIB=plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a Depui/Lib/libdepui.a Scene/libscene.a
+LIB=Expat-1.95.2/libexpat.a plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a Depui/Lib/libdepui.a Scene/libscene.a
 
 # Rules
 all: lib exe
+
+Expat-1.95.2/libexpat.a:
+	$(MAKE) -C Expat-1.95.2/Source/lib -f MAKEFILE
 
 contrib/grx248/lib/dj2/libgrx20.a:
 	$(MAKE) -C contrib/grx248 -f makefile.dj2 libs
@@ -28,7 +31,7 @@ PlushPlayer/plushplr.exe: $(LIB)
 	$(MAKE) -C PlushPlayer -f MAKEFILE
 
 clean:
-	rm -f $(EXE)
+	$(MAKE) -C Expat-1.95.2/Source/lib -f MAKEFILE clean
 	$(MAKE) -C plush/src -f MAKEFILE clean	
 	$(MAKE) -C contrib/grx248 -f makefile.dj2 clean
 	rm -f contrib/grx248/lib/dj2/libgrx20.a
@@ -37,14 +40,26 @@ clean:
 	$(MAKE) -C MatEdit2 -f MAKEFILE clean
 	$(MAKE) -C PlushPlayer -f MAKEFILE clean
 
+install:
+	rm -rf redist
+	mkdir -p redist
+	cp MatEdit2/matedit2.exe redist
+	cp PlushPlayer/plushplr.exe redist
+	cp MatEdit2/Release/matedit2.exe redist/matedit2_w32.exe
+	cp PlushPlayer/Release/plushplr.exe redist/plushplr_w32.exe
+	cp Archiv/CWSDPMI.EXE redist
+	cp Readme.txt redist
+	cp changelog.txt redist
+	cp Expat-1.95.2/Libs/expat.dll redist
+	mkdir -p redist/scenes
+	cp PlushPlayer/scenes/*.scx redist/scenes
+	cp PlushPlayer/scenes/*.[pP][cC][xX] redist/scenes
+	cp PlushPlayer/scenes/*.JAW redist/scenes
+	mkdir -p redist/scenes/maps
+	cp PlushPlayer/scenes/Maps/*.[pP][cC][xX] redist/scenes/maps
+
 # Dependencies
 
 exe: $(EXE)
-
-plushplr.exe: PlushPlayer/plushplr.exe 
-	cp PlushPlayer/plushplr.exe .	
-
-matedit2.exe: MatEdit2/matedit2.exe
-	cp MatEdit2/matedit2.exe .
 
 lib: $(LIB)
