@@ -4,6 +4,7 @@
 	Version="9,00"
 	Name="plushplr"
 	ProjectGUID="{261EE964-A73A-4E1E-991C-0AD44AF7B09C}"
+	RootNamespace="plushplr"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -76,7 +77,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="scene.lib expat.lib plush.lib depui.lib grx248.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="scene.lib expat.lib plush.lib depui.lib grx20.lib"
 				OutputFile=".\Debug/plushplr.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -172,7 +173,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="scene.lib expat.lib plush.lib depui.lib grx243.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="scene.lib expat.lib plush.lib depui.lib grx20.lib"
 				OutputFile=".\Release/plushplr.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
