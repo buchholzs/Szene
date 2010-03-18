@@ -4,6 +4,7 @@
 	Version="9,00"
 	Name="EXAMPLES"
 	ProjectGUID="{CBEE8FCD-5C69-4932-BC94-749145194299}"
+	RootNamespace="EXAMPLES"
 	TargetFrameworkVersion="0"
 	>
 	<Platforms>
@@ -49,7 +50,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Depui\INCLUDE,..\contrib\grx248\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;main=GRXMain"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -75,14 +76,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="GRX248.lib Depui.lib"
+				AdditionalDependencies="GRX20.lib Depui.lib"
 				OutputFile=".\Debug/EXAMPLES.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\Depui\Lib\Debug,..\contrib\grx248\Debug"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/EXAMPLES.pdb"
-				SubSystem="2"
+				SubSystem="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
@@ -171,7 +172,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="GRX248.lib Depui.lib"
+				AdditionalDependencies="GRX20.lib Depui.lib"
 				OutputFile=".\Release/EXAMPLES.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -215,7 +216,7 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath=".\EXAMPLES\EX21a.C"
+				RelativePath=".\EXAMPLES\EX20.C"
 				>
 			</File>
 		</Filter>
