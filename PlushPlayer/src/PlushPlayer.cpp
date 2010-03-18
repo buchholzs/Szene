@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 
       if (argc != 2 && argc != 1) {
         std::cerr << "Usage: " << argv[0] << " [<scene.scx>]" << std::endl;
-        return 1;
+        exit(1);
       }
 
 	  if (argc == 2) {
@@ -137,5 +137,5 @@ int main(int argc, char *argv[])
 
 	 /* Tell the user what was selected */
 	 printf("File selected: %s\n", filename);
-	 return 0;
+	 exit(0);
 }
