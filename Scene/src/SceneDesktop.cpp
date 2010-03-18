@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <iostream>
 #include <list>
-#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <typeinfo>
@@ -18,7 +17,6 @@
 
 #include "Controller.h"
 #include "Hud.h"
-#include "HudRefreshCmd.h"
 #include "MoveMode.h"
 #include "FlyMode.h"
 #include "Scene.h"
@@ -26,25 +24,17 @@
 
 using namespace std;
 using namespace scene;
+
 //////////////////////////////////////////////////////////////////////////////
-// Konstanten und Statische Variablen
+// Constants and static variables
 //
-static void mouse_reset(SceneDesktop * desktop);
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
 static void handleError(SceneDesktop * desktop, const string &msg);
 
-const int CFixColors = 16;	// Readonly colors
 const float velocity  = 200.0f / 1000.0f;	// m/s
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
 const int avg_frame_window = 10; // average time over n frames
-
-static char lastmessage[256] = "";
-
-static MxAlertArgs msgOk = { "Alert", lastmessage,
-			 {"Ok", 0, MxFalse},
-			 {NULL, 0, MxFalse},
-			 {NULL, 0, MxFalse} };
 
 //////////////////////////////////////////////////////////////////////////////
 // Depui-Handler
@@ -64,7 +54,6 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 	  delete desktop->flyMode;
 	  delete desktop->controller;
 	  delete desktop->hud;
-	  delete desktop->filename;
 	  break;
 
   case MxEventPointerEnter:
@@ -102,11 +91,11 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 			return object;
 		  case 0x3B: // f1
 			desktop->directDisplay = false;
-			desktop->controller->showHelp(desktop);
+			desktop->controller->showHelp();
 			return object;
 		  case 0x3D: // f3
 			desktop->directDisplay = false;
-			desktop->controller->loadScene(desktop);
+			desktop->controller->openScene();
 			return object;
 		  case 0x3F: // f5
 			MxEnqueueRefresh(&desktop->base.object, MxTrue);
@@ -130,8 +119,8 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 			desktop->controller->moveRight(desktop->difftime);
 			return object;
 		  case 'r':
-			if (*desktop->filename != "") {
-			  loadScene(desktop, *desktop->filename);
+			if (desktop->controller->getFilename() != "") {
+			  desktop->controller->loadScene(desktop->controller->getFilename());
 			}
 			return object;
 	  }
@@ -192,7 +181,7 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 
 	desktop->base.object.handler = SceneDesktopHandler;
 	desktop->scn = new scene::Scene(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h);
-	lastmessage[0] = '\0';
+	desktop->lastmessage[0] = '\0';
 
 	// create image for scene
 	char *memory[4] = {(char *)desktop->scn->getFrameBuffer(),0,0,0};
@@ -206,7 +195,7 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->flyMode = new FlyMode(desktop->scn, velocity, velocity);
 
 	// create controller
-	desktop->controller = new Controller(desktop->walkMode, desktop->scn);
+	desktop->controller = new Controller(desktop->walkMode, desktop->scn, desktop);
 
 	// hud
 	desktop->hud = new Hud(LIGHTGRAY);
@@ -218,52 +207,10 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->elapsedTime = 0;
 	desktop->difftime = 0;
 	desktop->prevtime = clock(); 
-	desktop->filename = new string("");
 	desktop->directDisplay = true;
 }
 
-// Szene neu laden
-void loadScene(SceneDesktop * desktop, const std::string &filename) {
-  try {
-    desktop->scn->loadXML(filename);
-	mouse_reset(desktop);
-	string temp = filename;
-    delete desktop->filename;
-    desktop->filename = new string(temp);
-	reloadPalette(desktop);
-	Scene::ActionMap *am = desktop->scn->getAllActions();
-	scene::Command *hudRefreshCmd = new scene::HudRefreshCmd(desktop->hud,
-		(_GR_context*)desktop->ctx);
-	string id = "HudRefreshCmd";	
-	am->insert(make_pair(id, hudRefreshCmd));
-
-    strcpy(lastmessage, (std::string(filename) + " loaded.").c_str());
-	desktop->hud->setStatus(lastmessage);
-
-	desktop->directDisplay = true;
-  } catch (Scene::IOError &) {
-    ostringstream msg;
-    msg << filename << ": file not found"; 
-    handleError(desktop, msg.str()); 
-    return;
-  } catch (Scene::ParseError &pe) {
-    ostringstream msg;
-    msg << filename << ':' << pe.getLine() << ": error: " << pe.what();
-    handleError(desktop, msg.str()); 
-    return;
-  }
-}
-
-// Szene mit Hintergrundfarbe löschen und Fehlermeldung anzeigen
-static void handleError(SceneDesktop * desktop, const string &msg) {
-    desktop->directDisplay = false;
-    desktop->scn->clear();  // destroy all objects in scene and clear with black
-    updateScene(desktop); // shows blue background in scene
-    strcpy(lastmessage, msg.c_str());
-    MxAlertStart(&msgOk, &desktop->base.object);
-}
-
-// MatEdit aktualisieren nach GUI Änderungen
+// Update desktop with new scene
 void updateScene(SceneDesktop * desktop) {
   clock_t currtime = clock();
   assert(desktop->prevtime <= currtime);
@@ -293,7 +240,7 @@ void updateScene(SceneDesktop * desktop) {
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
 	GrClearContext( MxColorDesktop );
-	GrTextXY(5,((GrContext2*)desktop->ctx)->gc_ymax-15,lastmessage,GrBlack(),MxColorDesktop);
+	GrTextXY(5,((GrContext2*)desktop->ctx)->gc_ymax-15,desktop->lastmessage,GrBlack(),MxColorDesktop);
 	GrSetContext(NULL);
   }
   if (desktop->directDisplay) {
@@ -308,23 +255,7 @@ void updateScene(SceneDesktop * desktop) {
   }
 }
 
-void reloadPalette(SceneDesktop * desktop) 
-{
-  int i;
-  // Fixed colors
-  desktop->scn->makePalette(desktop->ThePalette, CFixColors, 255);
-  for (i = CFixColors; i < 256; i++) {
-	  GrFreeCell(i);
-  }
-  for (i = CFixColors; i < 256; i++) {
-	GrColor cell = GrAllocCell();
-	assert ( cell == i );
-    GrSetColor(cell, desktop->ThePalette[ i*3 ], desktop->ThePalette[ i*3 + 1], desktop->ThePalette[ i*3 + 2 ]);
-  }
-  GrRefreshColors();
-}
-
-static void mouse_reset(SceneDesktop * desktop) 
+void mouse_reset(SceneDesktop * desktop) 
 {
   MxImage *ctx = desktop->ctx;
   int screen_w = ((GrContext2 *)ctx)->gc_xmax + 1;

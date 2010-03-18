@@ -3,9 +3,12 @@
 
 #include "Controller.h"
 
-#include "depui/depui.h"
+#include <sstream>
+#include <depui/depui.h>
 #include "Scene.h"
 #include "SceneDesktop.h"
+#include "Hud.h"
+#include "HudRefreshCmd.h"
 #ifdef WIN32
 #include <direct.h>
 #else
@@ -17,7 +20,11 @@ namespace scene {
 static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent * const event);
 static void callback_exit(MxObject * menu, void *data, unsigned int selected);
 
-MxMenuDef helpmenu[] = {
+//////////////////////////////////////////////////////////////////////////////
+// Constants and static variables
+//
+const int CFixColors = 16;	// Readonly colors
+static MxMenuDef helpmenu[] = {
 	 {"Exit", callback_exit, 0, 0, 0, 0, 0, 0}
 	 ,
 	 {0, 0, 0, 0, 0, 0, 0, 0}
@@ -26,6 +33,8 @@ MxMenuDef helpmenu[] = {
 // ------------------------------------------------------------
 // Callbacks
 // ------------------------------------------------------------
+
+// Key help | Exit menu selected
 static void callback_exit(MxObject * menu, void *data, unsigned int selected)
 {
 	 (void) data;
@@ -57,7 +66,7 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		  chdir(newDir);
 		  free(newDir);
 		}
-		loadScene(desktop, fileName);
+		desktop->controller->loadScene(fileName);
 		MxDestroy(object);	// destroy okSel
 	  }
 	break;
@@ -68,21 +77,29 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 }
 
 // ------------------------------------------------------------
-// Member functions
+// Constructor
 // ------------------------------------------------------------
-Controller::Controller (MoveMode *moveMode, Scene *scene) :
+Controller::Controller (MoveMode *moveMode, Scene *scene, SceneDesktop * desktop) :
 	moveMode_(moveMode),
-	scene_(scene)
+	scene_(scene),
+	filename_(""),
+	desktop_(desktop),
+	colorsAllocated_(false),
+	firstFreeColor_(GrNOCOLOR)
 {
 }
 
+// ------------------------------------------------------------
+// Destructor
 // ------------------------------------------------------------
 Controller::~Controller ()
 {
 }
 
 // ------------------------------------------------------------
-void Controller::loadScene (SceneDesktop *desktop)
+// Show a file selector
+// ------------------------------------------------------------
+void Controller::openScene ()
 {
   /* text for filename */
   MxStatictextArgs textargs;
@@ -91,7 +108,7 @@ void Controller::loadScene (SceneDesktop *desktop)
   *(char *)textargs.caption = '\0';
   textargs.len = 0;
   textargs.ownscaption = 1;
-  MxStatictext *okSel = MxStatictextNew(&desktop->base.object, 0, 0, 50, 50, &textargs);
+  MxStatictext *okSel = MxStatictextNew(&desktop_->base.object, 0, 0, 50, 50, &textargs);
   okSel->base.object.handler = fileOpenOKSelectedHandler;
   MxHide(&okSel->base.object, MxTrue);
 
@@ -106,14 +123,64 @@ void Controller::loadScene (SceneDesktop *desktop)
   args.window.caption = "Load scene";
 
   /* Start the file selector */
-  MxFileselector *fs = MxFileselectorStart(&args, &desktop->base.object, &okSel->base.object);
+  MxFileselector *fs = MxFileselectorStart(&args, &desktop_->base.object, &okSel->base.object);
   resizeFileSelector(fs);
   return;
 }
 
 // ------------------------------------------------------------
+// Loads the scene file and reloads the palette
+// ------------------------------------------------------------
+void Controller::loadScene (const std::string &filename)
+{
+  try {
+    desktop_->scn->loadXML(filename);
+	mouse_reset(desktop_);
+    filename_ = filename;
+	reloadPalette();
+	Scene::ActionMap *am = scene_->getAllActions();
+	scene::Command *hudRefreshCmd = new scene::HudRefreshCmd(desktop_->hud,
+		(_GR_context*)desktop_->ctx);
+	std::string id = "HudRefreshCmd";	
+	am->insert(make_pair(id, hudRefreshCmd));
+
+    strcpy(desktop_->lastmessage, (std::string(filename) + " loaded.").c_str());
+	desktop_->hud->setStatus(desktop_->lastmessage);
+
+	desktop_->directDisplay = true;
+  } catch (Scene::IOError &) {
+	std::ostringstream msg;
+    msg << filename << ": file not found"; 
+    handleError(msg.str()); 
+    return;
+  } catch (Scene::ParseError &pe) {
+    std::ostringstream msg;
+    msg << filename << ':' << pe.getLine() << ": error: " << pe.what();
+    handleError(msg.str()); 
+    return;
+  }
+}
+
+// ------------------------------------------------------------
+// Szene mit Hintergrundfarbe löschen und Fehlermeldung anzeigen
+// ------------------------------------------------------------
+void Controller::handleError(const std::string &msg) {
+
+	desktop_->directDisplay = false;
+    desktop_->scn->clear();  // destroy all objects in scene and clear with black
+    updateScene(desktop_); // shows blue background in scene
+    strcpy(desktop_->lastmessage, msg.c_str());
+	MxAlertArgs msgOk = { "Alert", desktop_->lastmessage,
+			 {"Ok", 0, MxFalse},
+			 {NULL, 0, MxFalse},
+			 {NULL, 0, MxFalse} };
+    MxAlertStart(&msgOk, &desktop_->base.object);
+}
+
+// ------------------------------------------------------------
+// Change the window size to fit the desktop size
+// ------------------------------------------------------------
 void Controller::resizeFileSelector(MxFileselector *fs) {
-  /* Change the window size to fit the desktop size */
   MxObject *parent = MxParent(&fs->base.object);
   MxGeomSize(&fs->base.object, MxW(&fs->base.object), MxH(parent)/2);
   MxGeomPosition(&fs->base.object, fs->base.object.position.x1, MxH(parent)/4);
@@ -122,7 +189,35 @@ void Controller::resizeFileSelector(MxFileselector *fs) {
 }
 
 // ------------------------------------------------------------
-void Controller::showHelp(SceneDesktop *desktop) {
+// Shows a editor window with key help
+// ------------------------------------------------------------
+void Controller::reloadPalette() 
+{
+  int i;
+  if (!colorsAllocated_) {
+	  colorsAllocated_ = true;
+	  firstFreeColor_ = GrAllocCell();
+	  assert(firstFreeColor_ != GrNOCOLOR);
+	  for (i = firstFreeColor_ + 1; i < 256; i++) {
+		GrColor cell = GrAllocCell();
+		assert ( cell == i );
+		assert ( cell != GrNOCOLOR );
+	  }
+  }
+
+  // calculate new colors
+  scene_->makePalette(desktop_->ThePalette, firstFreeColor_, 255);
+
+  // set palette
+  for (i = firstFreeColor_; i < 256; i++) {
+    GrSetColor(i, desktop_->ThePalette[ i*3 ], desktop_->ThePalette[ i*3 + 1], desktop_->ThePalette[ i*3 + 2 ]);
+  }
+}
+
+// ------------------------------------------------------------
+// Shows a editor window with key help
+// ------------------------------------------------------------
+void Controller::showHelp() {
 	 MxEditorArgs editorargs;
 	 char * buffer = "    w        move forward\n"
 		 "    a        move left\n"
@@ -139,14 +234,13 @@ void Controller::showHelp(SceneDesktop *desktop) {
 	 editorargs.menu.listarea.def = helpmenu;
 	 editorargs.win.caption = "Key Help";
 
-	 MxEditor *editor = MxEditorNew(&desktop->base.object, desktop->base.object.position.x1, 
-		 desktop->base.object.position.y1, 
-		 desktop->base.object.position.x2, 
-		 desktop->base.object.position.y2, 
+	 MxEditor *editor = MxEditorNew(&desktop_->base.object, desktop_->base.object.position.x1, 
+		 desktop_->base.object.position.y1, 
+		 desktop_->base.object.position.x2, 
+		 desktop_->base.object.position.y2, 
 		 &editorargs);
 	 MxEditareaSet(&editor->scrledit.editarea, buffer, MxFalse, MxTrue);
 	 MxEnqueueRefresh(&editor->base.object, MxTrue);
 }
 
-// ------------------------------------------------------------
-} // Controller
+} // namespace scene

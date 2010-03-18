@@ -1,5 +1,5 @@
 #
-# Szene makefile for DJGPP version (GNU-make)
+# Makefile for DJGPP version (GNU-make)
 #
 
 OBJECTS=CAM.o \

@@ -26,8 +26,6 @@
 #include "Controller.h"
 #include "SceneDesktop.h"
 #include "Scene.h"
-#include "Hud.h"
-#include "HudRefreshCmd.h"
 #include "MoveMode.h"
 #include "FlyMode.h"
 #include "WalkMode.h"
@@ -122,7 +120,7 @@ int main(int argc, char *argv[])
 		if (sceneToLoad) {
 			sceneToLoad=false;
 			initialLoad=false;
-			loadScene(&desktop, filename);
+			desktop.controller->loadScene(filename);
 		} else if (initialLoad) {
 			initialLoad = false;
 			MxEvent event;

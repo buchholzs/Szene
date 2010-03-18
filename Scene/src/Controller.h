@@ -3,6 +3,12 @@
 #ifndef _Controller_H_
 #define _Controller_H_
 
+#include <string>
+#define GrContext GrContext2
+#define GrFont GrFont2
+#include <grx20.h>
+#undef GrContext
+#undef GrFont
 #include "MoveMode.h"
 
 struct SceneDesktop;
@@ -14,7 +20,7 @@ class Scene;
 
 class Controller {
 public:
-	Controller (MoveMode* moveMode, Scene *scene);
+	Controller (MoveMode* moveMode, Scene *scene, SceneDesktop * desktop);
 	virtual ~Controller ();
 	void	moveForward (const float timeDiff) { moveMode_->moveForward(timeDiff); }
 	void	moveLeft (const float timeDiff) {moveMode_->moveLeft(timeDiff); }
@@ -25,13 +31,22 @@ public:
 	void	pitchView (const float pitch) {moveMode_->pitchView(pitch); }
 	void	setMoveMode (MoveMode* moveMode) { moveMode_ = moveMode; }
 	const MoveMode* getMoveMode () { return moveMode_; }
-	void	loadScene(SceneDesktop *desktop);
-	void	saveScene(SceneDesktop *desktop);
-	void	showHelp(SceneDesktop *desktop);
+	void	openScene();
+	void	loadScene(const std::string &filename);
+	void Controller::reloadPalette();
+	const std::string &getFilename() { return filename_; }
+	void	saveScene();
+	void	showHelp();
 private:
-        void resizeFileSelector(MxFileselector *fs);
+	void resizeFileSelector(MxFileselector *fs);
+	void handleError(const std::string &msg);
+
 	MoveMode*	moveMode_;
 	Scene	*scene_;
+    std::string filename_;
+	SceneDesktop * desktop_;
+	bool colorsAllocated_;
+	GrColor firstFreeColor_;
 };
 
 } // scene

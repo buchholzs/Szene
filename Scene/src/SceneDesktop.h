@@ -35,7 +35,6 @@ typedef struct SceneDesktop {
 		scene::Hud *hud;				// HUD
 		scene::WalkMode *walkMode;
 		scene::Scene *scn;
-		std::string *filename;  
 
 		pl_uChar ThePalette[768];
 		MxImage *ctx;
@@ -49,6 +48,7 @@ typedef struct SceneDesktop {
 		float difftime; // diff (current frame - last frame) in msec
 		bool directDisplay; // display indirect in event loop or direct in display
 		bool ignorePointerMove; // ignore last MxEventPointerMove event
+		char lastmessage[256]; // status message
 	 } SceneDesktop;
 
 	 typedef struct SceneDesktopArgs {
@@ -81,9 +81,8 @@ enum ega_colors {
 
 void *SceneDesktopHandler(MxObject * object, const MxEvent * const event);
 void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, SceneDesktopArgs * args);
-void loadScene(SceneDesktop *desktop, const std::string &filename);
-void updateScene(SceneDesktop *desktop);
-void reloadPalette(SceneDesktop *desktop);
+void updateScene(SceneDesktop * desktop);
+void mouse_reset(SceneDesktop * desktop);
 
 #ifdef __cplusplus
 }
