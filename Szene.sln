@@ -32,6 +32,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "plushplr", "PlushPlayer\plu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "grx248", "contrib\grx248\grx243.vcproj", "{8D871BA3-F337-4FB7-99AF-525685D5D52B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EXAMPLES", "Depui\EXAMPLES.vcproj", "{CBEE8FCD-5C69-4932-BC94-749145194299}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -62,6 +64,10 @@ Global
 		{8D871BA3-F337-4FB7-99AF-525685D5D52B}.Debug|Win32.Build.0 = Debug|Win32
 		{8D871BA3-F337-4FB7-99AF-525685D5D52B}.Release|Win32.ActiveCfg = Release|Win32
 		{8D871BA3-F337-4FB7-99AF-525685D5D52B}.Release|Win32.Build.0 = Release|Win32
+		{CBEE8FCD-5C69-4932-BC94-749145194299}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CBEE8FCD-5C69-4932-BC94-749145194299}.Debug|Win32.Build.0 = Debug|Win32
+		{CBEE8FCD-5C69-4932-BC94-749145194299}.Release|Win32.ActiveCfg = Release|Win32
+		{CBEE8FCD-5C69-4932-BC94-749145194299}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
