@@ -8,7 +8,7 @@ static const char *mx_link_flag = "MxModule" __FILE__;
 
 int mx_get_pixel(struct MxImage *image, int x1, int y1, MxImageGetPixelFunc getpixel)
 {
-	 if (MxClipPixel(0, 0, MxScreenWidth(0), MxScreenHeight(0), x1, y1))
+	 if (MxClipPixel(0, 0, MxScreenWidth(0) - 1, MxScreenHeight(0) - 1, x1, y1))
 		  return 0;
 
 	 return getpixel(image, x1, y1);
