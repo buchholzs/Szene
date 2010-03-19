@@ -11,8 +11,11 @@
 #include <iostream>
 #include <algorithm>
 #include <expat.h>
-
+#ifndef WIN32
+#include <dpmi.h>
+#endif
 #include "Command.h"
+#include "scenedbg.h"
 
 #if _MSC_VER==1200
 #define mapped_type referent_type
@@ -195,6 +198,14 @@ void Scene::loadXML (const string &fileName)
 	FILE *stream = NULL;
 	XML_Parser parser = NULL;
 	RessourceTracker rt; // do cleanup on method end
+#ifndef WIN32
+	__dpmi_free_mem_info info;
+	__dpmi_get_free_memory_information(&info);
+	DBGPRINTF(("Enter loadXML\n"));
+	DBGPRINTF(("largest_available_free_block_in_bytes=%U\n", info.largest_available_free_block_in_bytes));
+	DBGPRINTF(("total_number_of_free_pages=%U\n", info.total_number_of_free_pages));
+	DBGPRINTF(("Available stack size is %d bytes\n", stackavail()));
+#endif
 	try {
 	  if( (stream  = fopen( fileName.c_str(), "r" )) == NULL ) {
 	    throw IOError(string("Datei ") + fileName + " konnte nicht geöffnet werden.");
@@ -217,6 +228,13 @@ void Scene::loadXML (const string &fileName)
 					       XML_GetCurrentLineNumber(parser));
 	    }
 	  } while (!done);
+#ifndef WIN32
+	__dpmi_get_free_memory_information(&info);
+	DBGPRINTF(("Exit loadXML\n"));
+	DBGPRINTF(("largest_available_free_block_in_bytes=%U\n", info.largest_available_free_block_in_bytes));
+	DBGPRINTF(("total_number_of_free_pages=%U\n", info.total_number_of_free_pages));
+	DBGPRINTF(("Available stack size is %d bytes\n", stackavail()));
+#endif
 	} catch (logic_error &e) {
 		throw ParseError(e.what(), XML_GetCurrentLineNumber(parser));
 	}
@@ -307,6 +325,13 @@ void Scene::render ()
 		{
 			plRenderObj(oit->second);	// Render our objects
 		}
+#ifndef WIN32
+	__dpmi_free_mem_info info;
+	__dpmi_get_free_memory_information(&info);
+	DBGPRINTF(("largest_available_free_block_in_bytes=%U\n", info.largest_available_free_block_in_bytes));
+	DBGPRINTF(("total_number_of_free_pages=%U\n", info.total_number_of_free_pages));
+	DBGPRINTF(("Available stack size is %d bytes\n", stackavail()));
+#endif
     plRenderEnd();                   // Finish rendering	
 	// PRESERVE:END
 }
@@ -1099,4 +1124,4 @@ void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)
 	}	
 }
 
-} // scene
+} // namespace scene

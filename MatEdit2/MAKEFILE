@@ -12,9 +12,9 @@ CPPFLAGS += -gstabs+ $(INCLUDES)
 
 LDLIBS = $(LIB_DIRS) $(EXELIBS)
 
-all: matedit2
+all: exe
 
-matedit: matedit2.exe
+exe: matedit2.exe
 
 %exe : %o
 	$(LINK.o) $^ $(LDLIBS) -o $@
@@ -24,6 +24,6 @@ clean:
 
 # Dependencies
 
-matedit2.exe:  matedit2.o 
+matedit2.exe:  matedit2.o ../Scene/libscene.a
 
 matedit2.o: matedit2.cpp matedit2.h

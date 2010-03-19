@@ -14,6 +14,13 @@ plushplr
  - or -
 matedit2
 
+There are also Win32 versions of this two programs.
+To start, type
+
+plushplr_w32
+- or -
+matedit2_w32
+
 
 Plushplayer
 ===========
@@ -31,4 +38,6 @@ F3 - popup the file open dialog.
 
 Matedit2
 ========
-You can modify the material using various sliders.
+You can modify the material using various sliders. Load a scene file
+or use the default standard.scx. Click on one of the materials in
+the material list and change its properties with the sliders.

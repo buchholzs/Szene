@@ -121,7 +121,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\plush\src,..\Expat-1.95.2\Source\lib,..\depui\include,..\contrib\grx248\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -218,6 +218,10 @@
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\dbgprint.cpp"
+				>
 			</File>
 			<File
 				RelativePath="src\FlyMode.cpp"
@@ -422,6 +426,10 @@
 			</File>
 			<File
 				RelativePath="src\Scene.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\scenedbg.h"
 				>
 			</File>
 			<File
