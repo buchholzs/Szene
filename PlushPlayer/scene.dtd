@@ -6,6 +6,7 @@
 <!--    DTD Version : 1.0                               -->
 <!--    Datum: 02.05.2002                               -->
 <!--    Autor: Steffen Buchholz                         -->
+<!--    Erweiterung: 2010, Animationen                  -->
 <!-- ************************************************** -->
 <!-- ************************************************** -->
 <!-- Entity Declarations                                -->
@@ -20,6 +21,7 @@
 <!ELEMENT lights (light)+>
 <!ELEMENT objects (plane|box|sphere|cone|cylinder|torus|o3ds|jaw|cob)+>
 <!ELEMENT transformations (translate|rotate|scale)+>
+<!ELEMENT animations (mover|rotator)+>
 
 <!ELEMENT background EMPTY>
 <!ATTLIST background color CDATA #REQUIRED>
@@ -103,6 +105,7 @@
           w CDATA #REQUIRED
           d CDATA #REQUIRED
           res CDATA #REQUIRED
+          flipnormals (yes|no) "no"
 >
 
 <!ELEMENT box EMPTY>
@@ -111,6 +114,7 @@
           w CDATA #REQUIRED
           d CDATA #REQUIRED
           h CDATA #REQUIRED
+          flipnormals (yes|no) "no"
 >
 
 <!ELEMENT sphere EMPTY>
@@ -118,7 +122,9 @@
           material  IDREF #REQUIRED
           r CDATA #REQUIRED
           divr CDATA #REQUIRED
-          divh CDATA #REQUIRED>
+          divh CDATA #REQUIRED
+          flipnormals (yes|no) "no"
+>
 
 <!ELEMENT cone EMPTY>
 <!ATTLIST cone id  ID  #REQUIRED
@@ -126,7 +132,9 @@
           r CDATA #REQUIRED
           h CDATA #REQUIRED
           divr CDATA #REQUIRED
-          cap (yes|no) #REQUIRED>
+          cap (yes|no) #REQUIRED
+          flipnormals (yes|no) "no"
+>
 
 <!ELEMENT cylinder EMPTY>
 <!ATTLIST cylinder id  ID  #REQUIRED
@@ -135,7 +143,9 @@
           h CDATA #REQUIRED
           divr CDATA #REQUIRED
           captop (yes|no) #REQUIRED
-          capbottom (yes|no) #REQUIRED>
+          capbottom (yes|no) #REQUIRED
+          flipnormals (yes|no) "no"
+>
 
 <!ELEMENT torus EMPTY>
 <!ATTLIST torus id  ID  #REQUIRED
@@ -143,7 +153,9 @@
           r1 CDATA #REQUIRED
           r2 CDATA #REQUIRED
           divr CDATA #REQUIRED
-          divh CDATA #REQUIRED>
+          divh CDATA #REQUIRED
+          flipnormals (yes|no) "no"
+>
 
 <!ELEMENT o3ds EMPTY>
 <!ATTLIST o3ds id  ID  #REQUIRED
@@ -182,4 +194,36 @@
           x CDATA #IMPLIED
           y CDATA #IMPLIED
           z CDATA #IMPLIED
+>
+
+<!ELEMENT mover (point)+>
+<!ATTLIST mover
+          target IDREF #REQUIRED
+          duration CDATA #IMPLIED
+          type (OBJECT|
+                CAMERA|
+                LIGHT) "OBJECT"
+>
+
+<!ELEMENT point EMPTY>
+<!ATTLIST point
+          xp CDATA #IMPLIED
+          yp CDATA #IMPLIED
+          zp CDATA #IMPLIED
+>
+
+<!ELEMENT rotator (angle)+>
+<!ATTLIST rotator
+          target IDREF #REQUIRED
+          relativeTo IDREF #IMPLIED
+          type (OBJECT|
+                CAMERA|
+                LIGHT) "OBJECT"
+>
+
+<!ELEMENT angle EMPTY>
+<!ATTLIST angle
+          xa CDATA #IMPLIED
+          ya CDATA #IMPLIED
+          za CDATA #IMPLIED
 >
