@@ -16,10 +16,6 @@
 #endif
 #include "Command.h"
 #include "scenedbg.h"
-
-#if _MSC_VER==1200
-#define mapped_type referent_type
-#endif
 	
 using namespace std;
 
@@ -848,10 +844,10 @@ void Scene::createObject(enum sc_Tokens tok, const char **attr)
 				material = mat;
 			  }
 			  break;
-                  case TOK_backfacecull:
+          case TOK_backfacecull:
 			  backfacecull = toYesNo(val);
                           break;
-                  case TOK_flipnormals:
+          case TOK_flipnormals:
 			  flipnormals = toYesNo(val);
                           break;                          
 		  case TOK_cap:

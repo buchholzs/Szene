@@ -1,6 +1,6 @@
 <!-- Kepler: various planets orbiting sun -->
 
-<!DOCTYPE scene SYSTEM "scene.dtd">
+<!DOCTYPE scene SYSTEM "../scene.dtd">
 <scene>
 <cameras>
 <camera id="camera" fov="90.0" x="-1428" z="-4019" pan="2.5"/>
@@ -21,8 +21,7 @@
 <material id="sunmat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
 shininess="10"
 ambient0="250" ambient1="250" ambient2="0" 
-diffuse0="0" diffuse1="0" diffuse2="0" />
-specular0="200" specular1="200" specular2="0" />
+diffuse0="0" diffuse1="0" diffuse2="0"/>
 <material id="mercurymat" numgradients="32" shadetype="PL_SHADE_GOURAUD"
 diffuse0="0" diffuse1="0" diffuse2="0" 
 texture="mercurymap" perspectivecorrect="0"/>

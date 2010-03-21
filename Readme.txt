@@ -14,7 +14,7 @@ plushplr
  - or -
 matedit2
 
-There are also Win32 versions of this two programs.
+There are also Win32 versions of these two programs.
 To start, type
 
 plushplr_w32
