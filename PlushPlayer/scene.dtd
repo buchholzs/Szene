@@ -200,6 +200,7 @@
 <!ATTLIST mover
           target IDREF #REQUIRED
           duration CDATA #IMPLIED
+          repeat (yes|no) "no"
           type (OBJECT|
                 CAMERA|
                 LIGHT) "OBJECT"
