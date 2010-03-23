@@ -201,6 +201,7 @@ void Scene::loadXML (const string &fileName)
 	DBGPRINTF(("largest_available_free_block_in_bytes=%U\n", info.largest_available_free_block_in_bytes));
 	DBGPRINTF(("total_number_of_free_pages=%U\n", info.total_number_of_free_pages));
 	DBGPRINTF(("Available stack size is %d bytes\n", stackavail()));
+	DBGPRINTF(("Enter loadXML: END\n"));
 #endif
 	try {
 	  if( (stream  = fopen( fileName.c_str(), "r" )) == NULL ) {
@@ -230,6 +231,7 @@ void Scene::loadXML (const string &fileName)
 	DBGPRINTF(("largest_available_free_block_in_bytes=%U\n", info.largest_available_free_block_in_bytes));
 	DBGPRINTF(("total_number_of_free_pages=%U\n", info.total_number_of_free_pages));
 	DBGPRINTF(("Available stack size is %d bytes\n", stackavail()));
+	DBGPRINTF(("Exit loadXML\n"));
 #endif
 	} catch (logic_error &e) {
 		throw ParseError(e.what(), XML_GetCurrentLineNumber(parser));

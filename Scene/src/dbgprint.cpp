@@ -9,12 +9,11 @@
 #define DBG_LOGFILE "scndebug.log"
 #endif
 
-char *_scene_debug_file;
+const char *_scene_debug_file;
 int   _scene_debug_line;
 #ifdef __GNUC__
-char *_scene_debug_function;
+const char *_scene_debug_function;
 # endif
-int   _scene_debug_flags = DEBUG-0;
 
 void _scene_debug_printf(char *fmt,...)
 {
