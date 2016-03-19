@@ -180,8 +180,8 @@ void mx_grx_screen_vline(struct MxImage *image, int x1, int y1, int y2, MxColor 
 		  GrSetContext(GrScreenContext());
 		  screen_context = 1;
 	 }
-	 GrVLineNC(x1, y1, y2, color);
-//  GrVLine(x1, y1, y2, color);
+	 //GrVLineNC(x1, y1, y2, color);
+	GrVLine(x1, y1, y2, color);
 }
 
 void mx_grx_screen_rectfill(struct MxImage *image, int x1, int y1, int x2, int y2, MxColor color)
@@ -192,8 +192,8 @@ void mx_grx_screen_rectfill(struct MxImage *image, int x1, int y1, int x2, int y
 		  GrSetContext(GrScreenContext());
 		  screen_context = 1;
 	 }
-	 GrFilledBoxNC(x1, y1, x2, y2, color);
-//  GrFilledBox(x1, y1, x2, y2, color);
+//	 GrFilledBoxNC(x1, y1, x2, y2, color);
+	GrFilledBox(x1, y1, x2, y2, color);
 }
 
 void mx_grx_screen_trans_pixel(struct MxImage *image, int x1, int y1, MxColor color, int alpha)
