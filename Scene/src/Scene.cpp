@@ -382,7 +382,7 @@ void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio
 	screenWidth_ = screenWidth;
 	screenHeight_ = screenHeight;
 	zBuffer_ = new pl_ZBuffer[screenWidth * screenHeight];
-	frameBuffer_ = new pl_uChar[screenWidth * screenHeight];
+	frameBuffer_ = new pl_uChar[(screenWidth + 100 )* (screenHeight + 100)];
 	aspectRatio_ = aspectRatio;
 	background_ = 0;
 }
