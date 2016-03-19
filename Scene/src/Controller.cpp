@@ -18,6 +18,7 @@
 namespace scene {
 
 static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent * const event);
+static void *helpHandler(struct MxObject * object, const MxEvent * const event);
 static void callback_exit(MxObject * menu, void *data, unsigned int selected);
 
 //////////////////////////////////////////////////////////////////////////////
@@ -76,6 +77,21 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
   return 0;
 }
 
+static void *helpHandler(struct MxObject * object, const MxEvent * const event) {
+  MxWindow *win	= (MxWindow *)object;
+  SceneDesktop *desktop = (SceneDesktop *)MxParent(&win->base.object);
+  switch (event->type) {
+  case MxEventExit:
+	  {
+		desktop->directDisplay = true;
+		MxWindowHandler(object, event);
+	  }
+	break;
+  default:
+	  return MxWindowHandler(object, event);
+  }
+  return 0;
+}
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
@@ -224,23 +240,29 @@ void Controller::showHelp() {
 		 "    s        move backward\n"
 		 "    d        move right\n"
 		 "    r        reload scene\n"
+		 "    F1       Key Help\n"
 		 "    F3       Load Scene File\n"
 		 "    F9       Set move mode to walk\n"
 		 "    F10      Set move mode to fly\n"
 		 ;
+	MxWindowArgs winargs;
+	MxScrollTextarea *text;
+	MxScrollTextareaArgs textargs;
 
-	 /* Make an editor object without menu */
-	 MxArgsInit(&editorargs);
-	 editorargs.menu.listarea.def = helpmenu;
-	 editorargs.win.caption = "Key Help";
+	MxArgsInit(&textargs);
+	textargs.textarea.caption = buffer;
+	textargs.textarea.endtest = MxLineEndWordwrap;
+	//textargs.scroll.border = -1;
 
-	 MxEditor *editor = MxEditorNew(&desktop_->base.object, desktop_->base.object.position.x1, 
-		 desktop_->base.object.position.y1, 
-		 desktop_->base.object.position.x2, 
-		 desktop_->base.object.position.y2, 
-		 &editorargs);
-	 MxEditareaSet(&editor->scrledit.editarea, buffer, MxFalse, MxTrue);
-	 MxEnqueueRefresh(&editor->base.object, MxTrue);
+	text = MxScrollTextareaNew(0, 0, 0, 300, 200, &textargs);
+
+	MxArgsInit(&winargs);
+	winargs.caption = "Key Help";
+	winargs.client = &text->base.object;
+
+	MxWindow *win = MxWindowNew(&desktop_->base.object, 150, 150, 300, 200, &winargs);
+	win->base.object.handler = helpHandler;
+	MxEnqueueRefresh(&win->base.object, MxTrue);
 }
 
 } // namespace scene
