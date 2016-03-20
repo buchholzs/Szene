@@ -4,9 +4,8 @@ These programs use the 3D plush library
 (http://www.nullsoft.com/free/plush/) to display a scene
 file written in XML.
 
-Both programs run in DOS mode only. Use Dosbox to start the programs.
-At first you have to initialize the Dos extender with
-CWSDPMI -p
+Both programs run in DOS mode or Win32 mode. Use Dosbox to start the DOS programs.
+Best results are achieved with S3 Graphic, use machine=svga_s3 in Dosbox config.
 
 Then start
 
