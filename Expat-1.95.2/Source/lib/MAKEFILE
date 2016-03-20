@@ -6,7 +6,7 @@ OBJECTS=xmlparse.o \
 	xmlrole.o \
 	xmltok.o
 
-LIB = ../../libs/libexpat.a
+LIB = ..\..\libs\libexpat.a
 CFLAGS += -I. -gstabs+ -xc -DVERSION=\"expat_1.95.2\" -fexceptions
 
 all: $(LIB)
@@ -15,7 +15,7 @@ $(LIB): $(OBJECTS)
 	$(AR) rs $@ $?
 
 clean:
-	rm -f $(OBJECTS) $(LIB)
+	for %i in ($(OBJECTS) $(LIB)) do del %i
 
 install:
 
