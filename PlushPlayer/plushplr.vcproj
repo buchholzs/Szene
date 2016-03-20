@@ -179,7 +179,7 @@
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\depui\Lib\Release;..\scene\Release;..\plush\Release;..\contrib\grx248\Release;&quot;..\expat-1.95.2\libs&quot;"
 				ProgramDatabaseFile=".\Release/plushplr.pdb"
-				SubSystem="2"
+				SubSystem="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
