@@ -22,7 +22,7 @@ Depui/Lib/libdepui.a:
 	$(MAKE) -C Depui -f MAKEFILE lib
 
 Scene/libscene.a:
-	$(MAKE) -C Scene -f MAKEFILE
+	$(MAKE) -C Scene -f MAKEFILE all
 
 MatEdit2/matedit2.exe: $(LIB)
 	$(MAKE) -C MatEdit2 -f MAKEFILE
@@ -34,29 +34,30 @@ clean:
 	$(MAKE) -C Expat-1.95.2/Source/lib -f MAKEFILE clean
 	$(MAKE) -C plush/src -f MAKEFILE clean	
 	$(MAKE) -C contrib/grx248 -f makefile.dj2 clean
-	rm -f contrib/grx248/lib/dj2/libgrx20.a
+	del contrib\grx248\lib\dj2\libgrx20.a
 	$(MAKE) -C Depui -f MAKEFILE clean
 	$(MAKE) -C Scene -f MAKEFILE clean
 	$(MAKE) -C MatEdit2 -f MAKEFILE clean
 	$(MAKE) -C PlushPlayer -f MAKEFILE clean
 
 install:
-	rm -rf redist
-	mkdir -p redist
-	cp MatEdit2/matedit2.exe redist
-	cp PlushPlayer/plushplr.exe redist
-	cp MatEdit2/Release/matedit2.exe redist/matedit2_w32.exe
-	cp PlushPlayer/Release/plushplr.exe redist/plushplr_w32.exe
-	cp Archiv/CWSDPMI.EXE redist
-	cp Readme.txt redist
-	cp changelog.txt redist
-	cp Expat-1.95.2/Libs/expat.dll redist
-	mkdir -p redist/scenes
-	cp PlushPlayer/scenes/*.scx redist/scenes
-	cp PlushPlayer/scenes/*.[pP][cC][xX] redist/scenes
-	cp PlushPlayer/scenes/*.JAW redist/scenes
-	mkdir -p redist/scenes/maps
-	cp PlushPlayer/scenes/Maps/*.[pP][cC][xX] redist/scenes/maps
+	cmd /c rmdir /s/q redist
+	cmd /c md redist
+	cmd /c copy MatEdit2\matedit2.exe redist
+	cmd /c copy PlushPlayer\plushplr.exe redist
+	cmd /c copy MatEdit2\standard.scx redist
+	cmd /c copy MatEdit2\Release\matedit2.exe redist\matedit2_w32.exe
+	cmd /c copy PlushPlayer\Release\plushplr.exe redist\plushplr_w32.exe
+	cmd /c copy Archiv\CWSDPMI.EXE redist
+	cmd /c copy Readme.txt redist
+	cmd /c copy changelog.txt redist
+	cmd /c copy Expat-1.95.2\Libs\expat.dll redist
+	cmd /c mkdir redist\scenes
+	cmd /c copy "PlushPlayer\scenes\*.scx" redist\scenes
+	cmd /c copy "PlushPlayer\scenes\*.pcx" redist\scenes
+	cmd /c copy "PlushPlayer\scenes\*.JAW" redist\scenes
+	cmd /c mkdir redist\scenes\maps
+	cmd /c copy "PlushPlayer\scenes\Maps\*.pcx" redist\scenes\maps
 
 # Dependencies
 
