@@ -1,9 +1,9 @@
-Copyright (C) Steffen Buchholz 2007-2010
+Copyright (c) Steffen Buchholz 2007-2016
 
 Changelog for PlushPlayer
 
-Version 0.2: 2010-03-16
-=======================
+Version 0.2: 2010-03-16 (uploaded on 2016-03-20)
+================================================
 - Added the scene cardrdr.scx (shows a card reader and cards)
 - Added the scene kepler.scx (shows the solar system)
 - Bigger file selector in plushplr
