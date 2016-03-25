@@ -55,6 +55,7 @@ int main(int argc, char *argv[]) { // Main
   bool doRotate=true;
   pl_sChar lastmessage[80] = "DSPL3DS"; // last message used for status line
 
+#if defined(DJGPP)
   int c;
   opterr = 0;
   while ((c=getopt(argc, argv, "sz:")) != -1)
@@ -78,11 +79,21 @@ int main(int argc, char *argv[]) { // Main
     usage(argv[0]);
     exit(-2);
   }
-
   input_filename = argv[optind];
+#else
+  if (1==argc) {
+    cout << "3ds-Datei fehlt.\n";
+    exit(-2);
+  }
+  input_filename = argv[argc-1];  
+#endif
 
   struct stat s;
+#if defined(DJGPP)
   if (stat(input_filename, &s)!=0 || !S_ISREG(s.st_mode)) {
+#else
+  if (stat(input_filename, &s)!=0) {
+#endif
     cout << input_filename << " kann nicht ge”ffnet werden\n";
     exit(-2);
   }
@@ -198,7 +209,7 @@ int main(int argc, char *argv[]) { // Main
              
   while (key!='q') { // While the keyboard hasn't been touched
     if (kbhit()) {
-      key = getkey();
+      key = getch();
       switch (key) {
       case '+':
 	plObjScale(TheObj, 2.0);
