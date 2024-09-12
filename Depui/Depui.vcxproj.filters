@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{0e9a9dd0-d9aa-41c7-998b-cfca46e730c0}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{f0bb1847-e553-4fbd-a2c8-8bf4cf9cfad6}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{6f90e70f-eda4-4427-9cc9-a52eca216489}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SOURCE\OBJECT\ALERT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DEBUG\ALLOC.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\ANIMATE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\BAR.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\BLIT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\BLITFS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\BLITS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\BLITTS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\BTN.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\BTNCANC.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\BTNEXIT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\BTNOK.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\BTNPUSH.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\BTNRADIO.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\BTNTOGG.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\PLATFORM\BUFFDBL.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\CHECK.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\CHECK1.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\CHECKBOX.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\CLIP.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\CLIPBLIT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\CLOSE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\CURSOR.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\DECORATE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\DEFSIZE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DESKTOP\DESKTOP.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\DIRECT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\dirent.c">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DRAGDROP.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DRAW\DRAW.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\EDITAREA.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\EDITLINE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\EDITOR.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\EDITSCRL.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\PLATFORM\EMPTYIN.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\PLATFORM\EMPTYOUT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\PLATFORM\EMPTYSYS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\EVENT\EVENT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\EVENT\EVENT2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FILE1.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FILE2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FILE3.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FILE4.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\FILESEL.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FINDFIRS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\EVENT\FOCUS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTAA.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTADD.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF3.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF4.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF5.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTDUMP.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\FONTPIX.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\FRAME.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\FRAME1.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\FRAME2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GEOMETRY\GEOM1.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GEOMETRY\GEOM2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GEOMETRY\GEOMENCL.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GEOMETRY\GEOMETRY.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GEOMETRY\GEOMJC.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GEOMETRY\GEOMJC2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\GETPIX.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\GETPIXS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GLOBALS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\HIDE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\HLINE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\HLINES.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IBLIT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IHLINE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\ILOAD.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\ILOAD2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\ILOADBMP.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\ILOADPCX.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE1.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE16.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE24.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE32.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE4.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE8.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IRECT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\IVLINE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\LIST.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\LISTAREA.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\LISTDEF.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\MENU.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\MENUPD.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\SUPPORT\MOUSE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DRAW\MOVE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\MOVER.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\OBJECT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DESKTOP\OBJEXIST.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\OBJINS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\OBJNEW.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\OBJREM.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\OBJSORT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\OBJZOR2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\OBJZORD.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\PANEL.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\PIXEL.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELCL.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELCL2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELCLT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELTS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\PLATFORM\PLATFORM.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\PLATFORM\PLATIN.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\PLATFORM\PLATOUT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\PLATFORM\PLATSYS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\POINTER\POINTER.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\POINTER\POINTHLD.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\POINTER\POINTMVE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DESKTOP\POP.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\POSMCH.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\POSMCW.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\POSMOVE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\POSMX.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\POSMY.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\POSSIZE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\EVENT\QUEUE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\RADIO.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\RADIOGRP.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\RECT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\RECTS.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DRAW\REGION.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DRAW\REGION2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DRAW\REGION3.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DRAW\REGION4.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\RELATION.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\RESIZE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\RESIZE2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\DESKTOP\ROOT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\SCROLL.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\SCROLL2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\SLIDER.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\SLIDERH.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\SLIDERV.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\STATICT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\STATICT2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\STATICT3.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXT.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXT1.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXT2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXT3.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXT4.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXT5.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXT6.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXTARE2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXTARE3.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXTARE4.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXTAREA.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXTARSC.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXTLIN3.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXTLIN4.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\TEXTLINE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\VLINE.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\GRAPHICS\VLINES.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\WINDOW.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="SOURCE\OBJECT\WINDOW2.C">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="INCLUDE\DEPUI\_CONFIG.H">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\DEPUI\CONFIG.H">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\DEPUI\DEPUI.H">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\DEPUI\DRAGDROP.H">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\DEPUI\MACROS.H">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="INCLUDE\DEPUI\TYPES.H">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

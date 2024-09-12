@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{60573D6F-6DD0-4EBF-8124-F8E04DCDCB30}</ProjectGuid>
+    <RootNamespace>grx248</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>17.0.35219.272</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>.\Release\</OutDir>
+    <IntDir>.\Release\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>include;src\include;src;addons\print;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <PrecompiledHeaderOutputFile>.\Release/grx243.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Release/</AssemblerListingLocation>
+      <ObjectFileName>.\Release/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>include;src\include;src;addons\print;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <PrecompiledHeaderOutputFile>.\Debug/grx243.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\bgi\arc.c" />
+    <ClCompile Include="src\bgi\aspectra.c" />
+    <ClCompile Include="src\bgi\bar.c" />
+    <ClCompile Include="src\bgi\bar3d.c" />
+    <ClCompile Include="src\bgi\bccgrx.c" />
+    <ClCompile Include="src\bgi\bgiext01.c" />
+    <ClCompile Include="src\bgi\bgiext02.c" />
+    <ClCompile Include="src\bgi\bgimode.c" />
+    <ClCompile Include="src\bgi\bgiprint.c" />
+    <ClCompile Include="src\bgi\circle.c" />
+    <ClCompile Include="src\bgi\clearvp.c" />
+    <ClCompile Include="src\bgi\closegra.c" />
+    <ClCompile Include="src\bgi\clrdev.c" />
+    <ClCompile Include="src\bgi\detectg.c" />
+    <ClCompile Include="src\bgi\drvname.c" />
+    <ClCompile Include="src\bgi\egacolor.c" />
+    <ClCompile Include="src\bgi\ellipse.c" />
+    <ClCompile Include="src\bgi\errmsg.c" />
+    <ClCompile Include="src\bgi\fellipse.c" />
+    <ClCompile Include="src\bgi\fillpatb.c" />
+    <ClCompile Include="src\bgi\fillpolb.c" />
+    <ClCompile Include="src\bgi\fillstyl.c" />
+    <ClCompile Include="src\bgi\fldfill.c" />
+    <ClCompile Include="src\bgi\getbkcol.c" />
+    <ClCompile Include="src\bgi\getcol.c" />
+    <ClCompile Include="src\bgi\getdefpa.c" />
+    <ClCompile Include="src\bgi\getfillp.c" />
+    <ClCompile Include="src\bgi\getfills.c" />
+    <ClCompile Include="src\bgi\getgramo.c" />
+    <ClCompile Include="src\bgi\getimage.c" />
+    <ClCompile Include="src\bgi\getmaxmo.c" />
+    <ClCompile Include="src\bgi\getmoran.c" />
+    <ClCompile Include="src\bgi\getpixel.c" />
+    <ClCompile Include="src\bgi\getviewp.c" />
+    <ClCompile Include="src\bgi\getx.c" />
+    <ClCompile Include="src\bgi\gety.c" />
+    <ClCompile Include="src\bgi\gmaxcol.c" />
+    <ClCompile Include="src\bgi\gmmaxcol.c" />
+    <ClCompile Include="src\bgi\gmmaxx.c" />
+    <ClCompile Include="src\bgi\gmmaxy.c" />
+    <ClCompile Include="src\bgi\gpalsize.c" />
+    <ClCompile Include="src\bgi\graphres.c" />
+    <ClCompile Include="src\bgi\imagesze.c" />
+    <ClCompile Include="src\bgi\instbgid.c" />
+    <ClCompile Include="src\bgi\lineb.c" />
+    <ClCompile Include="src\bgi\linerel.c" />
+    <ClCompile Include="src\bgi\lineto.c" />
+    <ClCompile Include="src\bgi\lnestyle.c" />
+    <ClCompile Include="src\bgi\modename.c" />
+    <ClCompile Include="src\bgi\moverel.c" />
+    <ClCompile Include="src\bgi\moveto.c" />
+    <ClCompile Include="src\bgi\page1.c" />
+    <ClCompile Include="src\bgi\page2.c" />
+    <ClCompile Include="src\bgi\page3.c" />
+    <ClCompile Include="src\bgi\page4.c" />
+    <ClCompile Include="src\bgi\page5.c" />
+    <ClCompile Include="src\bgi\page6.c" />
+    <ClCompile Include="src\bgi\palette.c" />
+    <ClCompile Include="src\bgi\pieslice.c" />
+    <ClCompile Include="src\bgi\polygonb.c" />
+    <ClCompile Include="src\bgi\putimage.c" />
+    <ClCompile Include="src\bgi\putpixel.c" />
+    <ClCompile Include="src\bgi\rectang.c" />
+    <ClCompile Include="src\bgi\regbgidr.c" />
+    <ClCompile Include="src\bgi\rgbpal_g.c" />
+    <ClCompile Include="src\bgi\rgbpal_s.c" />
+    <ClCompile Include="src\bgi\rstcrtmd.c" />
+    <ClCompile Include="src\bgi\sector.c" />
+    <ClCompile Include="src\bgi\setbgiwh.c" />
+    <ClCompile Include="src\bgi\setbkcol.c" />
+    <ClCompile Include="src\bgi\setbusze.c" />
+    <ClCompile Include="src\bgi\setcolor.c" />
+    <ClCompile Include="src\bgi\setrgbc.c" />
+    <ClCompile Include="src\bgi\setviewp.c" />
+    <ClCompile Include="src\bgi\setwrmod.c" />
+    <ClCompile Include="src\bgi\text.c" />
+    <ClCompile Include="src\bgi\text1.c" />
+    <ClCompile Include="src\bgi\text2.c" />
+    <ClCompile Include="src\bgi\text3.c" />
+    <ClCompile Include="src\bgi\text4.c" />
+    <ClCompile Include="src\bgi\text5.c" />
+    <ClCompile Include="src\bgi\text6.c" />
+    <ClCompile Include="src\bgi\text7.c" />
+    <ClCompile Include="src\bgi\text8.c" />
+    <ClCompile Include="src\bgi\text9.c" />
+    <ClCompile Include="src\bgi\texta.c" />
+    <ClCompile Include="src\bgi\textb.c" />
+    <ClCompile Include="src\bgi\textc.c" />
+    <ClCompile Include="src\bgi\textd.c" />
+    <ClCompile Include="src\bgi\txtlnest.c" />
+    <ClCompile Include="src\draw\bitblt.c" />
+    <ClCompile Include="src\draw\bitblt1b.c" />
+    <ClCompile Include="src\draw\bitbltnc.c" />
+    <ClCompile Include="src\draw\box.c" />
+    <ClCompile Include="src\draw\boxnc.c" />
+    <ClCompile Include="src\draw\clearclp.c" />
+    <ClCompile Include="src\draw\clearctx.c" />
+    <ClCompile Include="src\draw\clearscr.c" />
+    <ClCompile Include="src\draw\drwinlne.c" />
+    <ClCompile Include="src\draw\fillbox.c" />
+    <ClCompile Include="src\draw\fillboxn.c" />
+    <ClCompile Include="src\draw\frambox.c" />
+    <ClCompile Include="src\draw\framboxn.c" />
+    <ClCompile Include="src\draw\getscl.c" />
+    <ClCompile Include="src\draw\line.c" />
+    <ClCompile Include="src\draw\linenc.c" />
+    <ClCompile Include="src\draw\majorln1.c" />
+    <ClCompile Include="src\draw\majorln2.c" />
+    <ClCompile Include="src\draw\majorln3.c" />
+    <ClCompile Include="src\draw\majorln4.c" />
+    <ClCompile Include="src\draw\pixel.c" />
+    <ClCompile Include="src\draw\pixelc.c" />
+    <ClCompile Include="src\draw\plot.c" />
+    <ClCompile Include="src\draw\putscl.c" />
+    <ClCompile Include="src\fdrivers\dotab8.c" />
+    <ClCompile Include="src\fdrivers\ega4.c" />
+    <ClCompile Include="src\fdrivers\egavga1.c" />
+    <ClCompile Include="src\fdrivers\fdw32_24.c" />
+    <ClCompile Include="src\fdrivers\fdw32_8.c" />
+    <ClCompile Include="src\fdrivers\ftable.c" />
+    <ClCompile Include="src\fdrivers\genblit.c" />
+    <ClCompile Include="src\fdrivers\gengiscl.c" />
+    <ClCompile Include="src\fdrivers\genptscl.c" />
+    <ClCompile Include="src\fdrivers\genstrch.c" />
+    <ClCompile Include="src\fdrivers\herc1.c" />
+    <ClCompile Include="src\fdrivers\lfb16.c" />
+    <ClCompile Include="src\fdrivers\lfb24.c" />
+    <ClCompile Include="src\fdrivers\lfb32h.c" />
+    <ClCompile Include="src\fdrivers\lfb32l.c" />
+    <ClCompile Include="src\fdrivers\lfb8.c" />
+    <ClCompile Include="src\fdrivers\lfbbltrv.c" />
+    <ClCompile Include="src\fdrivers\lfbbltvr.c" />
+    <ClCompile Include="src\fdrivers\lfbbltvv.c" />
+    <ClCompile Include="src\fdrivers\pblitr2r.c" />
+    <ClCompile Include="src\fdrivers\pblitr2v.c" />
+    <ClCompile Include="src\fdrivers\pblitv2r.c" />
+    <ClCompile Include="src\fdrivers\pblitv2v.c" />
+    <ClCompile Include="src\fdrivers\ram1.c" />
+    <ClCompile Include="src\fdrivers\ram16.c" />
+    <ClCompile Include="src\fdrivers\ram24.c" />
+    <ClCompile Include="src\fdrivers\ram32h.c" />
+    <ClCompile Include="src\fdrivers\ram32l.c" />
+    <ClCompile Include="src\fdrivers\ram3x8.c" />
+    <ClCompile Include="src\fdrivers\ram4.c" />
+    <ClCompile Include="src\fdrivers\ram8.c" />
+    <ClCompile Include="src\fdrivers\rblit_14.c" />
+    <ClCompile Include="src\fdrivers\svga16.c" />
+    <ClCompile Include="src\fdrivers\svga24.c" />
+    <ClCompile Include="src\fdrivers\svga32h.c" />
+    <ClCompile Include="src\fdrivers\svga32l.c" />
+    <ClCompile Include="src\fdrivers\svga4.c" />
+    <ClCompile Include="src\fdrivers\svga8.c" />
+    <ClCompile Include="src\fonts\fdtable.c" />
+    <ClCompile Include="src\fonts\fdv_bgi.c" />
+    <ClCompile Include="src\fonts\fdv_fna.c" />
+    <ClCompile Include="src\fonts\fdv_grx.c" />
+    <ClCompile Include="src\fonts\fdv_raw.c" />
+    <ClCompile Include="src\fonts\fdv_win.c" />
+    <ClCompile Include="src\fonts\pc6x8.c" />
+    <ClCompile Include="src\fonts\pc8x14.c" />
+    <ClCompile Include="src\fonts\pc8x16.c" />
+    <ClCompile Include="src\fonts\pc8x8.c" />
+    <ClCompile Include="src\gformats\ctx2pnm.c" />
+    <ClCompile Include="src\gformats\dummyjpg.c" />
+    <ClCompile Include="src\gformats\dummypng.c" />
+    <ClCompile Include="src\gformats\pnm2ctx.c" />
+    <ClCompile Include="src\image\ialloc.c" />
+    <ClCompile Include="src\image\ibuild.c" />
+    <ClCompile Include="src\image\ifbox.c" />
+    <ClCompile Include="src\image\ihline.c" />
+    <ClCompile Include="src\image\iinverse.c" />
+    <ClCompile Include="src\image\imginlne.c" />
+    <ClCompile Include="src\image\iplot.c" />
+    <ClCompile Include="src\image\istretch.c" />
+    <ClCompile Include="src\misc\w32misc.c" />
+    <ClCompile Include="src\mouse\bldcurs.c" />
+    <ClCompile Include="src\mouse\drawcurs.c" />
+    <ClCompile Include="src\mouse\mouinfo.c" />
+    <ClCompile Include="src\mouse\mouinlne.c" />
+    <ClCompile Include="src\mouse\mscursor.c" />
+    <ClCompile Include="src\mouse\w32inp.c" />
+    <ClCompile Include="src\mouse\w32keys.c" />
+    <ClCompile Include="src\pattern\fillpatt.c" />
+    <ClCompile Include="src\pattern\makepat.c" />
+    <ClCompile Include="src\pattern\patfbits.c" />
+    <ClCompile Include="src\pattern\patfbox.c" />
+    <ClCompile Include="src\pattern\patfcvxp.c" />
+    <ClCompile Include="src\pattern\patfline.c" />
+    <ClCompile Include="src\pattern\patfplot.c" />
+    <ClCompile Include="src\pattern\patfpoly.c" />
+    <ClCompile Include="src\pattern\patternf.c" />
+    <ClCompile Include="src\pattern\pattfldf.c" />
+    <ClCompile Include="src\pattern\pattline.c" />
+    <ClCompile Include="src\pattern\pattpoly.c" />
+    <ClCompile Include="src\pattern\pfcirc.c" />
+    <ClCompile Include="src\pattern\pfcirca.c" />
+    <ClCompile Include="src\pattern\pfelli.c" />
+    <ClCompile Include="src\pattern\pfellia.c" />
+    <ClCompile Include="src\pattern\ptcirc.c" />
+    <ClCompile Include="src\pattern\ptcirca.c" />
+    <ClCompile Include="src\pattern\ptelli.c" />
+    <ClCompile Include="src\pattern\ptellia.c" />
+    <ClCompile Include="src\setup\clip.c" />
+    <ClCompile Include="src\setup\clrinfo.c" />
+    <ClCompile Include="src\setup\clrinlne.c" />
+    <ClCompile Include="src\setup\colorbw.c" />
+    <ClCompile Include="src\setup\colorega.c" />
+    <ClCompile Include="src\setup\colors.c" />
+    <ClCompile Include="src\setup\context.c" />
+    <ClCompile Include="src\setup\cxtinfo.c" />
+    <ClCompile Include="src\setup\cxtinlne.c" />
+    <ClCompile Include="src\setup\drvinfo.c" />
+    <ClCompile Include="src\setup\drvinlne.c" />
+    <ClCompile Include="src\setup\fframe.c" />
+    <ClCompile Include="src\setup\fgeom.c" />
+    <ClCompile Include="src\setup\hooks.c" />
+    <ClCompile Include="src\setup\modewalk.c" />
+    <ClCompile Include="src\setup\setdrvr.c" />
+    <ClCompile Include="src\setup\setmode.c" />
+    <ClCompile Include="src\setup\version.c" />
+    <ClCompile Include="src\setup\viewport.c" />
+    <ClCompile Include="src\shape\circle1.c" />
+    <ClCompile Include="src\shape\circle2.c" />
+    <ClCompile Include="src\shape\circle3.c" />
+    <ClCompile Include="src\shape\circle4.c" />
+    <ClCompile Include="src\shape\drawpoly.c" />
+    <ClCompile Include="src\shape\fillcir1.c" />
+    <ClCompile Include="src\shape\fillcir2.c" />
+    <ClCompile Include="src\shape\fillcnvx.c" />
+    <ClCompile Include="src\shape\fillell1.c" />
+    <ClCompile Include="src\shape\fillell2.c" />
+    <ClCompile Include="src\shape\fillpoly.c" />
+    <ClCompile Include="src\shape\flood.c" />
+    <ClCompile Include="src\shape\floodfil.c" />
+    <ClCompile Include="src\shape\genellip.c" />
+    <ClCompile Include="src\shape\polygon.c" />
+    <ClCompile Include="src\shape\polyline.c" />
+    <ClCompile Include="src\shape\scancnvx.c" />
+    <ClCompile Include="src\shape\scanellp.c" />
+    <ClCompile Include="src\shape\scanpoly.c" />
+    <ClCompile Include="src\shape\solidfil.c" />
+    <ClCompile Include="src\text\buildaux.c" />
+    <ClCompile Include="src\text\buildfnt.c" />
+    <ClCompile Include="src\text\convfont.c" />
+    <ClCompile Include="src\text\drawstrg.c" />
+    <ClCompile Include="src\text\drawtext.c" />
+    <ClCompile Include="src\text\drwstrg.c" />
+    <ClCompile Include="src\text\dumpfna.c" />
+    <ClCompile Include="src\text\dumpfont.c" />
+    <ClCompile Include="src\text\dumptext.c" />
+    <ClCompile Include="src\text\epatstrg.c" />
+    <ClCompile Include="src\text\fntinlne.c" />
+    <ClCompile Include="src\text\fontinfo.c" />
+    <ClCompile Include="src\text\fontpath.c" />
+    <ClCompile Include="src\text\loadfont.c" />
+    <ClCompile Include="src\text\pattstrg.c" />
+    <ClCompile Include="src\text\propwdt.c" />
+    <ClCompile Include="src\text\unloadfn.c" />
+    <ClCompile Include="src\user\ubox.c" />
+    <ClCompile Include="src\user\ucbox.c" />
+    <ClCompile Include="src\user\uccirc.c" />
+    <ClCompile Include="src\user\uccirca.c" />
+    <ClCompile Include="src\user\ucelli.c" />
+    <ClCompile Include="src\user\ucellia.c" />
+    <ClCompile Include="src\user\ucirc.c" />
+    <ClCompile Include="src\user\ucirca.c" />
+    <ClCompile Include="src\user\ucircf.c" />
+    <ClCompile Include="src\user\ucircfa.c" />
+    <ClCompile Include="src\user\ucline.c" />
+    <ClCompile Include="src\user\ucpolyg.c" />
+    <ClCompile Include="src\user\ucpolyl.c" />
+    <ClCompile Include="src\user\udrwchar.c" />
+    <ClCompile Include="src\user\udrwstrg.c" />
+    <ClCompile Include="src\user\uelli.c" />
+    <ClCompile Include="src\user\uellia.c" />
+    <ClCompile Include="src\user\uellif.c" />
+    <ClCompile Include="src\user\uellifa.c" />
+    <ClCompile Include="src\user\ufcpolyg.c" />
+    <ClCompile Include="src\user\ufillbox.c" />
+    <ClCompile Include="src\user\uflood.c" />
+    <ClCompile Include="src\user\ufpolyg.c" />
+    <ClCompile Include="src\user\uframbox.c" />
+    <ClCompile Include="src\user\ugetwin.c" />
+    <ClCompile Include="src\user\uhline.c" />
+    <ClCompile Include="src\user\uline.c" />
+    <ClCompile Include="src\user\upbox.c" />
+    <ClCompile Include="src\user\upcirc.c" />
+    <ClCompile Include="src\user\upcirca.c" />
+    <ClCompile Include="src\user\upelli.c" />
+    <ClCompile Include="src\user\upellia.c" />
+    <ClCompile Include="src\user\upfbox.c" />
+    <ClCompile Include="src\user\upfcirc.c" />
+    <ClCompile Include="src\user\upfcirca.c" />
+    <ClCompile Include="src\user\upfcpoly.c" />
+    <ClCompile Include="src\user\upfelli.c" />
+    <ClCompile Include="src\user\upfellia.c" />
+    <ClCompile Include="src\user\upfflood.c" />
+    <ClCompile Include="src\user\upfline.c" />
+    <ClCompile Include="src\user\upfplot.c" />
+    <ClCompile Include="src\user\upfpolyg.c" />
+    <ClCompile Include="src\user\upixel.c" />
+    <ClCompile Include="src\user\upixelc.c" />
+    <ClCompile Include="src\user\upline.c" />
+    <ClCompile Include="src\user\uplot.c" />
+    <ClCompile Include="src\user\upolygon.c" />
+    <ClCompile Include="src\user\upolylin.c" />
+    <ClCompile Include="src\user\uppolyg.c" />
+    <ClCompile Include="src\user\uppolyl.c" />
+    <ClCompile Include="src\user\usercord.c" />
+    <ClCompile Include="src\user\usetwin.c" />
+    <ClCompile Include="src\user\utextxy.c" />
+    <ClCompile Include="src\user\uvline.c" />
+    <ClCompile Include="src\utils\dbgprint.c" />
+    <ClCompile Include="src\utils\ordswap.c" />
+    <ClCompile Include="src\utils\resize.c" />
+    <ClCompile Include="src\utils\shiftscl.c" />
+    <ClCompile Include="src\utils\strmatch.c" />
+    <ClCompile Include="src\utils\tmpbuff.c" />
+    <ClCompile Include="src\vdrivers\herc.c" />
+    <ClCompile Include="src\vdrivers\vd_mem.c" />
+    <ClCompile Include="src\vdrivers\vd_win32.c" />
+    <ClCompile Include="src\vdrivers\vtable.c" />
+    <ClCompile Include="src\wideline\ccirc.c" />
+    <ClCompile Include="src\wideline\ccirca.c" />
+    <ClCompile Include="src\wideline\celli.c" />
+    <ClCompile Include="src\wideline\cellia.c" />
+    <ClCompile Include="src\wideline\custbox.c" />
+    <ClCompile Include="src\wideline\custline.c" />
+    <ClCompile Include="src\wideline\custplne.c" />
+    <ClCompile Include="src\wideline\custpoly.c" />
+    <ClCompile Include="src\wideline\drwcpoly.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\bgi\bccgrx00.h" />
+    <ClInclude Include="src\bgi\text.h" />
+    <ClInclude Include="src\fdrivers\banked32.h" />
+    <ClInclude Include="src\fdrivers\driver16.h" />
+    <ClInclude Include="src\fdrivers\driver24.h" />
+    <ClInclude Include="src\fdrivers\driver32.h" />
+    <ClInclude Include="src\fdrivers\driver8.h" />
+    <ClInclude Include="src\fdrivers\pblit_nb.h" />
+    <ClInclude Include="src\fdrivers\rblit_14.h" />
+    <ClInclude Include="src\fonts\fdv_bgi.h" />
+    <ClInclude Include="src\fonts\fdv_grx.h" />
+    <ClInclude Include="src\fonts\fdv_raw.h" />
+    <ClInclude Include="src\fonts\fdv_win.h" />
+    <ClInclude Include="src\image\image.h" />
+    <ClInclude Include="src\include\access24.h" />
+    <ClInclude Include="src\include\allocate.h" />
+    <ClInclude Include="src\include\arith.h" />
+    <ClInclude Include="src\include\bcc\allocate.h" />
+    <ClInclude Include="src\include\bcc\arith.h" />
+    <ClInclude Include="src\include\bcc\asmsupp.h" />
+    <ClInclude Include="src\include\bcc\highlow.h" />
+    <ClInclude Include="src\include\bcc\memcopy.h" />
+    <ClInclude Include="src\include\bcc\memfill.h" />
+    <ClInclude Include="src\include\bcc\memmode.h" />
+    <ClInclude Include="src\include\bcc\mempeek.h" />
+    <ClInclude Include="src\include\clipping.h" />
+    <ClInclude Include="src\include\docolor.h" />
+    <ClInclude Include="src\include\gcc\arith.h" />
+    <ClInclude Include="src\include\gcc\asmsupp.h" />
+    <ClInclude Include="src\include\gcc\highlow.h" />
+    <ClInclude Include="src\include\gcc\memcopy.h" />
+    <ClInclude Include="src\include\gcc\memfill.h" />
+    <ClInclude Include="src\include\gcc\memmode.h" />
+    <ClInclude Include="src\include\gcc\mempeek.h" />
+    <ClInclude Include="src\include\grxdebug.h" />
+    <ClInclude Include="src\include\highlow.h" />
+    <ClInclude Include="src\include\int86.h" />
+    <ClInclude Include="src\include\ioport.h" />
+    <ClInclude Include="src\include\libgrx.h" />
+    <ClInclude Include="src\include\libwin32.h" />
+    <ClInclude Include="src\include\memcopy.h" />
+    <ClInclude Include="src\include\memfill.h" />
+    <ClInclude Include="src\include\memmode.h" />
+    <ClInclude Include="src\include\mempeek.h" />
+    <ClInclude Include="src\include\ordswap.h" />
+    <ClInclude Include="src\include\pblit.h" />
+    <ClInclude Include="src\include\prex11r6.h" />
+    <ClInclude Include="src\include\shapes.h" />
+    <ClInclude Include="src\include\usercord.h" />
+    <ClInclude Include="src\include\usrscale.h" />
+    <ClInclude Include="src\include\vesa.h" />
+    <ClInclude Include="src\include\vgaregs.h" />
+    <ClInclude Include="src\include\watcom\memcopy.h" />
+    <ClInclude Include="src\include\watcom\memfill.h" />
+    <ClInclude Include="src\include\watcom\memmode.h" />
+    <ClInclude Include="src\include\watcom\mempeek.h" />
+    <ClInclude Include="src\mouse\input.h" />
+    <ClInclude Include="src\mouse\w32input.h" />
+    <ClInclude Include="src\shape\polyedge.h" />
+    <ClInclude Include="src\text\text.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

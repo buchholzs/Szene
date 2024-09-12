@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quellcodedateien">
+      <UniqueIdentifier>{ce5ead73-c92e-4ca6-9562-f0c27b20fd87}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header-Dateien">
+      <UniqueIdentifier>{f8cf5149-3115-4a9c-9f7b-40a69715ee0a}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{1ef12de6-a7f8-497e-abad-220515620e52}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="matedit2.cpp">
+      <Filter>Quellcodedateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="matedit2.h">
+      <Filter>Header-Dateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

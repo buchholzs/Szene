@@ -1,0 +1,1190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{95b1aa71-d782-4f49-97f5-40d1c54d1b02}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{45b96caa-1581-4917-839d-0a8307126405}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\bgi\arc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\aspectra.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\bar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\bar3d.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\bccgrx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\bgiext01.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\bgiext02.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\bgimode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\bgiprint.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\bitblt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\bitblt1b.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\bitbltnc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mouse\bldcurs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\box.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\boxnc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\buildaux.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\buildfnt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\ccirc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\ccirca.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\celli.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\cellia.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\circle.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\circle1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\circle2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\circle3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\circle4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\clearclp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\clearctx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\clearscr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\clearvp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\clip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\closegra.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\clrdev.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\clrinfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\clrinlne.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\colorbw.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\colorega.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\colors.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\context.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\convfont.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gformats\ctx2pnm.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\custbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\custline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\custplne.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\custpoly.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\cxtinfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\cxtinlne.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\dbgprint.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\detectg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\dotab8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mouse\drawcurs.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\drawpoly.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\drawstrg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\drawtext.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\drvinfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\drvinlne.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\drvname.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\wideline\drwcpoly.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\drwinlne.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\drwstrg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gformats\dummyjpg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gformats\dummypng.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\dumpfna.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\dumpfont.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\dumptext.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ega4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\egacolor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\egavga1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\ellipse.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\epatstrg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\errmsg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\fdtable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\fdv_bgi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\fdv_fna.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\fdv_grx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\fdv_raw.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\fdv_win.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\fdw32_24.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\fdw32_8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\fellipse.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\fframe.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\fgeom.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\fillbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\fillboxn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\fillcir1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\fillcir2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\fillcnvx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\fillell1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\fillell2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\fillpatb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\fillpatt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\fillpolb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\fillpoly.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\fillstyl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\fldfill.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\flood.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\floodfil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\fntinlne.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\fontinfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\fontpath.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\frambox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\framboxn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ftable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\genblit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\genellip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\gengiscl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\genptscl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\genstrch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getbkcol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getcol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getdefpa.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getfillp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getfills.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getgramo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getimage.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getmaxmo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getmoran.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getpixel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\getscl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getviewp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\getx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\gety.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\gmaxcol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\gmmaxcol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\gmmaxx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\gmmaxy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\gpalsize.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\graphres.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdrivers\herc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\herc1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\hooks.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image\ialloc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image\ibuild.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image\ifbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image\ihline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image\iinverse.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\imagesze.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image\imginlne.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\instbgid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image\iplot.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image\istretch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\lfb16.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\lfb24.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\lfb32h.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\lfb32l.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\lfb8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\lfbbltrv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\lfbbltvr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\lfbbltvv.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\line.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\lineb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\linenc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\linerel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\lineto.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\lnestyle.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\loadfont.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\majorln1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\majorln2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\majorln3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\majorln4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\makepat.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\modename.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\modewalk.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mouse\mouinfo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mouse\mouinlne.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\moverel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\moveto.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mouse\mscursor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\ordswap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\page1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\page2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\page3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\page4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\page5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\page6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\palette.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\patfbits.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\patfbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\patfcvxp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\patfline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\patfplot.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\patfpoly.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\patternf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\pattfldf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\pattline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\pattpoly.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\pattstrg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\pblitr2r.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\pblitr2v.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\pblitv2r.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\pblitv2v.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\pc6x8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\pc8x14.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\pc8x16.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fonts\pc8x8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\pfcirc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\pfcirca.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\pfelli.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\pfellia.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\pieslice.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\pixel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\pixelc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\plot.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gformats\pnm2ctx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\polygon.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\polygonb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\polyline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\propwdt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\ptcirc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\ptcirca.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\ptelli.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pattern\ptellia.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\putimage.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\putpixel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\draw\putscl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ram1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ram16.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ram24.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ram32h.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ram32l.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ram3x8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ram4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\ram8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\rblit_14.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\rectang.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\regbgidr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\resize.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\rgbpal_g.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\rgbpal_s.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\rstcrtmd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\scancnvx.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\scanellp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\scanpoly.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\sector.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\setbgiwh.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\setbkcol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\setbusze.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\setcolor.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\setdrvr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\setmode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\setrgbc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\setviewp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\setwrmod.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\shiftscl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shape\solidfil.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\strmatch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\svga16.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\svga24.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\svga32h.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\svga32l.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\svga4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\fdrivers\svga8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text7.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\text9.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\texta.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\textb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\textc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\textd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\tmpbuff.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bgi\txtlnest.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ubox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uccirc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uccirca.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucelli.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucellia.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucirc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucirca.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucircf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucircfa.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucpolyg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ucpolyl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\udrwchar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\udrwstrg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uelli.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uellia.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uellif.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uellifa.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ufcpolyg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ufillbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uflood.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ufpolyg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uframbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\ugetwin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uhline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\text\unloadfn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upcirc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upcirca.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upelli.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upellia.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfbox.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfcirc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfcirca.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfcpoly.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfelli.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfellia.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfflood.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfplot.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upfpolyg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upixel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upixelc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uplot.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upolygon.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\upolylin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uppolyg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uppolyl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\usercord.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\usetwin.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\utextxy.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\user\uvline.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdrivers\vd_mem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdrivers\vd_win32.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\version.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\setup\viewport.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vdrivers\vtable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mouse\w32inp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mouse\w32keys.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\misc\w32misc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\fonts\fdv_raw.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fonts\fdv_win.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mouse\w32input.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\access24.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bcc\allocate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\allocate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\arith.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bcc\arith.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gcc\arith.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bcc\asmsupp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gcc\asmsupp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fdrivers\banked32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bgi\bccgrx00.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\clipping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\docolor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fdrivers\driver16.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fdrivers\driver24.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fdrivers\driver32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fdrivers\driver8.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fonts\fdv_bgi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fonts\fdv_grx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\grxdebug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\highlow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bcc\highlow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gcc\highlow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\image\image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mouse\input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\int86.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ioport.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\libgrx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\libwin32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\watcom\memcopy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gcc\memcopy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bcc\memcopy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\memcopy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\watcom\memfill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gcc\memfill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bcc\memfill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\memfill.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gcc\memmode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bcc\memmode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\watcom\memmode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\memmode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gcc\mempeek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bcc\mempeek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mempeek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\watcom\mempeek.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ordswap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pblit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fdrivers\pblit_nb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shape\polyedge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\prex11r6.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fdrivers\rblit_14.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shapes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\bgi\text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\text\text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\usercord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\usrscale.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\vesa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\vgaregs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

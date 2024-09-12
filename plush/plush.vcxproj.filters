@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{b8c266ef-072e-4465-b39c-9c6d0327e9d9}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{cddafad9-d8ce-47e6-be9f-b4a88b172974}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CAM.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CLIP.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LIGHT.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MAKE.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MAT.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MATH.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OBJ.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PF_PTEX.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PF_SOLID.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PF_TEX.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PF_TRANS.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PLUSH.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\READ_3DS.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\READ_COB.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\READ_JAW.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\READ_PCX.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RENDER.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SPLINE.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TEXT.C">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\PL_CONF.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PL_DEFS.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PL_TYPES.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PLUSH.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PUTFACE.H">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+﻿################################################################################
+# Diese .gitignore-Datei wurde von Microsoft(R) Visual Studio automatisch erstellt.
+################################################################################
+
+/UpgradeLog.htm
+/.vs/Szene
+/Backup
+/contrib/grx248/Debug
+/Depui/Debug
+/Depui/LIB/Debug
+/MatEdit2/Debug
+/plush/Debug
+/PlushPlayer/Debug
+/Scene/Debug

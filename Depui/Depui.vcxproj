@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{69F2DFB8-DEDF-45EF-8681-BAC9C1DE415A}</ProjectGuid>
+    <RootNamespace>Depui</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC70.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>17.0.35219.272</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>Lib\Debug\</OutDir>
+    <IntDir>Lib\Debug\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>Lib\Release\</OutDir>
+    <IntDir>Lib\Release\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\contrib\grx248\include;INCLUDE;SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(ProjectName).lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..\contrib\grx248\include;INCLUDE;SOURCE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="SOURCE\DEBUG\ALLOC.C" />
+    <ClCompile Include="SOURCE\DESKTOP\DESKTOP.C" />
+    <ClCompile Include="SOURCE\DESKTOP\OBJEXIST.C" />
+    <ClCompile Include="SOURCE\DESKTOP\POP.C" />
+    <ClCompile Include="SOURCE\DESKTOP\ROOT.C" />
+    <ClCompile Include="SOURCE\DRAGDROP.C" />
+    <ClCompile Include="SOURCE\DRAW\DRAW.C" />
+    <ClCompile Include="SOURCE\DRAW\MOVE.C" />
+    <ClCompile Include="SOURCE\DRAW\REGION.C" />
+    <ClCompile Include="SOURCE\DRAW\REGION2.C" />
+    <ClCompile Include="SOURCE\DRAW\REGION3.C" />
+    <ClCompile Include="SOURCE\DRAW\REGION4.C" />
+    <ClCompile Include="SOURCE\EVENT\EVENT.C" />
+    <ClCompile Include="SOURCE\EVENT\EVENT2.C" />
+    <ClCompile Include="SOURCE\EVENT\FOCUS.C" />
+    <ClCompile Include="SOURCE\EVENT\QUEUE.C" />
+    <ClCompile Include="SOURCE\GEOMETRY\GEOM1.C" />
+    <ClCompile Include="SOURCE\GEOMETRY\GEOM2.C" />
+    <ClCompile Include="SOURCE\GEOMETRY\GEOMENCL.C" />
+    <ClCompile Include="SOURCE\GEOMETRY\GEOMETRY.C" />
+    <ClCompile Include="SOURCE\GEOMETRY\GEOMJC.C" />
+    <ClCompile Include="SOURCE\GEOMETRY\GEOMJC2.C" />
+    <ClCompile Include="SOURCE\GLOBALS.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\BLIT.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\BLITFS.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\BLITS.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\BLITTS.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\CHECK.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\CLIP.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\CLIPBLIT.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\CLOSE.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\DECORATE.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\FRAME.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\FRAME1.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\FRAME2.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\GETPIX.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\GETPIXS.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\HLINE.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\HLINES.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\PIXEL.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELCL.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELCL2.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELCLT.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELS.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELT.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\PIXELTS.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\RADIO.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\RECT.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\RECTS.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\RESIZE2.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\VLINE.C" />
+    <ClCompile Include="SOURCE\GRAPHICS\VLINES.C" />
+    <ClCompile Include="SOURCE\OBJECT\ALERT.C" />
+    <ClCompile Include="SOURCE\OBJECT\ANIMATE.C" />
+    <ClCompile Include="SOURCE\OBJECT\BAR.C" />
+    <ClCompile Include="SOURCE\OBJECT\BTN.C" />
+    <ClCompile Include="SOURCE\OBJECT\BTNCANC.C" />
+    <ClCompile Include="SOURCE\OBJECT\BTNEXIT.C" />
+    <ClCompile Include="SOURCE\OBJECT\BTNOK.C" />
+    <ClCompile Include="SOURCE\OBJECT\BTNPUSH.C" />
+    <ClCompile Include="SOURCE\OBJECT\BTNRADIO.C" />
+    <ClCompile Include="SOURCE\OBJECT\BTNTOGG.C" />
+    <ClCompile Include="SOURCE\OBJECT\CHECK1.C" />
+    <ClCompile Include="SOURCE\OBJECT\CHECKBOX.C" />
+    <ClCompile Include="SOURCE\OBJECT\CURSOR.C" />
+    <ClCompile Include="SOURCE\OBJECT\DEFSIZE.C" />
+    <ClCompile Include="SOURCE\OBJECT\DIRECT.C" />
+    <ClCompile Include="SOURCE\OBJECT\EDITAREA.C" />
+    <ClCompile Include="SOURCE\OBJECT\EDITLINE.C" />
+    <ClCompile Include="SOURCE\OBJECT\EDITOR.C" />
+    <ClCompile Include="SOURCE\OBJECT\EDITSCRL.C" />
+    <ClCompile Include="SOURCE\OBJECT\FILESEL.C" />
+    <ClCompile Include="SOURCE\OBJECT\HIDE.C" />
+    <ClCompile Include="SOURCE\OBJECT\LIST.C" />
+    <ClCompile Include="SOURCE\OBJECT\LISTAREA.C" />
+    <ClCompile Include="SOURCE\OBJECT\LISTDEF.C" />
+    <ClCompile Include="SOURCE\OBJECT\MENU.C" />
+    <ClCompile Include="SOURCE\OBJECT\MENUPD.C" />
+    <ClCompile Include="SOURCE\OBJECT\MOVER.C" />
+    <ClCompile Include="SOURCE\OBJECT\OBJECT.C" />
+    <ClCompile Include="SOURCE\OBJECT\OBJINS.C" />
+    <ClCompile Include="SOURCE\OBJECT\OBJNEW.C" />
+    <ClCompile Include="SOURCE\OBJECT\OBJREM.C" />
+    <ClCompile Include="SOURCE\OBJECT\OBJSORT.C" />
+    <ClCompile Include="SOURCE\OBJECT\OBJZOR2.C" />
+    <ClCompile Include="SOURCE\OBJECT\OBJZORD.C" />
+    <ClCompile Include="SOURCE\OBJECT\PANEL.C" />
+    <ClCompile Include="SOURCE\OBJECT\POSMCH.C" />
+    <ClCompile Include="SOURCE\OBJECT\POSMCW.C" />
+    <ClCompile Include="SOURCE\OBJECT\POSMOVE.C" />
+    <ClCompile Include="SOURCE\OBJECT\POSMX.C" />
+    <ClCompile Include="SOURCE\OBJECT\POSMY.C" />
+    <ClCompile Include="SOURCE\OBJECT\POSSIZE.C" />
+    <ClCompile Include="SOURCE\OBJECT\RADIOGRP.C" />
+    <ClCompile Include="SOURCE\OBJECT\RELATION.C" />
+    <ClCompile Include="SOURCE\OBJECT\RESIZE.C" />
+    <ClCompile Include="SOURCE\OBJECT\SCROLL.C" />
+    <ClCompile Include="SOURCE\OBJECT\SCROLL2.C" />
+    <ClCompile Include="SOURCE\OBJECT\SLIDER.C" />
+    <ClCompile Include="SOURCE\OBJECT\SLIDERH.C" />
+    <ClCompile Include="SOURCE\OBJECT\SLIDERV.C" />
+    <ClCompile Include="SOURCE\OBJECT\STATICT.C" />
+    <ClCompile Include="SOURCE\OBJECT\STATICT2.C" />
+    <ClCompile Include="SOURCE\OBJECT\STATICT3.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXT.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXT1.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXT2.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXT3.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXT4.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXT5.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXT6.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXTARE2.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXTARE3.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXTARE4.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXTAREA.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXTARSC.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXTLIN3.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXTLIN4.C" />
+    <ClCompile Include="SOURCE\OBJECT\TEXTLINE.C" />
+    <ClCompile Include="SOURCE\OBJECT\WINDOW.C" />
+    <ClCompile Include="SOURCE\OBJECT\WINDOW2.C" />
+    <ClCompile Include="SOURCE\PLATFORM\BUFFDBL.C" />
+    <ClCompile Include="SOURCE\PLATFORM\EMPTYIN.C" />
+    <ClCompile Include="SOURCE\PLATFORM\EMPTYOUT.C" />
+    <ClCompile Include="SOURCE\PLATFORM\EMPTYSYS.C" />
+    <ClCompile Include="SOURCE\PLATFORM\PLATFORM.C" />
+    <ClCompile Include="SOURCE\PLATFORM\PLATIN.C" />
+    <ClCompile Include="SOURCE\PLATFORM\PLATOUT.C" />
+    <ClCompile Include="SOURCE\PLATFORM\PLATSYS.C" />
+    <ClCompile Include="SOURCE\POINTER\POINTER.C" />
+    <ClCompile Include="SOURCE\POINTER\POINTHLD.C" />
+    <ClCompile Include="SOURCE\POINTER\POINTMVE.C" />
+    <ClCompile Include="SOURCE\SUPPORT\dirent.c" />
+    <ClCompile Include="SOURCE\SUPPORT\FILE1.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FILE2.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FILE3.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FILE4.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FINDFIRS.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONT.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTAA.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTADD.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF2.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF3.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF4.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTDEF5.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTDUMP.C" />
+    <ClCompile Include="SOURCE\SUPPORT\FONTPIX.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IBLIT.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IHLINE.C" />
+    <ClCompile Include="SOURCE\SUPPORT\ILOAD.C" />
+    <ClCompile Include="SOURCE\SUPPORT\ILOAD2.C" />
+    <ClCompile Include="SOURCE\SUPPORT\ILOADBMP.C" />
+    <ClCompile Include="SOURCE\SUPPORT\ILOADPCX.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE1.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE16.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE24.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE32.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE4.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IMAGE8.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IRECT.C" />
+    <ClCompile Include="SOURCE\SUPPORT\IVLINE.C" />
+    <ClCompile Include="SOURCE\SUPPORT\MOUSE.C" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="INCLUDE\DEPUI\CONFIG.H" />
+    <ClInclude Include="INCLUDE\DEPUI\DEPUI.H" />
+    <ClInclude Include="INCLUDE\DEPUI\DRAGDROP.H" />
+    <ClInclude Include="INCLUDE\DEPUI\MACROS.H" />
+    <ClInclude Include="INCLUDE\DEPUI\TYPES.H" />
+    <ClInclude Include="INCLUDE\DEPUI\_CONFIG.H" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\contrib\grx248\grx20.vcxproj">
+      <Project>{60573d6f-6dd0-4ebf-8124-f8e04dcdcb30}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
