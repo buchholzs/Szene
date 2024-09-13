@@ -38,8 +38,8 @@ using namespace scene;
 //
 
 #ifdef WIN32
-const int screen_w = 640;
-const int screen_h = 480;
+const int screen_w = 800;
+const int screen_h = 600;
 #else
 const int screen_w = 640;
 const int screen_h = 480;
