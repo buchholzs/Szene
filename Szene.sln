@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EXAMPLES", "Depui\EXAMPLES.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "grx20", "contrib\grx248\grx20.vcxproj", "{60573D6F-6DD0-4EBF-8124-F8E04DCDCB30}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "expat_static", "expat\lib\expat_static.vcxproj", "{A1229A74-15EA-4A36-9199-F47434E6E335}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -81,6 +83,14 @@ Global
 		{60573D6F-6DD0-4EBF-8124-F8E04DCDCB30}.Release|Win32.Build.0 = Release|Win32
 		{60573D6F-6DD0-4EBF-8124-F8E04DCDCB30}.Release|x64.ActiveCfg = Release|Win32
 		{60573D6F-6DD0-4EBF-8124-F8E04DCDCB30}.Release|x64.Build.0 = Release|Win32
+		{A1229A74-15EA-4A36-9199-F47434E6E335}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A1229A74-15EA-4A36-9199-F47434E6E335}.Debug|Win32.Build.0 = Debug|Win32
+		{A1229A74-15EA-4A36-9199-F47434E6E335}.Debug|x64.ActiveCfg = Debug|Win32
+		{A1229A74-15EA-4A36-9199-F47434E6E335}.Debug|x64.Build.0 = Debug|Win32
+		{A1229A74-15EA-4A36-9199-F47434E6E335}.Release|Win32.ActiveCfg = Release|Win32
+		{A1229A74-15EA-4A36-9199-F47434E6E335}.Release|Win32.Build.0 = Release|Win32
+		{A1229A74-15EA-4A36-9199-F47434E6E335}.Release|x64.ActiveCfg = Release|Win32
+		{A1229A74-15EA-4A36-9199-F47434E6E335}.Release|x64.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

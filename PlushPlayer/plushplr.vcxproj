@@ -89,7 +89,7 @@
       <AdditionalDependencies>scene.lib;libexpatMT.lib;plush.lib;depui.lib;grx20.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Debug/plushplr.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\depui\Lib\debug;..\scene\Debug;..\plush\Debug;..\contrib\grx248\debug;..\..\expat\win32\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\depui\Lib\debug;..\scene\Debug;..\plush\Debug;..\contrib\grx248\debug;..\expat\win32\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>.\Debug/plushplr.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
