@@ -84,10 +84,10 @@
       <Culture>0x0407</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>depui.lib;scene.lib;plush.lib;libexpatMT.lib;$(CoreLibraryDependencies);%(AdditionalDependencies);ucrtd.lib;vcruntime.lib;kernel32.lib</AdditionalDependencies>
+      <AdditionalDependencies>depui.lib;scene.lib;plush.lib;expat.lib;$(CoreLibraryDependencies);%(AdditionalDependencies);ucrtd.lib;vcruntime.lib;kernel32.lib</AdditionalDependencies>
       <OutputFile>.\Debug/Matedit2.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\expat\win32\bin\Debug;..\Depui\Lib\Debug;..\contrib\grx248\Debug;..\Scene\Debug;..\plush\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\expat\lib\Debug;..\Depui\Lib\Debug;..\contrib\grx248\Debug;..\Scene\Debug;..\plush\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>.\Debug/Matedit2.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>

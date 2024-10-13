@@ -85,8 +85,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>scene.lib;libexpatMT.lib;plush.lib;depui.lib;grx20.lib;ucrtd.lib;vcruntime.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\depui\Lib\debug;..\scene\Debug;..\plush\Debug;..\contrib\grx248\debug;..\expat\win32\bin\Debug;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>scene.lib;expat.lib;plush.lib;depui.lib;grx20.lib;ucrtd.lib;vcruntime.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\depui\Lib\debug;..\scene\Debug;..\plush\Debug;..\contrib\grx248\debug;..\expat\lib\Debug;</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>

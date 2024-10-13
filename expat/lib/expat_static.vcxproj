@@ -14,6 +14,8 @@
     <ProjectGuid>{A1229A74-15EA-4A36-9199-F47434E6E335}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>expat_static</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>expat</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -39,8 +41,8 @@
     <IntDir>..\win32\tmp\Release_static</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\win32\bin\Debug</OutDir>
-    <IntDir>..\win32\tmp\Debug_static</IntDir>
+    <OutDir>.\Debug\</OutDir>
+    <IntDir>.\Debug\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -62,10 +64,11 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;COMPILED_FROM_DSP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BrowseInformation>true</BrowseInformation>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
+      <ObjectFileName>.\Debug/</ObjectFileName>
+      <ProgramDataBaseFileName>.\Debug/</ProgramDataBaseFileName>
     </ClCompile>
-    <Lib>
-      <OutputFile>..\win32\bin\Debug\libexpatMT.lib</OutputFile>
-    </Lib>
+    <Lib />
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x1009</Culture>
