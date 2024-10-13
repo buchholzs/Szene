@@ -11,6 +11,7 @@
 #include <string>
 #include <map>
 #include <plush.h>
+#include "Logger.h"
 #include "sc_tokens.h"
 
 /*
@@ -192,6 +193,7 @@ class Scene {
   pl_uChar *frameBuffer_; // Frame buffer (screenWidth_ * screenHeight_)
   pl_Float aspectRatio_;	// Aspect ratio (normalerweise 1.0)
   pl_uChar background_;	// Hintergrundfarbe
+  Logger logger_; // Logger
 };
 
 } // scene

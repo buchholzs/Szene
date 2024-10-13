@@ -21,3 +21,5 @@
 /expat/win32/bin/Debug
 /expat/win32/tmp/Debug_static
 /expat/lib/.vs/expat_static
+/Debug
+/PlushPlayer/PlushPlayer.vcxproj.user

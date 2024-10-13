@@ -38,15 +38,6 @@ public:
 };
 
 /*
-** Hilfsfunktion für for_each(). Gibt die Schlüssel einer Map aus.
-*/
-template <class Key, class Val>
-void dumpMap(pair<const Key, Val> p)
-{
-    cout << p.first << ' ';
-}
-
-/*
 ** Hilfsfunktion für for_each(). Wendet eine im Konstruktor übergebene
 ** Funktion auf den Value-Teil einer Map an.
 */
@@ -62,16 +53,6 @@ class applyMap
 	  f_(a.second);
   }
 };
-
-/*
-** Instantiierungen der dumpMap-Funktion, da sonst "unresolved"
-*/
-template void dumpMap(Scene::CamMap::value_type);
-template void dumpMap(Scene::MatMap::value_type);
-template void dumpMap(Scene::ObjMap::value_type);
-template void dumpMap(Scene::LightMap::value_type);
-template void dumpMap(Scene::TextureMap::value_type);
-template void dumpMap(Scene::ActionMap::value_type);
 
 /**
 ** Wandelt die Strings "yes" und "no" in ihre bool-Äquivalente
@@ -352,27 +333,27 @@ void Scene::execute (float timeDiff)
 void Scene::dump (const ostream &str)
 {
 	// PRESERVE:BEGIN
-	cout << "Dumping Scene" << endl;
+	logger_.debug("Dumping Scene");
 
-	cout << "Cameras: " << endl << '[';
-	for_each(cameras_.begin(), cameras_.end(), dumpMap<CamMap::key_type, CamMap::mapped_type>);
-	cout << ']' << endl;
-		
-	cout << "Lights: " << endl << '[';
-	for_each(lights_.begin(), lights_.end(), dumpMap<LightMap::key_type, LightMap::mapped_type>);
-	cout << ']' << endl;
+	logger_.debug("Cameras: ");
+	for_each(cameras_.begin(), cameras_.end(), [](pair<CamMap::key_type, CamMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
+	logger_.debug("]");
 
-	cout << "Objects: " << endl << '[';
-	for_each(objects_.begin(), objects_.end(), dumpMap<ObjMap::key_type, ObjMap::mapped_type>);
-	cout << ']' << endl;
+	logger_.debug("Lights: [");
+	for_each(lights_.begin(), lights_.end(), [](pair<LightMap::key_type, LightMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
+	logger_.debug("]");
 
-	cout << "Materials: " << endl << '[';
-	for_each(materials_.begin(), materials_.end(), dumpMap<MatMap::key_type, MatMap::mapped_type>);
-	cout << ']' << endl;
+	logger_.debug("Objects: [");
+	for_each(objects_.begin(), objects_.end(), [](pair<ObjMap::key_type, ObjMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
+	logger_.debug("]");
 
-	cout << "Textures: " << endl << '[';
-	for_each(textures_.begin(), textures_.end(), dumpMap<TextureMap::key_type, TextureMap::mapped_type>);
-	cout << ']' << endl;
+	logger_.debug("Materials:]");
+	for_each(materials_.begin(), materials_.end(), [](pair<MatMap::key_type, MatMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
+	logger_.debug("]");
+
+	logger_.debug("Textures:]");
+	for_each(textures_.begin(), textures_.end(), [](pair<TextureMap::key_type, TextureMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
+	logger_.debug("]");
 // PRESERVE:END
 }
 

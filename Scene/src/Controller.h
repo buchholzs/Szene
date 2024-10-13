@@ -33,7 +33,7 @@ public:
 	const MoveMode* getMoveMode () { return moveMode_; }
 	void	openScene();
 	void	loadScene(const std::string &filename);
-	void Controller::reloadPalette();
+	void	reloadPalette();
 	const std::string &getFilename() { return filename_; }
 	void	saveScene();
 	void	showHelp();

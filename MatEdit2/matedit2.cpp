@@ -12,6 +12,7 @@
 #include <string>
 #include <typeinfo>
 #ifdef WIN32
+#include <Windows.h>
 #include <direct.h>
 #else
 #include <unistd.h>
@@ -945,3 +946,12 @@ int main(int argc, char **argv)
     };
   return 0;
 }
+
+#ifdef _WIN32
+int APIENTRY WinMain(HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine, int nCmdShow)
+{
+	return main(__argc, __argv);
+}
+#endif

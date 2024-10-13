@@ -10,7 +10,7 @@
 #include <string>
 #include <typeinfo>
 #ifdef WIN32
-#include <direct.h>
+#include <Windows.h>
 #else
 #include <unistd.h>
 #endif
@@ -45,14 +45,13 @@ const int screen_w = 640;
 const int screen_h = 480;
 #endif
 
-  /* Place to put the selected filename */
-static char filename[MX_MAX_PATH] = "";
-
 const int refresh_ivl = 5; // Refresh-Inteval in msec
-
 
 int main(int argc, char *argv[])
 {
+	 /* Place to put the selected filename */
+	 std::string filename;
+
 	 MxButton myexit;
 	 MxButtonArgs buttonargs;
 
@@ -90,14 +89,14 @@ int main(int argc, char *argv[])
 	  uclock_t oldclk = uclock();
 	  uclock_t newclk;
 #endif
-
+	  /*
       if (argc != 2 && argc != 1) {
         std::cerr << "Usage: " << argv[0] << " [<scene.scx>]" << std::endl;
         exit(1);
       }
-
+	  */
 	  if (argc == 2) {
-		  strcpy(filename, argv[1]);
+		  filename = argv[1];
 	  }
 	  bool sceneToLoad = filename[0] != '\0';
 	  bool initialLoad = true;
@@ -133,7 +132,14 @@ int main(int argc, char *argv[])
 	 /* Close and go home */
 	 MxDestroy(&desktop.base.object);
 
-	 /* Tell the user what was selected */
-	 printf("File selected: %s\n", filename);
 	 exit(0);
 }
+
+#ifdef _WIN32
+int APIENTRY WinMain(HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine, int nCmdShow)
+{
+	return main(__argc, __argv);
+}
+#endif
