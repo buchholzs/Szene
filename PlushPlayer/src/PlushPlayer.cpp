@@ -45,7 +45,8 @@ const int screen_w = 640;
 const int screen_h = 480;
 #endif
 
-const int refresh_ivl = 5; // Refresh-Inteval in msec
+const int refresh_ivl = 7;	// Refresh-Interval in msec
+const int input_ivl = 67;	// Input-Abfrage-Interval in msec
 
 int main(int argc, char *argv[])
 {
@@ -100,20 +101,34 @@ int main(int argc, char *argv[])
 	  }
 	  bool sceneToLoad = filename[0] != '\0';
 	  bool initialLoad = true;
+	  bool desktopRun = true;
+	  int lastInputPoll = 0;
+	  int lastScreenRefresh = 0;
 
 	  updateScene(&desktop); // show the blue desktop
-      while (MxDesktopRun(&desktop.base.desktop)) {
+	  while (desktopRun) {
 #ifdef WIN32
 		newclk = clock();  
-		if (((newclk - oldclk)*1000/CLOCKS_PER_SEC) > refresh_ivl) {
+		const int tick_ivl = (newclk - oldclk) * 1000 / CLOCKS_PER_SEC;
 #else 
 		newclk = uclock();  
-		if (((newclk - oldclk)*1000/UCLOCKS_PER_SEC) > refresh_ivl) {
+		const int tick_ivl = (newclk - oldclk) * 1000 / UCLOCKS_PER_SEC;
 #endif
-		  oldclk = newclk;
-		  if (desktop.directDisplay) {
+		oldclk = newclk;
+		lastInputPoll += tick_ivl;
+		lastScreenRefresh += tick_ivl;
+
+		if ((lastScreenRefresh > refresh_ivl) && desktop.directDisplay) {
+			lastScreenRefresh = 0;
 			updateScene(&desktop);
-		  }
+		}
+		if (lastInputPoll > input_ivl) {
+			lastInputPoll = 0;
+			desktopRun = MxDesktopRun(&desktop.base.desktop);
+			if (desktop.directDisplay) {
+				lastScreenRefresh = 0;
+				updateScene(&desktop);
+			}
 		}
 
 		if (sceneToLoad) {

@@ -22,7 +22,7 @@ void mx_grx_mouse(int *x, int *y, int *b)
 {
 	 GrMouseEvent mouseevent;
 
-	 GrMouseGetEventT(GR_M_NOPAINT | GR_M_MOTION | GR_M_BUTTON_CHANGE, &mouseevent, 0);
+	 GrMouseGetEvent(GR_M_NOPAINT | GR_M_MOTION | GR_M_BUTTON_CHANGE | GR_M_POLL, &mouseevent);
 	 *x = mouseevent.x;
 	 *y = mouseevent.y;
 	 *b = mouseevent.buttons;
