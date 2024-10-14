@@ -65,8 +65,13 @@ int main(int argc, char *argv[])
 
 	 MxArgsInit(&desktopargs);
 
-	 desktopargs.mxdesktop.desktop_w = screen_w;
-	 desktopargs.mxdesktop.desktop_h = screen_h;
+	 int maxScreenWidth = GetSystemMetrics(SM_CXSCREEN);
+	 int maxScreenHeight = GetSystemMetrics(SM_CYSCREEN);
+
+	 desktopargs.mxdesktop.desktop_w = maxScreenWidth;
+	 desktopargs.mxdesktop.desktop_h = maxScreenHeight;
+	 //desktopargs.mxdesktop.desktop_w = screen_w;
+	 //desktopargs.mxdesktop.desktop_h = screen_h;
 	 desktopargs.mxdesktop.desktop_c = 8;
 	 desktopargs.mxdesktop.system = &system;
 	 desktopargs.mxdesktop.output = &output;
