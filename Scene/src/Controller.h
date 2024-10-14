@@ -37,6 +37,7 @@ public:
 	const std::string &getFilename() { return filename_; }
 	void	saveScene();
 	void	showHelp();
+	void	refreshDesktop();
 private:
 	void resizeFileSelector(MxFileselector *fs);
 	void handleError(const std::string &msg);

@@ -234,19 +234,19 @@ void Controller::reloadPalette()
 // Shows a editor window with key help
 // ------------------------------------------------------------
 void Controller::showHelp() {
-	 MxEditorArgs editorargs;
-	 char * buffer = "    w        move forward\n"
-		 "    a        move left\n"
-		 "    s        move backward\n"
-		 "    d        move right\n"
-		 "    r        reload scene\n"
-		 "    F1       Key Help\n"
-		 "    F3       Load Scene File\n"
-		 "    F9       Set move mode to walk\n"
-		 "    F10      Set move mode to fly\n"
-		 ;
+	MxEditorArgs editorargs;
+	char* buffer = "    w        move forward\n"
+		"    a        move left\n"
+		"    s        move backward\n"
+		"    d        move right\n"
+		"    r        reload scene\n"
+		"    q        quit\n"
+		"    F1       Key Help\n"
+		"    F3       Load Scene File\n"
+		"    F9       Set move mode to walk\n"
+		"    F10      Set move mode to fly\n"
+		;
 	MxWindowArgs winargs;
-	MxScrollTextarea *text;
 	MxScrollTextareaArgs textargs;
 
 	MxArgsInit(&textargs);
@@ -254,7 +254,7 @@ void Controller::showHelp() {
 	textargs.textarea.endtest = MxLineEndWordwrap;
 	//textargs.scroll.border = -1;
 
-	text = MxScrollTextareaNew(0, 0, 0, 300, 200, &textargs);
+	MxScrollTextarea *text = MxScrollTextareaNew(0, 0, 0, 300, 200, &textargs);
 
 	MxArgsInit(&winargs);
 	winargs.caption = "Key Help";
@@ -262,7 +262,16 @@ void Controller::showHelp() {
 
 	MxWindow *win = MxWindowNew(&desktop_->base.object, 150, 150, 300, 200, &winargs);
 	win->base.object.handler = helpHandler;
-	MxEnqueueRefresh(&win->base.object, MxTrue);
+	refreshDesktop();
+}
+
+// ------------------------------------------------------------
+// Refreshes all the Children of the desktop
+// ------------------------------------------------------------
+void Controller::refreshDesktop() {
+	for (int i = 0; i < desktop_->base.object.children.data->num; i++) {
+		MxEnqueueRefresh(desktop_->base.object.children.data->child[i], MxTrue);
+	}
 }
 
 } // namespace scene

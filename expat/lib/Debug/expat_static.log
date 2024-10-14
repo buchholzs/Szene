@@ -1,2 +1,0 @@
-﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: Das Zwischenverzeichnis (.\Debug\) enthält freigegebene Dateien aus einem anderen Projekt (expat_static.vcxproj). Dies kann zu einem falschen Bereinigungs- und Neuerstellungsverhalten führen.
-  expat_static.vcxproj -> C:\Users\steff\OneDrive\Projekte\Szene\expat\lib\Debug\expat.lib

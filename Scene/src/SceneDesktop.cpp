@@ -86,8 +86,11 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
   case MxEventKeyUnbound:
 	  switch (event->key.code) {
 		  case 0x1b:
-			/* Make an event to force an exit */
-			MxEventSendSimple(&desktop->base.object, MxEventExit);
+			desktop->directDisplay = !desktop->directDisplay;
+			if (!desktop->directDisplay) {
+				// Show the exit button
+				desktop->controller->refreshDesktop();
+			}
 			return object;
 		  case 0x3B: // f1
 			desktop->directDisplay = false;
@@ -122,6 +125,10 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 			if (desktop->controller->getFilename() != "") {
 			  desktop->controller->loadScene(desktop->controller->getFilename());
 			}
+			return object;
+		  case 'q':
+			/* Make an event to force an exit */
+			MxEventSendSimple(&desktop->base.object, MxEventExit);
 			return object;
 	  }
 	  break;
