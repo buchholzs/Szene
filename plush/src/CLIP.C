@@ -5,7 +5,7 @@ clip.c
 Copyright (c) 1996-2000, Justin Frankel
 ******************************************************************************/
 
-#include "plush.h"
+#include "PLUSH.H"
 
 #define NUM_CLIP_PLANES 5
 

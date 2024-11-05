@@ -7,7 +7,7 @@
 #include <math.h>
 
 // Include the plush header file
-#include <plush.h> 
+#include <PLUSH.H> 
 
 // Include our example graphics interface module
 #include "ex.h" 

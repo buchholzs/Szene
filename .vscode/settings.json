@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "FLY.C": "cpp",
+        "PF_SOLID.C": "cpp",
+        "PF_TEX.C": "cpp",
+        "PF_TRANS.C": "cpp",
+        "EX1.C": "cpp",
+        "EX3.C": "cpp",
+        "EX4.C": "cpp",
+        "FLURRY.C": "cpp",
+        "FLURRY2.C": "cpp",
+        "CAM.C": "cpp",
+        "CLIP.C": "cpp",
+        "LIGHT.C": "cpp",
+        "MAKE.C": "cpp",
+        "MAT.C": "cpp",
+        "MATH.C": "cpp",
+        "OBJ.C": "cpp",
+        "PF_PTEX.C": "cpp",
+        "PLUSH.C": "cpp",
+        "TEXT.C": "cpp",
+        "SPLINE.C": "cpp",
+        "RENDER.C": "cpp",
+        "READ_PCX.C": "cpp",
+        "READ_3DS.C": "cpp"
+    }
+}

@@ -15,7 +15,7 @@
 #include <list>
 #include <aedef.h>
 #include <task.h>
-#include <plush.h>
+#include <PLUSH.H>
 #include <grx20.h>
 
 // Projektincludes
@@ -62,7 +62,7 @@ private:
   GrContext screen;
   list<pl_Obj *>	TheObjects;	// Objekte zum Rendern
   list<Target>	TheTargets;		// Ziele
-  list<Target>::iterator	currTarget_;	// ausgewähltes Ziel
+  list<Target>::iterator	currTarget_;	// ausgewï¿½hltes Ziel
 };
 
 //---Inline------------------------------------------------------------------

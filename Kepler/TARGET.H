@@ -16,7 +16,7 @@
 using namespace std;
 
 // Projektincludes
-#include <plush.h>
+#include <PLUSH.H>
 
 class Target {
 public:

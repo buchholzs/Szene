@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <string>
 #include <map>
-#include <plush.h>
+#include <PLUSH.H>
 #include "Logger.h"
 #include "sc_tokens.h"
 
@@ -76,11 +76,11 @@ class Scene {
   // Liefert den Framebuffer
   pl_uChar*	getFrameBuffer () { return frameBuffer_; }
 
-  // Lädt eine Szenebeschreibung im XML-Format
+  // Lï¿½dt eine Szenebeschreibung im XML-Format
   void	loadXML (const std::string &fileName) 
      throw (ParseError, IOError);
 
-  // Löscht die geladene Szene
+  // Lï¿½scht die geladene Szene
   void clear ();
 
   // Liefert eine Kamera aus der Szenebeschreibung
@@ -119,10 +119,10 @@ class Scene {
   //Liefert alle Aktionen aus der Szenebeschreibung
   Scene::ActionMap *getAllActions() { return &actions_; }
 
-  // Rendert eine Szene mit der ausgewählten Kamera 
+  // Rendert eine Szene mit der ausgewï¿½hlten Kamera 
   void	render ();
 
-  // Führt die Aktionen der Szene aus
+  // Fï¿½hrt die Aktionen der Szene aus
   void	execute (float timeDiff);
 
   // Gibt eine Beschreibung der Szene auf den Stream aus
@@ -160,7 +160,7 @@ class Scene {
 
   /*
   ** Berechnet eine Palette aus den vorhandenen Materialien 
-  ** und mappt diese anschließend auf die Palette
+  ** und mappt diese anschlieï¿½end auf die Palette
   ** 
   ** Parameter:
   **	pal : Palette, ein 768 byte-Array von unsigned chars,
