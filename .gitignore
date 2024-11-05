@@ -20,3 +20,14 @@
 /Depui/EXAMPLES.vcxproj.user
 /expat/lib/Debug
 /Debug
+expat/*.la
+expat/libtool
+expat/config.log
+expat/config.status
+expat/.libs
+expat/lib/.libs
+expat/lib/*.o
+expat/lib/*.lo
+expat/xmlwf/*.o
+expat/xmlwf/xmlwf
+expat/xmlwf/.libs/*

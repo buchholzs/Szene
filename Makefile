@@ -4,13 +4,13 @@
 
 EXE=PlushPlayer/plushplr.exe MatEdit2/matedit2.exe
 
-LIB=Expat-1.95.2/libexpat.a plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a Depui/Lib/libdepui.a Scene/libscene.a
+LIB=expat/libexpat.a plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a Depui/Lib/libdepui.a Scene/libscene.a
 
 # Rules
 all: lib exe
 
-Expat-1.95.2/libexpat.a:
-	$(MAKE) -C Expat-1.95.2/Source/lib -f MAKEFILE
+expat/libexpat.a:
+	$(MAKE) -C expat/lib -f MAKEFILE
 
 contrib/grx248/lib/dj2/libgrx20.a:
 	$(MAKE) -C contrib/grx248 -f makefile.dj2 libs
