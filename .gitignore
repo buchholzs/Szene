@@ -31,3 +31,6 @@ expat/lib/*.lo
 expat/xmlwf/*.o
 expat/xmlwf/xmlwf
 expat/xmlwf/.libs/*
+contrib/grx248/src/systag.000
+plush/libplush.a
+plush/src/*.o

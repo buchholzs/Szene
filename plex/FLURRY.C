@@ -10,7 +10,7 @@
 #include <string.h>
 #include <time.h>
 
-#include <plush.h>
+#include <PLUSH.H>
 
 // Include our example graphics interface module
 #include "ex.h" 

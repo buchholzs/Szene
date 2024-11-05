@@ -6,7 +6,7 @@
 #ifndef _Hud_H_
 #define _Hud_H_
 
-#include <plush.h>
+#include <PLUSH.H>
 #include <grx20.h>
 #include <string>
 #include <list>

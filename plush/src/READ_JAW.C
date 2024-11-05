@@ -22,7 +22,7 @@ Copyright (c) 1996-2000, Justin Frankel
    That is it! (I told ya it was simple).
 ******************************************************************************/
 
-#include "plush.h"
+#include "PLUSH.H"
 
 pl_Obj *plReadJAWObj(char *filename, pl_Mat *m) {
   FILE *jawfile;

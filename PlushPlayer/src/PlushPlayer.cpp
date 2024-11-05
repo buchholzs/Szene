@@ -21,7 +21,7 @@
 #undef GrFont
 #include <depui/depui.h>
 #include <depui/graphics/clip.h>
-#include <plush.h>
+#include <PLUSH.H>
 
 #include "Controller.h"
 #include "SceneDesktop.h"

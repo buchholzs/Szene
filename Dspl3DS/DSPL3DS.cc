@@ -13,7 +13,7 @@
 #include <assert.h>
 #include <sys/stat.h>
 // Include the plush header file
-#include <plush.h> 
+#include <PLUSH.H> 
 
 using namespace std;
 
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) { // Main
 #else
   if (stat(input_filename, &s)!=0) {
 #endif
-    cout << input_filename << " kann nicht ge”ffnet werden\n";
+    cout << input_filename << " kann nicht geï¿½ffnet werden\n";
     exit(-2);
   }
 
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) { // Main
 #endif
   cout << "Graphik initialisieren" << endl;
   GrSetMode(GR_width_height_color_graphics, 640, 480, 256);
-  cout << "Aufl”sung: " << GrSizeX() << 'x' << GrSizeY() << endl;
+  cout << "Auflï¿½sung: " << GrSizeX() << 'x' << GrSizeY() << endl;
   TheFrameBuffer = new pl_uChar[GrSizeX()*GrSizeY()];
   if (use_zbuffer) {
     TheZBuffer = new pl_ZBuffer[GrSizeX()*GrSizeY()];

@@ -9,7 +9,7 @@
 #include <grx20.h>
 #undef GrContext
 #undef GrFont
-#include <plush.h>
+#include <PLUSH.H>
 
 #ifdef __cplusplus
 extern "C" {

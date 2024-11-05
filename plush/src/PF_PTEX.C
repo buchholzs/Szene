@@ -5,8 +5,8 @@ Perspective Correct Texture Mapping Rasterizers
 Copyright (c) 1996-2000, Justin Frankel
 ******************************************************************************/
 
-#include "plush.h"
-#include "putface.h"
+#include "PLUSH.H"
+#include "PUTFACE.H"
 
 void plPF_PTexF(pl_Cam *cam, pl_Face *TriFace) {
   pl_uChar i0, i1, i2;

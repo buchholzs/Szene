@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <plush.h>
+#include <PLUSH.H>
 
 char *framebuffer;
 void inline wait_vsync();

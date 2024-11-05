@@ -1,7 +1,7 @@
 // ex.h: provides a standard interface for video and keyboard for the
 // example programs to use.
 
-#include <plush.h>
+#include <PLUSH.H>
 #include "ex.h"
 
 static GrContext *ctx;

@@ -5,7 +5,7 @@
 using namespace std;
 #include <assert.h>
 
-#include <plush.h>
+#include <PLUSH.H>
 
 
 void read_float(const string &txt, pl_Float &out, pl_Float def) {

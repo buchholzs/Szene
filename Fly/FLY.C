@@ -5,7 +5,7 @@
 #include <conio.h>
 #include <sys/nearptr.h>
 
-#include <plush.h>
+#include <PLUSH.H>
 
 /* Physical size of land */
 #define LAND_SIZE 65000

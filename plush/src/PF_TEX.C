@@ -5,8 +5,8 @@ Affine Texture Mapping Rasterizers
 Copyright (c) 1996-2000, Justin Frankel
 ******************************************************************************/
 
-#include "plush.h"
-#include "putface.h"
+#include "PLUSH.H"
+#include "PUTFACE.H"
 
 
 void plPF_TexEnv(pl_Cam *cam, pl_Face *TriFace) {
