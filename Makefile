@@ -13,7 +13,7 @@ expat/libexpat.a:
 	$(MAKE) -C expat
 
 contrib/grx248/lib/dj2/libgrx20.a:
-	$(MAKE) -C contrib/grx248 -f makefile.lnx libs
+	$(MAKE) -C contrib/grx248 -f makefile.x11 libs
 
 plush/libplush.a:
 	$(MAKE) -C plush/src -f MAKEFILE	

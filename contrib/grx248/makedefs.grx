@@ -44,7 +44,9 @@ CROSS_PLATFORM=
 HAVE_UNIX_TOOLS=n
 
 # Specify in linux if you want to build the library for x86_64
-BUILD_X86_64=n
+BUILD_X86_64=
+# Specify in linux if you want to build the library for ARM
+BUILD_ARM=y
 
 ### SYSTEM SETTINGS ##################################################
 
@@ -128,9 +130,10 @@ USE_INOUTP_FRAMEDRIVERS=n
 ifeq ($(BUILD_X86_64),y)
 CCOPT += -m64
 LDOPT += -m64
-else
+else ifeq ($(BUILD_X86_64),n)
 CCOPT += -m32
 LDOPT += -m32
+else ifeq ($(BUILD_ARM),y)
 endif
 
 endif
@@ -180,9 +183,10 @@ SET_XSUIDROOT=n
 ifeq ($(BUILD_X86_64),y)
 CCOPT += -m64
 LDOPT += -m64
-else
+else ifeq ($(BUILD_X86_64),n)
 CCOPT += -m32
 LDOPT += -m32
+else ifeq ($(BUILD_ARM),y)
 endif
 
 endif
