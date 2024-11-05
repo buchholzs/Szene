@@ -23,7 +23,7 @@ OBJECTS=CAM.o \
 	TEXT.o
 LIB = ../libplush.a
 
-CXXFLAGS += -O2 -xc -fexceptions
+CXXFLAGS += -ggdb -O2 -xc -fexceptions
 
 all: $(LIB)
 
