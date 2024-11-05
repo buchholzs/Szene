@@ -10,7 +10,7 @@ LIB=expat/libexpat.a plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a Depui/Li
 all: lib exe
 
 expat/libexpat.a:
-	$(MAKE) -C expat/lib -f MAKEFILE
+	$(MAKE) -C expat
 
 contrib/grx248/lib/dj2/libgrx20.a:
 	$(MAKE) -C contrib/grx248 -f makefile.dj2 libs
