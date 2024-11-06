@@ -16,6 +16,7 @@
 #include <direct.h>
 #else
 #include <unistd.h>
+#include <libgen.h>
 #endif
 
 #include "depui/graphics/clip.h"
@@ -175,8 +176,8 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		char *newDir= lbs == NULL ? NULL : strdup(okSel->caption);
 		const char *fileName = lbs == NULL ? okSel->caption : ++lbs;
 #else
-		char *newDir = dirname(okSel->caption);
-		const char *fileName = basename(okSel->caption);
+		char *newDir = dirname((char *)okSel->caption);
+		const char *fileName = basename((char *)okSel->caption);
 #endif
 		if (newDir != NULL) {
 		  chdir(newDir);
@@ -255,7 +256,7 @@ static void *MxSliderStaticTextHandler(MxObject * object, const MxEvent * const 
 
     MxStatictext *st = (MxStatictext *)object;
     MxSlider *sl = ((MxEventSlidermove *)event)->source;
-    itoa(sl->index, buffer, 10);
+    itoa(sl->index, buffer);
 
     caption = (char *)MxMalloc(strlen(buffer)+1);
     strcpy(caption, buffer);
@@ -575,7 +576,7 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
   button = MxPushButtonNew(matWin->client, 220, 301, MxDefault, MxDefault, &btnargs);
 }
 
-// MatEdit aktualisieren nach GUI Änderungen
+// MatEdit aktualisieren nach GUI ï¿½nderungen
 //
 void MatEdit::updateMatWin() {
   if (mat) {
@@ -633,7 +634,7 @@ void MatEdit::updateMatWin() {
   }
 }
 
-// MatWin aktualisieren nach Scene Änderungen
+// MatWin aktualisieren nach Scene ï¿½nderungen
 //
 void MatEdit::OnChangedScene() {
     MxEvent event;
@@ -752,7 +753,7 @@ void MatEdit::dumpMaterial(pl_Mat *mat, list<string> &l) {
     buf << "PerspectiveCorrect:" << setw(4) << (int)mat->PerspectiveCorrect << ends;
     l.push_back(buf.str()); buf.seekp(0);
   } else {
-    buf << "Kein Material ausgewählt." << ends;
+    buf << "Kein Material ausgewï¿½hlt." << ends;
     l.push_back(buf.str()); buf.seekp(0);
   }
 }
@@ -770,7 +771,7 @@ void MatEdit::reloadPalette()
   }
 }
 
-// Szene löschen
+// Szene lï¿½schen
 void MatEdit::newScene() {
 	scene.clear();
 	filename = "unnamed";
@@ -838,7 +839,7 @@ void MatEdit::loadScene(const string &filename) {
   }
 }
 
-// Textur des ausgewählten Materials neu laden
+// Textur des ausgewï¿½hlten Materials neu laden
 void MatEdit::loadTexture(const string &filename) {
   try {
     pl_Texture *tex = plReadPCXTex((char *)filename.c_str(), true, true);
@@ -878,7 +879,7 @@ void MatEdit::loadTexture(const string &filename) {
   }
 }
 
-// Textur des ausgewählten Materials entfernen
+// Textur des ausgewï¿½hlten Materials entfernen
 void MatEdit::resetTexture() {
     // apply to material
     if (mat) {
@@ -911,7 +912,7 @@ void MatEdit::run() {
 	if (sceneToLoad) {
 		sceneToLoad=false;
 		loadScene(this->filename);
-		matChanged = true; // Material wurde geändert
+		matChanged = true; // Material wurde geï¿½ndert
 	}
   }
   /* Close and go home */

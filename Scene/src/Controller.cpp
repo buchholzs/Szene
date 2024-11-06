@@ -13,6 +13,7 @@
 #include <direct.h>
 #else
 #include <unistd.h>
+#include <libgen.h>
 #endif
 
 namespace scene {
@@ -60,12 +61,12 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		char *newDir= lbs == NULL ? NULL : strdup(okSel->caption);
 		const char *fileName = lbs == NULL ? okSel->caption : ++lbs;
 #else
-		char *newDir = dirname(okSel->caption);
-		const char *fileName = basename(okSel->caption);
+		const char *newDir = dirname((char *)okSel->caption);
+		const char *fileName = basename((char *)okSel->caption);
 #endif
 		if (newDir != NULL) {
 		  chdir(newDir);
-		  free(newDir);
+		  free((char *)newDir);
 		}
 		desktop->controller->loadScene(fileName);
 		MxDestroy(object);	// destroy okSel
@@ -178,7 +179,7 @@ void Controller::loadScene (const std::string &filename)
 }
 
 // ------------------------------------------------------------
-// Szene mit Hintergrundfarbe löschen und Fehlermeldung anzeigen
+// Szene mit Hintergrundfarbe lï¿½schen und Fehlermeldung anzeigen
 // ------------------------------------------------------------
 void Controller::handleError(const std::string &msg) {
 
@@ -235,7 +236,7 @@ void Controller::reloadPalette()
 // ------------------------------------------------------------
 void Controller::showHelp() {
 	MxEditorArgs editorargs;
-	char* buffer = "    w        move forward\n"
+	const char* buffer = "    w        move forward\n"
 		"    a        move left\n"
 		"    s        move backward\n"
 		"    d        move right\n"
