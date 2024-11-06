@@ -36,4 +36,4 @@ contrib/grx248/src/systag.*
 plush/libplush.a
 contrib/grx248/bin
 contrib/grx248/lib/unix
-
+PlushPlayer/scenes/log_*.txt
