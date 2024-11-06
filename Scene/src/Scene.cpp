@@ -11,18 +11,45 @@
 #include <iostream>
 #include <algorithm>
 #include <expat.h>
-#ifndef WIN32
-#include <dpmi.h>
-#endif
 #include "Command.h"
 #include "scenedbg.h"
-	
+
+/* reverse:  reverse string s in place */
+ void reverse(char s[])
+ {
+     int i, j;
+     char c;
+
+     for (i = 0, j = strlen(s)-1; i<j; i++, j--) {
+         c = s[i];
+         s[i] = s[j];
+         s[j] = c;
+     }
+}  
+
+/* itoa:  convert n to characters in s */
+void itoa(int n, char s[])
+{
+     int i, sign;
+
+     if ((sign = n) < 0)  /* record sign */
+         n = -n;          /* make n positive */
+     i = 0;
+     do {       /* generate digits in reverse order */
+         s[i++] = n % 10 + '0';   /* get next digit */
+     } while ((n /= 10) > 0);     /* delete it */
+     if (sign < 0)
+         s[i++] = '-';
+     s[i] = '\0';
+     reverse(s);
+}  
+
 using namespace std;
 
 namespace scene {
 
 /*
-** Ressourcemonitor, führt Cleanup beim Verlassen der Methode "loadXML" durch
+** Ressourcemonitor, fï¿½hrt Cleanup beim Verlassen der Methode "loadXML" durch
 */
 class RessourceTracker {
   FILE *stream_;
@@ -38,7 +65,7 @@ public:
 };
 
 /*
-** Hilfsfunktion für for_each(). Wendet eine im Konstruktor übergebene
+** Hilfsfunktion fï¿½r for_each(). Wendet eine im Konstruktor ï¿½bergebene
 ** Funktion auf den Value-Teil einer Map an.
 */
 template <typename map_value_type, typename Fun >
@@ -55,7 +82,7 @@ class applyMap
 };
 
 /**
-** Wandelt die Strings "yes" und "no" in ihre bool-Äquivalente
+** Wandelt die Strings "yes" und "no" in ihre bool-ï¿½quivalente
 ** 
 ** Parameter:
 **		val : String mit "yes" oder "no"
@@ -166,27 +193,17 @@ pl_Cam* Scene::getCurrCamera ()
 }
 
 // ------------------------------------------------------------
-// Lädt eine Szenebeschreibung im XML-Format
+// Lï¿½dt eine Szenebeschreibung im XML-Format
 
 void Scene::loadXML (const string &fileName)
-  throw (ParseError, IOError)
 {
 	// PRESERVE:BEGIN
 	FILE *stream = NULL;
 	XML_Parser parser = NULL;
 	RessourceTracker rt; // do cleanup on method end
-#ifndef WIN32
-	__dpmi_free_mem_info info;
-	__dpmi_get_free_memory_information(&info);
-	DBGPRINTF(("Enter loadXML\n"));
-	DBGPRINTF(("largest_available_free_block_in_bytes=%U\n", info.largest_available_free_block_in_bytes));
-	DBGPRINTF(("total_number_of_free_pages=%U\n", info.total_number_of_free_pages));
-	DBGPRINTF(("Available stack size is %d bytes\n", stackavail()));
-	DBGPRINTF(("Enter loadXML: END\n"));
-#endif
 	try {
 	  if( (stream  = fopen( fileName.c_str(), "r" )) == NULL ) {
-	    throw IOError(string("Datei ") + fileName + " konnte nicht geöffnet werden.");
+	    throw IOError(string("Datei ") + fileName + " konnte nicht geï¿½ffnet werden.");
 	  }
 	  rt.setStream(stream);	// cleanup later
 	  clear();
@@ -203,17 +220,9 @@ void Scene::loadXML (const string &fileName)
 	    done = len < sizeof(buf);
 	    if (!XML_Parse(parser, buf, len, done)) {
 	      throw ParseError(XML_ErrorString(XML_GetErrorCode(parser)), 
-					       XML_GetCurrentLineNumber(parser));
+	       XML_GetCurrentLineNumber(parser));
 	    }
 	  } while (!done);
-#ifndef WIN32
-	__dpmi_get_free_memory_information(&info);
-	DBGPRINTF(("Exit loadXML\n"));
-	DBGPRINTF(("largest_available_free_block_in_bytes=%U\n", info.largest_available_free_block_in_bytes));
-	DBGPRINTF(("total_number_of_free_pages=%U\n", info.total_number_of_free_pages));
-	DBGPRINTF(("Available stack size is %d bytes\n", stackavail()));
-	DBGPRINTF(("Exit loadXML\n"));
-#endif
 	} catch (logic_error &e) {
 		throw ParseError(e.what(), XML_GetCurrentLineNumber(parser));
 	}
@@ -279,7 +288,7 @@ pl_Texture*	Scene::findTexture (const string &name)
 }
 
 // ------------------------------------------------------------
-// Rendert eine Szene mit der ausgewählten Kamera 
+// Rendert eine Szene mit der ausgewï¿½hlten Kamera 
 
 void Scene::render ()
 {
@@ -304,19 +313,12 @@ void Scene::render ()
 		{
 			plRenderObj(oit->second);	// Render our objects
 		}
-#ifndef WIN32
-	__dpmi_free_mem_info info;
-	__dpmi_get_free_memory_information(&info);
-	DBGPRINTF(("largest_available_free_block_in_bytes=%U\n", info.largest_available_free_block_in_bytes));
-	DBGPRINTF(("total_number_of_free_pages=%U\n", info.total_number_of_free_pages));
-	DBGPRINTF(("Available stack size is %d bytes\n", stackavail()));
-#endif
     plRenderEnd();                   // Finish rendering	
 	// PRESERVE:END
 }
 
 // ------------------------------------------------------------
-// Führt die Aktionen der Szene aus
+// Fï¿½hrt die Aktionen der Szene aus
 
 void Scene::execute (float timeDiff)
 {
@@ -540,33 +542,33 @@ void Scene::createLight(const char **attr)
 		if (res) {
 		  switch (res->val) {
 		  case TOK_id:
-			  id = val;				
+			  id = val;
 			  break;
 		  case TOK_type:
 			  {
-				sc_TokenPair *type = sc_search(val);
-				if (type == NULL) {
-				  throw domain_error(string("Unerwartetes Token: ") + val);
-				}
-				switch(type->val) {
-				case TOK_PL_LIGHT_NONE:
-					mode = PL_LIGHT_NONE;
-					break;
-				case TOK_PL_LIGHT_VECTOR:
-					mode = PL_LIGHT_VECTOR;
-					break;
+sc_TokenPair *type = sc_search(val);
+if (type == NULL) {
+  throw domain_error(string("Unerwartetes Token: ") + val);
+}
+switch(type->val) {
+case TOK_PL_LIGHT_NONE:
+	mode = PL_LIGHT_NONE;
+	break;
+case TOK_PL_LIGHT_VECTOR:
+	mode = PL_LIGHT_VECTOR;
+	break;
                 case TOK_PL_LIGHT_POINT:
-					mode = PL_LIGHT_POINT;
-					break;
-				case TOK_PL_LIGHT_POINT_DISTANCE:
-					mode = PL_LIGHT_POINT_DISTANCE;
-					break;
-				case TOK_PL_LIGHT_POINT_ANGLE:
-					mode = PL_LIGHT_POINT_ANGLE;
-					break;
-				default:
-				    throw domain_error(string("Unerwartetes Token: ") + name);
-				}
+	mode = PL_LIGHT_POINT;
+	break;
+case TOK_PL_LIGHT_POINT_DISTANCE:
+	mode = PL_LIGHT_POINT_DISTANCE;
+	break;
+case TOK_PL_LIGHT_POINT_ANGLE:
+	mode = PL_LIGHT_POINT_ANGLE;
+	break;
+default:
+    throw domain_error(string("Unerwartetes Token: ") + name);
+}
 			  }
 			  break;
 		  case TOK_xp:
@@ -611,7 +613,7 @@ void Scene::createTexture(const char **attr)
 		if (res) {
 		  switch (res->val) {
 		  case TOK_id:
-			  id = val;				
+			  id = val;
 			  break;
 		  case TOK_src:
 			  src = val;
@@ -651,134 +653,134 @@ void Scene::createMaterial(const char **attr)
 		if (res) {
 		  switch (res->val) {
 			case TOK_id:
-			  id = val;				
+			  id = val;
 			  break;			
 			case TOK_ambient0:
-				mat->Ambient[0] = atoi(val);
-				break;
+mat->Ambient[0] = atoi(val);
+break;
 			case TOK_ambient1:
-				mat->Ambient[1] = atoi(val);
-				break;
+mat->Ambient[1] = atoi(val);
+break;
 			case TOK_ambient2:
-				mat->Ambient[2] = atoi(val);
-				break;
+mat->Ambient[2] = atoi(val);
+break;
 			case TOK_diffuse0:
-				mat->Diffuse[0] = atoi(val);
-				break;
+mat->Diffuse[0] = atoi(val);
+break;
 			case TOK_diffuse1:
-				mat->Diffuse[1] = atoi(val);
-				break;
+mat->Diffuse[1] = atoi(val);
+break;
 			case TOK_diffuse2:
-				mat->Diffuse[2] = atoi(val);
-				break;
+mat->Diffuse[2] = atoi(val);
+break;
 			case TOK_specular0:
-				mat->Specular[0] = atoi(val);
-				break;
+mat->Specular[0] = atoi(val);
+break;
 			case TOK_specular1:
-				mat->Specular[1] = atoi(val);
-				break;
+mat->Specular[1] = atoi(val);
+break;
 			case TOK_specular2:
-				mat->Specular[2] = atoi(val);
-				break;
+mat->Specular[2] = atoi(val);
+break;
 			case TOK_shininess:
-				mat->Shininess = atoi(val);
-				break;
+mat->Shininess = atoi(val);
+break;
 			case TOK_fadedist:
-				mat->FadeDist = atof(val);
-				break;
+mat->FadeDist = atof(val);
+break;
 			case TOK_shadetype:
-				{
-					sc_TokenPair *type = sc_search(val);
-					if (type == NULL) {
-					  throw domain_error(string("Unerwartetes Token: ") + val);
-					}
-					switch(type->val) {
-					case TOK_PL_SHADE_NONE:
-						mat->ShadeType = PL_SHADE_NONE;
-						break;
-					case TOK_PL_SHADE_FLAT:
-						mat->ShadeType = PL_SHADE_FLAT;
-						break;
-					case TOK_PL_SHADE_FLAT_DISTANCE:
-						mat->ShadeType = PL_SHADE_FLAT_DISTANCE;
-						break;
-					case TOK_PL_SHADE_GOURAUD:
-						mat->ShadeType = PL_SHADE_GOURAUD;
-						break;
-					case TOK_PL_SHADE_GOURAUD_DISTANCE:
-						mat->ShadeType = PL_SHADE_GOURAUD_DISTANCE;
-						break;
-					default:
-						throw domain_error(string("Unerwartetes Token: ") + name);
-					}
-				}
-				break;
+{
+	sc_TokenPair *type = sc_search(val);
+	if (type == NULL) {
+	  throw domain_error(string("Unerwartetes Token: ") + val);
+	}
+	switch(type->val) {
+	case TOK_PL_SHADE_NONE:
+		mat->ShadeType = PL_SHADE_NONE;
+		break;
+	case TOK_PL_SHADE_FLAT:
+		mat->ShadeType = PL_SHADE_FLAT;
+		break;
+	case TOK_PL_SHADE_FLAT_DISTANCE:
+		mat->ShadeType = PL_SHADE_FLAT_DISTANCE;
+		break;
+	case TOK_PL_SHADE_GOURAUD:
+		mat->ShadeType = PL_SHADE_GOURAUD;
+		break;
+	case TOK_PL_SHADE_GOURAUD_DISTANCE:
+		mat->ShadeType = PL_SHADE_GOURAUD_DISTANCE;
+		break;
+	default:
+		throw domain_error(string("Unerwartetes Token: ") + name);
+	}
+}
+break;
 			case TOK_transparent:
-				mat->Transparent = atoi(val);
-				break;
+mat->Transparent = atoi(val);
+break;
 			case TOK_perspectivecorrect:
-				mat->PerspectiveCorrect = atoi(val);
-				break;
+mat->PerspectiveCorrect = atoi(val);
+break;
 			case TOK_texture: case TOK_environment:
-				{
-					pl_Texture *tex = findTexture( val );
-					if (tex == NULL) {
-						throw domain_error(string("Textur nicht gefunden: ") + val);
-					}
-					switch(res->val) {
-					case TOK_texture:
-						mat->Texture = tex;
-						break;
-					case TOK_environment:
-						mat->Environment = tex;
-						break;
-					}
-				}
-				break;
+{
+	pl_Texture *tex = findTexture( val );
+	if (tex == NULL) {
+		throw domain_error(string("Textur nicht gefunden: ") + val);
+	}
+	switch(res->val) {
+	case TOK_texture:
+		mat->Texture = tex;
+		break;
+	case TOK_environment:
+		mat->Environment = tex;
+		break;
+	}
+}
+break;
 			case TOK_texscaling:
-				mat->TexScaling = atof(val);
-				break;
+mat->TexScaling = atof(val);
+break;
 			case TOK_envscaling:
-				mat->EnvScaling = atof(val);
-				break;
+mat->EnvScaling = atof(val);
+break;
 			case TOK_texenvmode:
-				{
-					sc_TokenPair *type = sc_search(val);
-					if (type == NULL) {
-					  throw domain_error(string("Unerwartetes Token: ") + val);
-					}
-					switch(type->val) {
-					case TOK_PL_TEXENV_ADD:
-						mat->TexEnvMode = PL_TEXENV_ADD;
-						break;
-					case TOK_PL_TEXENV_MUL:
-						mat->TexEnvMode = PL_TEXENV_MUL;
-						break;
-					case TOK_PL_TEXENV_AVG:
-						mat->TexEnvMode = PL_TEXENV_AVG;
-						break;
-					case TOK_PL_TEXENV_TEXMINUSENV:
-						mat->TexEnvMode = PL_TEXENV_TEXMINUSENV;
-						break;
-					case TOK_PL_TEXENV_ENVMINUSTEX:
-						mat->TexEnvMode = PL_TEXENV_ENVMINUSTEX;
-						break;
-					case TOK_PL_TEXENV_MIN:
-						mat->TexEnvMode = PL_TEXENV_MIN;
-						break;
-					case TOK_PL_TEXENV_MAX:
-						mat->TexEnvMode = PL_TEXENV_MAX;
-						break;
-				    default:
-					    throw domain_error(string("Unerwartetes Token: ") + name);
-					}
-				}
-				break;
+{
+	sc_TokenPair *type = sc_search(val);
+	if (type == NULL) {
+	  throw domain_error(string("Unerwartetes Token: ") + val);
+	}
+	switch(type->val) {
+	case TOK_PL_TEXENV_ADD:
+		mat->TexEnvMode = PL_TEXENV_ADD;
+		break;
+	case TOK_PL_TEXENV_MUL:
+		mat->TexEnvMode = PL_TEXENV_MUL;
+		break;
+	case TOK_PL_TEXENV_AVG:
+		mat->TexEnvMode = PL_TEXENV_AVG;
+		break;
+	case TOK_PL_TEXENV_TEXMINUSENV:
+		mat->TexEnvMode = PL_TEXENV_TEXMINUSENV;
+		break;
+	case TOK_PL_TEXENV_ENVMINUSTEX:
+		mat->TexEnvMode = PL_TEXENV_ENVMINUSTEX;
+		break;
+	case TOK_PL_TEXENV_MIN:
+		mat->TexEnvMode = PL_TEXENV_MIN;
+		break;
+	case TOK_PL_TEXENV_MAX:
+		mat->TexEnvMode = PL_TEXENV_MAX;
+		break;
+    default:
+	    throw domain_error(string("Unerwartetes Token: ") + name);
+	}
+}
+break;
 			case TOK_numgradients:
-				mat->NumGradients = atoi(val);
-				break;
+mat->NumGradients = atoi(val);
+break;
 			default:
-				throw domain_error(string("Unerwartetes Token: ") + name);
+throw domain_error(string("Unerwartetes Token: ") + name);
 		  }
 	  } else {
 		  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -820,11 +822,11 @@ void Scene::createObject(enum sc_Tokens tok, const char **attr)
 			  break;
 		  case TOK_material:
 			  {
-				pl_Mat *mat = findMaterial( val );
-				if (mat == NULL) {
-				  throw domain_error(string("Material nicht gefunden: ") + val);
-				}
-				material = mat;
+pl_Mat *mat = findMaterial( val );
+if (mat == NULL) {
+  throw domain_error(string("Material nicht gefunden: ") + val);
+}
+material = mat;
 			  }
 			  break;
           case TOK_backfacecull:
@@ -925,11 +927,11 @@ void Scene::createObjectFromFile(enum sc_Tokens tok, const char **attr)
 			  break;
 		  case TOK_material:
 			  {
-				pl_Mat *mat = findMaterial( val );
-				if (mat == NULL) {
-				  throw domain_error(string("Material nicht gefunden: ") + val);
-				}
-				material = mat;
+pl_Mat *mat = findMaterial( val );
+if (mat == NULL) {
+  throw domain_error(string("Material nicht gefunden: ") + val);
+}
+material = mat;
 			  }
 			  break;
 		  case TOK_src:
@@ -974,7 +976,7 @@ void Scene::createTransformation(enum sc_Tokens tok, const char **attr)
 		if (res) {
 		  switch (res->val) {
 		  case TOK_obj:
-			  id = val;				
+			  id = val;
 			  break;
 		  case TOK_relative:
 			  relative = toYesNo(val);
@@ -1051,7 +1053,7 @@ void Scene::doScale(enum sc_Tokens tok, const char **attr)
 		if (res) {
 		  switch (res->val) {
 		  case TOK_obj:
-			  id = val;				
+			  id = val;
 			  break;
 		  case TOK_x:
 			  X = atof(val);

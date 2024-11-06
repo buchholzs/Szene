@@ -64,10 +64,13 @@ int main(int argc, char *argv[])
 	 MxDriverInput input = MxDriverInputDefault;
 
 	 MxArgsInit(&desktopargs);
-
+#ifdef WIN32
 	 int maxScreenWidth = GetSystemMetrics(SM_CXSCREEN);
 	 int maxScreenHeight = GetSystemMetrics(SM_CYSCREEN);
-
+#else
+	 int maxScreenWidth = screen_w;
+	 int maxScreenHeight = screen_h;
+#endif
 	 desktopargs.mxdesktop.desktop_w = maxScreenWidth;
 	 desktopargs.mxdesktop.desktop_h = maxScreenHeight;
 	 //desktopargs.mxdesktop.desktop_w = screen_w;
@@ -88,11 +91,8 @@ int main(int argc, char *argv[])
 	 MxExitButtonConstruct(&myexit, &desktop.base.object, 0, 0, MxDefault, MxDefault, 0);
 
 	  /* Run the desktop until it wants to exit */
-#ifdef WIN32
 	  clock_t oldclk = clock();
-#else
-	  uclock_t oldclk = uclock();
-#endif
+
 	  /*
       if (argc != 2 && argc != 1) {
         std::cerr << "Usage: " << argv[0] << " [<scene.scx>]" << std::endl;

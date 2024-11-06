@@ -22,6 +22,8 @@
         "SPLINE.C": "cpp",
         "RENDER.C": "cpp",
         "READ_PCX.C": "cpp",
-        "READ_3DS.C": "cpp"
+        "READ_3DS.C": "cpp",
+        "ALERT.C": "cpp",
+        "typeinfo": "cpp"
     }
 }

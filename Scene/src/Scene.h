@@ -14,6 +14,9 @@
 #include "Logger.h"
 #include "sc_tokens.h"
 
+/* itoa:  convert n to characters in s */
+void itoa(int n, char s[]);
+
 /*
 ** Konstanten
 */
@@ -77,8 +80,7 @@ class Scene {
   pl_uChar*	getFrameBuffer () { return frameBuffer_; }
 
   // L�dt eine Szenebeschreibung im XML-Format
-  void	loadXML (const std::string &fileName) 
-     throw (ParseError, IOError);
+  void	loadXML (const std::string &fileName);
 
   // L�scht die geladene Szene
   void clear ();
