@@ -66,7 +66,6 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 #endif
 		if (newDir != NULL) {
 		  chdir(newDir);
-		  free((char *)newDir);
 		}
 		desktop->controller->loadScene(fileName);
 		MxDestroy(object);	// destroy okSel
