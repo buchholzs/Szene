@@ -28,7 +28,7 @@ plushplr.exe: PlushPlayer.o
 	$(LINK.o) $^ $(LDLIBS) -o $@
 
 clean:
-	for %j in ( *.exe *.a *.o) do del %j  
+	rm -f *.exe *.o
 
 
 # Dependencies

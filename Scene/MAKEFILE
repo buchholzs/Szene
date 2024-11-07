@@ -27,7 +27,7 @@ libscene.a: $(LIBOBJ)
 	$(AR) rs $@ $^
 
 clean:
-	for %j in ( *.exe *.a *.o) do del %j  
+	rm -f *.a *.o
 
 
 # Dependencies

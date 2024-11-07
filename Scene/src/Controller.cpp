@@ -62,11 +62,13 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		char *newDir= lbs == NULL ? NULL : strdup(okSel->caption);
 		const char *fileName = lbs == NULL ? okSel->caption : ++lbs;
 #else
-		const char *newDir = dirname((char *)okSel->caption);
-		const char *fileName = basename((char *)okSel->caption);
+		char *fileName = strdup((char *)okSel->caption);
+		char *pathcopy = (char *)okSel->caption;
+		char *newDir = dirname(pathcopy);
 #endif
 		if (newDir != NULL) {
 		  chdir(newDir);
+		  free(pathcopy);
 		}
 		desktop->controller->loadScene(fileName);
 	  }

@@ -2,17 +2,16 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: g++ Aktive Datei kompilieren",
-            "command": "/usr/bin/g++",
+            "label": "make plushplr.exe",
+            "command": "make",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "-f",
+                "MAKEFILE",
+                "clean",
+                "all"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}/PlushPlayer"
             },
             "problemMatcher": [
                 "$gcc"

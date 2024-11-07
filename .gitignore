@@ -37,3 +37,4 @@ plush/libplush.a
 contrib/grx248/bin
 contrib/grx248/lib/unix
 PlushPlayer/scenes/log_*.txt
+contrib/grx248/test/x*
