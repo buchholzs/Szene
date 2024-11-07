@@ -25,5 +25,7 @@
         "READ_3DS.C": "cpp",
         "ALERT.C": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+"terminal.integrated.automationProfile.linux": null,
+"terminal.integrated.automationShell.linux": "true"
 }
