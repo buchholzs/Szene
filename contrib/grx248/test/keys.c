@@ -418,7 +418,17 @@ TESTFUNC(keys) {
 	  old_tm = tm;
 	}
     } while (!keyPressed);
-#endif /* PENTIUM_CLOCK */
+#else
+   int keyPressed=0;
+   double f = 0;
+    do
+    {
+      f++;
+	keyPressed = GrKeyPressed();
+	  gprintf ("no keypressed %5.2f ", f);
+	  fflush (stdout);
+    } while (!keyPressed);
+#endif
     k = GrKeyRead();
     if (k == ' ') ++spaces_count; else spaces_count = 0;
 

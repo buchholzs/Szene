@@ -66,8 +66,8 @@ WIN32_GCC_i386_STATIC = $(SYSTEM_TAG_PREFIX).006
 ANY_GCC_SDL_STATIC    = $(SYSTEM_TAG_PREFIX).008
 
 ifdef   DEBUG
-CCOPT = -O2 -fno-strict-aliasing -Wall -g -DDEBUG=$(DEBUG)
-LDOPT = -g
+CCOPT = -fno-strict-aliasing -Wall -ggdb -DDEBUG=1
+LDOPT = -ggdb
 else
 CCOPT = -O2 -fno-strict-aliasing -Wall
 LDOPT = -s

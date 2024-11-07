@@ -61,14 +61,16 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		char *newDir= lbs == NULL ? NULL : strdup(okSel->caption);
 		const char *fileName = lbs == NULL ? okSel->caption : ++lbs;
 #else
-		const char *newDir = dirname((char *)okSel->caption);
-		const char *fileName = basename((char *)okSel->caption);
+		char *fileName = strdup((char *)okSel->caption);
+		char *pathcopy = (char *)okSel->caption;
+		char *newDir = dirname(pathcopy);
 #endif
 		if (newDir != NULL) {
 		  chdir(newDir);
+		  free(pathcopy);
 		}
 		desktop->controller->loadScene(fileName);
-		MxDestroy(object);	// destroy okSel
+		//MxDestroy(object);	// destroy okSel
 	  }
 	break;
   default:
@@ -212,17 +214,14 @@ void Controller::reloadPalette()
   int i;
   if (!colorsAllocated_) {
 	  colorsAllocated_ = true;
-	  firstFreeColor_ = GrAllocCell();
-	  assert(firstFreeColor_ != GrNOCOLOR);
-	  for (i = firstFreeColor_ + 1; i < 256; i++) {
+	  for (i = 0; i < 256; i++) {
 		GrColor cell = GrAllocCell();
-		assert ( cell == i );
-		assert ( cell != GrNOCOLOR );
+//		assert ( cell == i );
 	  }
   }
 
   // calculate new colors
-  scene_->makePalette(desktop_->ThePalette, firstFreeColor_, 255);
+  scene_->makePalette(desktop_->ThePalette, 0, 255);
 
   // set palette
   for (i = firstFreeColor_; i < 256; i++) {
