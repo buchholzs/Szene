@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <string>
 #include <typeinfo>
+#include <chrono>
 #ifdef WIN32
 #include <Windows.h>
 #else
@@ -90,8 +91,9 @@ int main(int argc, char *argv[])
 	 MxArgsInit(&buttonargs);
 	 MxExitButtonConstruct(&myexit, &desktop.base.object, 0, 0, MxDefault, MxDefault, 0);
 
-	  /* Run the desktop until it wants to exit */
-	  clock_t oldclk = clock();
+	  /* Run the desktop until it wants to exit */      
+	 auto oldclk = chrono::duration_cast<chrono::milliseconds>(
+        chrono::system_clock::now().time_since_epoch()).count();
 
 	  /*
       if (argc != 2 && argc != 1) {
@@ -110,8 +112,10 @@ int main(int argc, char *argv[])
 
 	  updateScene(&desktop); // show the blue desktop
 	  while (desktopRun) {
-		clock_t start_t = clock();  
-		const int tick_ivl = (start_t - oldclk) * 1000 / CLOCKS_PER_SEC;
+		// Convert the current time to time since epoch
+		auto start_t = chrono::duration_cast<chrono::milliseconds>(
+        	chrono::system_clock::now().time_since_epoch()).count();
+		const int tick_ivl = start_t - oldclk;
 		oldclk = start_t;
 
 		lastInputPoll += tick_ivl;
