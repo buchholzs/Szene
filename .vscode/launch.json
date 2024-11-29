@@ -35,7 +35,7 @@
         "program": "${workspaceFolder}/PlushPlayer/plushplr.exe",
         "args": [],
         "stopAtEntry": false,
-        "cwd": "${fileDirname}",
+        "cwd": "${workspaceFolder}/PlushPlayer/scenes",
         "environment": [],
         "externalConsole": false,
         "MIMode": "gdb",
