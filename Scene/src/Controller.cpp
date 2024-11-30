@@ -4,6 +4,7 @@
 #include "Controller.h"
 
 #include <sstream>
+#include <algorithm>
 #include <depui/depui.h>
 #include "Scene.h"
 #include "SceneDesktop.h"
@@ -69,7 +70,6 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		  chdir(newDir);
 		}
 		desktop->controller->loadScene(fileName);
-		//MxDestroy(object);	// destroy okSel
 	  }
 	break;
   default:
@@ -210,20 +210,36 @@ void Controller::resizeFileSelector(MxFileselector *fs) {
 // ------------------------------------------------------------
 void Controller::reloadPalette() 
 {
-  int i;
   if (!colorsAllocated_) {
 	  colorsAllocated_ = true;
-	  for (i = 0; i < 256; i++) {
+
+	  GrColor nFreeCols = GrNumFreeColors();
+	  GrColor nCols = 256;
+	  firstFreeColor_ = -1;
+	  GrColor oldCell = -1;
+
+	  while (nFreeCols > 0) {
 		GrColor cell = GrAllocCell();
-//		assert ( cell == i );
+		assert(cell < nCols);
+		nFreeCols--;
+		if (0 <= cell && cell < 256 && firstFreeColor_ == -1) {	
+			firstFreeColor_ = cell;
+			oldCell = cell;
+		} else {
+			assert (cell == oldCell + 1);
+		}
+		oldCell = cell;
+		lastFreeColor_ = cell;
 	  }
+	  nFreeCols = GrNumFreeColors();
+	  assert(nFreeCols == 0);
   }
 
   // calculate new colors
-  scene_->makePalette(desktop_->ThePalette, 0, 255);
+  scene_->makePalette(desktop_->ThePalette, firstFreeColor_, lastFreeColor_);
 
   // set palette
-  for (i = firstFreeColor_; i < 256; i++) {
+  for (int i = firstFreeColor_; i <= lastFreeColor_; i++) {
     GrSetColor(i, desktop_->ThePalette[ i*3 ], desktop_->ThePalette[ i*3 + 1], desktop_->ThePalette[ i*3 + 2 ]);
   }
 }

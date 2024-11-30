@@ -112,7 +112,7 @@ extern "C" {
 		  void (*ReadKey) (unsigned int *raw, MxKey * key, unsigned int *code);
 
 		  /* Mouse related functions */
-		  void (*Mouse) (int *x, int *y, int *b);
+		  void (*Mouse) (int *x, int *y, int *b, int *key);
 
 	 } MxDriverInput;
 
