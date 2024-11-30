@@ -30,7 +30,7 @@ int mx_grx_gfx_init(MxDriverOutput * driver, int x, int y, int c, const char *ti
 
 	 GrMouseDetect();
 	 GrMouseInit();
-	 GrMouseEventEnable(0, 1);
+	 GrMouseEventEnable(1, 1);
 	 GrMouseEraseCursor();
 
 	 GrSetRGBcolorMode();

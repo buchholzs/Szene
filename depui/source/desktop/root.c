@@ -286,7 +286,7 @@ static void handle_messages(int *idle)
 	 if (Mx.key != 0) {
 		  MxKey key;
 		  unsigned int code;
-		  unsigned int raw;
+		  unsigned int raw = Mx.key;
 
 		  *idle = 0;
 

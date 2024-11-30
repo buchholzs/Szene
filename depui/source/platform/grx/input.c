@@ -20,15 +20,14 @@ void mx_grx_kbd_exit(void)
 
 void mx_grx_mouse(int *x, int *y, int *b, int *key)
 {
-	 GrMouseEvent mouseevent;
+	 GrMouseEvent evt;
 
-	 GrMouseGetEventT(GR_M_EVENT, &mouseevent, 0L);
-	 *x = mouseevent.x;
-	 *y = mouseevent.y;
-	 *b = mouseevent.buttons;
-	 int kbstat = mouseevent.kbstat;
-	 if (mouseevent.flags & GR_M_KEYPRESS) {
-		 *key = mouseevent.key;
+	 GrMouseGetEventT(GR_M_NOPAINT | GR_M_EVENT, &evt, 0L);
+	 *x = evt.x;
+	 *y = evt.y;
+	 *b = evt.buttons;
+	 if (evt.flags & GR_M_KEYPRESS) {
+		 *key = evt.key;
 	 }
 	 else {
 		 *key = 0;
@@ -65,9 +64,7 @@ static KeyTable keytable[] = {
 void mx_grx_key(unsigned int *raw, MxKey * key, unsigned int *code)
 {
 	 KeyTable *ptr = keytable;
-	 int k = GrKeyRead();
-
-	 *raw = k;
+	 int k = *raw;
 
 	 /* Get the code value */
 	 *code = k & 0xff;

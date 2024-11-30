@@ -36,3 +36,4 @@ contrib/grx248/test/output.ppm
 contrib/grx248/test/prueba.pbm
 contrib/grx248/test/prueba.pgm
 contrib/grx248/test/speedtst.log
+contrib/grx248/test/bgi/x*
