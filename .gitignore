@@ -12,12 +12,7 @@
 /plush/Debug
 /PlushPlayer/Debug
 /Scene/Debug
-/Depui/Depui.vcxproj.user
-/PlushPlayer/PlushPlayer.vcxproj.user
-/MatEdit2/Matedit2.vcxproj.user
-/plush/plush.vcxproj.user
-/Scene/scenelib.vcxproj.user
-/Depui/EXAMPLES.vcxproj.user
+/**/*.vcxproj.user
 /expat/lib/Debug
 /Debug
 /**/*.lo
