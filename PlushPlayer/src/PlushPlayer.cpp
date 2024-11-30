@@ -138,9 +138,19 @@ int main(int argc, char *argv[])
 			MxEnqueue(&desktop.base.object, &event, 0);
 		}
 
-		clock_t end_t = clock();
-		const int busy_ivl = (end_t - start_t) * 1000 / CLOCKS_PER_SEC;
-		Sleep(max(refresh_ivl - busy_ivl, 0));
+		auto end_t = chrono::duration_cast<chrono::milliseconds>(
+        	chrono::system_clock::now().time_since_epoch()).count();
+		const int busy_ivl = end_t - start_t;
+
+		const int milliseconds = max(refresh_ivl - busy_ivl, 1);
+#ifdef WIN32
+		Sleep(milliseconds);
+#else
+		struct timespec ts;
+	    ts.tv_sec = milliseconds / 1000;
+	    ts.tv_nsec = (milliseconds % 1000) * 1000000;
+	    nanosleep(&ts, NULL);
+#endif
 	  }
 
 	 /* Close and go home */

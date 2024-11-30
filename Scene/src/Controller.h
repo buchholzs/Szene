@@ -48,6 +48,7 @@ private:
 	SceneDesktop * desktop_;
 	bool colorsAllocated_;
 	GrColor firstFreeColor_;
+	GrColor lastFreeColor_;
 };
 
 } // scene
