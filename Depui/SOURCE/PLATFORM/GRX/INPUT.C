@@ -18,14 +18,21 @@ void mx_grx_kbd_exit(void)
 {
 }
 
-void mx_grx_mouse(int *x, int *y, int *b)
+void mx_grx_mouse(int *x, int *y, int *b, int *key)
 {
 	 GrMouseEvent mouseevent;
 
-	 GrMouseGetEvent(GR_M_NOPAINT | GR_M_MOTION | GR_M_BUTTON_CHANGE | GR_M_POLL, &mouseevent);
+	 GrMouseGetEventT(GR_M_EVENT, &mouseevent, 0L);
 	 *x = mouseevent.x;
 	 *y = mouseevent.y;
 	 *b = mouseevent.buttons;
+	 int kbstat = mouseevent.kbstat;
+	 if (mouseevent.flags & GR_M_KEYPRESS) {
+		 *key = mouseevent.key;
+	 }
+	 else {
+		 *key = 0;
+	 }
 	 Mx_MouseMove(*x, *y, mx_grx_screen_pixel, mx_grx_screen_get_pixel);
 }
 

@@ -55,8 +55,8 @@ extern "C" {
 		  int running;
 		  int idle_count;
 
-		  int mouse_x, mouse_y, mouse_b;
-		  int old_mouse_x, old_mouse_y, old_mouse_b;
+		  int mouse_x, mouse_y, mouse_b, key;
+		  int old_mouse_x, old_mouse_y, old_mouse_b, old_key;
 
 		  unsigned int hold_pointer:1;
 		  unsigned int wantmove:1;

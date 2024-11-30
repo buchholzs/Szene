@@ -61,7 +61,7 @@ int mx_grx_kbd_init(void);
 void mx_grx_kbd_exit(void);
 
 void mx_grx_mouse_show(const int show);
-void mx_grx_mouse(int *x, int *y, int *b);
+void mx_grx_mouse(int *x, int *y, int *b, int *key);
 
 int mx_grx_key_pressed(void);
 void mx_grx_key(unsigned int *raw, MxKey * key, unsigned int *code);

@@ -247,7 +247,7 @@ static void handle_messages(int *idle)
 
 	 /* Get mouse input */
 	 if (mx_input->Mouse)
-		  mx_input->Mouse(&Mx.mouse_x, &Mx.mouse_y, &Mx.mouse_b);
+		  mx_input->Mouse(&Mx.mouse_x, &Mx.mouse_y, &Mx.mouse_b, &Mx.key);
 
 	 /* Mouse moved */
 	 if ((Mx.mouse_x != Mx.old_mouse_x)
@@ -283,7 +283,7 @@ static void handle_messages(int *idle)
 	 }
 
 	 /* handle keypresses */
-	 if (mx_input->KeyPressed()) {
+	 if (Mx.key != 0) {
 		  MxKey key;
 		  unsigned int code;
 		  unsigned int raw;
