@@ -57,16 +57,8 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 	  break;
 
   case MxEventPointerEnter:
-	  if (desktop->directDisplay) {
-		GrMouseWarp(screen_w / 2, screen_h / 2);
-		desktop->old_mouse_x = screen_w / 2;
-		desktop->old_mouse_y = screen_h / 2;
-		MxPointerWantMove(object, MxTrue);
-		  // Fall through
-	  } else {
-		break;
-	  }
-	  break;
+	   MxPointerWantMove(object, MxTrue);
+	   // Fall through
 
   case MxEventPointerMove: 
 	  if (desktop->directDisplay) {
@@ -86,18 +78,18 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
   case MxEventKeyUnbound:
 	  switch (event->key.code) {
 		  case 0x1b:
-			desktop->directDisplay = !desktop->directDisplay;
+			setDirectDisplay(desktop, !desktop->directDisplay);
 			if (!desktop->directDisplay) {
 				// Show the exit button
 				desktop->controller->refreshDesktop();
 			}
 			return object;
 		  case 0x3B: // f1
-			desktop->directDisplay = false;
+			setDirectDisplay(desktop, false);
 			desktop->controller->showHelp();
 			return object;
 		  case 0x3D: // f3
-			desktop->directDisplay = false;
+			setDirectDisplay(desktop, false);
 			desktop->controller->openScene();
 			return object;
 		  case 0x3F: // f5
@@ -214,7 +206,7 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->elapsedTime = 0;
 	desktop->difftime = 0;
 	desktop->prevtime = clock(); 
-	desktop->directDisplay = true;
+	setDirectDisplay(desktop, true);
 }
 
 // Update desktop with new scene
@@ -275,16 +267,32 @@ void mouse_reset(SceneDesktop * desktop)
   } while (evt.flags != 0);
   desktop->old_mouse_x = evt.x;
   desktop->old_mouse_y = evt.y;
+  desktop->mx = 0;
+  desktop->my = 0;
 }
 
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y) 
 {
-  static signed short int mx = 0 , my = 0;
-
-  mouse_x = ((desktop->old_mouse_x - event->point.x) + mx) * 6 / 10;
-  mouse_y = ((desktop->old_mouse_y - event->point.y) + my) * 6 / 10;
-  mx = mouse_x;
-  my = mouse_y;
+  mouse_x = ((desktop->old_mouse_x - event->point.x) + desktop->mx) * 6 / 10;
+  mouse_y = ((desktop->old_mouse_y - event->point.y) + desktop->my) * 6 / 10;
+  desktop->mx = mouse_x;
+  desktop->my = mouse_y;
   desktop->old_mouse_x = event->point.x;
   desktop->old_mouse_y = event->point.y;
+}
+
+void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
+{
+	if (!desktop->directDisplay && directDisplay) {
+		// restore mouse pos
+		desktop->old_mouse_x = desktop->save_mouse_x;
+		desktop->old_mouse_y = desktop->save_mouse_y;
+		GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+	}
+	else if (desktop->directDisplay && !directDisplay) {
+		// save mouse pos
+		desktop->save_mouse_x = desktop->old_mouse_x;
+		desktop->save_mouse_y = desktop->old_mouse_y;
+	}
+	desktop->directDisplay = directDisplay;
 }
