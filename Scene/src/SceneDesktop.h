@@ -41,6 +41,10 @@ typedef struct SceneDesktop {
 		
 		signed short int old_mouse_x;
 		signed short int old_mouse_y;
+		signed short int mx;
+		signed short int my;
+		signed short int save_mouse_x;
+		signed short int save_mouse_y;
 
 		int frames; // count frames for calculating fps
 		clock_t prevtime; //
@@ -83,6 +87,7 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event);
 void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, SceneDesktopArgs * args);
 void updateScene(SceneDesktop * desktop);
 void mouse_reset(SceneDesktop * desktop);
+void setDirectDisplay(SceneDesktop* desktop, bool directDisplay);
 
 #ifdef __cplusplus
 }

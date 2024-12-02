@@ -42,7 +42,7 @@ static void callback_exit(MxObject * menu, void *data, unsigned int selected)
 {
 	 (void) data;
 	SceneDesktop *desktop = (SceneDesktop *)MxParent(menu->parent);
-	desktop->directDisplay = true;
+	setDirectDisplay(desktop, true);
 	MxEnqueueSimple(menu->parent, MxEventExit, 0);
 }
 
@@ -84,7 +84,7 @@ static void *helpHandler(struct MxObject * object, const MxEvent * const event) 
   switch (event->type) {
   case MxEventExit:
 	  {
-		desktop->directDisplay = true;
+		setDirectDisplay(desktop, true);
 		MxWindowHandler(object, event);
 	  }
 	break;
@@ -164,7 +164,7 @@ void Controller::loadScene (const std::string &filename)
     strcpy(desktop_->lastmessage, (std::string(filename) + " loaded.").c_str());
 	desktop_->hud->setStatus(desktop_->lastmessage);
 
-	desktop_->directDisplay = true;
+	setDirectDisplay(desktop_, true);
   } catch (Scene::IOError &) {
 	std::ostringstream msg;
     msg << filename << ": file not found"; 
@@ -183,7 +183,7 @@ void Controller::loadScene (const std::string &filename)
 // ------------------------------------------------------------
 void Controller::handleError(const std::string &msg) {
 
-	desktop_->directDisplay = false;
+	setDirectDisplay(desktop_, false); 
     desktop_->scn->clear();  // destroy all objects in scene and clear with black
     updateScene(desktop_); // shows blue background in scene
     strcpy(desktop_->lastmessage, msg.c_str());
