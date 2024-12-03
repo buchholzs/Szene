@@ -46,7 +46,7 @@ const int screen_w = 640;
 const int screen_h = 480;
 #endif
 
-const int refresh_ivl = 5;	// Refresh-Interval in msec
+const int refresh_ivl = 2;	// Refresh-Interval in msec
 const int input_ivl = 67;	// Input-Abfrage-Interval in msec
 
 int main(int argc, char *argv[])
