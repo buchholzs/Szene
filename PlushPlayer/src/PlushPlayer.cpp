@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
         	chrono::system_clock::now().time_since_epoch()).count();
 		const int busy_ivl = end_t - start_t;
 
-		const int milliseconds = max(refresh_ivl - busy_ivl, 1);
+		const int milliseconds = max(refresh_ivl - busy_ivl, 0);
 #ifdef WIN32
 		Sleep(milliseconds);
 #else

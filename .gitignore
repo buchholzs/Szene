@@ -32,3 +32,13 @@ contrib/grx248/test/prueba.pbm
 contrib/grx248/test/prueba.pgm
 contrib/grx248/test/speedtst.log
 contrib/grx248/test/bgi/x*
+/contrib/grx248/Release
+/depui/LIB/Release
+/depui/Release
+/expat/lib/Release
+/MatEdit2/Release
+/plush/Release
+/PlushPlayer/Release
+/Release
+/Scene/Release
+/Scene/scenelib.vcxproj

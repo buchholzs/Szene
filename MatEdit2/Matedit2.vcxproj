@@ -135,7 +135,7 @@
       <AdditionalDependencies>grx20.lib;depui.lib;scene.lib;plush.lib;expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Release/Matedit2.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>..\Expat-1.95.2\Libs;..\Depui\Lib\Release;..\contrib\grx248\Release;..\Scene\Release;..\plush\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\expat\lib\Release;..\Depui\Lib\Release;..\contrib\grx248\Release;..\Scene\Release;..\plush\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>.\Release/Matedit2.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
