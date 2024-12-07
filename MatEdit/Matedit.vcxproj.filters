@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="matedit2.cpp">
+    <ClCompile Include="matedit.cpp">
       <Filter>Quellcodedateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="matedit2.h">
+    <ClInclude Include="matedit.h">
       <Filter>Header-Dateien</Filter>
     </ClInclude>
   </ItemGroup>

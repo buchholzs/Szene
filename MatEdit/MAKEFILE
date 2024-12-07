@@ -1,0 +1,29 @@
+EXELIBRARIES = depui grx20X plush expat X11 m stdc++
+
+INCLUDE_DIRS += ../contrib/grx248/include ../depui/include ../plush/src ../Scene/src
+LIBRARY_DIRS += ../contrib/grx248/lib/unix ../depui/lib ../plush ../Scene ../expat-1.95.2/libs
+
+EXELIBS = $(addprefix -l,$(EXELIBRARIES))
+INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
+LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
+
+CC = g++
+CPPFLAGS += -ggdb $(INCLUDES)
+
+LDLIBS = $(LIB_DIRS) $(EXELIBS)
+
+all: exe
+
+exe: matedit2.exe
+
+%exe : %o
+	$(LINK.o) $^ $(LDLIBS) -o $@
+
+clean:
+	for %j in (*.o *.exe) do del %j
+
+# Dependencies
+
+matedit2.exe:  matedit2.o ../Scene/libscene.a
+
+matedit2.o: matedit2.cpp matedit2.h
