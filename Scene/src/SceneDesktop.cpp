@@ -205,6 +205,11 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->elapsedTime = 0;
 	desktop->difftime = 0;
 	desktop->prevtime = clock(); 
+	desktop->old_mouse_x = desktop->save_mouse_x = args.mxdesktop.desktop_w / 2;
+	desktop->old_mouse_y = desktop->save_mouse_y = args.mxdesktop.desktop_h / 2;
+	desktop->mx = 0;
+	desktop->my = 0;
+	GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
 	setDirectDisplay(desktop, true);
 }
 
@@ -282,16 +287,25 @@ static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x
 
 void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 {
-	if (!desktop->directDisplay && directDisplay) {
-		// restore mouse pos
-		desktop->old_mouse_x = desktop->save_mouse_x;
-		desktop->old_mouse_y = desktop->save_mouse_y;
-		GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+	if (desktop->directDisplay == directDisplay) {
+		return;
 	}
-	else if (desktop->directDisplay && !directDisplay) {
-		// save mouse pos
-		desktop->save_mouse_x = desktop->old_mouse_x;
-		desktop->save_mouse_y = desktop->old_mouse_y;
+	else {
+		if (directDisplay) {
+			// hide mouse
+			mx_output->MouseShow(0);
+			// restore mouse pos
+			desktop->old_mouse_x = desktop->save_mouse_x;
+			desktop->old_mouse_y = desktop->save_mouse_y;
+			GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+		}
+		else {
+			// show mouse
+			mx_output->MouseShow(1);
+			// save mouse pos
+			desktop->save_mouse_x = desktop->old_mouse_x;
+			desktop->save_mouse_y = desktop->old_mouse_y;
+		}
+		desktop->directDisplay = directDisplay;
 	}
-	desktop->directDisplay = directDisplay;
 }
