@@ -8,13 +8,11 @@
 /contrib/grx248/Debug
 /Depui/Debug
 /Depui/LIB/Debug
-/MatEdit2/Debug
 /plush/Debug
 /PlushPlayer/Debug
 /Scene/Debug
 /**/*.vcxproj.user
 /expat/lib/Debug
-/Debug
 /**/*.lo
 /**/*.o
 /**/*.a
@@ -36,9 +34,9 @@ contrib/grx248/test/bgi/x*
 /depui/LIB/Release
 /depui/Release
 /expat/lib/Release
-/MatEdit2/Release
 /plush/Release
 /PlushPlayer/Release
-/Release
 /Scene/Release
 /Scene/scenelib.vcxproj
+MatEdit/Debug/*
+MatEdit/Release/*

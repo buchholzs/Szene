@@ -34,7 +34,6 @@ static void handleError(SceneDesktop * desktop, const string &msg);
 const float velocity  = 200.0f / 1000.0f;	// m/s
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
-const int avg_frame_window = 10; // average time over n frames
 
 //////////////////////////////////////////////////////////////////////////////
 // Depui-Handler
@@ -220,7 +219,7 @@ void updateScene(SceneDesktop * desktop) {
   desktop->prevtime = currtime;
   pl_Cam*	cam = desktop->scn->getCurrCamera ();
 
-  if (desktop->elapsedTime > 0.0 && desktop->frames >= avg_frame_window) {
+  if (desktop->elapsedTime >= 1000.0) {
 	float fps = ((float)desktop->frames)*1000.0f / desktop->elapsedTime;
 	desktop->hud->setFPS(fps);
 	desktop->frames = 0;
