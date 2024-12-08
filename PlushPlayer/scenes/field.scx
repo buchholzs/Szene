@@ -1,65 +1,66 @@
-<!-- Szene 1: Flat shaded cube -->
-
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
-<cameras>
-<camera id="camera" fov="90.0" x="42" z="-787.00" y="50"/>
-</cameras>
-<materials>
-<material id="cubemat" numgradients="100" shadetype="PL_SHADE_FLAT" 
-ambient0="32" ambient1="0" ambient2="16" 
-diffuse0="200" diffuse1="100" diffuse2="150" />
-<material id="torusmat" numgradients="100" shadetype="PL_SHADE_GOURAUD" 
-shininess="10" 
-ambient0="0" ambient1="12" ambient2="4" 
-diffuse0="20" diffuse1="60" diffuse2="70"
-specular0="100" specular1="200" specular2="150"
-transparent="2"
-/>
-<material id="planemat" numgradients="100" shadetype="PL_SHADE_GOURAUD" 
-ambient0="0" ambient1="0" ambient2="0" 
-diffuse0="0" diffuse1="0" diffuse2="255"
-/>
-</materials>
-<lights>
+	<cameras>
+		<camera id="camera" fov="90.0" x="42" z="-787.00" y="50"/>
+	</cameras>
+	<materials>
+		<material id="cubemat" numgradients="100" shadetype="PL_SHADE_FLAT"
+		ambient0="32" ambient1="0" ambient2="16"
+		diffuse0="200" diffuse1="100" diffuse2="150" />
+		<material id="torusmat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
+		shininess="10"
+		ambient0="0" ambient1="12" ambient2="4"
+		diffuse0="20" diffuse1="60" diffuse2="70"
+		specular0="100" specular1="200" specular2="150"
+		transparent="2"/>
+		<material id="planemat" numgradients="100" shadetype="PL_SHADE_GOURAUD"
+		ambient0="0" ambient1="0" ambient2="0"
+		diffuse0="0" diffuse1="0" diffuse2="255"/>
+	</materials>
+	<lights>
+		<light id="light1" type="PL_LIGHT_VECTOR" xp="0.0" yp="-90.0" zp="0.0"
+		intensity="0.9" falloff="1.0"/>
+		<light id="light2" type="PL_LIGHT_VECTOR" xp="0.0" yp="90.0" zp="0.0"
+		intensity="0.9" falloff="1.0"/>
+		<light id="light3" type="PL_LIGHT_VECTOR" xp="-45.0" yp="0.0" zp="0.0"
+		intensity="0.3" falloff="1.0"/>
+	</lights>
+	<objects>
+		<box id="cube" material="cubemat" w="100.0" d="100.0" h="100.0"/>
+		<box id="traeger1" material="cubemat" w="25.0" d="25.0" h="600.0"/>
+		<box id="traeger2" material="cubemat" w="25.0" d="25.0" h="600.0"/>
+		<box id="traeger3" material="cubemat" w="25.0" d="25.0" h="600.0"/>
+		<box id="traeger4" material="cubemat" w="25.0" d="25.0" h="600.0"/>
+		<sphere id="torus" material="torusmat" r="50.0" divr="12" divh="12"/>
+		<sphere id="torus1" material="torusmat" r="25.0" divr="12" divh="12"/>
+		<sphere id="torus2" material="torusmat" r="25.0" divr="12" divh="12"/>
+		<sphere id="torus3" material="torusmat" r="25.0" divr="12" divh="12"/>
+		<sphere id="torus4" material="torusmat" r="25.0" divr="12" divh="12"/>
+		<plane id="plane" material="planemat" w="1000.0" d="1000" res="32"/>
+	</objects>
 
-<light id="light1" type="PL_LIGHT_VECTOR" xp="0.0" yp="-90.0" zp="0.0"
-intensity="0.9" falloff="1.0"/>
-
-
-<light id="light2" type="PL_LIGHT_VECTOR" xp="0.0" yp="90.0" zp="0.0"
-intensity="0.9" falloff="1.0"/>
-
-<light id="light3" type="PL_LIGHT_VECTOR" xp="-45.0" yp="0.0" zp="0.0"
-intensity="0.3" falloff="1.0"/>
-
-</lights>
-<objects>
-<box id="cube" material="cubemat" w="100.0" d="100.0" h="100.0"/>
-<box id="traeger1" material="cubemat" w="25.0" d="25.0" h="600.0"/>
-<box id="traeger2" material="cubemat" w="25.0" d="25.0" h="600.0"/>
-<box id="traeger3" material="cubemat" w="25.0" d="25.0" h="600.0"/>
-<box id="traeger4" material="cubemat" w="25.0" d="25.0" h="600.0"/>
-<sphere id="torus" material="torusmat" r="50.0" divr="12" divh="12"/>
-<sphere id="torus1" material="torusmat" r="25.0" divr="12" divh="12"/>
-<sphere id="torus2" material="torusmat" r="25.0" divr="12" divh="12"/>
-<sphere id="torus3" material="torusmat" r="25.0" divr="12" divh="12"/>
-<sphere id="torus4" material="torusmat" r="25.0" divr="12" divh="12"/>
-<plane id="plane" material="planemat" w="1000.0" d="1000" res="32"/>
-</objects>
-
-<transformations>
-<rotate obj="plane" relative="yes" xa="1"/>
-<translate obj="plane" relative="yes" yp="-100"/>
-<rotate obj="cube" relative="yes" xa="45" ya="45"/>
-<translate obj="torus" relative="yes" xp="-70" />
-<translate obj="torus1" relative="yes" xp="-250" zp="250" yp="-75"/>
-<translate obj="torus2" relative="yes" xp="250" zp="250" yp="-75"/>
-<translate obj="torus3" relative="yes" xp="-250" zp="-250" yp="-75"/>
-<translate obj="torus4" relative="yes" xp="250" zp="-250" yp="-75"/>
-<translate obj="traeger1" relative="yes" xp="500" zp="500" yp="200"/>
-<translate obj="traeger2" relative="yes" xp="-500" zp="500" yp="200"/>
-<translate obj="traeger3" relative="yes" xp="500" zp="-500" yp="200"/>
-<translate obj="traeger4" relative="yes" xp="-500" zp="-500" yp="200"/>
-</transformations>
+	<transformations>
+		<rotate obj="plane" relative="yes" xa="1"/>
+		<translate obj="plane" relative="yes" yp="-100"/>
+		<rotate obj="cube" relative="yes" xa="45" ya="45"/>
+		<translate obj="torus" relative="yes" xp="-70" />
+		<translate obj="torus1" relative="yes" xp="-250" zp="250" yp="-75"/>
+		<translate obj="torus2" relative="yes" xp="250" zp="250" yp="-75"/>
+		<translate obj="torus3" relative="yes" xp="-250" zp="-250" yp="-75"/>
+		<translate obj="torus4" relative="yes" xp="250" zp="-250" yp="-75"/>
+		<translate obj="traeger1" relative="yes" xp="500" zp="500" yp="200"/>
+		<translate obj="traeger2" relative="yes" xp="-500" zp="500" yp="200"/>
+		<translate obj="traeger3" relative="yes" xp="500" zp="-500" yp="200"/>
+		<translate obj="traeger4" relative="yes" xp="-500" zp="-500" yp="200"/>
+	</transformations>
+	<animations>
+		<rotator target="cube" duration="20000" type="OBJECT">
+			<angle xa="0" ya="-360" za="0"/>
+		</rotator>
+		<rotator target="torus" duration="20000" relativeTo="cube" type="OBJECT"/>
+		<rotator target="torus1" duration="30000" relativeTo="cube" type="OBJECT"/>
+		<rotator target="torus2" duration="40000" relativeTo="cube" type="OBJECT"/>
+		<rotator target="torus3" duration="50000" relativeTo="cube" type="OBJECT"/>
+		<rotator target="torus4" duration="60000" relativeTo="cube" type="OBJECT"/>
+	</animations>
 </scene>

@@ -1,4 +1,3 @@
-<!-- Szene 1: Flat shaded cube -->
 
 <!DOCTYPE scene SYSTEM "..\scene.dtd">
 <scene>
@@ -187,8 +186,11 @@
 		<translate obj="panel2" xp="5.25" zp="-0.25" yp="2.529"/>
 	</transformations>
 	<animations>
-		<mover target="TSweep001" duration="13000" repeat="yes" type="OBJECT">
+		<mover target="TSweep001" duration="13000" type="OBJECT">
 			<point xp="0" yp="0" zp="13"/>
 		</mover>
+		<rotator target="TSweep001" duration="13000" type="OBJECT">
+			<angle xa="0" ya="0" za="90"/>
+		</rotator>
 	</animations>
 </scene>
