@@ -12,6 +12,7 @@
 #include <algorithm>
 #include <expat.h>
 #include "Command.h"
+#include "Mover.h"
 #include "scenedbg.h"
 
 /* reverse:  reverse string s in place */
@@ -141,8 +142,14 @@ startElement(void *userData, const char *name, const char **atts)
 	  case TOK_scale:
 		  scene->doScale(res->val, atts);
 		  break;
+	  case TOK_point:
+		  scene->setPoint(atts);
+		  break;
+	  case TOK_mover:
+		  scene->createMover(res->val, atts);
+		  break;
 	  case TOK_scene: case TOK_global: case TOK_cameras: case TOK_textures:
-	  case TOK_materials: case TOK_lights: case TOK_objects: case TOK_transformations:
+	  case TOK_materials: case TOK_lights: case TOK_objects: case TOK_transformations: case TOK_animations:
 		  break;
 	  default:
 		  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -173,7 +180,7 @@ Scene::~Scene ()
 }
 
 // ------------------------------------------------------------
-// Liefert die z.Zt. selektierte Kamera
+// Setzt die z.Zt. selektierte Kamera
 
 void Scene::setCurrCamera (pl_Cam *cam)
 {
@@ -183,12 +190,29 @@ void Scene::setCurrCamera (pl_Cam *cam)
 }
 
 // ------------------------------------------------------------
+// Setzt den z.Zt. selektierten Mover
+
+void Scene::setCurrMover(Mover* mover) {
+	currMover_ = mover;
+}
+
+// ------------------------------------------------------------
 // Liefert die aktive Kamera
 
 pl_Cam* Scene::getCurrCamera ()
 {
 	// PRESERVE:BEGIN
 	return currCam_;
+	// PRESERVE:END
+}
+
+// ------------------------------------------------------------
+// Liefert den aktiven Mover
+
+Mover* Scene::getCurrMover()
+{
+	// PRESERVE:BEGIN
+	return currMover_;
 	// PRESERVE:END
 }
 
@@ -522,7 +546,44 @@ void Scene::setTarget(const char **attr)
 	plCamSetTarget(cam, x, y, z);
 }
 
-void Scene::createLight(const char **attr) 
+void Scene::setPoint(const char** attr)
+{
+	pl_Float x = 0;
+	pl_Float y = 0;
+	pl_Float z = 0;
+	Mover* mover = getCurrMover();
+	if (mover == NULL) {
+		throw invalid_argument(string("Kein Mover gesetzt"));
+	}
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+			case TOK_xp:
+				x = atof(val);
+				break;
+			case TOK_yp:
+				y = atof(val);
+				break;
+			case TOK_zp:
+				z = atof(val);
+				break;
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+	mover->addPoint(x, y, z);
+}
+
+void Scene::createLight(const char **attr)
 {
 	// Create the light
 	pl_Light *light = plLightCreate();
@@ -1077,6 +1138,76 @@ void Scene::doScale(enum sc_Tokens tok, const char **attr)
 		throw domain_error(string("Objekt nicht gefunden: ") + id);
 	}
 	plObjStretch(obj, X, Y, Z);
+}
+
+void Scene::createMover(enum sc_Tokens tok, const char** attr)
+{
+	bool repeat = false;	// #DEFAULT
+	string target;
+	string type;
+	float duration = 0;
+	pl_Obj* obj = NULL;
+	pl_Cam* cam = NULL;
+	pl_Light* light = NULL;
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+			case TOK_target:
+				target = val;
+				break;
+			case TOK_repeat:
+				repeat = toYesNo(val);
+				break;
+			case TOK_duration:
+				duration = atof(val);
+				break;
+			case TOK_type:
+			{
+				sc_TokenPair* type = sc_search(val);
+				if (type == NULL) {
+					throw domain_error(string("Unerwartetes Token: ") + val);
+				}
+				switch (type->val) {
+				case TOK_CAMERA:
+					cam = findCamera(target);
+					if (cam == NULL) {
+						throw domain_error(string("Kamera nicht gefunden: ") + target);
+					}
+					break;
+				case TOK_LIGHT:
+					light = findLight(target);
+					if (light == NULL) {
+						throw domain_error(string("Licht nicht gefunden: ") + target);
+					}
+					break;
+				case TOK_OBJECT:
+					obj = findObject(target);
+					if (obj == NULL) {
+						throw domain_error(string("Objekt nicht gefunden: ") + target);
+					}
+					break;
+				default:
+					throw domain_error(string("Unerwartetes Token: ") + name);
+				}
+				break;
+			}
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+
+	Mover* mover = new Mover(obj, cam, light, duration, repeat);
+	setCurrMover(mover);
+	actions_.insert(make_pair(target, mover));
 }
 
 void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)
