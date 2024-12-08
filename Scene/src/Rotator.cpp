@@ -47,8 +47,6 @@ Rotator::~Rotator ()
 {
 }
 
-
-
 void Rotator::Execute (float timeDiff) {
 	elapsedTime_+=timeDiff;
 	// Calculate the current position based on the elapsed time
@@ -100,7 +98,6 @@ std::array<float, 3> Rotator::getAngle(size_t index) const {
 size_t Rotator::getAngleCount() const {
     return angles_.size();
 }
-
 
 // Get the distance between origin_ and relativeTo_
 float Rotator::distance3D() {
