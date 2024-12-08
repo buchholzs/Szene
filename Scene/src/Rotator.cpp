@@ -89,7 +89,7 @@ void Rotator::addAngle(float x, float y, float z) {
 // Returning array (throws std::out_of_range if index is invalid)
 std::array<float, 3> Rotator::getAngle(size_t index) const {
     if (index >= angles_.size()) {
-        throw std::out_of_range("Point index out of range");
+        throw std::out_of_range("Angle index out of range");
     }
     return angles_[index];
 }
