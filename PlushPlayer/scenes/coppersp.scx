@@ -2,68 +2,57 @@
 
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
-<cameras>
-<camera id="camera" fov="90.0" z="-200"/>
-</cameras>
-<materials>
-<material id="brass" numgradients="1000"
-shadetype="PL_SHADE_GOURAUD"
-shininess="120" 
- ambient0="14" ambient1="10" ambient2="5" 
-diffuse0="119" diffuse1="86" diffuse2="39"
-specular0="119" specular1="86" specular2="39" />
+	<cameras>
+		<camera id="camera" fov="90.0" z="-400"/>
+	</cameras>
+	<materials>
+		<material id="brass" numgradients="1000"
+		shadetype="PL_SHADE_GOURAUD"
+		shininess="120"
+		 ambient0="14" ambient1="10" ambient2="5"
+		diffuse0="119" diffuse1="86" diffuse2="39"
+		specular0="119" specular1="86" specular2="39" />
 
-<material id="silver" numgradients="1000"
-shadetype="PL_SHADE_GOURAUD"
-shininess="80" 
- ambient0="46" ambient1="46" ambient2="50" 
-diffuse0="161" diffuse1="162" diffuse2="175"
-specular0="172" specular1="174" specular2="187" />
+		<material id="silver" numgradients="1000"
+		shadetype="PL_SHADE_GOURAUD"
+		shininess="80"
+		 ambient0="46" ambient1="46" ambient2="50"
+		diffuse0="161" diffuse1="162" diffuse2="175"
+		specular0="172" specular1="174" specular2="187" />
 
-<material id="chrome" numgradients="1000"
-shadetype="PL_SHADE_GOURAUD"
-shininess="80"
- ambient0="50" ambient1="50" ambient2="50" 
-diffuse0="118" diffuse1="118" diffuse2="118"
-specular0="134" specular1="134" specular2="134" />
+		<material id="chrome" numgradients="1000"
+		shadetype="PL_SHADE_GOURAUD"
+		shininess="80"
+		 ambient0="50" ambient1="50" ambient2="50"
+		diffuse0="118" diffuse1="118" diffuse2="118"
+		specular0="134" specular1="134" specular2="134" />
 
-<material id="new_brass" numgradients="1000"
-shadetype="PL_SHADE_GOURAUD"
-shininess="75"
- ambient0="62" ambient1="50" ambient2="33" 
-diffuse0="179" diffuse1="143" diffuse2="94"
-specular0="73" specular1="59" specular2="39" />
+		<material id="new_brass" numgradients="1000"
+		shadetype="PL_SHADE_GOURAUD"
+		shininess="75"
+		 ambient0="62" ambient1="50" ambient2="33"
+		diffuse0="179" diffuse1="143" diffuse2="94"
+		specular0="73" specular1="59" specular2="39" />
 
-<material id="copper_base" numgradients="1000"
-shadetype="PL_SHADE_GOURAUD"
-shininess="25"
- ambient0="63" ambient1="24" ambient2="14" 
-diffuse0="63" diffuse1="24" diffuse2="14"
-specular0="199" specular1="167" specular2="153" />
+		<material id="copper_base" numgradients="1000"
+		shadetype="PL_SHADE_GOURAUD"
+		shininess="25"
+		 ambient0="63" ambient1="24" ambient2="14"
+		diffuse0="63" diffuse1="24" diffuse2="14"
+		specular0="199" specular1="167" specular2="153" />
 
-
-<!-- shininess="2" -->
-<!--
-specular0="122" specular1="188" specular2="184" 
--->
- 
-<material id="copper_oxidized" numgradients="1000"
-shadetype="PL_SHADE_GOURAUD"
-shininess="25"
- ambient0="8" ambient1="14" ambient2="13" 
-diffuse0="98" diffuse1="159" diffuse2="157"
-specular0="20" specular1="20" specular2="20" 
-/>
-</materials>
-<lights>
-<!--
-<light id="light" type="PL_LIGHT_VECTOR" xp="-22.5" yp="22.5" zp="0.0"
-intensity="1.0" falloff="1.0"/>
--->
-<light id="light" type="PL_LIGHT_POINT" xp="-25.0" yp="25.0" zp="-100.0"
-intensity="1.0" falloff="200.0"/>
-</lights>
-<objects>
-<sphere id="sphere" material="copper_base" r="50.0" divr="48" divh="48"/>
-</objects>
+		<material id="copper_oxidized" numgradients="1000"
+		shadetype="PL_SHADE_GOURAUD"
+		shininess="25"
+		 ambient0="8" ambient1="14" ambient2="13"
+		diffuse0="98" diffuse1="159" diffuse2="157"
+		specular0="20" specular1="20" specular2="20"/>
+	</materials>
+	<lights>
+		<light id="light" type="PL_LIGHT_POINT" xp="-25.0" yp="25.0" zp="-100.0"
+		intensity="1.0" falloff="200.0"/>
+	</lights>
+	<objects>
+		<sphere id="sphere" material="copper_base" r="50.0" divr="48" divh="48"/>
+	</objects>
 </scene>

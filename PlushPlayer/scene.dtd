@@ -12,7 +12,7 @@
 <!-- Entity Declarations                                -->
 <!-- ************************************************** -->
 
-<!ELEMENT scene (global?,cameras,textures?,materials,lights,objects,transformations?)>
+<!ELEMENT scene (global?,cameras,textures?,materials,lights,objects,transformations?,animations?)>
 
 <!ELEMENT global (background?)>
 <!ELEMENT cameras (camera)+>
@@ -200,7 +200,7 @@
 <!ATTLIST mover
           target IDREF #REQUIRED
           duration CDATA #IMPLIED
-          repeat (yes|no) "no"
+          repeat (yes|no) "yes"
           type (OBJECT|
                 CAMERA|
                 LIGHT) "OBJECT"
@@ -213,13 +213,15 @@
           zp CDATA #IMPLIED
 >
 
-<!ELEMENT rotator (angle)+>
+<!ELEMENT rotator (angle)*>
 <!ATTLIST rotator
           target IDREF #REQUIRED
+          duration CDATA #IMPLIED
+          repeat (yes|no) "yes"
           relativeTo IDREF #IMPLIED
+	      angle CDATA #IMPLIED
           type (OBJECT|
-                CAMERA|
-                LIGHT) "OBJECT"
+                CAMERA) "OBJECT"
 >
 
 <!ELEMENT angle EMPTY>

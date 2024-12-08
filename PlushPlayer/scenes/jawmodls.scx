@@ -2,31 +2,41 @@
 
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
-<cameras>
-<camera id="camera" fov="90.0" z="-62"/>
-</cameras>
-<materials>
-<material id="modmat" numgradients="256" shadetype="PL_SHADE_GOURAUD"
-shininess="64"
-ambient0="10" ambient1="10" ambient2="16"
-diffuse0="128" diffuse1="128" diffuse2="128"
-specular0="128" specular1="0" specular2="0" />
-</materials>
-<lights>
-<light id="light" type="PL_LIGHT_VECTOR" xp="0.0" yp="0.0" zp="0.0"
-intensity="1.0" falloff="1.0"/>
-</lights>
-<objects>
-<cone id="cone" material="modmat" r="10.0" h="20.0" divr="20" cap="yes"/>
-<jaw id="model1" material="modmat" src="FACE.JAW"/>
-<jaw id="model2" material="modmat" src="DUCK.JAW"/>
-</objects>
-
-<transformations>
-<rotate obj="model1" relative="yes" xa="90" ya="30"/>
-<rotate obj="model2" relative="yes" xa="-90" ya="90"/>
-<rotate obj="cone" relative="yes" xa="45" ya="45"/>
-<translate obj="model2" relative="yes" xp="20"/>
-<translate obj="cone" relative="yes" xp="-15"/>
-</transformations>
+	<cameras>
+		<camera id="camera" fov="90.0" z="-62"/>
+	</cameras>
+	<materials>
+		<material id="modmat" numgradients="256" shadetype="PL_SHADE_GOURAUD"
+		shininess="64"
+		ambient0="10" ambient1="10" ambient2="16"
+		diffuse0="128" diffuse1="128" diffuse2="128"
+		specular0="128" specular1="0" specular2="0" />
+	</materials>
+	<lights>
+		<light id="light" type="PL_LIGHT_VECTOR" xp="0.0" yp="0.0" zp="0.0"
+		intensity="1.0" falloff="1.0"/>
+	</lights>
+	<objects>
+		<cone id="cone" material="modmat" r="10.0" h="20.0" divr="20" cap="yes"/>
+		<jaw id="model1" material="modmat" src="FACE.JAW"/>
+		<jaw id="model2" material="modmat" src="DUCK.JAW"/>
+	</objects>
+	<transformations>
+		<rotate obj="model1" relative="yes" xa="90" ya="30"/>
+		<rotate obj="model2" relative="yes" xa="-90" ya="90"/>
+		<rotate obj="cone" relative="yes" xa="45" ya="45"/>
+		<translate obj="model2" relative="yes" xp="20"/>
+		<translate obj="cone" relative="yes" xp="-15"/>
+	</transformations>
+	<animations>
+		<rotator target="model1" duration="10000" type="OBJECT">
+			<angle xa="0" ya="360" za="0"/>
+		</rotator>
+		<rotator target="model2" duration="10000" type="OBJECT">
+			<angle xa="0" ya="360" za="0"/>
+		</rotator>
+		<rotator target="cone" duration="10000" type="OBJECT">
+			<angle xa="0" ya="360" za="0"/>
+		</rotator>
+	</animations>
 </scene>
