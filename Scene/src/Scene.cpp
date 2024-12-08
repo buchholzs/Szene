@@ -13,6 +13,7 @@
 #include <expat.h>
 #include "Command.h"
 #include "Mover.h"
+#include "Rotator.h"
 #include "scenedbg.h"
 
 /* reverse:  reverse string s in place */
@@ -145,8 +146,14 @@ startElement(void *userData, const char *name, const char **atts)
 	  case TOK_point:
 		  scene->setPoint(atts);
 		  break;
+	  case TOK_angle:
+		  scene->setAngle(atts);
+		  break;
 	  case TOK_mover:
 		  scene->createMover(res->val, atts);
+		  break;
+	  case TOK_rotator:
+		  scene->createRotator(res->val, atts);
 		  break;
 	  case TOK_scene: case TOK_global: case TOK_cameras: case TOK_textures:
 	  case TOK_materials: case TOK_lights: case TOK_objects: case TOK_transformations: case TOK_animations:
@@ -197,6 +204,13 @@ void Scene::setCurrMover(Mover* mover) {
 }
 
 // ------------------------------------------------------------
+// Setzt den z.Zt. selektierten Rotator
+
+void Scene::setCurrRotator(Rotator* rotator) {
+	currRotator_ = rotator;
+}
+
+// ------------------------------------------------------------
 // Liefert die aktive Kamera
 
 pl_Cam* Scene::getCurrCamera ()
@@ -213,6 +227,16 @@ Mover* Scene::getCurrMover()
 {
 	// PRESERVE:BEGIN
 	return currMover_;
+	// PRESERVE:END
+}
+
+// ------------------------------------------------------------
+// Liefert den aktiven Rotator
+
+Rotator* Scene::getCurrRotator()
+{
+	// PRESERVE:BEGIN
+	return currRotator_;
 	// PRESERVE:END
 }
 
@@ -581,6 +605,43 @@ void Scene::setPoint(const char** attr)
 		}
 	} // end for
 	mover->addPoint(x, y, z);
+}
+
+void Scene::setAngle(const char** attr)
+{
+	pl_Float x = 0;
+	pl_Float y = 0;
+	pl_Float z = 0;
+	Rotator* rotator = getCurrRotator();
+	if (rotator == NULL) {
+		throw invalid_argument(string("Kein Rotator gesetzt"));
+	}
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+			case TOK_xa:
+				x = atof(val);
+				break;
+			case TOK_ya:
+				y = atof(val);
+				break;
+			case TOK_za:
+				z = atof(val);
+				break;
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+	rotator->addAngle(x, y, z);
 }
 
 void Scene::createLight(const char **attr)
@@ -1142,7 +1203,7 @@ void Scene::doScale(enum sc_Tokens tok, const char **attr)
 
 void Scene::createMover(enum sc_Tokens tok, const char** attr)
 {
-	bool repeat = false;	// #DEFAULT
+	bool repeat = true;	// #DEFAULT
 	string target;
 	string type;
 	float duration = 0;
@@ -1207,7 +1268,93 @@ void Scene::createMover(enum sc_Tokens tok, const char** attr)
 
 	Mover* mover = new Mover(obj, cam, light, duration, repeat);
 	setCurrMover(mover);
-	actions_.insert(make_pair(target, mover));
+	actions_.insert(make_pair(target + "/Mover", mover));
+}
+
+void Scene::createRotator(enum sc_Tokens tok, const char** attr)
+{
+	bool repeat = true;	// #DEFAULT
+	string target;
+	string relativeToId;
+	string type;
+	float duration = 0;
+	pl_Obj* obj = NULL;
+	pl_Cam* cam = NULL;
+	pl_Obj* relativeTo = NULL;
+	bool isRelativeTo = false;
+	float angle = 360; // #DEFAULT
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+			case TOK_target:
+				target = val;
+				break;
+			case TOK_repeat:
+				repeat = toYesNo(val);
+				break;
+			case TOK_relativeTo:
+			{
+				string relativeToId = val;
+				relativeTo = findObject(relativeToId);
+				if (relativeTo == NULL) {
+					throw domain_error(string("Objekt nicht gefunden: ") + target);
+				}
+				isRelativeTo = true;
+				break;
+			}
+			case TOK_angle:
+				angle = atof(val);
+				break;
+			case TOK_duration:
+				duration = atof(val);
+				break;
+			case TOK_type:
+			{
+				sc_TokenPair* type = sc_search(val);
+				if (type == NULL) {
+					throw domain_error(string("Unerwartetes Token: ") + val);
+				}
+				switch (type->val) {
+				case TOK_CAMERA:
+					cam = findCamera(target);
+					if (cam == NULL) {
+						throw domain_error(string("Kamera nicht gefunden: ") + target);
+					}
+					break;
+				case TOK_OBJECT:
+					obj = findObject(target);
+					if (obj == NULL) {
+						throw domain_error(string("Objekt nicht gefunden: ") + target);
+					}
+					break;
+				default:
+					throw domain_error(string("Unerwartetes Token: ") + name);
+				}
+				break;
+			}
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+	
+	Rotator* rotator = NULL;
+	if (isRelativeTo) {
+		rotator = new Rotator(obj, cam, relativeTo, angle,  duration, repeat);
+	}
+	else {
+		rotator = new Rotator(obj, cam, duration, repeat);
+	}
+	setCurrRotator(rotator);
+	actions_.insert(make_pair(target + "/Rotator" + (isRelativeTo ? "/relative" : ""), rotator));
 }
 
 void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)

@@ -29,6 +29,7 @@ struct sc_TokenPair;
 namespace scene {
 class Command;
 class Mover;
+class Rotator;
 
 class Scene {
  public:
@@ -82,6 +83,12 @@ class Scene {
 
   // Liefert den aktiven Mover
   Mover*    getCurrMover();
+
+  // Setzt den z.Zt. selektierten Rotator
+  void setCurrRotator(Rotator* rotator);
+
+  // Liefert den aktiven Rotator
+  Rotator* getCurrRotator();
 
   // Liefert den Framebuffer
   pl_uChar*	getFrameBuffer () { return frameBuffer_; }
@@ -161,8 +168,14 @@ class Scene {
   // Erzeugt eine Mover-Animation anhand der Attributliste
   void createMover(enum sc_Tokens tok, const char** attr);
   
-  // Animation point setzen anhand der Attributliste
+  // Erzeugt eine Rotator-Animation anhand der Attributliste
+  void createRotator(enum sc_Tokens tok, const char** attr);
+
+  // Mover point setzen anhand der Attributliste
   void setPoint(const char** attr);
+
+  // Rotator angle setzen anhand der Attributliste
+  void setAngle(const char** attr);
 
   // Setzt die Hintergrundfarbe
   void setBackground(const char **attr);
@@ -202,6 +215,7 @@ class Scene {
   ActionMap actions_;
   pl_Cam *currCam_;
   Mover* currMover_;
+  Rotator* currRotator_;
 
   pl_uInt screenWidth_;	// Screen width
   pl_uInt screenHeight_;	// Screen height
