@@ -15,7 +15,7 @@ namespace scene {
 // Konstruktor
 //
 HudRefreshCmd::HudRefreshCmd (Hud *hud, struct _GR_context *ctx) : 
-	  elapsedTime_(0), hud_(hud), ctx_(ctx)
+	  Command(0), elapsedTime_(0), hud_(hud), ctx_(ctx)
 {
  //hudctx_ = GrCreateContext(ctx->gc_xmax + 1,ctx->gc_ymax + 1, NULL, NULL);
  //hudctx_ = GrCreateFrameContext(GR_frameRAM1, ctx->gc_xmax + 2 /* sonst array bound read in GrBitBlt1bpp */,ctx->gc_ymax + 1, NULL, NULL);

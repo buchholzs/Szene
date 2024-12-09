@@ -14,6 +14,7 @@
 #include "Command.h"
 #include "Mover.h"
 #include "Rotator.h"
+#include "Sequence.h"
 #include "scenedbg.h"
 
 /* reverse:  reverse string s in place */
@@ -155,6 +156,9 @@ startElement(void *userData, const char *name, const char **atts)
 	  case TOK_rotator:
 		  scene->createRotator(res->val, atts);
 		  break;
+	  case TOK_sequence:
+		  scene->createSequence(res->val, atts);
+		  break;
 	  case TOK_scene: case TOK_global: case TOK_cameras: case TOK_textures:
 	  case TOK_materials: case TOK_lights: case TOK_objects: case TOK_transformations: case TOK_animations:
 		  break;
@@ -211,6 +215,13 @@ void Scene::setCurrRotator(Rotator* rotator) {
 }
 
 // ------------------------------------------------------------
+// Setzt den z.Zt. selektierten Sequence
+
+void Scene::setCurrSequence(Sequence* sequence) {
+	currSequence_ = sequence;
+}
+
+// ------------------------------------------------------------
 // Liefert die aktive Kamera
 
 pl_Cam* Scene::getCurrCamera ()
@@ -237,6 +248,16 @@ Rotator* Scene::getCurrRotator()
 {
 	// PRESERVE:BEGIN
 	return currRotator_;
+	// PRESERVE:END
+}
+
+// ------------------------------------------------------------
+// Liefert die aktiven Sequence
+
+Sequence* Scene::getCurrSequence()
+{
+	// PRESERVE:BEGIN
+	return currSequence_;
 	// PRESERVE:END
 }
 
@@ -410,6 +431,9 @@ void Scene::dump (const ostream &str)
 void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio) 
 {
 	currCam_ = NULL;
+	currMover_ = NULL;
+	currRotator_ = NULL;
+	currSequence_ = NULL;
 	screenWidth_ = screenWidth;
 	screenHeight_ = screenHeight;
 	zBuffer_ = new pl_ZBuffer[screenWidth * screenHeight];
@@ -1206,7 +1230,7 @@ void Scene::createMover(enum sc_Tokens tok, const char** attr)
 	bool repeat = true;	// #DEFAULT
 	string target;
 	string type;
-	float duration = 0;
+	int duration = 0;
 	pl_Obj* obj = NULL;
 	pl_Cam* cam = NULL;
 	pl_Light* light = NULL;
@@ -1266,9 +1290,15 @@ void Scene::createMover(enum sc_Tokens tok, const char** attr)
 		}
 	} // end for
 
-	Mover* mover = new Mover(obj, cam, light, duration, repeat);
+	string id = target + "/Mover";
+	bool isSequence = getCurrSequence() != NULL;
+	Mover* mover = new Mover(obj, cam, light, duration, isSequence ? false : repeat);
 	setCurrMover(mover);
-	actions_.insert(make_pair(target + "/Mover", mover));
+	if (isSequence) {
+		getCurrSequence()->addTargetCommand(make_pair(id, mover));
+	} else {
+		actions_.insert(make_pair(id, mover));
+	}
 }
 
 void Scene::createRotator(enum sc_Tokens tok, const char** attr)
@@ -1277,7 +1307,7 @@ void Scene::createRotator(enum sc_Tokens tok, const char** attr)
 	string target;
 	string relativeToId;
 	string type;
-	float duration = 0;
+	int duration = 0;
 	pl_Obj* obj = NULL;
 	pl_Cam* cam = NULL;
 	pl_Obj* relativeTo = NULL;
@@ -1347,14 +1377,63 @@ void Scene::createRotator(enum sc_Tokens tok, const char** attr)
 	} // end for
 	
 	Rotator* rotator = NULL;
+	string id = target + "/Rotator" + (isRelativeTo ? "/relative" : "");
+	bool isSequence = getCurrSequence() != NULL;
 	if (isRelativeTo) {
-		rotator = new Rotator(obj, cam, relativeTo, angle,  duration, repeat);
+		rotator = new Rotator(obj, cam, relativeTo, angle, duration, isSequence ? false : repeat);
 	}
 	else {
-		rotator = new Rotator(obj, cam, duration, repeat);
+		rotator = new Rotator(obj, cam, duration, isSequence ? false : repeat);
 	}
 	setCurrRotator(rotator);
-	actions_.insert(make_pair(target + "/Rotator" + (isRelativeTo ? "/relative" : ""), rotator));
+	if (isSequence) {
+		getCurrSequence()->addTargetCommand(make_pair(id, rotator));
+	} else {
+		actions_.insert(make_pair(id, rotator));
+	}
+}
+
+void Scene::createSequence(enum sc_Tokens tok, const char** attr)
+{
+	bool repeat = true;	// #DEFAULT
+	int duration = 0;
+	pl_Obj* obj = NULL;
+	string id;
+	string target;
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+		  	case TOK_id:
+			  id = val;
+			  break;
+			case TOK_target:
+				target = val;
+				obj = findObject(target);
+				if (obj == NULL) {
+					throw domain_error(string("Objekt nicht gefunden: ") + target);
+				}
+				break;
+				break;
+			case TOK_repeat:
+				repeat = toYesNo(val);
+				break;
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+	
+	Sequence* sequence = new Sequence(obj, repeat);
+	setCurrSequence(sequence);
+	actions_.insert(make_pair(id, sequence));
 }
 
 void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)

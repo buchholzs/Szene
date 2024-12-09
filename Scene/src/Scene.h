@@ -30,6 +30,7 @@ namespace scene {
 class Command;
 class Mover;
 class Rotator;
+class Sequence;
 
 class Scene {
  public:
@@ -89,6 +90,12 @@ class Scene {
 
   // Liefert den aktiven Rotator
   Rotator* getCurrRotator();
+
+  // Setzt die z.Zt. selektierten Sequence
+  void setCurrSequence(Sequence* Sequence);
+
+  // Liefert die aktiven Sequence
+  Sequence* getCurrSequence();
 
   // Liefert den Framebuffer
   pl_uChar*	getFrameBuffer () { return frameBuffer_; }
@@ -171,6 +178,9 @@ class Scene {
   // Erzeugt eine Rotator-Animation anhand der Attributliste
   void createRotator(enum sc_Tokens tok, const char** attr);
 
+  // Erzeugt eine Sequence-Animation anhand der Attributliste
+  void createSequence(enum sc_Tokens tok, const char** attr);
+
   // Mover point setzen anhand der Attributliste
   void setPoint(const char** attr);
 
@@ -216,6 +226,7 @@ class Scene {
   pl_Cam *currCam_;
   Mover* currMover_;
   Rotator* currRotator_;
+  Sequence* currSequence_;
 
   pl_uInt screenWidth_;	// Screen width
   pl_uInt screenHeight_;	// Screen height

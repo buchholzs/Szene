@@ -90,6 +90,7 @@ sc_TokenPair tokenMap[] = {
   {"rotator", TOK_rotator},
   {"scale", TOK_scale},
   {"scene", TOK_scene},
+  {"sequence", TOK_sequence},
   {"shadetype", TOK_shadetype},
   {"shininess", TOK_shininess},
   {"sort", TOK_sort},

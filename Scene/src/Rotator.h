@@ -6,7 +6,7 @@
 #include <vector>
 #include <array>
 #include <PLUSH.H>
-#include "Command.h"
+#include "TargetCommand.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846f
@@ -14,12 +14,13 @@
 
 namespace scene {
 
-class Rotator : public Command {
+class Rotator : public TargetCommand {
 
 public:
-	Rotator(pl_Obj* obj, pl_Cam* cam, pl_Obj* relativeTo, float angle, float duration, bool relative);
-	Rotator(pl_Obj* obj, pl_Cam* cam, float duration, bool relative);
+	Rotator(pl_Obj* obj, pl_Cam* cam, pl_Obj* relativeTo, float angle, int duration, bool repeat);
+	Rotator(pl_Obj* obj, pl_Cam* cam, int duration, bool repeat);
 	virtual ~Rotator ();
+    void resetOrigin(pl_Obj *obj, pl_Cam *cam, pl_Light *light);
 	void Execute (float timeDiff) ;
 	void addAngle(float x, float y, float z);
 	// return the point as an array
@@ -35,11 +36,6 @@ private:
 		return degrees * (M_PI / 180.0f);
 	}
 
-	pl_Obj* obj_;
-	pl_Cam* cam_;
-	float elapsedTime_;
-	float duration_;
-	bool repeat_;
 	bool isRelativeTo_;
 	float angle_;
 	float distance_;
