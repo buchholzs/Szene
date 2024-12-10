@@ -4,7 +4,7 @@ A XML-Viewer for displaying 3D scenes  to display a scene file written in XML, u
 # Matedit
 A material editor which allows interactive manipulating materials of objects in a scene.  
 
- ## Why the name Plush?
+## Why the name Plush?
 These programs use the 3D plush library which was formerly located here
 [http://www.nullsoft.com/free/plush/](http://www.nullsoft.com/free/plush/).
 Now you can read the documentation [here](/depui/homepage/depui.htm).
