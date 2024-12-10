@@ -1,27 +1,27 @@
-# Plushplayer and Matedit
-These programs use the 3D plush library
-(http://www.nullsoft.com/free/plush/) to display a scene
-file written in XML.
+# PlushPlayer
+A XML-Viewer for displaying 3D scenes  to display a scene file written in XML, using the 3D-plush library.
 
-Both programs run in DOS mode or Win32 mode. Use Dosbox to start the DOS programs.
-Best results are achieved with S3 Graphic, use machine=svga_s3 in Dosbox config.
+# Matedit
+A material editor which allows interactive manipulating materials of objects in a scene.  
 
-Then start
-
-- `plushplr`
- or
-- `matedit2`
-
-There are also Win32 versions of these two programs.
-To start, type
-
-- `plushplr_w32` or
-- `matedit2_w32`
+ ## Why the name Plush?
+These programs use the 3D plush library which was formerly located here
+[http://www.nullsoft.com/free/plush/](http://www.nullsoft.com/free/plush/).
+Now you can read the documentation [here](/depui/homepage/depui.htm).
 
 
-## Plushplayer
-You can load any *.scx (Scene XML) file in the "scenes" folder.
-When you start plushplr without an argument, it shows the file open dialog.
+# Usage
+These two programs run under Windows.
+To start, use
+
+- `PlushPlayer.exe` or
+- `Matedit2.exe`
+
+
+## PlushPlayer
+![PlushPlayer with kepler.scx](/assets/img/3.jpg)
+You can load any *.scx (Scene XML) file from the "scenes" folder.
+When you start PlushPlayer without an argument, it shows a file open dialog.
 
 In the scene, you can navigate using the mouse and the following buttons:
 -  w - step forward
@@ -32,7 +32,7 @@ In the scene, you can navigate using the mouse and the following buttons:
 - F1 - popup the key help window
 - F3 - popup the file open dialog.
 
-## Matedit2
-You can modify the material using various sliders. Load a scene file
-or use the default standard.scx. Click on one of the materials in
-the material list and change its properties with the sliders.
+## Matedit
+![Matedit with standard.scx](/assets/img/1.jpg)
+You can modify the material using various sliders. Load a scene file or use the default standard.scx. 
+Click on any of the materials in the materials list and change the properties on the fly with the slider.
