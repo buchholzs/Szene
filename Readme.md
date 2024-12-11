@@ -23,6 +23,7 @@ To start, use
 
 ## PlushPlayer
 ![PlushPlayer with kepler.scx](/assets/img/3.jpeg)
+
 You can load any *.scx (Scene XML) file from the "scenes" folder.
 When you start PlushPlayer, it shows a file open dialog to select a scene file.
 
@@ -37,5 +38,6 @@ In the scene, you can navigate using the mouse and the following keys:
 
 ## Matedit
 ![Matedit with standard.scx](/assets/img/1.jpeg)
+
 You can modify the material using various sliders. Load a scene file from the "scenes" folder or use the default standard.scx file. 
 Click on any of the materials in the materials list and change the properties on the fly with the slider.
