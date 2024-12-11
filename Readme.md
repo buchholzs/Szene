@@ -4,11 +4,11 @@ A program to view 3D scenes written in XML using the 3D plush library.
 # Matedit
 A material editor which allows interactive manipulating materials of objects in a scene.  
 
-## What is the Plush library?
+# What is the Plush library?
 Both programs use the [3D plush library](/plush/pl_api.html) which was formerly located [here](http://www.nullsoft.com/free/plush/). For the GUI, I used the [Depui](/depui/homepage/depui.htm) library. The graphics library is [GRX](/contrib/grx248/doc/grx248um.html).
 
 # History
-I started working on this project in 2002, so the graphics are outdated by today's standards. I haven't worked on the project for a long time. Anyway, I want to finally finish the project, achieve the goals of the time and practice C++ by the way.
+I started working on this project in 2002, so the graphics are outdated by today's standards. The original target platform was DJGPP DOS. Later I switched to Windows as main target platform. Linux is still under construction. In the meantime, I haven't worked on the project for a long time. Anyway, I want to finally finish the project, achieve the goals of the time and practice C++ by the way.
 
 
 # Usage
