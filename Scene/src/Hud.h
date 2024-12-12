@@ -11,22 +11,25 @@
 #include <string>
 #include <list>
 
+struct _GR_context;
+
 namespace scene {
 
 class Hud {
 public:
 	// Konstruktor
-	Hud(GrColor statusColor);
+	Hud(GrColor statusColor, struct _GR_context* ctx);
 	// measurements for hud
 	void	setPosition (const pl_Float Xp, const pl_Float Yp, const pl_Float Zp, const pl_Float Xa, const pl_Float Ya, const pl_Float Za)
 		{ Xp_=Xp; Yp_=Yp; Zp_=Zp; Xa_=Xa; Ya_=Ya; Za_=Za; }
 	void	setStatus(std::string status) { status_=status; }
 	void	setFPS(float fps) { fps_ = fps; }
 	// display hud in graphic context
-	void	display (struct _GR_context *ctx);
+	void	display ();
 	GrColor	getStatusColor() { return statusColor_; }
 private:
 	GrColor statusColor_;
+	struct _GR_context* ctx_;
 	pl_Float Xp_;
 	pl_Float Yp_;
 	pl_Float Zp_;

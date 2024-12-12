@@ -15,7 +15,10 @@
 #include "Mover.h"
 #include "Rotator.h"
 #include "Sequence.h"
+#include "Hud.h"
 #include "scenedbg.h"
+
+using namespace scene;
 
 /* reverse:  reverse string s in place */
  void reverse(char s[])
@@ -382,7 +385,11 @@ void Scene::render ()
 		{
 			plRenderObj(oit->second);	// Render our objects
 		}
-    plRenderEnd();                   // Finish rendering	
+    plRenderEnd(); // Finish rendering	
+	
+	if (hud_) {
+		hud_->display(); // show Hud
+	}
 	// PRESERVE:END
 }
 
@@ -391,11 +398,13 @@ void Scene::render ()
 
 void Scene::execute (float timeDiff)
 {
-	for (ActionMap::iterator action = actions_.begin();
-		action != actions_.end(); ++action) 
-		{
-			action->second->Execute(timeDiff);  // Execute actions
-		}
+	if (!pause_) {
+		for (ActionMap::iterator action = actions_.begin();
+			action != actions_.end(); ++action)
+			{
+				action->second->Execute(timeDiff);  // Execute actions
+			}
+	}
 }
 
 // ------------------------------------------------------------
@@ -428,7 +437,7 @@ void Scene::dump (const ostream &str)
 // PRESERVE:END
 }
 
-void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio) 
+void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio)
 {
 	currCam_ = NULL;
 	currMover_ = NULL;
@@ -440,6 +449,8 @@ void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio
 	frameBuffer_ = new pl_uChar[(screenWidth + 100 )* (screenHeight + 100)];
 	aspectRatio_ = aspectRatio;
 	background_ = 0;
+	pause_ = false;
+	hud_ = NULL;
 }
 
 // delete action

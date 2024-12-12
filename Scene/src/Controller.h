@@ -26,7 +26,8 @@ public:
 	void	moveLeft (const float timeDiff) {moveMode_->moveLeft(timeDiff); }
 	void	moveRight (const float timeDiff) {moveMode_->moveRight(timeDiff); }
 	void	moveBackward (const float timeDiff) {moveMode_->moveBackward(timeDiff); }
-	void	zoom (const float factor);
+	void	setPause (bool pause);
+	bool	getPause();
 	void	panView (const float pan) {moveMode_->panView(pan); }
 	void	pitchView (const float pitch) {moveMode_->pitchView(pitch); }
 	void	setMoveMode (MoveMode* moveMode) { moveMode_ = moveMode; }

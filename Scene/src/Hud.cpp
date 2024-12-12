@@ -18,8 +18,9 @@ const int avgSize = 5;
 // ------------------------------------------------------------
 // Konstruktor
 //
-Hud::Hud(GrColor statusColor) :
+Hud::Hud(GrColor statusColor, struct _GR_context* ctx) :
 	statusColor_(statusColor), 
+	ctx_(ctx),
 	Xp_(0),
 	Yp_(0),
 	Zp_(0),
@@ -32,19 +33,18 @@ Hud::Hud(GrColor statusColor) :
 // ------------------------------------------------------------
 // display hud in graphic context
 //
-void Hud::display (GrContext* ctx)
+void Hud::display ()
 {
   std::ostringstream str;
   int yinc = 12;
-  int ypos = ctx->gc_ymax - 36;
-  int sizex = ctx->gc_xmax + 1;
-  int sizey = ctx->gc_ymax + 1;
+  int ypos = ctx_->gc_ymax - 36;
+  int sizex = ctx_->gc_xmax + 1;
+  int sizey = ctx_->gc_ymax + 1;
 
   GrContext oldctx;
   GrSaveContext(&oldctx);
 
-  GrSetContext(ctx);
-  //GrClearContext( GrBlack() );
+  GrSetContext(ctx_);
 
   str << setprecision(1) << fixed << "FPS=" << fps_;
   GrTextXY(5, ypos , (char*)str.str().c_str(), statusColor_, GrNOCOLOR);

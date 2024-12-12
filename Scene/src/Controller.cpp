@@ -9,7 +9,6 @@
 #include "Scene.h"
 #include "SceneDesktop.h"
 #include "Hud.h"
-#include "HudRefreshCmd.h"
 #ifdef WIN32
 #include <direct.h>
 #else
@@ -113,6 +112,16 @@ Controller::~Controller ()
 {
 }
 
+void Controller::setPause(bool pause)
+{
+	scene_->setPause(pause);
+}
+
+bool Controller::getPause()
+{
+	return scene_->getPause();
+}
+
 // ------------------------------------------------------------
 // Show a file selector
 // ------------------------------------------------------------
@@ -156,13 +165,9 @@ void Controller::loadScene (const std::string &filename)
     filename_ = filename;
 	reloadPalette();
 	Scene::ActionMap *am = scene_->getAllActions();
-	scene::Command *hudRefreshCmd = new scene::HudRefreshCmd(desktop_->hud,
-		(_GR_context*)desktop_->ctx);
-	std::string id = "HudRefreshCmd";	
-	am->insert(make_pair(id, hudRefreshCmd));
 
     strcpy(desktop_->lastmessage, (std::string(filename) + " loaded.").c_str());
-	desktop_->hud->setStatus(desktop_->lastmessage);
+	scene_->getHud()->setStatus(desktop_->lastmessage);
 
 	setDirectDisplay(desktop_, true);
   } catch (Scene::IOError &) {
@@ -255,6 +260,7 @@ void Controller::showHelp() {
 		"    d        move right\n"
 		"    r        reload scene\n"
 		"    q        quit\n"
+		"    <space>  play/pause\n"
 		"    F1       Key Help\n"
 		"    F3       Load Scene File\n"
 		"    F9       Set move mode to walk\n"
@@ -268,13 +274,13 @@ void Controller::showHelp() {
 	textargs.textarea.endtest = MxLineEndWordwrap;
 	//textargs.scroll.border = -1;
 
-	MxScrollTextarea *text = MxScrollTextareaNew(0, 0, 0, 300, 200, &textargs);
+	MxScrollTextarea *text = MxScrollTextareaNew(NULL, 0, 0, 300, 250, &textargs);
 
 	MxArgsInit(&winargs);
 	winargs.caption = "Key Help";
 	winargs.client = &text->base.object;
 
-	MxWindow *win = MxWindowNew(&desktop_->base.object, 150, 150, 300, 200, &winargs);
+	MxWindow *win = MxWindowNew(&desktop_->base.object, 150, 150, 300, 250, &winargs);
 	win->base.object.handler = helpHandler;
 	refreshDesktop();
 }
