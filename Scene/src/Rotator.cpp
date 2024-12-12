@@ -11,7 +11,7 @@ namespace scene {
 //
 Rotator::Rotator (pl_Obj* obj, pl_Cam* cam, pl_Obj* relativeTo, float angle, int duration, bool repeat) :
 	TargetCommand(obj, cam, NULL, duration, repeat), isRelativeTo_(true),
-	origin_({ 0, 0, 0 }), relativeTo_(relativeTo), distance_(0)
+	origin_({ 0, 0, 0 }), relativeTo_(relativeTo), angle_(angle), distance_(0)
 {
 	resetOrigin(obj, cam, NULL);
 	distance_ = distance3D();

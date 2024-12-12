@@ -468,7 +468,10 @@ void Scene::clear ()
 	typedef void (*plTexFun)(pl_Texture*);
 	typedef void (*plActionFun)(Command*);
 
-	setCurrCamera( NULL );
+	currCam_ = NULL;
+	currMover_ = NULL;
+	currRotator_ = NULL;
+	currSequence_ = NULL;
 	background_ = 0; // black
 	memset(frameBuffer_,0,screenWidth_*screenHeight_);
 	applyMap<CamMap::value_type, plCamFun> cm(plCamDelete);

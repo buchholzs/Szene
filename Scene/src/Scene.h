@@ -25,12 +25,14 @@ const pl_Float FOV = 90.0;
 
 // Forward decl
 struct sc_TokenPair;
+struct _GR_context;
 
 namespace scene {
 class Command;
 class Mover;
 class Rotator;
 class Sequence;
+class Hud;
 
 class Scene {
  public:
@@ -61,7 +63,7 @@ class Scene {
   {
     init(0, 0, ASPECT_RATIO);
   }
-  Scene(pl_uInt screenWidth, pl_uInt screenHeight, 
+  Scene(pl_uInt screenWidth, pl_uInt screenHeight,
         pl_Float aspectRatio = ASPECT_RATIO)
   {
     init(screenWidth, screenHeight, aspectRatio);
@@ -208,6 +210,15 @@ class Scene {
   */
   void makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend);
 
+  void setHud(Hud* hud) { hud_ = hud;  }
+
+  Hud *getHud() { return hud_; }
+
+  // pausiert die Animationen bei false
+  void	setPause(bool pause) { pause_ = pause;  }
+
+  // liefert den Pause-Status
+  bool	getPause() { return pause_; }
 
  protected:
   Scene (const Scene& rhs);
@@ -215,7 +226,7 @@ class Scene {
 
  private:
   // Initialisiert wichtige Attribute
-  void init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio_);
+  void init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio);
 
   CamMap cameras_;
   LightMap lights_;
@@ -234,6 +245,9 @@ class Scene {
   pl_uChar *frameBuffer_; // Frame buffer (screenWidth_ * screenHeight_)
   pl_Float aspectRatio_;	// Aspect ratio (normalerweise 1.0)
   pl_uChar background_;	// Hintergrundfarbe
+
+  Hud* hud_; // Hud
+  bool pause_; // Pause
   Logger logger_; // Logger
 };
 

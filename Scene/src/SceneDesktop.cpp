@@ -47,12 +47,12 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
  
   switch (event->type) {
   case MxEventDestroy:
+	  delete desktop->scn->getHud();
 	  delete desktop->scn;
 	  GrDestroyContext((struct _GR_context *)desktop->ctx);
 	  delete desktop->walkMode;
 	  delete desktop->flyMode;
 	  delete desktop->controller;
-	  delete desktop->hud;
 	  break;
 
   case MxEventPointerEnter:
@@ -112,6 +112,9 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 		  case 'd':
 			desktop->controller->moveRight(desktop->difftime);
 			return object;
+		  case ' ':
+			  desktop->controller->setPause(!desktop->controller->getPause());
+			  return object;
 		  case 'r':
 			if (desktop->controller->getFilename() != "") {
 			  desktop->controller->loadScene(desktop->controller->getFilename());
@@ -185,6 +188,9 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	char *memory[4] = {(char *)desktop->scn->getFrameBuffer(),0,0,0};
 	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,memory,NULL);
 
+	Hud *hud = new Hud(LIGHTGRAY, (struct _GR_context *)desktop->ctx);
+	desktop->scn->setHud(hud);
+
 	// clear palette
 	memset(desktop->ThePalette, 0, sizeof desktop->ThePalette);
 
@@ -194,9 +200,6 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 
 	// create controller
 	desktop->controller = new Controller(desktop->walkMode, desktop->scn, desktop);
-
-	// hud
-	desktop->hud = new Hud(LIGHTGRAY);
 
 	desktop->ignorePointerMove = false;
 
@@ -226,14 +229,14 @@ void updateScene(SceneDesktop * desktop) {
 
   if (desktop->elapsedTime >= 1000.0) {
 	float fps = ((float)desktop->frames)*1000.0f / desktop->elapsedTime;
-	desktop->hud->setFPS(fps);
+	desktop->scn->getHud()->setFPS(fps);
 	desktop->frames = 0;
 	desktop->elapsedTime = 0.0f;
   }
   if (cam) {
-	desktop->hud->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
+	  desktop->scn->getHud()->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
   } else {
-	desktop->hud->setPosition(0,0,0,0,0,0);
+	  desktop->scn->getHud()->setPosition(0,0,0,0,0,0);
   }
   
   if (cam) {
