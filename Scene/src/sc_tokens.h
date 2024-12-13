@@ -4,7 +4,7 @@
 #define _Scenetok_H_
 
 /*
-** Aufzählung der Tokenwerte (scene.dtd)
+** Aufzï¿½hlung der Tokenwerte (scene.dtd)
 */
 enum sc_Tokens {
   // sorted below this line
@@ -67,6 +67,7 @@ enum sc_Tokens {
   TOK_lights,
   TOK_material,
   TOK_materials,
+  TOK_moveSpeed,
   TOK_mover,
   TOK_no,
   TOK_numgradients,
@@ -92,12 +93,14 @@ enum sc_Tokens {
   TOK_rotator,
   TOK_scale,
   TOK_scene,
+  TOK_sequence,
   TOK_shadetype,
   TOK_shininess,
   TOK_sort,
   TOK_specular0,
   TOK_specular1,
   TOK_specular2,
+  TOK_speed,
   TOK_sphere,
   TOK_src,
   TOK_target,
@@ -126,7 +129,7 @@ enum sc_Tokens {
 };
 
 /*
-** Schlüssel-/Tokenwert-Typ. 
+** Schlï¿½ssel-/Tokenwert-Typ. 
 */
 extern "C" struct sc_TokenPair {
   const char *key;
@@ -134,7 +137,7 @@ extern "C" struct sc_TokenPair {
 };
 
 /*
-** Tabelle mit Schlüssel-/Tokenwerten. Mittels bsearch kann diese Tabelle 
+** Tabelle mit Schlï¿½ssel-/Tokenwerten. Mittels bsearch kann diese Tabelle 
 ** durchsucht werden.
 */
 extern sc_TokenPair tokenMap[];
@@ -144,10 +147,10 @@ extern unsigned int tokenMapSize;
 
 
 /*
-** Sucht nach einem Schlüssel in der Tokentabelle
+** Sucht nach einem Schlï¿½ssel in der Tokentabelle
 ** 
 ** Parameter:
-**		key : Suchschlüssel
+**		key : Suchschlï¿½ssel
 ** Returns:
 **		Pointer auf den gefundenen Eintrag; oder NULL
 */

@@ -25,11 +25,14 @@ const pl_Float FOV = 90.0;
 
 // Forward decl
 struct sc_TokenPair;
+struct _GR_context;
 
 namespace scene {
 class Command;
 class Mover;
 class Rotator;
+class Sequence;
+class Hud;
 
 class Scene {
  public:
@@ -60,7 +63,7 @@ class Scene {
   {
     init(0, 0, ASPECT_RATIO);
   }
-  Scene(pl_uInt screenWidth, pl_uInt screenHeight, 
+  Scene(pl_uInt screenWidth, pl_uInt screenHeight,
         pl_Float aspectRatio = ASPECT_RATIO)
   {
     init(screenWidth, screenHeight, aspectRatio);
@@ -72,7 +75,27 @@ class Scene {
 		background_=col;
 	}
 
-  // Setzt die z.Zt. selektierte Kamera
+    // Setzt die Bewegungsgeschwindigkeit
+    void setMoveSpeed(const float speed) {
+        moveSpeed_ = speed;
+    }
+
+    // Liefert die Bewegungsgeschwindigkeit
+    float getMoveSpeed() {
+        return moveSpeed_;
+    }
+
+    // Setzt die Drehgeschwindigkeit
+    void setTurnSpeed(const float speed) {
+        turnSpeed_ = speed;
+    }
+
+    // Liefert die Drehgeschwindigkeit
+    float getTurnSpeed() {
+        return turnSpeed_;
+    }
+
+    // Setzt die z.Zt. selektierte Kamera
   void	setCurrCamera (pl_Cam *cam);
 
   // Liefert die aktive Kamera
@@ -89,6 +112,12 @@ class Scene {
 
   // Liefert den aktiven Rotator
   Rotator* getCurrRotator();
+
+  // Setzt die z.Zt. selektierten Sequence
+  void setCurrSequence(Sequence* Sequence);
+
+  // Liefert die aktiven Sequence
+  Sequence* getCurrSequence();
 
   // Liefert den Framebuffer
   pl_uChar*	getFrameBuffer () { return frameBuffer_; }
@@ -171,6 +200,9 @@ class Scene {
   // Erzeugt eine Rotator-Animation anhand der Attributliste
   void createRotator(enum sc_Tokens tok, const char** attr);
 
+  // Erzeugt eine Sequence-Animation anhand der Attributliste
+  void createSequence(enum sc_Tokens tok, const char** attr);
+
   // Mover point setzen anhand der Attributliste
   void setPoint(const char** attr);
 
@@ -180,7 +212,10 @@ class Scene {
   // Setzt die Hintergrundfarbe
   void setBackground(const char **attr);
 
-  // Skalierung anhand der Attributliste
+  // Setzt die Bewegungsgeschwindigkeit
+  void setMoveSpeed(const char** attr);
+
+      // Skalierung anhand der Attributliste
   void doScale(enum sc_Tokens tok, const char **attr);
 
   // Camera target setzen anhand der Attributliste
@@ -198,6 +233,15 @@ class Scene {
   */
   void makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend);
 
+  void setHud(Hud* hud) { hud_ = hud;  }
+
+  Hud *getHud() { return hud_; }
+
+  // pausiert die Animationen bei false
+  void	setPause(bool pause) { pause_ = pause;  }
+
+  // liefert den Pause-Status
+  bool	getPause() { return pause_; }
 
  protected:
   Scene (const Scene& rhs);
@@ -205,7 +249,7 @@ class Scene {
 
  private:
   // Initialisiert wichtige Attribute
-  void init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio_);
+  void init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio);
 
   CamMap cameras_;
   LightMap lights_;
@@ -216,6 +260,7 @@ class Scene {
   pl_Cam *currCam_;
   Mover* currMover_;
   Rotator* currRotator_;
+  Sequence* currSequence_;
 
   pl_uInt screenWidth_;	// Screen width
   pl_uInt screenHeight_;	// Screen height
@@ -223,6 +268,11 @@ class Scene {
   pl_uChar *frameBuffer_; // Frame buffer (screenWidth_ * screenHeight_)
   pl_Float aspectRatio_;	// Aspect ratio (normalerweise 1.0)
   pl_uChar background_;	// Hintergrundfarbe
+  float moveSpeed_; // Bewegungsgeschwindigkeit
+  float turnSpeed_; // Drehgeschwindigkeit
+
+  Hud* hud_; // Hud
+  bool pause_; // Pause
   Logger logger_; // Logger
 };
 

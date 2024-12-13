@@ -1,5 +1,8 @@
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
+	<global>
+		<moveSpeed speed="1"/>
+	</global>
 	<cameras>
 		<camera id="camera" fov="90.0" x="42" z="-787.00" y="50"/>
 	</cameras>

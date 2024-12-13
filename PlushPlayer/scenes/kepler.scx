@@ -2,6 +2,9 @@
 
 <!DOCTYPE scene SYSTEM "../scene.dtd">
 <scene>
+	<global>
+		<moveSpeed speed="2"/>
+	</global>
 	<cameras>
 		<camera id="camera" fov="90.0" x="-1428" z="-4019" pan="-19.53" pitch="0"/>
 		<!-- <camera id="camera" fov="90.0" x="-100" z="-358" pan="-20"/> -->

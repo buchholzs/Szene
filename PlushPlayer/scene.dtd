@@ -14,17 +14,20 @@
 
 <!ELEMENT scene (global?,cameras,textures?,materials,lights,objects,transformations?,animations?)>
 
-<!ELEMENT global (background?)>
+<!ELEMENT global (background?|moveSpeed?)>
 <!ELEMENT cameras (camera)+>
 <!ELEMENT textures (texture)+>
 <!ELEMENT materials (material)+>
 <!ELEMENT lights (light)+>
 <!ELEMENT objects (plane|box|sphere|cone|cylinder|torus|o3ds|jaw|cob)+>
 <!ELEMENT transformations (translate|rotate|scale)+>
-<!ELEMENT animations (mover|rotator)+>
+<!ELEMENT animations (mover|rotator|sequence)+>
 
 <!ELEMENT background EMPTY>
 <!ATTLIST background color CDATA #REQUIRED>
+
+<!ELEMENT moveSpeed EMPTY>
+<!ATTLIST moveSpeed speed CDATA #REQUIRED>
 
 <!ELEMENT camera (target?)>
 <!ATTLIST camera id  ID  #REQUIRED
@@ -229,4 +232,11 @@
           xa CDATA #IMPLIED
           ya CDATA #IMPLIED
           za CDATA #IMPLIED
+>
+
+<!ELEMENT sequence (mover|rotator)+>
+<!ATTLIST sequence
+          id  ID  #REQUIRED
+	      target IDREF #REQUIRED
+          repeat (yes|no) "yes"
 >

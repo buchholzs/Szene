@@ -1,6 +1,7 @@
 <!DOCTYPE scene SYSTEM "scene.dtd">
 <scene>
 	<global>
+		<moveSpeed speed="1"/>
 		<background color="9"/>
 	</global>
 	<cameras>

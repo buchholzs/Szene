@@ -9,29 +9,33 @@ namespace scene {
 // Konstruktor
 //
 Mover::Mover (pl_Obj* obj, pl_Cam* cam, pl_Light* light, float duration, bool repeat) :
-	obj_(obj), cam_(cam), light_(light), duration_(duration), repeat_(repeat), elapsedTime_(0)
+	TargetCommand(obj, cam, light, duration, repeat)
 {
-	if (obj_) {
-		origin_[0] = obj_->Xp;
-		origin_[1] = obj_->Yp;
-		origin_[2] = obj_->Zp;
-	}
-	if (cam_) {
-		origin_[0] = cam_->X;
-		origin_[1] = cam_->Y;
-		origin_[2] = cam_->Z;
-	}
-	if (light_) {
-		origin_[0] = light_->Xp;
-		origin_[1] = light_->Yp;
-		origin_[2] = light_->Zp;
-	}
+	resetOrigin(obj, cam, light);
 }
 // ------------------------------------------------------------
 // Destruktor
 //
 Mover::~Mover ()
 {
+}
+
+void Mover::resetOrigin(pl_Obj* obj, pl_Cam* cam, pl_Light* light) {
+	if (obj) {
+		origin_[0] = obj->Xp;
+		origin_[1] = obj->Yp;
+		origin_[2] = obj->Zp;
+	}
+	if (cam) {
+		origin_[0] = cam->X;
+		origin_[1] = cam->Y;
+		origin_[2] = cam->Z;
+	}
+	if (light) {
+		origin_[0] = light->Xp;
+		origin_[1] = light->Yp;
+		origin_[2] = light->Zp;
+	}
 }
 
 void Mover::Execute (float timeDiff) {
@@ -42,23 +46,26 @@ void Mover::Execute (float timeDiff) {
 		if (!repeat_) {
 			return; // Animation Ende
 		}
-		elapsedTime_ = 0;
+		reset();
 	}
-	float t = elapsedTime_ / duration_;
-	if (obj_) {
-		obj_->Xp = origin_[0] + point[0]*t;
-		obj_->Yp = origin_[1] + point[1]*t;
-		obj_->Zp = origin_[2] + point[2]*t;
+	float t = (float)elapsedTime_ / (float)duration_;
+	pl_Obj* obj = getTargetObj();
+	if (obj) {
+		obj->Xp = origin_[0] + point[0]*t;
+		obj->Yp = origin_[1] + point[1]*t;
+		obj->Zp = origin_[2] + point[2]*t;
 	}
-	if (cam_) {
-		cam_->X = origin_[0] + point[0] * t;
-		cam_->Y = origin_[1] + point[1] * t;
-		cam_->Z = origin_[2] + point[2] * t;
+	pl_Cam* cam = getTargetCam();
+	if (cam) {
+		cam->X = origin_[0] + point[0] * t;
+		cam->Y = origin_[1] + point[1] * t;
+		cam->Z = origin_[2] + point[2] * t;
 	}
-	if (light_) {
-		light_->Xp = origin_[0] + point[0] * t;
-		light_->Yp = origin_[1] + point[1] * t;
-		light_->Zp = origin_[2] + point[2] * t;
+	pl_Light* light = getTargetLight();
+	if (light) {
+		light->Xp = origin_[0] + point[0] * t;
+		light->Yp = origin_[1] + point[1] * t;
+		light->Zp = origin_[2] + point[2] * t;
 	}
 }
 

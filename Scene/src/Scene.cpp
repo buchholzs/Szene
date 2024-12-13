@@ -14,7 +14,14 @@
 #include "Command.h"
 #include "Mover.h"
 #include "Rotator.h"
+#include "Sequence.h"
+#include "Hud.h"
 #include "scenedbg.h"
+
+using namespace scene;
+
+const float moveVelocity = 200.0f / 1000.0f;	// m/s
+const float turnVelocity = 200.0f / 1000.0f;	// m/s
 
 /* reverse:  reverse string s in place */
  void reverse(char s[])
@@ -115,6 +122,9 @@ startElement(void *userData, const char *name, const char **atts)
 	  case TOK_background:
 		  scene->setBackground(atts);
 		  break;
+	  case TOK_moveSpeed:
+		  scene->setMoveSpeed(atts);
+		  break;
 	  case TOK_camera:
 		  scene->createCamera(atts);
 		  break;
@@ -154,6 +164,9 @@ startElement(void *userData, const char *name, const char **atts)
 		  break;
 	  case TOK_rotator:
 		  scene->createRotator(res->val, atts);
+		  break;
+	  case TOK_sequence:
+		  scene->createSequence(res->val, atts);
 		  break;
 	  case TOK_scene: case TOK_global: case TOK_cameras: case TOK_textures:
 	  case TOK_materials: case TOK_lights: case TOK_objects: case TOK_transformations: case TOK_animations:
@@ -211,6 +224,13 @@ void Scene::setCurrRotator(Rotator* rotator) {
 }
 
 // ------------------------------------------------------------
+// Setzt den z.Zt. selektierten Sequence
+
+void Scene::setCurrSequence(Sequence* sequence) {
+	currSequence_ = sequence;
+}
+
+// ------------------------------------------------------------
 // Liefert die aktive Kamera
 
 pl_Cam* Scene::getCurrCamera ()
@@ -237,6 +257,16 @@ Rotator* Scene::getCurrRotator()
 {
 	// PRESERVE:BEGIN
 	return currRotator_;
+	// PRESERVE:END
+}
+
+// ------------------------------------------------------------
+// Liefert die aktiven Sequence
+
+Sequence* Scene::getCurrSequence()
+{
+	// PRESERVE:BEGIN
+	return currSequence_;
 	// PRESERVE:END
 }
 
@@ -361,7 +391,11 @@ void Scene::render ()
 		{
 			plRenderObj(oit->second);	// Render our objects
 		}
-    plRenderEnd();                   // Finish rendering	
+    plRenderEnd(); // Finish rendering	
+	
+	if (hud_) {
+		hud_->display(); // show Hud
+	}
 	// PRESERVE:END
 }
 
@@ -370,11 +404,13 @@ void Scene::render ()
 
 void Scene::execute (float timeDiff)
 {
-	for (ActionMap::iterator action = actions_.begin();
-		action != actions_.end(); ++action) 
-		{
-			action->second->Execute(timeDiff);  // Execute actions
-		}
+	if (!pause_) {
+		for (ActionMap::iterator action = actions_.begin();
+			action != actions_.end(); ++action)
+			{
+				action->second->Execute(timeDiff);  // Execute actions
+			}
+	}
 }
 
 // ------------------------------------------------------------
@@ -407,15 +443,22 @@ void Scene::dump (const ostream &str)
 // PRESERVE:END
 }
 
-void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio) 
+void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio)
 {
 	currCam_ = NULL;
+	currMover_ = NULL;
+	currRotator_ = NULL;
+	currSequence_ = NULL;
 	screenWidth_ = screenWidth;
 	screenHeight_ = screenHeight;
 	zBuffer_ = new pl_ZBuffer[screenWidth * screenHeight];
 	frameBuffer_ = new pl_uChar[(screenWidth + 100 )* (screenHeight + 100)];
 	aspectRatio_ = aspectRatio;
-	background_ = 0;
+	background_ = 0;	
+	moveSpeed_ = moveVelocity;
+	turnSpeed_ = turnVelocity;
+	pause_ = false;
+	hud_ = NULL;
 }
 
 // delete action
@@ -433,8 +476,13 @@ void Scene::clear ()
 	typedef void (*plTexFun)(pl_Texture*);
 	typedef void (*plActionFun)(Command*);
 
-	setCurrCamera( NULL );
+	currCam_ = NULL;
+	currMover_ = NULL;
+	currRotator_ = NULL;
+	currSequence_ = NULL;
 	background_ = 0; // black
+	moveSpeed_ = moveVelocity;
+	turnSpeed_ = turnVelocity;
 	memset(frameBuffer_,0,screenWidth_*screenHeight_);
 	applyMap<CamMap::value_type, plCamFun> cm(plCamDelete);
 	for_each(cameras_.begin(), cameras_.end(), cm );
@@ -455,6 +503,7 @@ void Scene::clear ()
 	for_each(actions_.begin(), actions_.end(), am );
 	actions_.clear();
 }
+
 void Scene::setBackground(const char **attr)
 {
 	for (int i = 0; attr[i]; i += 2) {
@@ -475,6 +524,29 @@ void Scene::setBackground(const char **attr)
 	  }		
 	} // end for
 }
+
+void Scene::setMoveSpeed(const char** attr)
+{
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+			case TOK_speed:
+				setMoveSpeed(atof(val));
+				break;
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+}
+
 void Scene::createCamera(const char **attr) 
 {	
 	pl_Cam *cam = plCamCreate(screenWidth_,
@@ -1206,7 +1278,7 @@ void Scene::createMover(enum sc_Tokens tok, const char** attr)
 	bool repeat = true;	// #DEFAULT
 	string target;
 	string type;
-	float duration = 0;
+	int duration = 0;
 	pl_Obj* obj = NULL;
 	pl_Cam* cam = NULL;
 	pl_Light* light = NULL;
@@ -1266,9 +1338,15 @@ void Scene::createMover(enum sc_Tokens tok, const char** attr)
 		}
 	} // end for
 
-	Mover* mover = new Mover(obj, cam, light, duration, repeat);
+	string id = target + "/Mover";
+	bool isSequence = getCurrSequence() != NULL;
+	Mover* mover = new Mover(obj, cam, light, duration, isSequence ? false : repeat);
 	setCurrMover(mover);
-	actions_.insert(make_pair(target + "/Mover", mover));
+	if (isSequence) {
+		getCurrSequence()->addTargetCommand(make_pair(id, mover));
+	} else {
+		actions_.insert(make_pair(id, mover));
+	}
 }
 
 void Scene::createRotator(enum sc_Tokens tok, const char** attr)
@@ -1277,7 +1355,7 @@ void Scene::createRotator(enum sc_Tokens tok, const char** attr)
 	string target;
 	string relativeToId;
 	string type;
-	float duration = 0;
+	int duration = 0;
 	pl_Obj* obj = NULL;
 	pl_Cam* cam = NULL;
 	pl_Obj* relativeTo = NULL;
@@ -1347,14 +1425,63 @@ void Scene::createRotator(enum sc_Tokens tok, const char** attr)
 	} // end for
 	
 	Rotator* rotator = NULL;
+	string id = target + "/Rotator" + (isRelativeTo ? "/relative" : "");
+	bool isSequence = getCurrSequence() != NULL;
 	if (isRelativeTo) {
-		rotator = new Rotator(obj, cam, relativeTo, angle,  duration, repeat);
+		rotator = new Rotator(obj, cam, relativeTo, angle, duration, isSequence ? false : repeat);
 	}
 	else {
-		rotator = new Rotator(obj, cam, duration, repeat);
+		rotator = new Rotator(obj, cam, duration, isSequence ? false : repeat);
 	}
 	setCurrRotator(rotator);
-	actions_.insert(make_pair(target + "/Rotator" + (isRelativeTo ? "/relative" : ""), rotator));
+	if (isSequence) {
+		getCurrSequence()->addTargetCommand(make_pair(id, rotator));
+	} else {
+		actions_.insert(make_pair(id, rotator));
+	}
+}
+
+void Scene::createSequence(enum sc_Tokens tok, const char** attr)
+{
+	bool repeat = true;	// #DEFAULT
+	int duration = 0;
+	pl_Obj* obj = NULL;
+	string id;
+	string target;
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+		  	case TOK_id:
+			  id = val;
+			  break;
+			case TOK_target:
+				target = val;
+				obj = findObject(target);
+				if (obj == NULL) {
+					throw domain_error(string("Objekt nicht gefunden: ") + target);
+				}
+				break;
+				break;
+			case TOK_repeat:
+				repeat = toYesNo(val);
+				break;
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+	
+	Sequence* sequence = new Sequence(obj, repeat);
+	setCurrSequence(sequence);
+	actions_.insert(make_pair(id, sequence));
 }
 
 void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)

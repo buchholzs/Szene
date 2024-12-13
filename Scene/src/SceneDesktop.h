@@ -32,7 +32,6 @@ typedef struct SceneDesktop {
 		} base;
 		scene::Controller *controller;
 		scene::FlyMode *flyMode;
-		scene::Hud *hud;				// HUD
 		scene::WalkMode *walkMode;
 		scene::Scene *scn;
 
