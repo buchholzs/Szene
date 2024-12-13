@@ -14,7 +14,7 @@
 
 <!ELEMENT scene (global?,cameras,textures?,materials,lights,objects,transformations?,animations?)>
 
-<!ELEMENT global (background?)>
+<!ELEMENT global (background?|moveSpeed?)>
 <!ELEMENT cameras (camera)+>
 <!ELEMENT textures (texture)+>
 <!ELEMENT materials (material)+>
@@ -25,6 +25,9 @@
 
 <!ELEMENT background EMPTY>
 <!ATTLIST background color CDATA #REQUIRED>
+
+<!ELEMENT moveSpeed EMPTY>
+<!ATTLIST moveSpeed speed CDATA #REQUIRED>
 
 <!ELEMENT camera (target?)>
 <!ATTLIST camera id  ID  #REQUIRED

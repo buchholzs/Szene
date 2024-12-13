@@ -20,6 +20,9 @@
 
 using namespace scene;
 
+const float moveVelocity = 200.0f / 1000.0f;	// m/s
+const float turnVelocity = 200.0f / 1000.0f;	// m/s
+
 /* reverse:  reverse string s in place */
  void reverse(char s[])
  {
@@ -118,6 +121,9 @@ startElement(void *userData, const char *name, const char **atts)
 	  switch (res->val) {
 	  case TOK_background:
 		  scene->setBackground(atts);
+		  break;
+	  case TOK_moveSpeed:
+		  scene->setMoveSpeed(atts);
 		  break;
 	  case TOK_camera:
 		  scene->createCamera(atts);
@@ -448,7 +454,9 @@ void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio
 	zBuffer_ = new pl_ZBuffer[screenWidth * screenHeight];
 	frameBuffer_ = new pl_uChar[(screenWidth + 100 )* (screenHeight + 100)];
 	aspectRatio_ = aspectRatio;
-	background_ = 0;
+	background_ = 0;	
+	moveSpeed_ = moveVelocity;
+	turnSpeed_ = turnVelocity;
 	pause_ = false;
 	hud_ = NULL;
 }
@@ -473,6 +481,8 @@ void Scene::clear ()
 	currRotator_ = NULL;
 	currSequence_ = NULL;
 	background_ = 0; // black
+	moveSpeed_ = moveVelocity;
+	turnSpeed_ = turnVelocity;
 	memset(frameBuffer_,0,screenWidth_*screenHeight_);
 	applyMap<CamMap::value_type, plCamFun> cm(plCamDelete);
 	for_each(cameras_.begin(), cameras_.end(), cm );
@@ -493,6 +503,7 @@ void Scene::clear ()
 	for_each(actions_.begin(), actions_.end(), am );
 	actions_.clear();
 }
+
 void Scene::setBackground(const char **attr)
 {
 	for (int i = 0; attr[i]; i += 2) {
@@ -513,6 +524,29 @@ void Scene::setBackground(const char **attr)
 	  }		
 	} // end for
 }
+
+void Scene::setMoveSpeed(const char** attr)
+{
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+			case TOK_speed:
+				setMoveSpeed(atof(val));
+				break;
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+}
+
 void Scene::createCamera(const char **attr) 
 {	
 	pl_Cam *cam = plCamCreate(screenWidth_,

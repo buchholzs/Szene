@@ -31,7 +31,6 @@ using namespace scene;
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
 static void handleError(SceneDesktop * desktop, const string &msg);
 
-const float velocity  = 200.0f / 1000.0f;	// m/s
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
 
@@ -195,8 +194,8 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	memset(desktop->ThePalette, 0, sizeof desktop->ThePalette);
 
 	// create walk-, flymode
-	desktop->walkMode = new WalkMode(desktop->scn, velocity, velocity);
-	desktop->flyMode = new FlyMode(desktop->scn, velocity, velocity);
+	desktop->walkMode = new WalkMode(desktop->scn, desktop->scn->getMoveSpeed(), desktop->scn->getTurnSpeed());
+	desktop->flyMode = new FlyMode(desktop->scn, desktop->scn->getMoveSpeed(), desktop->scn->getTurnSpeed());
 
 	// create controller
 	desktop->controller = new Controller(desktop->walkMode, desktop->scn, desktop);
