@@ -19,12 +19,9 @@ CPPFLAGS += $(INCLUDES)
 
 LDLIBS = $(LIB_DIRS) $(EXELIBS)
 
-all: plushplr.exe scenetst.exe 
+all: PlushPlayer
 
-plushplr.exe: PlushPlayer.o
-	$(LINK.o) $^ $(LDLIBS) -o $@
-
-%exe : %o
+PlushPlayer: PlushPlayer.o
 	$(LINK.o) $^ $(LDLIBS) -o $@
 
 clean:

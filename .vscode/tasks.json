@@ -17,6 +17,23 @@
             ],
             "group": {
                 "kind": "build",
+                "isDefault": false
+            },
+            "detail": "Release erstellen."
+        },
+        {
+            "type": "cppbuild",
+            "label": "make",
+            "command": "make",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
                 "isDefault": true
             },
             "detail": "Release erstellen."

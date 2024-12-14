@@ -1,4 +1,4 @@
-EXELIBRARIES = depui grx20X plush expat X11 m stdc++
+EXELIBRARIES = scene depui grx20X plush expat X11 m stdc++
 
 INCLUDE_DIRS += ../contrib/grx248/include ../depui/include ../plush/src ../Scene/src
 LIBRARY_DIRS += ../contrib/grx248/lib/unix ../depui/lib ../plush ../Scene ../expat-1.95.2/libs
@@ -12,11 +12,9 @@ CPPFLAGS += -ggdb $(INCLUDES)
 
 LDLIBS = $(LIB_DIRS) $(EXELIBS)
 
-all: exe
+all: Matedit
 
-exe: matedit2.exe
-
-%exe : %o
+Matedit : matedit.o
 	$(LINK.o) $^ $(LDLIBS) -o $@
 
 clean:

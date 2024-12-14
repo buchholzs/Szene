@@ -62,13 +62,16 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		const char *fileName = lbs == NULL ? okSel->caption : ++lbs;
 #else
 		char *fileName = strdup((char *)okSel->caption);
-		char *pathcopy = (char *)okSel->caption;
+		char *pathcopy = strdup((char *)okSel->caption);
+		char *newFile = basename(fileName);
 		char *newDir = dirname(pathcopy);
 #endif
 		if (newDir != NULL) {
 		  chdir(newDir);
 		}
-		desktop->controller->loadScene(fileName);
+		desktop->controller->loadScene(newFile);
+		free(fileName);
+		free(pathcopy);
 	  }
 	break;
   default:
@@ -169,7 +172,7 @@ void Controller::loadScene (const std::string &filename)
 	Scene::ActionMap *am = scene_->getAllActions();
 
     strcpy(desktop_->lastmessage, (std::string(filename) + " loaded.").c_str());
-	scene_->getHud()->setStatus(desktop_->lastmessage);
+	desktop_->hud->setStatus(desktop_->lastmessage);
 
 	// reset time
 	desktop_->prevtime = clock();

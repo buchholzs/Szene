@@ -46,7 +46,7 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
  
   switch (event->type) {
   case MxEventDestroy:
-	  delete desktop->scn->getHud();
+	  delete desktop->hud;
 	  delete desktop->scn;
 	  GrDestroyContext((struct _GR_context *)desktop->ctx);
 	  delete desktop->walkMode;
@@ -190,9 +190,9 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	// create image for scene
 	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,NULL,NULL);
 
-	Hud *hud = new Hud(LIGHTGRAY, (struct _GR_context *)desktop->ctx);
-	desktop->scn->setHud(hud);
-
+	// create hud
+	desktop->hud = new Hud(egacolors[LIGHTGRAY], (struct _GR_context *)desktop->ctx);
+	
 	// clear palette
 	memset(desktop->ThePalette, 0, sizeof desktop->ThePalette);
 
@@ -231,14 +231,14 @@ void updateScene(SceneDesktop * desktop) {
 
   if (desktop->elapsedTime >= 1000.0) {
 	float fps = ((float)desktop->frames)*1000.0f / desktop->elapsedTime;
-	desktop->scn->getHud()->setFPS(fps);
+	desktop->hud->setFPS(fps);
 	desktop->frames = 0;
 	desktop->elapsedTime = 0.0f;
   }
   if (cam) {
-	  desktop->scn->getHud()->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
+	  desktop->hud->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
   } else {
-	  desktop->scn->getHud()->setPosition(0,0,0,0,0,0);
+	  desktop->hud->setPosition(0,0,0,0,0,0);
   }
   
   if (cam) {
@@ -246,6 +246,7 @@ void updateScene(SceneDesktop * desktop) {
 	desktop->frames++;
 	desktop->scn->execute(desktop->difftime);
 	LoadContextFromFramebuffer(desktop);
+	desktop->hud->display(); // show Hud last
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
 	GrClearContext( MxColorDesktop );

@@ -239,10 +239,6 @@ class Scene {
   */
   void makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend);
 
-  void setHud(Hud* hud) { hud_ = hud;  }
-
-  Hud *getHud() { return hud_; }
-
   // pausiert die Animationen bei false
   void	setPause(bool pause) { pause_ = pause;  }
 
@@ -277,7 +273,6 @@ class Scene {
   float moveSpeed_; // Bewegungsgeschwindigkeit
   float turnSpeed_; // Drehgeschwindigkeit
 
-  Hud* hud_; // Hud
   bool pause_; // Pause
   Logger logger_; // Logger
 };

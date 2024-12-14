@@ -17,7 +17,6 @@
 #include "Sequence.h"
 #include "Pause.h"
 #include "SetMat.h"
-#include "Hud.h"
 #include "scenedbg.h"
 
 using namespace scene;
@@ -399,11 +398,7 @@ void Scene::render ()
 		{
 			plRenderObj(oit->second);	// Render our objects
 		}
-    plRenderEnd(); // Finish rendering	
-	
-	if (hud_) {
-		hud_->display(); // show Hud
-	}
+    plRenderEnd(); // Finish rendering
 	// PRESERVE:END
 }
 
@@ -466,7 +461,6 @@ void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio
 	moveSpeed_ = moveVelocity;
 	turnSpeed_ = turnVelocity;
 	pause_ = false;
-	hud_ = NULL;
 }
 
 // delete action

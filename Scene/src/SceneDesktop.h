@@ -38,6 +38,7 @@ typedef struct SceneDesktop {
 		scene::FlyMode *flyMode;
 		scene::WalkMode *walkMode;
 		scene::Scene *scn;
+		scene::Hud *hud;
 
 		pl_uChar ThePalette[nCols*3];
 		GrColor TheGrxPalette[nCols];

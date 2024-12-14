@@ -2,7 +2,7 @@
 # Szene makefile for DJGPP version (GNU-make)
 #
 
-EXE=PlushPlayer/plushplr.exe MatEdit2/matedit2.exe
+EXE=PlushPlayer/PlushPlayer MatEdit/Matedit
 
 LIB=expat/libexpat.a plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a depui/lib/libdepui.a Scene/libscene.a
 
@@ -24,10 +24,10 @@ depui/lib/libdepui.a:
 Scene/libscene.a:
 	$(MAKE) -C Scene -f MAKEFILE all
 
-MatEdit2/matedit2.exe: $(LIB)
-	$(MAKE) -C MatEdit2 -f MAKEFILE
+MatEdit/Matedit: $(LIB)
+	$(MAKE) -C MatEdit -f MAKEFILE
 
-PlushPlayer/plushplr.exe: $(LIB)
+PlushPlayer/PlushPlayer: $(LIB)
 	$(MAKE) -C PlushPlayer -f MAKEFILE
 
 clean:
@@ -37,7 +37,7 @@ clean:
 	del contrib\grx248\lib\dj2\libgrx20.a
 	$(MAKE) -C depui -f MAKEFILE clean
 	$(MAKE) -C Scene -f MAKEFILE clean
-	$(MAKE) -C MatEdit2 -f MAKEFILE clean
+	$(MAKE) -C MatEdit -f MAKEFILE clean
 	$(MAKE) -C PlushPlayer -f MAKEFILE clean
 
 install:
