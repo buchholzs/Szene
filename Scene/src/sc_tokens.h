@@ -76,6 +76,7 @@ enum sc_Tokens {
   TOK_objects,
   TOK_optimize,
   TOK_pan,
+  TOK_pause,
   TOK_perspectivecorrect,
   TOK_pitch,
   TOK_plane,

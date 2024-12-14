@@ -74,6 +74,7 @@ sc_TokenPair tokenMap[] = {
   {"objects", TOK_objects},
   {"optimize", TOK_optimize},
   {"pan", TOK_pan},
+  {"pause", TOK_pause},
   {"perspectivecorrect", TOK_perspectivecorrect},
   {"pitch", TOK_pitch},
   {"plane", TOK_plane},

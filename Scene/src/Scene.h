@@ -203,6 +203,9 @@ class Scene {
   // Erzeugt eine Sequence-Animation anhand der Attributliste
   void createSequence(enum sc_Tokens tok, const char** attr);
 
+  // Erzeugt eine Pause-Animation anhand der Attributliste
+  void createPause(enum sc_Tokens tok, const char** attr);
+
   // Mover point setzen anhand der Attributliste
   void setPoint(const char** attr);
 

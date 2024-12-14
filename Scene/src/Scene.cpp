@@ -15,6 +15,7 @@
 #include "Mover.h"
 #include "Rotator.h"
 #include "Sequence.h"
+#include "Pause.h"
 #include "Hud.h"
 #include "scenedbg.h"
 
@@ -167,6 +168,9 @@ startElement(void *userData, const char *name, const char **atts)
 		  break;
 	  case TOK_sequence:
 		  scene->createSequence(res->val, atts);
+		  break;
+	  case TOK_pause:
+		  scene->createPause(res->val, atts);
 		  break;
 	  case TOK_scene: case TOK_global: case TOK_cameras: case TOK_textures:
 	  case TOK_materials: case TOK_lights: case TOK_objects: case TOK_transformations: case TOK_animations:
@@ -1483,6 +1487,44 @@ void Scene::createSequence(enum sc_Tokens tok, const char** attr)
 	Sequence* sequence = new Sequence(obj, repeat);
 	setCurrSequence(sequence);
 	actions_.insert(make_pair(id, sequence));
+}
+
+void Scene::createPause(sc_Tokens tok, const char** attr)
+{
+	bool repeat = true;	// #DEFAULT
+	string id;
+	int duration = 0;
+
+	for (int i = 0; attr[i]; i += 2) {
+		const char* name = attr[i];
+		const char* val = attr[i + 1];
+
+		sc_TokenPair* res = sc_search(name);
+		if (res) {
+			switch (res->val) {
+			case TOK_id:
+				id = val;
+				break;
+			case TOK_duration:
+				duration = atof(val);
+				break;
+			default:
+				throw domain_error(string("Unerwartetes Token: ") + name);
+			}
+		}
+		else {
+			throw domain_error(string("Unerwartetes Token: ") + name);
+		}
+	} // end for
+
+	Pause* pause = new Pause(duration);
+	bool isSequence = getCurrSequence() != NULL;
+	if (isSequence) {
+		getCurrSequence()->addTargetCommand(make_pair(id, pause));
+	}
+	else {
+		actions_.insert(make_pair(id, pause));
+	}
 }
 
 void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)

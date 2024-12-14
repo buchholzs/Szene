@@ -194,13 +194,11 @@
 			</mover>
 		</sequence>
 		<sequence id="rotateCard" target="TSweep001">
-			<rotator target="TSweep001" duration="10000" type="OBJECT">
+			<rotator target="TSweep001" duration="8000" type="OBJECT">
 				<angle xa="0" ya="0" za="90"/>
 			</rotator>
-			<mover target="TSweep001" duration="6000" type="OBJECT">
-				<point xp="0" yp="0" zp="0"/>
-			</mover>
-			<rotator target="TSweep001" duration="10000" type="OBJECT">
+			<pause id="Pause001" duration="10000"/>
+			<rotator target="TSweep001" duration="8000" type="OBJECT">
 				<angle xa="0" ya="0" za="-90"/>
 			</rotator>
 		</sequence>
