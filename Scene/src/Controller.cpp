@@ -171,6 +171,8 @@ void Controller::loadScene (const std::string &filename)
     strcpy(desktop_->lastmessage, (std::string(filename) + " loaded.").c_str());
 	scene_->getHud()->setStatus(desktop_->lastmessage);
 
+	// reset time
+	desktop_->prevtime = clock();
 	setDirectDisplay(desktop_, true);
   } catch (Scene::IOError &) {
 	std::ostringstream msg;

@@ -196,30 +196,30 @@
 	</transformations>
 	<animations>
 		<sequence id="moveCard" target="TSweep001">
+			<pause id="Pause1-1" duration="1000"/>
 			<mover target="TSweep001" duration="13000" type="OBJECT">
 				<point xp="0" yp="0" zp="13"/>
 			</mover>
-			<pause id="Pause1-1" duration="5000"/>
+			<pause id="Pause1-2" duration="5000"/>
 			<mover target="TSweep001" duration="13000" type="OBJECT">
 				<point xp="0" yp="0" zp="-13"/>
 			</mover>
-			<pause id="Pause1-2" duration="1000"/>
 		</sequence>
 		<sequence id="rotateCard" target="TSweep001">
+			<pause id="Pause2-1" duration="1000"/>
 			<rotator target="TSweep001" duration="8000" type="OBJECT">
 				<angle xa="0" ya="0" za="90"/>
 			</rotator>
-			<pause id="Pause2-1" duration="15000"/>
+			<pause id="Pause2-2" duration="15000"/>
 			<rotator target="TSweep001" duration="8000" type="OBJECT">
 				<angle xa="0" ya="0" za="-90"/>
 			</rotator>
-			<pause id="Pause2-2" duration="1000"/>
 		</sequence>
 		<sequence id="setMatCard" target="TSweep001">
-			<setMat id="SetMat_led0" target="led" material="led0_mat" duration="13000"/>
+			<setMat id="SetMat_led0" target="led" material="led0_mat" duration="14000"/>
 			<setMat id="SetMat_led1" target="led" material="led1_mat" duration="4000"/>
 			<setMat id="SetMat_led2" target="led" material="led2_mat" duration="6000"/>
-			<setMat id="SetMat_led0" target="led" material="led0_mat" duration="9000"/>
+			<setMat id="SetMat_led0" target="led" material="led0_mat" duration="8000"/>
 		</sequence>
 	</animations>
 </scene>
