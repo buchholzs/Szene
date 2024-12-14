@@ -93,6 +93,7 @@ sc_TokenPair tokenMap[] = {
   {"scale", TOK_scale},
   {"scene", TOK_scene},
   {"sequence", TOK_sequence},
+  {"setMat", TOK_setMat},
   {"shadetype", TOK_shadetype},
   {"shininess", TOK_shininess},
   {"sort", TOK_sort},

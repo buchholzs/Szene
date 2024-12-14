@@ -95,6 +95,7 @@ enum sc_Tokens {
   TOK_scale,
   TOK_scene,
   TOK_sequence,
+  TOK_setMat,
   TOK_shadetype,
   TOK_shininess,
   TOK_sort,
