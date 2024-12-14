@@ -3,6 +3,9 @@
 #
 Release=.\PlushPlayer-Matedit
 Scenes=$(Release)\scenes
+
+all: clean install
+
 install:
 	if not exist $(Release) mkdir $(Release)
 	if not exist $(Scenes) mkdir $(Scenes)
