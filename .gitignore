@@ -40,4 +40,4 @@ contrib/grx248/test/bgi/x*
 /Scene/scenelib.vcxproj
 MatEdit/Debug/*
 MatEdit/Release/*
-/Release
+PlushPlayer-Matedit/
