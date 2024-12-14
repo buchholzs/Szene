@@ -203,7 +203,7 @@
 			<mover target="TSweep001" duration="13000" type="OBJECT">
 				<point xp="0" yp="0" zp="-13"/>
 			</mover>
-			<pause id="Pause1-1" duration="1000"/>
+			<pause id="Pause1-2" duration="1000"/>
 		</sequence>
 		<sequence id="rotateCard" target="TSweep001">
 			<rotator target="TSweep001" duration="8000" type="OBJECT">
