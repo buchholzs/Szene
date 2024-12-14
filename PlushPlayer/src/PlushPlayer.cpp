@@ -14,6 +14,7 @@
 #include <Windows.h>
 #else
 #include <unistd.h>
+#include "ScreenResolution.h"
 #endif
 #define GrContext GrContext2
 #define GrFont GrFont2
@@ -65,12 +66,13 @@ int main(int argc, char *argv[])
 	 MxDriverInput input = MxDriverInputDefault;
 
 	 MxArgsInit(&desktopargs);
-#ifdef WIN32
-	 int maxScreenWidth = GetSystemMetrics(SM_CXSCREEN);
-	 int maxScreenHeight = GetSystemMetrics(SM_CYSCREEN);
-#else
 	 int maxScreenWidth = screen_w;
 	 int maxScreenHeight = screen_h;
+#ifdef WIN32
+	 maxScreenWidth = GetSystemMetrics(SM_CXSCREEN);
+	 maxScreenHeight = GetSystemMetrics(SM_CYSCREEN);
+#else
+	ScreenResolution(&maxScreenWidth, &maxScreenHeight);
 #endif
 	 desktopargs.mxdesktop.desktop_w = maxScreenWidth;
 	 desktopargs.mxdesktop.desktop_h = maxScreenHeight;
