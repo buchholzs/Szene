@@ -1,5 +1,4 @@
 #pragma warning (disable : 4786)
-#include "SceneDesktop.h"
 
 #include <assert.h>
 #include <algorithm>
@@ -14,13 +13,13 @@
 #include <depui/args/args.h>
 #include <depui/object/object.h>
 #include <depui/graphics/clip.h>
-
 #include "Controller.h"
 #include "Hud.h"
 #include "MoveMode.h"
 #include "FlyMode.h"
 #include "Scene.h"
 #include "WalkMode.h"
+#include "SceneDesktop.h"
 
 using namespace std;
 using namespace scene;
@@ -30,6 +29,7 @@ using namespace scene;
 //
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
 static void handleError(SceneDesktop * desktop, const string &msg);
+static int LoadContextFromFramebuffer( SceneDesktop * desktop );
 
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
@@ -179,13 +179,16 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	MxColorFocus = egacolors[LIGHTBLUE];
 	MxColorDisabled = egacolors[DARKGRAY];
 
+	for (int i = 0; i < nEgaCols; i++) {
+		desktop->TheGrxPalette[i] = egacolors[i];
+	}
+
 	desktop->base.object.handler = SceneDesktopHandler;
 	desktop->scn = new scene::Scene(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h);
 	desktop->lastmessage[0] = '\0';
 
 	// create image for scene
-	char *memory[4] = {(char *)desktop->scn->getFrameBuffer(),0,0,0};
-	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,memory,NULL);
+	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,NULL,NULL);
 
 	Hud *hud = new Hud(LIGHTGRAY, (struct _GR_context *)desktop->ctx);
 	desktop->scn->setHud(hud);
@@ -242,6 +245,7 @@ void updateScene(SceneDesktop * desktop) {
 	desktop->scn->render();
 	desktop->frames++;
 	desktop->scn->execute(desktop->difftime);
+	LoadContextFromFramebuffer(desktop);
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
 	GrClearContext( MxColorDesktop );
@@ -258,6 +262,40 @@ void updateScene(SceneDesktop * desktop) {
   } else {
 	MxRefresh(&desktop->base.object);
   }
+}
+
+static int LoadContextFromFramebuffer( SceneDesktop * desktop )
+{
+  int x, y;
+  int needcoloradjust = 0;
+  int maxwidth, maxheight;
+  double coloradjust = 255.0;
+  GrColor *pColors=NULL;
+  unsigned char *pRGB=NULL, *pCursor;
+  int res = 0;
+
+  maxwidth = ((GrContext2 *)desktop->ctx)->gc_xmax + 1;
+  maxheight = ((GrContext2 *)desktop->ctx)->gc_ymax + 1;
+
+
+  pl_uChar *frameBuffer = desktop->scn->getFrameBuffer();
+  pColors = (GrColor *)malloc( maxwidth * sizeof(GrColor) );
+  if(pColors == NULL) { res = -1; goto salida; }
+
+  GrSetContext((GrContext2*)desktop->ctx);
+  for( y=0; y<maxheight; y++ ){
+    for( x=0; x<maxwidth; x++ ){
+	  pl_uChar c = frameBuffer[y*maxwidth+x];
+      pColors[x] = desktop->TheGrxPalette[c];
+      }
+    GrPutScanline( 0,maxwidth-1,y,pColors,GrWRITE );
+    }
+  GrSetContext(NULL);
+
+salida:
+  if( pColors != NULL ) free( pColors );
+  if( pRGB != NULL ) free( pRGB );
+  return res;
 }
 
 void mouse_reset(SceneDesktop * desktop) 

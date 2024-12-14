@@ -22,6 +22,10 @@ namespace scene {
 	class WalkMode;
 	class Scene;
 }
+
+const int nCols = 256;
+const int nEgaCols = 16;
+
 //////////////////////////////////////////////////////////////////////////////
 // Typen
 //
@@ -35,7 +39,8 @@ typedef struct SceneDesktop {
 		scene::WalkMode *walkMode;
 		scene::Scene *scn;
 
-		pl_uChar ThePalette[768];
+		pl_uChar ThePalette[nCols*3];
+		GrColor TheGrxPalette[nCols];
 		MxImage *ctx;
 		
 		signed short int old_mouse_x;
