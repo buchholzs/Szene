@@ -2,16 +2,15 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "make plushplr.exe",
-            "command": "make",
+            "label": "nmake /f Makefile.w32 install",
+            "command": "nmake",
             "args": [
                 "-f",
-                "MAKEFILE",
-                "clean",
-                "all"
+                "Makefile.w32",
+                "install"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/PlushPlayer"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"
@@ -20,7 +19,7 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Vom Debugger generierte Aufgabe."
+            "detail": "Release erstellen."
         }
     ],
     "version": "2.0.0"

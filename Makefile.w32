@@ -1,0 +1,12 @@
+Release=.\Release
+Scenes=.\Release\scenes
+install:
+	if not exist $(Release) mkdir $(Release)
+	if not exist $(Scenes) mkdir $(Scenes)
+	copy PlushPlayer\Release\PlushPlayer.exe Release
+	copy Matedit\Release\Matedit.exe Release
+	copy Matedit\standard.scx Release
+	xcopy /s /y PlushPlayer\scenes $(Scenes)
+
+clean:
+	if exist $(Release) rd /s /q $(Release)
