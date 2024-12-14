@@ -21,7 +21,7 @@
 <!ELEMENT lights (light)+>
 <!ELEMENT objects (plane|box|sphere|cone|cylinder|torus|o3ds|jaw|cob)+>
 <!ELEMENT transformations (translate|rotate|scale)+>
-<!ELEMENT animations (mover|rotator|sequence)+>
+<!ELEMENT animations (mover|rotator|pause|setMat|sequence)+>
 
 <!ELEMENT background EMPTY>
 <!ATTLIST background color CDATA #REQUIRED>
@@ -224,7 +224,21 @@
           relativeTo IDREF #IMPLIED
 	      angle CDATA #IMPLIED
           type (OBJECT|
-                CAMERA) "OBJECT"
+          CAMERA) "OBJECT"
+>
+
+<!ELEMENT pause EMPTY>
+<!ATTLIST pause
+          id  ID  #REQUIRED
+          duration CDATA #IMPLIED
+>
+
+<!ELEMENT setMat EMPTY>
+<!ATTLIST setMat
+          id  ID  #REQUIRED
+          target IDREF #REQUIRED
+          material  IDREF #REQUIRED
+          duration CDATA #IMPLIED
 >
 
 <!ELEMENT angle EMPTY>
@@ -234,9 +248,9 @@
           za CDATA #IMPLIED
 >
 
-<!ELEMENT sequence (mover|rotator)+>
+<!ELEMENT sequence (mover|rotator|pause|setMat)+>
 <!ATTLIST sequence
           id  ID  #REQUIRED
-	      target IDREF #REQUIRED
+	    target IDREF #REQUIRED
           repeat (yes|no) "yes"
 >

@@ -68,7 +68,9 @@ void Sequence::Execute (float timeDiff) {
 		if (resetTarget) {
 			TargetCommand* targetCommand = action.second;
 			pl_Obj* oldObj = action.second->getTargetObj();
-			restorePosAndAngle(oldObj);
+			if (oldObj) {
+				restorePosAndAngle(oldObj);
+			}
 		}
 	}
 	action.second->Execute(timeDiff);
