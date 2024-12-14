@@ -1,13 +1,18 @@
+#
+# Aufruf: nmake /f .\Makefile.w32 Version=0.x clean install
+#
 Release=.\PlushPlayer-Matedit
 Scenes=$(Release)\scenes
 install:
 	if not exist $(Release) mkdir $(Release)
 	if not exist $(Scenes) mkdir $(Scenes)
 	xcopy /s /y PlushPlayer\scenes $(Scenes)
-	copy PlushPlayer\Release\PlushPlayer.exe $(Release)
-	copy Matedit\Release\Matedit.exe $(Release)
-	copy Matedit\standard.scx $(Release)
-	copy releasetemplates\Readme.txt $(Release)
+	xcopy /y PlushPlayer\Release\PlushPlayer.exe $(Release)
+	xcopy /y Matedit\Release\Matedit.exe $(Release)
+	xcopy /y Matedit\standard.scx $(Release)
+	powershell "((Get-Content -path .\releasetemplates\Readme.tmpl -Raw) -replace '{Version}', '$(Version)') | Set-Content -Path $(Release)\Readme.txt"
+	cd $(Release)
+	powershell Compress-Archive * $(Release)-$(Version).zip
 
 clean:
 	if exist $(Release) rd /s /q $(Release)
