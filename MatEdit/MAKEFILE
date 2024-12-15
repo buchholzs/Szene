@@ -8,20 +8,26 @@ INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
 LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
 
 CC = g++
-CPPFLAGS += -ggdb $(INCLUDES)
+CPPFLAGS += $(INCLUDES)
 
 LDLIBS = $(LIB_DIRS) $(EXELIBS)
 
+ifdef DEBUG
+CPPFLAGS += -ggdb
+else
+CPPFLAGS += -O3
+endif
+
 all: Matedit
 
-Matedit : matedit.o
-	$(LINK.o) $^ $(LDLIBS) -o $@
+Matedit : matedit.o $(PARENTLIBS)
+	$(LINK.o) $< $(LDLIBS) -o $@
 
 clean:
-	for %j in (*.o *.exe) do del %j
+	rm -f Matedit *.o
 
 # Dependencies
 
-matedit2.exe:  matedit2.o ../Scene/libscene.a
+matedit.o: matedit.cpp matedit.h
 
-matedit2.o: matedit2.cpp matedit2.h
+include ../mrules.inc

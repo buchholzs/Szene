@@ -25,7 +25,9 @@
             "type": "cppbuild",
             "label": "make",
             "command": "make",
-            "args": [],
+            "args": [
+                "DEBUG=1"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },

@@ -15,8 +15,12 @@ INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
 LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
 
 CC = gxx
-CPPFLAGS += -ggdb -DDEBUG
 CPPFLAGS += $(INCLUDES)
+ifdef DEBUG
+CPPFLAGS += -ggdb
+else
+CPPFLAGS += -O3
+endif
 
 LDLIBS = $(LIB_DIRS) $(EXELIBS)
 
