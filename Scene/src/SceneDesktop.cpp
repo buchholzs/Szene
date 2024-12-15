@@ -279,7 +279,6 @@ static int LoadContextFromFramebuffer( SceneDesktop * desktop )
   int maxwidth, maxheight;
   double coloradjust = 255.0;
   GrColor *pColors=NULL;
-  unsigned char *pRGB=NULL, *pCursor;
   int res = 0;
 
   maxwidth = ((GrContext2 *)desktop->ctx)->gc_xmax + 1;
@@ -295,14 +294,13 @@ static int LoadContextFromFramebuffer( SceneDesktop * desktop )
     for( x=0; x<maxwidth; x++ ){
 	  pl_uChar c = frameBuffer[y*maxwidth+x];
       pColors[x] = desktop->TheGrxPalette[c];
-      }
-    GrPutScanline( 0,maxwidth-1,y,pColors,GrWRITE );
     }
+    GrPutScanline( 0,maxwidth-1,y,pColors,GrWRITE );
+  }
   GrSetContext(NULL);
 
 salida:
   if( pColors != NULL ) free( pColors );
-  if( pRGB != NULL ) free( pRGB );
   return res;
 }
 
