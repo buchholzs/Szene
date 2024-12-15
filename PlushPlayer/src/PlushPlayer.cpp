@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
 			lastScreenRefresh = 0;
 			updateScene(&desktop);
 		}
-		if (lastInputPoll > input_ivl) {
+		if ((lastInputPoll > input_ivl) || !desktop.directDisplay) {
 			lastInputPoll = 0;
 			desktopRun = MxDesktopRun(&desktop.base.desktop);
 		}

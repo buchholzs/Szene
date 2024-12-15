@@ -1,4 +1,3 @@
-#ifdef  DEBUG
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -33,5 +32,3 @@ void _scene_debug_printf(const char *fmt,...)
 	fprintf(dfp, "\n");
 	fclose(dfp);
 }
-
-#endif
