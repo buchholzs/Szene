@@ -188,7 +188,12 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->lastmessage[0] = '\0';
 
 	// create image for scene
+#ifdef WIN32
+	char* memory[4] = { (char*)desktop->scn->getFrameBuffer(),0,0,0 };
+	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w, args.mxdesktop.desktop_h, memory, NULL);
+#else
 	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,NULL,NULL);
+#endif 
 
 	// create hud
 	desktop->hud = new Hud(egacolors[LIGHTGRAY], (struct _GR_context *)desktop->ctx);
@@ -245,7 +250,9 @@ void updateScene(SceneDesktop * desktop) {
 	desktop->scn->render();
 	desktop->frames++;
 	desktop->scn->execute(desktop->difftime);
+#ifndef WIN32
 	LoadContextFromFramebuffer(desktop);
+#endif
 	desktop->hud->display(); // show Hud last
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
