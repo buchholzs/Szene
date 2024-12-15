@@ -160,6 +160,11 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	MxUserArgsInit(args, userargs);
 
 	MxDesktopConstruct(&desktop->base.desktop, x, y, w, h, &args.mxdesktop );
+#ifdef WIN32
+	desktop->mouseWarp = true;
+#else
+	desktop->mouseWarp = false; // wayland doesn't support XWarpPointer
+#endif
 
 	GrResetColors(); // Palette mode
 	int nFreeCols = GrNumFreeColors();
@@ -222,7 +227,9 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->old_mouse_y = desktop->save_mouse_y = args.mxdesktop.desktop_h / 2;
 	desktop->mx = 0;
 	desktop->my = 0;
-	GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+	if (desktop->mouseWarp) {
+		GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+	}
 	setDirectDisplay(desktop, true);
 }
 
@@ -311,7 +318,9 @@ void mouse_reset(SceneDesktop * desktop)
   int screen_h = ((GrContext2 *)ctx)->gc_ymax + 1;
 
   GrMouseEvent evt;
-  GrMouseWarp(screen_w / 2, screen_h / 2);
+  if (desktop->mouseWarp) {
+  	GrMouseWarp(screen_w / 2, screen_h / 2);
+  }
   do {
     GrMouseGetEventT(GR_M_EVENT | GR_M_NOPAINT, &evt,0L);
   } while (evt.flags != 0);
@@ -343,7 +352,9 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 			// restore mouse pos
 			desktop->old_mouse_x = desktop->save_mouse_x;
 			desktop->old_mouse_y = desktop->save_mouse_y;
-			GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+			if (desktop->mouseWarp) {
+				GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+			}
 		}
 		else {
 			// show mouse
