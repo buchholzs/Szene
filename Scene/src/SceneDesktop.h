@@ -59,6 +59,7 @@ typedef struct SceneDesktop {
 		bool ignorePointerMove; // ignore last MxEventPointerMove event
 		char lastmessage[256]; // status message
 		bool paletteMode; // Palette or TrueColor?
+		bool mouseWarp; // mouse warp on/off
 	 } SceneDesktop;
 
 	 typedef struct SceneDesktopArgs {
