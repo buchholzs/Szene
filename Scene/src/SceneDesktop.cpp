@@ -275,17 +275,14 @@ void updateScene(SceneDesktop * desktop) {
 static int LoadContextFromFramebuffer( SceneDesktop * desktop )
 {
   int x, y;
-  int needcoloradjust = 0;
   int maxwidth, maxheight;
-  double coloradjust = 255.0;
   GrColor *pColors=NULL;
   int res = 0;
 
   maxwidth = ((GrContext2 *)desktop->ctx)->gc_xmax + 1;
   maxheight = ((GrContext2 *)desktop->ctx)->gc_ymax + 1;
 
-
-  pl_uChar *frameBuffer = desktop->scn->getFrameBuffer();
+  register pl_uChar *frameBuffer = desktop->scn->getFrameBuffer();
   pColors = (GrColor *)malloc( maxwidth * sizeof(GrColor) );
   if(pColors == NULL) { res = -1; goto salida; }
 
