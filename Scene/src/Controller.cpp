@@ -59,7 +59,7 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 			  *lbs='\0';
 		}
 		char *newDir= lbs == NULL ? NULL : strdup(okSel->caption);
-		const char *fileName = lbs == NULL ? okSel->caption : ++lbs;
+		const char * newFile = lbs == NULL ? okSel->caption : ++lbs;
 #else
 		char *fileName = strdup((char *)okSel->caption);
 		char *pathcopy = strdup((char *)okSel->caption);
@@ -70,8 +70,10 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		  chdir(newDir);
 		}
 		desktop->controller->loadScene(newFile);
+#ifndef WIN32
 		free(fileName);
 		free(pathcopy);
+#endif
 	  }
 	break;
   default:
