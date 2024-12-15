@@ -2,7 +2,7 @@
 #define __SCENEDEBUG_H_INCLUDED__
 extern const char *_scene_debug_file;
 extern int   _scene_debug_line;
-extern void  _scene_debug_printf(char *fmt,...);
+extern void  _scene_debug_printf(const char *fmt,...);
 # ifdef __GNUC__
   extern const char *_scene_debug_function;
 #  define DBGPRINTF(x) do {           \

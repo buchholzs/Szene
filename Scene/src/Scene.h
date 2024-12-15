@@ -11,7 +11,6 @@
 #include <string>
 #include <map>
 #include <PLUSH.H>
-#include "Logger.h"
 #include "sc_tokens.h"
 
 /* itoa:  convert n to characters in s */
@@ -170,8 +169,8 @@ class Scene {
   // F�hrt die Aktionen der Szene aus
   void	execute (float timeDiff);
 
-  // Gibt eine Beschreibung der Szene auf den Stream aus
-  void	dump (const std::ostream &str);
+  // Gibt eine Beschreibung der Szene im Debug Log aus
+  void	dump ();
 
   // Erzeugt eine Camera anhand der Attributliste
   void createCamera(const char **attr);
@@ -253,6 +252,7 @@ class Scene {
   // Initialisiert wichtige Attribute
   void init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio);
 
+  std::string fileName_;
   CamMap cameras_;
   LightMap lights_;
   ObjMap objects_;
@@ -274,7 +274,6 @@ class Scene {
   float turnSpeed_; // Drehgeschwindigkeit
 
   bool pause_; // Pause
-  Logger logger_; // Logger
 };
 
 } // scene

@@ -3,8 +3,6 @@
 // NOTE: please use a PRESERVE:BEGIN/PRESERVE:END comment block
 //       to preserve your hand-coding across code generations.
 
-#include "Scene.h"
-
 #include <assert.h>
 #include <math.h>
 #include <sstream>
@@ -18,6 +16,7 @@
 #include "Pause.h"
 #include "SetMat.h"
 #include "scenedbg.h"
+#include "Scene.h"
 
 using namespace scene;
 
@@ -283,6 +282,7 @@ Sequence* Scene::getCurrSequence()
 void Scene::loadXML (const string &fileName)
 {
 	// PRESERVE:BEGIN
+	fileName_ = fileName;
 	FILE *stream = NULL;
 	XML_Parser parser = NULL;
 	RessourceTracker rt; // do cleanup on method end
@@ -419,30 +419,36 @@ void Scene::execute (float timeDiff)
 // ------------------------------------------------------------
 // Gibt eine Beschreibung der Szene auf den Stream aus
 
-void Scene::dump (const ostream &str)
+void Scene::dump ()
 {
 	// PRESERVE:BEGIN
-	logger_.debug("Dumping Scene");
+	string line;
+	DBGPRINTF(("Dumping Scene %s", fileName_.c_str()));
 
-	logger_.debug("Cameras: ");
-	for_each(cameras_.begin(), cameras_.end(), [](pair<CamMap::key_type, CamMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
-	logger_.debug("]");
+	line = "Cameras: ";
+	for_each(cameras_.begin(), cameras_.end(), [&line](pair<CamMap::key_type, CamMap::mapped_type> p) { line += p.first +", "; });
+	line +="]";
+	DBGPRINTF((line.c_str()));
 
-	logger_.debug("Lights: [");
-	for_each(lights_.begin(), lights_.end(), [](pair<LightMap::key_type, LightMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
-	logger_.debug("]");
+	line = "Lights: [";
+	for_each(lights_.begin(), lights_.end(), [&line](pair<LightMap::key_type, LightMap::mapped_type> p) { line += p.first +", "; });
+	line +="]";
+	DBGPRINTF((line.c_str()));
 
-	logger_.debug("Objects: [");
-	for_each(objects_.begin(), objects_.end(), [](pair<ObjMap::key_type, ObjMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
-	logger_.debug("]");
+	line = "Objects: [";
+	for_each(objects_.begin(), objects_.end(), [&line](pair<ObjMap::key_type, ObjMap::mapped_type> p) { line += p.first +", "; });
+	line +="]";
+	DBGPRINTF((line.c_str()));
 
-	logger_.debug("Materials:]");
-	for_each(materials_.begin(), materials_.end(), [](pair<MatMap::key_type, MatMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
-	logger_.debug("]");
+	line = "Materials: [";
+	for_each(materials_.begin(), materials_.end(), [&line](pair<MatMap::key_type, MatMap::mapped_type> p) { line += p.first +", "; });
+	line +="]";
+	DBGPRINTF((line.c_str()));
 
-	logger_.debug("Textures:]");
-	for_each(textures_.begin(), textures_.end(), [](pair<TextureMap::key_type, TextureMap::mapped_type> p) { Logger logger_; logger_.debug(p.first); });
-	logger_.debug("]");
+	line = "Textures: [";
+	for_each(textures_.begin(), textures_.end(), [&line](pair<TextureMap::key_type, TextureMap::mapped_type> p) { line += p.first +", "; });
+	line +="]";
+	DBGPRINTF((line.c_str()));
 // PRESERVE:END
 }
 

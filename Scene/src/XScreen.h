@@ -10,6 +10,7 @@ extern "C" {
 namespace scene {
 
 void ScreenResolution(int *width, int *height);
+bool FullScreen(bool fullscreen);
 
 } // scene
 #ifdef __cplusplus

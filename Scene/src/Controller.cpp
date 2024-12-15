@@ -166,6 +166,9 @@ void Controller::loadScene (const std::string &filename)
 {
   try {
     desktop_->scn->loadXML(filename);
+#ifdef DEBUG	
+	desktop_->scn->dump();
+#endif
 	moveMode_->setMoveSpeed(desktop_->scn->getMoveSpeed());
 	moveMode_->setTurnSpeed(desktop_->scn->getTurnSpeed());
 	mouse_reset(desktop_);

@@ -19,6 +19,7 @@
 #include "FlyMode.h"
 #include "Scene.h"
 #include "WalkMode.h"
+#include "scenedbg.h"
 #include "SceneDesktop.h"
 
 using namespace std;
@@ -164,6 +165,7 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->mouseWarp = true;
 #else
 	desktop->mouseWarp = false; // wayland doesn't support XWarpPointer
+	DBGPRINTF(("Fenstermanager unterstützt kein GrMouseWarp!"));    
 #endif
 
 	GrResetColors(); // Palette mode
