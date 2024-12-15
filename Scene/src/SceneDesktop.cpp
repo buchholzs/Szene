@@ -162,6 +162,9 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	MxDesktopConstruct(&desktop->base.desktop, x, y, w, h, &args.mxdesktop );
 
 	GrResetColors(); // Palette mode
+	int nFreeCols = GrNumFreeColors();
+	desktop->paletteMode = nFreeCols != 0;
+
 	GrColor *egacolors = GrAllocEgaColors();
 
 	MxColorFore = egacolors[BLACK];
@@ -188,12 +191,12 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->lastmessage[0] = '\0';
 
 	// create image for scene
-#ifdef WIN32
-	char* memory[4] = { (char*)desktop->scn->getFrameBuffer(),0,0,0 };
-	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w, args.mxdesktop.desktop_h, memory, NULL);
-#else
-	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,NULL,NULL);
-#endif 
+	if (desktop->paletteMode) {
+		char* memory[4] = { (char*)desktop->scn->getFrameBuffer(),0,0,0 };
+		desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w, args.mxdesktop.desktop_h, memory, NULL);
+	} else {
+		desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,NULL,NULL);
+	}
 
 	// create hud
 	desktop->hud = new Hud(egacolors[LIGHTGRAY], (struct _GR_context *)desktop->ctx);
@@ -250,9 +253,9 @@ void updateScene(SceneDesktop * desktop) {
 	desktop->scn->render();
 	desktop->frames++;
 	desktop->scn->execute(desktop->difftime);
-#ifndef WIN32
-	LoadContextFromFramebuffer(desktop);
-#endif
+	if (!desktop->paletteMode) {
+		LoadContextFromFramebuffer(desktop);
+	}
 	desktop->hud->display(); // show Hud last
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
@@ -282,7 +285,7 @@ static int LoadContextFromFramebuffer( SceneDesktop * desktop )
   maxwidth = ((GrContext2 *)desktop->ctx)->gc_xmax + 1;
   maxheight = ((GrContext2 *)desktop->ctx)->gc_ymax + 1;
 
-  register pl_uChar *frameBuffer = desktop->scn->getFrameBuffer();
+  pl_uChar *frameBuffer = desktop->scn->getFrameBuffer();
   pColors = (GrColor *)malloc( maxwidth * sizeof(GrColor) );
   if(pColors == NULL) { res = -1; goto salida; }
 

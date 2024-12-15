@@ -58,6 +58,7 @@ typedef struct SceneDesktop {
 		bool directDisplay; // display indirect in event loop or direct in display
 		bool ignorePointerMove; // ignore last MxEventPointerMove event
 		char lastmessage[256]; // status message
+		bool paletteMode; // Palette or TrueColor?
 	 } SceneDesktop;
 
 	 typedef struct SceneDesktopArgs {

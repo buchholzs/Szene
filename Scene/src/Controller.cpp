@@ -227,48 +227,50 @@ void Controller::reloadPalette()
   if (!colorsAllocated_) {
 	  colorsAllocated_ = true;
 
-#ifdef WIN32
-	  GrColor nFreeCols = GrNumFreeColors();
-	  GrColor nCols = 256;
-	  firstFreeColor_ = -1;
-	  GrColor oldCell = -1;
+	  if (desktop_->paletteMode) {
+		  int nFreeCols = GrNumFreeColors();
+		  assert(nFreeCols != 0);
 
-	  while (nFreeCols > 0) {
-		  GrColor cell = GrAllocCell();
-		  assert(cell < nCols);
-		  nFreeCols--;
-		  if (0 <= cell && cell < 256 && firstFreeColor_ == -1) {
-			  firstFreeColor_ = cell;
+		  int nCols = 256;
+		  firstFreeColor_ = -1;
+		  GrColor oldCell = -1;
+
+		  while (nFreeCols > 0) {
+			  GrColor cell = GrAllocCell();
+			  assert(cell < nCols);
+			  nFreeCols--;
+			  if (0 <= cell && cell < 256 && firstFreeColor_ == -1) {
+				  firstFreeColor_ = cell;
+				  oldCell = cell;
+			  }
+			  else {
+				  assert(cell == oldCell + 1);
+			  }
 			  oldCell = cell;
+			  lastFreeColor_ = cell;
 		  }
-		  else {
-			  assert(cell == oldCell + 1);
-		  }
-		  oldCell = cell;
-		  lastFreeColor_ = cell;
+		  nFreeCols = GrNumFreeColors();
+		  assert(nFreeCols == 0);
+	  } else {
+		  firstFreeColor_ = nEgaCols;
+		  lastFreeColor_ = nCols - 1;
 	  }
-	  nFreeCols = GrNumFreeColors();
-	  assert(nFreeCols == 0);
-#else
-	  firstFreeColor_ = nEgaCols;
-	  lastFreeColor_ = nCols - 1;
-#endif
   }
 
   // calculate new colors
   scene_->makePalette(desktop_->ThePalette, firstFreeColor_, lastFreeColor_);
 
   // set palette
-#ifdef WIN32
-  for (int i = firstFreeColor_; i <= lastFreeColor_; i++) {
-	  GrSetColor(i, desktop_->ThePalette[i * 3], desktop_->ThePalette[i * 3 + 1], desktop_->ThePalette[i * 3 + 2]);
+  if (desktop_->paletteMode) {
+	  for (int i = firstFreeColor_; i <= lastFreeColor_; i++) {
+		  GrSetColor(i, desktop_->ThePalette[i * 3], desktop_->ThePalette[i * 3 + 1], desktop_->ThePalette[i * 3 + 2]);
+	  }
+  } else {
+	  for(int i=firstFreeColor_; i< nCols; i++) {
+		GrColor col = GrAllocColor( desktop_->ThePalette[i*3],desktop_->ThePalette[i*3+1],desktop_->ThePalette[i*3+2] );
+		desktop_->TheGrxPalette[i] = col;
+	  }
   }
-#else
-  for(int i=firstFreeColor_; i< nCols; i++) {
-	GrColor col = GrAllocColor( desktop_->ThePalette[i*3],desktop_->ThePalette[i*3+1],desktop_->ThePalette[i*3+2] );
-	desktop_->TheGrxPalette[i] = col;
-  }
-#endif
 }
 
 // ------------------------------------------------------------
