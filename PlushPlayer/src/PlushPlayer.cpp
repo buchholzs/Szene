@@ -14,6 +14,7 @@
 #include <Windows.h>
 #else
 #include <unistd.h>
+#include <XScreen.h>
 #endif
 #define GrContext GrContext2
 #define GrFont GrFont2
@@ -65,17 +66,16 @@ int main(int argc, char *argv[])
 	 MxDriverInput input = MxDriverInputDefault;
 
 	 MxArgsInit(&desktopargs);
-#ifdef WIN32
-	 int maxScreenWidth = GetSystemMetrics(SM_CXSCREEN);
-	 int maxScreenHeight = GetSystemMetrics(SM_CYSCREEN);
-#else
 	 int maxScreenWidth = screen_w;
 	 int maxScreenHeight = screen_h;
+#ifdef WIN32
+	 maxScreenWidth = GetSystemMetrics(SM_CXSCREEN);
+	 maxScreenHeight = GetSystemMetrics(SM_CYSCREEN);
+#else
+	 ScreenResolution(&maxScreenWidth, &maxScreenHeight);
 #endif
 	 desktopargs.mxdesktop.desktop_w = maxScreenWidth;
 	 desktopargs.mxdesktop.desktop_h = maxScreenHeight;
-	 //desktopargs.mxdesktop.desktop_w = screen_w;
-	 //desktopargs.mxdesktop.desktop_h = screen_h;
 	 desktopargs.mxdesktop.desktop_c = 8;
 	 desktopargs.mxdesktop.system = &system;
 	 desktopargs.mxdesktop.output = &output;
@@ -86,6 +86,9 @@ int main(int argc, char *argv[])
 	 SceneDesktopConstruct(&desktop, 0, 0, 0, 0, &desktopargs);
 	 if (!desktop.base.desktop.ok)
 		  return 1;
+#ifndef WIN32
+	 FullScreen(true);
+#endif
 	
 	 /* Make a nice exit button */
 	 MxArgsInit(&buttonargs);

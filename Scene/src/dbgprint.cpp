@@ -15,7 +15,7 @@ int   _scene_debug_line;
 const char *_scene_debug_function;
 # endif
 
-void _scene_debug_printf(char *fmt,...)
+void _scene_debug_printf(const char *fmt,...)
 {
 	FILE *dfp = NULL;
 	va_list ap;
@@ -30,6 +30,7 @@ void _scene_debug_printf(char *fmt,...)
 	va_start(ap,fmt);
 	vfprintf(dfp,fmt,ap);
 	va_end(ap);
+	fprintf(dfp, "\n");
 	fclose(dfp);
 }
 

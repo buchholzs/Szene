@@ -5,17 +5,22 @@ vpath_src = src
 vpath %.cpp $(vpath_src)
 
 LIBOBJ=	sc_tokens.o Scene.o Controller.o SceneDesktop.o MoveMode.o \
-	WalkMode.o FlyMode.o Hud.o Command.o HudRefreshCmd.o dbgprint.o Logger.o
+	WalkMode.o FlyMode.o Hud.o Command.o dbgprint.o \
+	Sequence.o SetMat.o TargetCommand.o Pause.o Rotator.o Mover.o XScreen.o
 
-INCLUDE_DIRS += src ../contrib/grx243/include ../depui/include ../expat-1.95.2/source/lib ../plush/src
-LIBRARY_DIRS += ../contrib/grx243/lib/dj2 ../depui/lib ../expat-1.95.2/libs ../plush
+INCLUDE_DIRS += src ../contrib/grx243/include ../depui/include ../expat/lib ../plush/src
+LIBRARY_DIRS += ../contrib/grx243/lib/dj2 ../depui/lib ../expat/.libs ../plush
 
 INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
 LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
 
 CC = gxx
-CPPFLAGS += -ggdb -DDEBUG
 CPPFLAGS += $(INCLUDES)
+ifdef DEBUG
+CPPFLAGS += -ggdb -DDEBUG
+else
+CPPFLAGS += -O3
+endif
 
 LDLIBS = $(LIB_DIRS) $(EXELIBS)
 

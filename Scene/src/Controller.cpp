@@ -59,16 +59,21 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 			  *lbs='\0';
 		}
 		char *newDir= lbs == NULL ? NULL : strdup(okSel->caption);
-		const char *fileName = lbs == NULL ? okSel->caption : ++lbs;
+		const char * newFile = lbs == NULL ? okSel->caption : ++lbs;
 #else
 		char *fileName = strdup((char *)okSel->caption);
-		char *pathcopy = (char *)okSel->caption;
+		char *pathcopy = strdup((char *)okSel->caption);
+		char *newFile = basename(fileName);
 		char *newDir = dirname(pathcopy);
 #endif
 		if (newDir != NULL) {
 		  chdir(newDir);
 		}
-		desktop->controller->loadScene(fileName);
+		desktop->controller->loadScene(newFile);
+#ifndef WIN32
+		free(fileName);
+		free(pathcopy);
+#endif
 	  }
 	break;
   default:
@@ -161,6 +166,9 @@ void Controller::loadScene (const std::string &filename)
 {
   try {
     desktop_->scn->loadXML(filename);
+#ifdef DEBUG	
+	desktop_->scn->dump();
+#endif
 	moveMode_->setMoveSpeed(desktop_->scn->getMoveSpeed());
 	moveMode_->setTurnSpeed(desktop_->scn->getTurnSpeed());
 	mouse_reset(desktop_);
@@ -169,7 +177,7 @@ void Controller::loadScene (const std::string &filename)
 	Scene::ActionMap *am = scene_->getAllActions();
 
     strcpy(desktop_->lastmessage, (std::string(filename) + " loaded.").c_str());
-	scene_->getHud()->setStatus(desktop_->lastmessage);
+	desktop_->hud->setStatus(desktop_->lastmessage);
 
 	// reset time
 	desktop_->prevtime = clock();
@@ -222,34 +230,49 @@ void Controller::reloadPalette()
   if (!colorsAllocated_) {
 	  colorsAllocated_ = true;
 
-	  GrColor nFreeCols = GrNumFreeColors();
-	  GrColor nCols = 256;
-	  firstFreeColor_ = -1;
-	  GrColor oldCell = -1;
+	  if (desktop_->paletteMode) {
+		  int nFreeCols = GrNumFreeColors();
+		  assert(nFreeCols != 0);
 
-	  while (nFreeCols > 0) {
-		GrColor cell = GrAllocCell();
-		assert(cell < nCols);
-		nFreeCols--;
-		if (0 <= cell && cell < 256 && firstFreeColor_ == -1) {	
-			firstFreeColor_ = cell;
-			oldCell = cell;
-		} else {
-			assert (cell == oldCell + 1);
-		}
-		oldCell = cell;
-		lastFreeColor_ = cell;
+		  int nCols = 256;
+		  firstFreeColor_ = -1;
+		  GrColor oldCell = -1;
+
+		  while (nFreeCols > 0) {
+			  GrColor cell = GrAllocCell();
+			  assert(cell < nCols);
+			  nFreeCols--;
+			  if (0 <= cell && cell < 256 && firstFreeColor_ == -1) {
+				  firstFreeColor_ = cell;
+				  oldCell = cell;
+			  }
+			  else {
+				  assert(cell == oldCell + 1);
+			  }
+			  oldCell = cell;
+			  lastFreeColor_ = cell;
+		  }
+		  nFreeCols = GrNumFreeColors();
+		  assert(nFreeCols == 0);
+	  } else {
+		  firstFreeColor_ = nEgaCols;
+		  lastFreeColor_ = nCols - 1;
 	  }
-	  nFreeCols = GrNumFreeColors();
-	  assert(nFreeCols == 0);
   }
 
   // calculate new colors
   scene_->makePalette(desktop_->ThePalette, firstFreeColor_, lastFreeColor_);
 
   // set palette
-  for (int i = firstFreeColor_; i <= lastFreeColor_; i++) {
-    GrSetColor(i, desktop_->ThePalette[ i*3 ], desktop_->ThePalette[ i*3 + 1], desktop_->ThePalette[ i*3 + 2 ]);
+  if (desktop_->paletteMode) {
+	  for (int i = firstFreeColor_; i <= lastFreeColor_; i++) {
+		  GrSetColor(i, desktop_->ThePalette[i * 3], desktop_->ThePalette[i * 3 + 1], desktop_->ThePalette[i * 3 + 2]);
+	  }
+  } else {
+	  for(int i=firstFreeColor_; i< nCols; i++) {
+		GrColor col = GrAllocColor( desktop_->ThePalette[i*3],desktop_->ThePalette[i*3+1],desktop_->ThePalette[i*3+2] );
+		desktop_->TheGrxPalette[i] = col;
+	  }
   }
 }
 
