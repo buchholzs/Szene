@@ -34,7 +34,6 @@ public:
 	const MoveMode* getMoveMode () { return moveMode_; }
 	void	openScene();
 	void	loadScene(const std::string &filename);
-	void	reloadPalette();
 	const std::string &getFilename() { return filename_; }
 	void	saveScene();
 	void	showHelp();
@@ -47,9 +46,6 @@ private:
 	Scene	*scene_;
     std::string filename_;
 	SceneDesktop * desktop_;
-	bool colorsAllocated_;
-	GrColor firstFreeColor_;
-	GrColor lastFreeColor_;
 };
 
 } // scene

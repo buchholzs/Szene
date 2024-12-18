@@ -15,12 +15,12 @@ INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
 LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
 
 CC = g++
+CPPFLAGS += $(INCLUDES) -DGRX_NATIVE_POINTER
 ifdef DEBUG
 CPPFLAGS += -ggdb
 else
 CPPFLAGS += -O3
 endif
-CPPFLAGS += $(INCLUDES)
 
 LDLIBS = $(LIB_DIRS) $(EXELIBS)
 

@@ -16,7 +16,7 @@ INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
 LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
 
 CC = gxx
-CPPFLAGS += $(INCLUDES)
+CPPFLAGS += $(INCLUDES) -DGRX_NATIVE_POINTER
 ifdef DEBUG
 CPPFLAGS += -ggdb -DDEBUG
 else

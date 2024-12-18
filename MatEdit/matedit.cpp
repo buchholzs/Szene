@@ -23,7 +23,6 @@
 #define GrContext GrContext2
 #define GrFont GrFont2
 #include <grx20.h>
-#include <grxkeys.h>
 #undef GrContext 
 #undef GrFont 
 #include "Scene.h"
@@ -46,6 +45,7 @@ static void fileOpenHandler(MxObject * object, void *data, unsigned int selected
 static void fileExitHandler(MxObject * object, void *data, unsigned int selected);
 static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent * const event);
 static void resizeFileSelector(MxFileselector *fs);
+static void handleError(struct MxObject * object, const std::string &msg);
 
 //////////////////////////////////////////////////////////////////////////////
 // Konstanten und Statische Variablen
@@ -59,6 +59,7 @@ const char *CStdObj = "stdobj";
 const int texTextLen = 22;
 const int CTextColor = 9;	// Idx of text color
 const int CWinColors = 16;	// Readonly colors
+const int nCols = 256;
 
 enum MatEditEventType {
 	MatEditSceneChanged = MxEventUserType + 1
@@ -84,7 +85,6 @@ enum ega_colors {
 
 const int refresh_ivl = 200; // Refresh-Inteval in msec
 
-static pl_uChar ThePalette[768];
 static MxImage *ctx;
 static MatEdit *matedit; // Application
 
@@ -176,14 +176,19 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		char *newDir= lbs == NULL ? NULL : strdup(okSel->caption);
 		const char *fileName = lbs == NULL ? okSel->caption : ++lbs;
 #else
-		char *newDir = dirname((char *)okSel->caption);
-		const char *fileName = basename((char *)okSel->caption);
+		char *fileName = strdup((char *)okSel->caption);
+		char *pathcopy = strdup((char *)okSel->caption);
+		const char *newFile = basename(fileName);
+		const char *newDir = dirname(pathcopy);
 #endif
 		if (newDir != NULL) {
-		  chdir(newDir);
-		  free(newDir);
+		  int res = chdir(newDir);
+		  if (res != 0) {
+			std::string error = "Cannot change to directory " + std::string(newDir);
+			handleError(&sel->base.object, error);
+		  }
 		}
-		matedit->loadScene(fileName);
+		matedit->loadScene(newFile);
 		MxDestroy(object);	// destroy okSel
 	  }
 	break;
@@ -192,6 +197,20 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
   }
   return 0;
 }
+
+// ------------------------------------------------------------
+// Szene l�schen und Fehlermeldung anzeigen
+// ------------------------------------------------------------
+static void handleError(struct MxObject * object, const std::string &msg) {
+
+    matedit->getScene()->clear();  // destroy all objects in scene and clear with black
+	  MxAlertArgs msgOk = { "Alert", msg.c_str(),
+			 {"Ok", 0, 1},
+			 {NULL, 0, MxFalse},
+			 {NULL, 0, MxFalse} };
+    MxAlertStart(&msgOk, object);
+}
+
 
 static void *MatEditHandler(MxObject * object, const MxEvent * const event)
 {
@@ -360,9 +379,16 @@ MatEdit::MatEdit(string filename) :
     /* create the material editor */
     createMatWin(&desktop);
 
+  	int nFreeCols = GrNumFreeColors();
+  	scene.setPaletteMode(nFreeCols != 0);
+
     // create image for scene
-    char *memory[4] = {(char *)scene.getFrameBuffer(),0,0,0};
-    ctx = (MxImage*)GrCreateContext(screen_w / 2,screen_h,memory,NULL);  
+  	if (scene.getPaletteMode()) {
+      char *memory[4] = {(char *)scene.getFrameBuffer(),0,0,0};
+  		ctx = (MxImage *)GrCreateContext(screen_w / 2,screen_h, memory, NULL);
+  	} else {
+  		ctx = (MxImage *)GrCreateContext(screen_w / 2,screen_h,NULL,NULL);
+  	}
   }
 
 // Erzeugt den Desktop
@@ -408,6 +434,8 @@ int MatEdit::createDesktop(MxDesktop *desktop)
   MxColorDesktop = egacolors[BLUE];
   MxColorFocus = egacolors[LIGHTBLUE];
   MxColorDisabled = egacolors[DARKGRAY];
+
+	scene.setEgaColors(egacolors);
 
   // set mousecolor
 #ifdef GRX_NATIVE_POINTER
@@ -621,10 +649,13 @@ void MatEdit::updateMatWin() {
     matChanged = false;
 	if (mat) {
 		plMatInit(mat);
-		reloadPalette();
+		scene.reloadPalette();
 	}
 	if (cam) {
 		scene.render();
+  	if (!scene.getPaletteMode()) {
+  		scene.LoadContextFromFramebuffer((_GR_context*)ctx);
+  	}
 		list<string> l;
 		dumpMaterial(mat, l);
 		printLines(cam, l);		
@@ -664,7 +695,7 @@ void MatEdit::OnChangedScene() {
 		MxListDefSet(&matList->listarea, 0, MxFalse);;
 	}
 	if (mat) {
-		reloadPalette();
+		scene.reloadPalette();
 	}
 	if (cam) {
 		scene.render();
@@ -761,19 +792,6 @@ void MatEdit::dumpMaterial(pl_Mat *mat, list<string> &l) {
   } else {
     buf << "Kein Material ausgew�hlt." << ends;
     l.push_back(buf.str()); buf.seekp(0);
-  }
-}
-
-// Palette neu laden
-void MatEdit::reloadPalette() 
-{
-  int i;
-
-  scene.makePalette(ThePalette, CWinColors, 255);
-  int r,g,b;
-  for (i = CWinColors; i < 256; i++) {
-    GrSetColor(i, ThePalette[ i*3 ], ThePalette[ i*3 + 1], ThePalette[ i*3 + 2 ]);
-    checkPal();
   }
 }
 
@@ -934,10 +952,9 @@ int main(int argc, char **argv)
   try 
     {
       if (argc > 2) {
-		cerr << "Usage: " << argv[0] << " [scene.scx]" << endl;
-		return 1;
+    		cerr << "Usage: " << argv[0] << " [scene.scx]" << endl;
+    		return 1;
       }
-      memset(ThePalette, 0, sizeof ThePalette);
 
       const char *filename = (argc == 2) ? argv[1] : defFileName;
       // Rendering
@@ -953,12 +970,3 @@ int main(int argc, char **argv)
     };
   return 0;
 }
-
-#ifdef _WIN32
-int APIENTRY WinMain(HINSTANCE hInstance,
-	HINSTANCE hPrevInstance,
-	LPSTR lpCmdLine, int nCmdShow)
-{
-	return main(__argc, __argv);
-}
-#endif

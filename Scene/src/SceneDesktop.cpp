@@ -168,9 +168,11 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	DBGPRINTF(("Fenstermanager unterstützt kein GrMouseWarp!"));    
 #endif
 
+	desktop->scn = new scene::Scene(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h);
+
 	GrResetColors(); // Palette mode
 	int nFreeCols = GrNumFreeColors();
-	desktop->paletteMode = nFreeCols != 0;
+	desktop->scn->setPaletteMode( nFreeCols != 0);
 
 	GrColor *egacolors = GrAllocEgaColors();
 
@@ -189,16 +191,13 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	MxColorFocus = egacolors[LIGHTBLUE];
 	MxColorDisabled = egacolors[DARKGRAY];
 
-	for (int i = 0; i < nEgaCols; i++) {
-		desktop->TheGrxPalette[i] = egacolors[i];
-	}
+	desktop->scn->setEgaColors(egacolors);
 
 	desktop->base.object.handler = SceneDesktopHandler;
-	desktop->scn = new scene::Scene(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h);
 	desktop->lastmessage[0] = '\0';
 
 	// create image for scene
-	if (desktop->paletteMode) {
+	if (desktop->scn->getPaletteMode()) {
 		char* memory[4] = { (char*)desktop->scn->getFrameBuffer(),0,0,0 };
 		desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w, args.mxdesktop.desktop_h, memory, NULL);
 	} else {
@@ -213,9 +212,6 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	GrMouseSetColors(egacolors[WHITE], egacolors[BLACK]);
 	GrMouseDisplayCursor();
 #endif
-
-	// clear palette
-	memset(desktop->ThePalette, 0, sizeof desktop->ThePalette);
 
 	// create walk-, flymode
 	desktop->walkMode = new WalkMode(desktop->scn, desktop->scn->getMoveSpeed(), desktop->scn->getTurnSpeed());
@@ -268,8 +264,8 @@ void updateScene(SceneDesktop * desktop) {
 	desktop->scn->render();
 	desktop->frames++;
 	desktop->scn->execute(desktop->difftime);
-	if (!desktop->paletteMode) {
-		LoadContextFromFramebuffer(desktop);
+	if (!desktop->scn->getPaletteMode()) {
+		desktop->scn->LoadContextFromFramebuffer((GrContext2*)desktop->ctx);
 	}
 	desktop->hud->display(); // show Hud last
   } else {
@@ -288,35 +284,6 @@ void updateScene(SceneDesktop * desktop) {
   } else {
 	MxRefresh(&desktop->base.object);
   }
-}
-
-static int LoadContextFromFramebuffer( SceneDesktop * desktop )
-{
-  int x, y;
-  int maxwidth, maxheight;
-  GrColor *pColors=NULL;
-  int res = 0;
-
-  maxwidth = ((GrContext2 *)desktop->ctx)->gc_xmax + 1;
-  maxheight = ((GrContext2 *)desktop->ctx)->gc_ymax + 1;
-
-  pl_uChar *frameBuffer = desktop->scn->getFrameBuffer();
-  pColors = (GrColor *)malloc( maxwidth * sizeof(GrColor) );
-  if(pColors == NULL) { res = -1; goto salida; }
-
-  GrSetContext((GrContext2*)desktop->ctx);
-  for( y=0; y<maxheight; y++ ){
-    for( x=0; x<maxwidth; x++ ){
-	  pl_uChar c = frameBuffer[y*maxwidth+x];
-      pColors[x] = desktop->TheGrxPalette[c];
-    }
-    GrPutScanline( 0,maxwidth-1,y,pColors,GrWRITE );
-  }
-  GrSetContext(NULL);
-
-salida:
-  if( pColors != NULL ) free( pColors );
-  return res;
 }
 
 void mouse_reset(SceneDesktop * desktop) 

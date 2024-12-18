@@ -47,7 +47,7 @@ INCLUDE_DIRS += include source
 INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
 LIBRARY_DIRS += lib
 LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
-CPPFLAGS += $(INCLUDES)
+CPPFLAGS += $(INCLUDES) -DGRX_NATIVE_POINTER
 
 ifdef DEBUG
 CPPFLAGS += -ggdb
