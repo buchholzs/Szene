@@ -70,11 +70,7 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 		  int res = chdir(newDir);
 		  if (res != 0) {
 			std::string error = "Cannot change to directory " + std::string(newDir);
-			MxAlertArgs msgOk = { "Alert", error.c_str(),
-			 {"Ok", 0, 1},
-			 {NULL, 0, MxFalse},
-			 {NULL, 0, MxFalse} };
-		    MxAlertStart(&msgOk, &desktop->base.object);
+			desktop->controller->handleError(error);
 		  }
 		}
 		desktop->controller->loadScene(newFile);

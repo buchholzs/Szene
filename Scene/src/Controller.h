@@ -39,9 +39,9 @@ public:
 	void	saveScene();
 	void	showHelp();
 	void	refreshDesktop();
+	void handleError(const std::string& msg);
 private:
 	void resizeFileSelector(MxFileselector *fs);
-	void handleError(const std::string &msg);
 
 	MoveMode*	moveMode_;
 	Scene	*scene_;
