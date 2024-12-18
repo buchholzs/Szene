@@ -41,3 +41,7 @@ contrib/grx248/test/bgi/x*
 MatEdit/Debug/*
 MatEdit/Release/*
 PlushPlayer-Matedit/
+MatEdit/Matedit
+PlushPlayer/PlushPlayer
+PlushPlayer/scndebug.log
+PlushPlayer/scenes/scndebug.log

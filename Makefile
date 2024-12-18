@@ -1,44 +1,47 @@
 #
-# Szene makefile for DJGPP version (GNU-make)
+# Szene makefile for GNU-make
 #
 
-EXE=PlushPlayer/plushplr.exe MatEdit2/matedit2.exe
+.PHONY: expat grx plush depui scene
 
-LIB=expat/libexpat.a plush/libplush.a contrib/grx248/lib/dj2/libgrx20.a depui/lib/libdepui.a Scene/libscene.a
+EXE=PlushPlayer/PlushPlayer MatEdit/Matedit
+
+ifdef DEBUG
+DEBUGFLAG = DEBUG=1
+endif
 
 # Rules
 all: lib exe
 
-expat/libexpat.a:
-	$(MAKE) -C expat
+expat:
+	$(MAKE) $(DEBUGFLAG) -C expat
 
-contrib/grx248/lib/dj2/libgrx20.a:
-	$(MAKE) -C contrib/grx248 -f makefile.x11 libs
+grx:
+	$(MAKE) $(DEBUGFLAG) -C contrib/grx248 -f makefile.x11 libs
 
-plush/libplush.a:
-	$(MAKE) -C plush/src -f MAKEFILE	
+plush:
+	$(MAKE) $(DEBUGFLAG) -C plush/src
 
-depui/lib/libdepui.a:
-	$(MAKE) -C depui -f MAKEFILE lib
+depui:
+	$(MAKE) $(DEBUGFLAG) -C depui lib
 
-Scene/libscene.a:
-	$(MAKE) -C Scene -f MAKEFILE all
+scene:
+	$(MAKE) $(DEBUGFLAG) -C Scene all
 
-MatEdit2/matedit2.exe: $(LIB)
-	$(MAKE) -C MatEdit2 -f MAKEFILE
+MatEdit/Matedit: lib
+	$(MAKE) $(DEBUGFLAG) -C MatEdit
 
-PlushPlayer/plushplr.exe: $(LIB)
-	$(MAKE) -C PlushPlayer -f MAKEFILE
+PlushPlayer/PlushPlayer: lib
+	$(MAKE) $(DEBUGFLAG) -C PlushPlayer
 
 clean:
-	$(MAKE) -C Expat-1.95.2/Source/lib -f MAKEFILE clean
-	$(MAKE) -C plush/src -f MAKEFILE clean	
-	$(MAKE) -C contrib/grx248 -f makefile.dj2 clean
-	del contrib\grx248\lib\dj2\libgrx20.a
-	$(MAKE) -C depui -f MAKEFILE clean
-	$(MAKE) -C Scene -f MAKEFILE clean
-	$(MAKE) -C MatEdit2 -f MAKEFILE clean
-	$(MAKE) -C PlushPlayer -f MAKEFILE clean
+	$(MAKE) $(DEBUGFLAG) -C expat clean
+	$(MAKE) $(DEBUGFLAG) -C plush/src clean	
+	$(MAKE) $(DEBUGFLAG) -C contrib/grx248 -f makefile.x11 clean
+	$(MAKE) $(DEBUGFLAG) -C depui clean
+	$(MAKE) $(DEBUGFLAG) -C Scene clean
+	$(MAKE) $(DEBUGFLAG) -C MatEdit clean
+	$(MAKE) $(DEBUGFLAG) -C PlushPlayer clean
 
 install:
 	cmd /c rmdir /s/q redist
@@ -61,6 +64,6 @@ install:
 
 # Dependencies
 
-exe: $(EXE)
+exe: $(EXE) lib
 
-lib: $(LIB)
+lib: expat grx plush depui scene

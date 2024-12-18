@@ -1,5 +1,4 @@
 #pragma warning (disable : 4786)
-#include "SceneDesktop.h"
 
 #include <assert.h>
 #include <algorithm>
@@ -14,13 +13,14 @@
 #include <depui/args/args.h>
 #include <depui/object/object.h>
 #include <depui/graphics/clip.h>
-
 #include "Controller.h"
 #include "Hud.h"
 #include "MoveMode.h"
 #include "FlyMode.h"
 #include "Scene.h"
 #include "WalkMode.h"
+#include "scenedbg.h"
+#include "SceneDesktop.h"
 
 using namespace std;
 using namespace scene;
@@ -30,6 +30,7 @@ using namespace scene;
 //
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
 static void handleError(SceneDesktop * desktop, const string &msg);
+static int LoadContextFromFramebuffer( SceneDesktop * desktop );
 
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
@@ -46,7 +47,7 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
  
   switch (event->type) {
   case MxEventDestroy:
-	  delete desktop->scn->getHud();
+	  delete desktop->hud;
 	  delete desktop->scn;
 	  GrDestroyContext((struct _GR_context *)desktop->ctx);
 	  delete desktop->walkMode;
@@ -160,8 +161,17 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	MxUserArgsInit(args, userargs);
 
 	MxDesktopConstruct(&desktop->base.desktop, x, y, w, h, &args.mxdesktop );
+#ifdef WIN32
+	desktop->mouseWarp = true;
+#else
+	desktop->mouseWarp = false; // wayland doesn't support XWarpPointer
+	DBGPRINTF(("Fenstermanager unterstützt kein GrMouseWarp!"));    
+#endif
 
 	GrResetColors(); // Palette mode
+	int nFreeCols = GrNumFreeColors();
+	desktop->paletteMode = nFreeCols != 0;
+
 	GrColor *egacolors = GrAllocEgaColors();
 
 	MxColorFore = egacolors[BLACK];
@@ -179,17 +189,25 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	MxColorFocus = egacolors[LIGHTBLUE];
 	MxColorDisabled = egacolors[DARKGRAY];
 
+	for (int i = 0; i < nEgaCols; i++) {
+		desktop->TheGrxPalette[i] = egacolors[i];
+	}
+
 	desktop->base.object.handler = SceneDesktopHandler;
 	desktop->scn = new scene::Scene(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h);
 	desktop->lastmessage[0] = '\0';
 
 	// create image for scene
-	char *memory[4] = {(char *)desktop->scn->getFrameBuffer(),0,0,0};
-	desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,memory,NULL);
+	if (desktop->paletteMode) {
+		char* memory[4] = { (char*)desktop->scn->getFrameBuffer(),0,0,0 };
+		desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w, args.mxdesktop.desktop_h, memory, NULL);
+	} else {
+		desktop->ctx = (MxImage*)GrCreateContext(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h,NULL,NULL);
+	}
 
-	Hud *hud = new Hud(LIGHTGRAY, (struct _GR_context *)desktop->ctx);
-	desktop->scn->setHud(hud);
-
+	// create hud
+	desktop->hud = new Hud(egacolors[LIGHTGRAY], (struct _GR_context *)desktop->ctx);
+	
 	// clear palette
 	memset(desktop->ThePalette, 0, sizeof desktop->ThePalette);
 
@@ -211,7 +229,9 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->old_mouse_y = desktop->save_mouse_y = args.mxdesktop.desktop_h / 2;
 	desktop->mx = 0;
 	desktop->my = 0;
-	GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+	if (desktop->mouseWarp) {
+		GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+	}
 	setDirectDisplay(desktop, true);
 }
 
@@ -228,20 +248,24 @@ void updateScene(SceneDesktop * desktop) {
 
   if (desktop->elapsedTime >= 1000.0) {
 	float fps = ((float)desktop->frames)*1000.0f / desktop->elapsedTime;
-	desktop->scn->getHud()->setFPS(fps);
+	desktop->hud->setFPS(fps);
 	desktop->frames = 0;
 	desktop->elapsedTime = 0.0f;
   }
   if (cam) {
-	  desktop->scn->getHud()->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
+	  desktop->hud->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
   } else {
-	  desktop->scn->getHud()->setPosition(0,0,0,0,0,0);
+	  desktop->hud->setPosition(0,0,0,0,0,0);
   }
   
   if (cam) {
 	desktop->scn->render();
 	desktop->frames++;
 	desktop->scn->execute(desktop->difftime);
+	if (!desktop->paletteMode) {
+		LoadContextFromFramebuffer(desktop);
+	}
+	desktop->hud->display(); // show Hud last
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
 	GrClearContext( MxColorDesktop );
@@ -260,6 +284,35 @@ void updateScene(SceneDesktop * desktop) {
   }
 }
 
+static int LoadContextFromFramebuffer( SceneDesktop * desktop )
+{
+  int x, y;
+  int maxwidth, maxheight;
+  GrColor *pColors=NULL;
+  int res = 0;
+
+  maxwidth = ((GrContext2 *)desktop->ctx)->gc_xmax + 1;
+  maxheight = ((GrContext2 *)desktop->ctx)->gc_ymax + 1;
+
+  pl_uChar *frameBuffer = desktop->scn->getFrameBuffer();
+  pColors = (GrColor *)malloc( maxwidth * sizeof(GrColor) );
+  if(pColors == NULL) { res = -1; goto salida; }
+
+  GrSetContext((GrContext2*)desktop->ctx);
+  for( y=0; y<maxheight; y++ ){
+    for( x=0; x<maxwidth; x++ ){
+	  pl_uChar c = frameBuffer[y*maxwidth+x];
+      pColors[x] = desktop->TheGrxPalette[c];
+    }
+    GrPutScanline( 0,maxwidth-1,y,pColors,GrWRITE );
+  }
+  GrSetContext(NULL);
+
+salida:
+  if( pColors != NULL ) free( pColors );
+  return res;
+}
+
 void mouse_reset(SceneDesktop * desktop) 
 {
   MxImage *ctx = desktop->ctx;
@@ -267,7 +320,9 @@ void mouse_reset(SceneDesktop * desktop)
   int screen_h = ((GrContext2 *)ctx)->gc_ymax + 1;
 
   GrMouseEvent evt;
-  GrMouseWarp(screen_w / 2, screen_h / 2);
+  if (desktop->mouseWarp) {
+  	GrMouseWarp(screen_w / 2, screen_h / 2);
+  }
   do {
     GrMouseGetEventT(GR_M_EVENT | GR_M_NOPAINT, &evt,0L);
   } while (evt.flags != 0);
@@ -299,7 +354,9 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 			// restore mouse pos
 			desktop->old_mouse_x = desktop->save_mouse_x;
 			desktop->old_mouse_y = desktop->save_mouse_y;
-			GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+			if (desktop->mouseWarp) {
+				GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
+			}
 		}
 		else {
 			// show mouse

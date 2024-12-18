@@ -49,6 +49,12 @@ LIBRARY_DIRS += lib
 LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
 CPPFLAGS += $(INCLUDES)
 
+ifdef DEBUG
+CPPFLAGS += -ggdb
+else
+CPPFLAGS += -O3
+endif
+
 all : examples 
 
 lib : $(LIBNAME) $(OBJFILES)
