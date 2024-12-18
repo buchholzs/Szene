@@ -63,11 +63,19 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 #else
 		char *fileName = strdup((char *)okSel->caption);
 		char *pathcopy = strdup((char *)okSel->caption);
-		char *newFile = basename(fileName);
-		char *newDir = dirname(pathcopy);
+		const char *newFile = basename(fileName);
+		const char *newDir = dirname(pathcopy);
 #endif
 		if (newDir != NULL) {
-		  chdir(newDir);
+		  int res = chdir(newDir);
+		  if (res != 0) {
+			std::string error = "Cannot change to directory " + std::string(newDir);
+			MxAlertArgs msgOk = { "Alert", error.c_str(),
+			 {"Ok", 0, 1},
+			 {NULL, 0, MxFalse},
+			 {NULL, 0, MxFalse} };
+		    MxAlertStart(&msgOk, &desktop->base.object);
+		  }
 		}
 		desktop->controller->loadScene(newFile);
 #ifndef WIN32
@@ -205,7 +213,7 @@ void Controller::handleError(const std::string &msg) {
     updateScene(desktop_); // shows blue background in scene
     strcpy(desktop_->lastmessage, msg.c_str());
 	MxAlertArgs msgOk = { "Alert", desktop_->lastmessage,
-			 {"Ok", 0, MxFalse},
+			 {"Ok", 0, 1},
 			 {NULL, 0, MxFalse},
 			 {NULL, 0, MxFalse} };
     MxAlertStart(&msgOk, &desktop_->base.object);

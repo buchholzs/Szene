@@ -3,6 +3,7 @@
 #
 vpath_src = src
 vpath %.cpp $(vpath_src)
+vpath %.h $(vpath_src)
 
 LIBOBJ=	sc_tokens.o Scene.o Controller.o SceneDesktop.o MoveMode.o \
 	WalkMode.o FlyMode.o Hud.o Command.o dbgprint.o \
@@ -38,34 +39,36 @@ clean:
 # Dependencies
 
 
-Scene.o: src/Scene.cpp src/Scene.h
+Scene.o: Scene.cpp Scene.h
 
-Command.o: src/Command.cpp \
-	src/Command.h
+Command.o: Command.cpp \
+	Command.h
 
-Controller.o: src/Controller.cpp \
-	src/Controller.h \
-	src/MoveMode.h src/Scene.h src/sc_tokens.h
+Controller.o: Controller.cpp \
+	Controller.h \
+	MoveMode.h Scene.h sc_tokens.h
 
-Desktop.o: src/Desktop.cpp \
-	src/Controller.h src/MoveMode.h \
-	src/Scene.h src/sc_tokens.h src/WalkMode.h src/MoveMode.h src/FlyMode.h \
-	src/MoveMode.h src/Hud.h src/HudRefreshCmd.h src/Command.h
+Desktop.o: Desktop.cpp \
+	Controller.h MoveMode.h \
+	Scene.h sc_tokens.h WalkMode.h MoveMode.h FlyMode.h \
+	MoveMode.h Hud.h HudRefreshCmd.h Command.h
 
-FlyMode.o: src/FlyMode.cpp src/FlyMode.h \
-	src/MoveMode.h src/Scene.h src/sc_tokens.h
+FlyMode.o: FlyMode.cpp FlyMode.h \
+	MoveMode.h Scene.h sc_tokens.h
 
-Hud.o: src/Hud.cpp src/Hud.h
+Hud.o: Hud.cpp Hud.h
 
-HudRefreshCmd.o: src/HudRefreshCmd.cpp src/HudRefreshCmd.h \
-	src/Command.h src/Hud.h
+HudRefreshCmd.o: HudRefreshCmd.cpp HudRefreshCmd.h \
+	Command.h Hud.h
 
-MoveMode.o: src/MoveMode.cpp src/MoveMode.h
+MoveMode.o: MoveMode.cpp MoveMode.h
 
-sc_tokens.o: src/sc_tokens.cpp src/sc_tokens.h
+sc_tokens.o: sc_tokens.cpp sc_tokens.h
 
-Scene.o: src/Scene.cpp src/Scene.h src/sc_tokens.h \
-	src/Command.h
+Scene.o: Scene.cpp Scene.h sc_tokens.h \
+	Command.h
 
-WalkMode.o: src/WalkMode.cpp src/WalkMode.h \
-	src/MoveMode.h src/Scene.h src/sc_tokens.h
+WalkMode.o: WalkMode.cpp WalkMode.h \
+	MoveMode.h Scene.h sc_tokens.h
+
+XScreen_x11.o: XScreen_x11.cpp XScreen.h
