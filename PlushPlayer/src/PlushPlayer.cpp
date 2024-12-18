@@ -10,10 +10,9 @@
 #include <string>
 #include <typeinfo>
 #include <chrono>
+#include <thread>
 #ifdef WIN32
 #include <Windows.h>
-#else
-#include <unistd.h>
 #endif
 #define GrContext GrContext2
 #define GrFont GrFont2
@@ -147,14 +146,8 @@ int main(int argc, char *argv[])
 		const int busy_ivl = end_t - start_t;
 
 		const int milliseconds = max(refresh_ivl - busy_ivl, 0);
-#ifdef WIN32
-		Sleep(milliseconds);
-#else
-		struct timespec ts;
-	    ts.tv_sec = milliseconds / 1000;
-	    ts.tv_nsec = (milliseconds % 1000) * 1000000;
-	    nanosleep(&ts, NULL);
-#endif
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 	  }
 
 	 /* Close and go home */
