@@ -409,6 +409,12 @@ int MatEdit::createDesktop(MxDesktop *desktop)
   MxColorFocus = egacolors[LIGHTBLUE];
   MxColorDisabled = egacolors[DARKGRAY];
 
+  // set mousecolor
+#ifdef GRX_NATIVE_POINTER
+  GrMouseSetColors(egacolors[WHITE], egacolors[BLACK]);
+  GrMouseDisplayCursor();
+#endif
+
   /* Tell the desktop to use our handler */
   desktop->base.object.handler = MatEditHandler;
 

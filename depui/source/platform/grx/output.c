@@ -31,8 +31,9 @@ int mx_grx_gfx_init(MxDriverOutput * driver, int x, int y, int c, const char *ti
 	 GrMouseDetect();
 	 GrMouseInit();
 	 GrMouseEventEnable(1, 1);
+#ifndef GRX_NATIVE_POINTER
 	 GrMouseEraseCursor();
-
+#endif
 	 GrSetRGBcolorMode();
 
 	 driver->font = (struct MxFont *) &GrDefaultFont;
@@ -70,7 +71,9 @@ void mx_grx_flush(void)
 
 void mx_grx_mouse_show(const int show)
 {
+#ifndef GRX_NATIVE_POINTER
   Mx_MouseShow(show, mx_grx_screen_pixel, mx_grx_screen_get_pixel);
+#endif
 }
 
 MxColor mx_grx_blend(MxColor x, MxColor y, unsigned int n)
@@ -90,12 +93,16 @@ void mx_grx_drawing_area(int x1, int y1, int x2, int y2)
 	 (void) y1;
 	 (void) x2;
 	 (void) y2;
+#ifndef GRX_NATIVE_POINTER
 	 Mx_MouseShow(0, mx_grx_screen_pixel, mx_grx_screen_get_pixel);
+#endif	 
 }
 
 void mx_grx_done_drawing_area(void)
 {
+#ifndef GRX_NATIVE_POINTER	
   Mx_MouseShow(1, mx_grx_screen_pixel, mx_grx_screen_get_pixel);
+#endif  
 }
 
 void mx_grx_region(const MxRegion * const region)
@@ -156,7 +163,7 @@ MxColor mx_grx_screen_get_pixel(struct MxImage *image, int x1, int y1)
 		  GrSetContext(GrScreenContext());
 		  screen_context = 1;
 	 }
-	 return GrPixelNC(x1, y1);
+	 return GrPixel(x1, y1);
 //  return GrPixel(x1, y1);
 }
 
@@ -168,7 +175,7 @@ void mx_grx_screen_hline(struct MxImage *image, int x1, int y1, int x2, MxColor 
 		  GrSetContext(GrScreenContext());
 		  screen_context = 1;
 	 }
-	 GrHLineNC(x1, x2, y1, color);
+	 GrHLine(x1, x2, y1, color);
 //  GrHLine(x1, x2, y1, color);
 }
 
@@ -204,7 +211,7 @@ void mx_grx_screen_trans_pixel(struct MxImage *image, int x1, int y1, MxColor co
 		  GrSetContext(GrScreenContext());
 		  screen_context = 1;
 	 }
-	 GrPlotNC(x1, y1, mx_grx_blend(color, GrPixelNC(x1, y1), alpha));
+	 GrPlot(x1, y1, mx_grx_blend(color, GrPixel(x1, y1), alpha));
 //  GrPlot(x1, y1, mx_grx_blend(color, GrPixel(x1, y1), alpha));
 }
 
@@ -265,7 +272,7 @@ void mx_grx_image_pixel(struct MxImage *image, int x1, int y1, MxColor color)
 		  GrSetContext((GrContext *) image);
 		  screen_context = 0;
 	 }
-	 GrPlotNC(x1, y1, color);
+	 GrPlot(x1, y1, color);
 //  GrPlot(x1, y1, color);
 }
 
@@ -275,7 +282,7 @@ MxColor mx_grx_image_get_pixel(struct MxImage *image, int x1, int y1)
 		  GrSetContext((GrContext *) image);
 		  screen_context = 0;
 	 }
-	 return GrPixelNC(x1, y1);
+	 return GrPixel(x1, y1);
 //  return GrPixel(x1, y1);
 }
 
@@ -285,7 +292,7 @@ void mx_grx_image_hline(struct MxImage *image, int x1, int y1, int x2, MxColor c
 		  GrSetContext((GrContext *) image);
 		  screen_context = 0;
 	 }
-	 GrHLineNC(x1, x2, y1, color);
+	 GrHLine(x1, x2, y1, color);
 //  GrHLine(x1, x2, y1, color);
 }
 
@@ -295,7 +302,7 @@ void mx_grx_image_vline(struct MxImage *image, int x1, int y1, int y2, MxColor c
 		  GrSetContext((GrContext *) image);
 		  screen_context = 0;
 	 }
-	 GrVLineNC(x1, y1, y2, color);
+	 GrVLine(x1, y1, y2, color);
 //  GrVLine(x1, y1, y2, color);
 }
 
@@ -305,7 +312,7 @@ void mx_grx_image_rectfill(struct MxImage *image, int x1, int y1, int x2, int y2
 		  GrSetContext((GrContext *) image);
 		  screen_context = 0;
 	 }
-	 GrFilledBoxNC(x1, y1, x2, y2, color);
+	 GrFilledBox(x1, y1, x2, y2, color);
 //  GrFilledBox(x1, y1, x2, y2, color);
 }
 
@@ -315,7 +322,7 @@ void mx_grx_image_trans_pixel(struct MxImage *image, int x1, int y1, MxColor col
 		  GrSetContext((GrContext *) image);
 		  screen_context = 0;
 	 }
-	 GrPlotNC(x1, y1, mx_grx_blend(color, GrPixelNC(x1, y1), alpha));
+	 GrPlot(x1, y1, mx_grx_blend(color, GrPixel(x1, y1), alpha));
 //  GrPlot(x1, y1, mx_grx_blend(color, GrPixel(x1, y1), alpha));
 }
 
@@ -329,7 +336,7 @@ void mx_grx_blit_to_screen(struct MxImage *src, struct MxImage *dest, int sx, in
 {
 	 (void) dest;
 
-	 GrBitBltNC(GrScreenContext(), dx, dy, (GrContext *) src, sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
+	 GrBitBlt(GrScreenContext(), dx, dy, (GrContext *) src, sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
 //  GrBitBlt(GrScreenContext(), dx, dy, (GrContext *) src, sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
 }
 
@@ -337,7 +344,7 @@ void mx_grx_blit_from_screen(struct MxImage *src, struct MxImage *dest, int sx, 
 {
 	 (void) src;
 
-	 GrBitBltNC((GrContext *) dest, dx, dy, GrScreenContext(), sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
+	 GrBitBlt((GrContext *) dest, dx, dy, GrScreenContext(), sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
 //  GrBitBlt((GrContext *) dest, dx, dy, GrScreenContext(), sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
 }
 
@@ -346,7 +353,7 @@ void mx_grx_blit_screen(struct MxImage *src, struct MxImage *dest, int sx, int s
 	 (void) src;
 	 (void) dest;
 
-	 GrBitBltNC(GrScreenContext(), dx, dy, GrScreenContext(), sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
+	 GrBitBlt(GrScreenContext(), dx, dy, GrScreenContext(), sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
 //  GrBitBlt(GrScreenContext(), dx, dy, GrScreenContext(), sx, sy, sx + w - 1, sy + h - 1, GrWRITE);
 }
 

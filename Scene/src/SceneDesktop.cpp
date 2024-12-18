@@ -207,7 +207,13 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 
 	// create hud
 	desktop->hud = new Hud(egacolors[LIGHTGRAY], (struct _GR_context *)desktop->ctx);
-	
+
+	// set mousecolor
+#ifdef GRX_NATIVE_POINTER
+	GrMouseSetColors(egacolors[WHITE], egacolors[BLACK]);
+	GrMouseDisplayCursor();
+#endif
+
 	// clear palette
 	memset(desktop->ThePalette, 0, sizeof desktop->ThePalette);
 
@@ -350,7 +356,11 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 	else {
 		if (directDisplay) {
 			// hide mouse
+#ifdef GRX_NATIVE_POINTER
+			GrMouseEraseCursor();
+#else
 			mx_output->MouseShow(0);
+#endif
 			// restore mouse pos
 			desktop->old_mouse_x = desktop->save_mouse_x;
 			desktop->old_mouse_y = desktop->save_mouse_y;
@@ -360,7 +370,11 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 		}
 		else {
 			// show mouse
+#ifdef GRX_NATIVE_POINTER
+			GrMouseDisplayCursor();
+#else
 			mx_output->MouseShow(1);
+#endif
 			// save mouse pos
 			desktop->save_mouse_x = desktop->old_mouse_x;
 			desktop->save_mouse_y = desktop->old_mouse_y;
