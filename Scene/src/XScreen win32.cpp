@@ -1,6 +1,9 @@
 // Copyright (c) 2024, Steffen Buchholz
 
 #include <Windows.h>
+extern "C" {
+#include <../src/include/libwin32.h>
+}
 #include "scenedbg.h"
 #include "XScreen.h"
 
@@ -14,6 +17,13 @@ void scene::ScreenResolution(int *width, int *height)
 }
 
 bool scene::FullScreen(bool fullscreen) {
+    LONG lStyle = GetWindowLong(hGRXWnd, GWL_STYLE);
+    lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_MINIMIZE | WS_MAXIMIZE | WS_SYSMENU);
+    SetWindowLong(hGRXWnd, GWL_STYLE, lStyle);
+    LONG lExStyle = GetWindowLong(hGRXWnd, GWL_EXSTYLE);
+    lExStyle &= ~(WS_EX_DLGMODALFRAME | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE);
+    SetWindowLong(hGRXWnd, GWL_EXSTYLE, lExStyle);
+    SetWindowPos(hGRXWnd, HWND_TOP, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), SWP_FRAMECHANGED | SWP_SHOWWINDOW);
     return true;
 }
 
