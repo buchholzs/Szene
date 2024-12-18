@@ -77,9 +77,7 @@ int main(int argc, char *argv[])
 	 SceneDesktopConstruct(&desktop, 0, 0, 0, 0, &desktopargs);
 	 if (!desktop.base.desktop.ok)
 		  return 1;
-#ifndef WIN32
 	 FullScreen(true);
-#endif
 	
 	 /* Make a nice exit button */
 	 MxArgsInit(&buttonargs);
@@ -89,12 +87,6 @@ int main(int argc, char *argv[])
 	 auto oldclk = chrono::duration_cast<chrono::milliseconds>(
         chrono::system_clock::now().time_since_epoch()).count();
 
-	  /*
-      if (argc != 2 && argc != 1) {
-        std::cerr << "Usage: " << argv[0] << " [<scene.scx>]" << std::endl;
-        exit(1);
-      }
-	  */
 	  if (argc == 2) {
 		  filename = argv[1];
 	  }
