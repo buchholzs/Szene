@@ -23,9 +23,6 @@ namespace scene {
 	class Scene;
 }
 
-const int nCols = 256;
-const int nEgaCols = 16;
-
 //////////////////////////////////////////////////////////////////////////////
 // Typen
 //
@@ -40,8 +37,6 @@ typedef struct SceneDesktop {
 		scene::Scene *scn;
 		scene::Hud *hud;
 
-		pl_uChar ThePalette[nCols*3];
-		GrColor TheGrxPalette[nCols];
 		MxImage *ctx;
 		
 		signed short int old_mouse_x;
@@ -58,7 +53,6 @@ typedef struct SceneDesktop {
 		bool directDisplay; // display indirect in event loop or direct in display
 		bool ignorePointerMove; // ignore last MxEventPointerMove event
 		char lastmessage[256]; // status message
-		bool paletteMode; // Palette or TrueColor?
 		bool mouseWarp; // mouse warp on/off
 	 } SceneDesktop;
 

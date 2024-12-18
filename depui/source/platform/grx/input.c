@@ -22,7 +22,15 @@ void mx_grx_mouse(int *x, int *y, int *b, int *key)
 {
 	 GrMouseEvent evt;
 
+#ifdef GRX_NATIVE_POINTER
+	 int flags = GR_M_EVENT;
+	 if (!GrMouseCursorIsDisplayed()) {
+		 flags |= GR_M_NOPAINT;
+	 }
+	 GrMouseGetEventT(flags, &evt, 0L);
+#else
 	 GrMouseGetEventT(GR_M_NOPAINT | GR_M_EVENT, &evt, 0L);
+#endif	 
 	 *x = evt.x;
 	 *y = evt.y;
 	 *b = evt.buttons;
@@ -32,7 +40,9 @@ void mx_grx_mouse(int *x, int *y, int *b, int *key)
 	 else {
 		 *key = 0;
 	 }
+#ifndef GRX_NATIVE_POINTER
 	 Mx_MouseMove(*x, *y, mx_grx_screen_pixel, mx_grx_screen_get_pixel);
+#endif	 
 }
 
 int mx_grx_key_pressed(void)
