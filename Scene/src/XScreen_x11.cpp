@@ -2,8 +2,8 @@
 
 #include <X11/Xlib.h>
 #include <../src/include/libxwin.h>
-#include "XScreen.h"
 #include "scenedbg.h"
+#include "XScreen.h"
 
 void scene::ScreenResolution(int *width, int *height)
 {

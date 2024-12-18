@@ -1,7 +1,7 @@
 // Copyright (c) 2024, Steffen Buchholz
 
-#ifndef _ScreenResolution_H_
-#define _ScreenResolution_H_
+#ifndef _XScreen_H_
+#define _XScreen_H_
 
 #ifdef __cplusplus
 extern "C" {

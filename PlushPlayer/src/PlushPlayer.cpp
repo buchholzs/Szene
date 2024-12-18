@@ -11,12 +11,6 @@
 #include <typeinfo>
 #include <chrono>
 #include <thread>
-#ifdef WIN32
-#include <Windows.h>
-#else
-#include <unistd.h>
-#include <XScreen.h>
-#endif
 #define GrContext GrContext2
 #define GrFont GrFont2
 #include <grx20.h>
@@ -32,6 +26,7 @@
 #include "MoveMode.h"
 #include "FlyMode.h"
 #include "WalkMode.h"
+#include "XScreen.h"
 
 using namespace std;
 using namespace scene;
@@ -69,12 +64,7 @@ int main(int argc, char *argv[])
 	 MxArgsInit(&desktopargs);
 	 int maxScreenWidth = screen_w;
 	 int maxScreenHeight = screen_h;
-#ifdef WIN32
-	 maxScreenWidth = GetSystemMetrics(SM_CXSCREEN);
-	 maxScreenHeight = GetSystemMetrics(SM_CYSCREEN);
-#else
 	 ScreenResolution(&maxScreenWidth, &maxScreenHeight);
-#endif
 	 desktopargs.mxdesktop.desktop_w = maxScreenWidth;
 	 desktopargs.mxdesktop.desktop_h = maxScreenHeight;
 	 desktopargs.mxdesktop.desktop_c = 8;
@@ -161,11 +151,3 @@ int main(int argc, char *argv[])
 	 exit(0);
 }
 
-#ifdef _WIN32
-int APIENTRY WinMain(HINSTANCE hInstance,
-	HINSTANCE hPrevInstance,
-	LPSTR lpCmdLine, int nCmdShow)
-{
-	return main(__argc, __argv);
-}
-#endif
