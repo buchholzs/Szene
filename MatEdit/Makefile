@@ -1,11 +1,11 @@
 include ../mrules.inc
 
-all: Matedit
+all: MatEdit
 
-Matedit : matedit.o $(PARENTLIBS)
+MatEdit : matedit.o $(PARENTLIBS)
 	$(LINK.o) $< $(LDLIBS) -o $@
 
 clean:
-	rm -f Matedit *.o
+	rm -f MatEdit *.o
 
 # Dependencies
