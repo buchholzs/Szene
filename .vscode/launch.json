@@ -3,30 +3,64 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [   
+    "configurations": [
         {
-        "name": "(gdb) plushplr starten",
-        "type": "cppdbg",
-        "request": "launch",
-        "program": "${workspaceFolder}/PlushPlayer/PlushPlayer",
-        "args": [],
-        "stopAtEntry": false,
-        "cwd": "${workspaceFolder}/PlushPlayer",
-        "environment": [{"name" : "DISPLAY", "value": ":0"}],
-        "externalConsole": false,
-        "MIMode": "gdb",
-        "setupCommands": [
-            {
-                "description": "Automatische Strukturierung und Einrückung für gdb aktivieren",
-                "text": "-enable-pretty-printing",
-                "ignoreFailures": true
-            },
-            {
-                "description": "Disassemblierungsvariante auf Intel festlegen",
-                "text": "-gdb-set disassembly-flavor intel",
-                "ignoreFailures": true
-            }
-        ]
-    }
+            "name": "(gdb) PlushPlayer starten",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/PlushPlayer/PlushPlayer",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/PlushPlayer",
+            "environment": [
+                {
+                    "name": "DISPLAY",
+                    "value": ":0"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Automatische Strukturierung und Einrückung für gdb aktivieren",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Disassemblierungsvariante auf Intel festlegen",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "(gdb) MatEdit starten",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/MatEdit/Matedit",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/MatEdit",
+            "environment": [
+                {
+                    "name": "DISPLAY",
+                    "value": ":0"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Automatische Strukturierung und Einrückung für gdb aktivieren",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Disassemblierungsvariante auf Intel festlegen",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        }
     ]
 }

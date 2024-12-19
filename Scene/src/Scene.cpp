@@ -9,6 +9,7 @@
 #include <iostream>
 #include <algorithm>
 #include <expat.h>
+#include <grx20.h>
 #include "Command.h"
 #include "Mover.h"
 #include "Rotator.h"
@@ -452,6 +453,34 @@ void Scene::dump ()
 // PRESERVE:END
 }
 
+int Scene::LoadContextFromFramebuffer( _GR_context * ctx )
+{
+  int x, y;
+  int maxwidth, maxheight;
+  GrColor *pColors=NULL;
+  int res = 0;
+
+  maxwidth = ctx->gc_xmax + 1;
+  maxheight = ctx->gc_ymax + 1;
+
+  pColors = (GrColor *)malloc( maxwidth * sizeof(GrColor) );
+  if(pColors == NULL) { res = -1; goto salida; }
+
+  GrSetContext(ctx);
+  for( y=0; y<maxheight; y++ ){
+    for( x=0; x<maxwidth; x++ ){
+	  pl_uChar c = frameBuffer_[y*maxwidth+x];
+      pColors[x] = TheGrxPalette_[c];
+    }
+    GrPutScanline( 0,maxwidth-1,y,pColors,GrWRITE );
+  }
+  GrSetContext(NULL);
+
+salida:
+  if( pColors != NULL ) free( pColors );
+  return res;
+}
+
 void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio)
 {
 	currCam_ = NULL;
@@ -467,6 +496,12 @@ void Scene::init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio
 	moveSpeed_ = moveVelocity;
 	turnSpeed_ = turnVelocity;
 	pause_ = false;
+	colorsAllocated_ = false;
+    paletteMode_ = true;
+	firstFreeColor_ = GrNOCOLOR;
+	lastFreeColor_ = GrNOCOLOR;
+	// clear palette
+	memset(ThePalette_, 0, sizeof ThePalette_);
 }
 
 // delete action
@@ -1592,7 +1627,7 @@ void Scene::createPause(sc_Tokens tok, const char** attr)
 	}
 }
 
-void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)
+void Scene::makePalette(pl_sInt pstart, pl_sInt pend)
 {
 	typedef pl_Mat *pl_MatP;
 
@@ -1608,14 +1643,71 @@ void Scene::makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend)
 	*currMat = 0;  // Null terminate list of materials
 
 	// Create a nice palette
-	plMatMakeOptPal(pal,pstart,pend,AllMaterials, materials_.size());
+	plMatMakeOptPal(ThePalette_,pstart,pend,AllMaterials, materials_.size());
 	delete [] AllMaterials;
 
 	for(it = materials_.begin(); 
 		it != materials_.end(); ++it) 
 	{
-		plMatMapToPal(it->second, pal, pstart, pend);
+		plMatMapToPal(it->second, ThePalette_, pstart, pend);
 	}	
+}
+
+void Scene::reloadPalette() 
+{
+  if (!colorsAllocated_) {
+	  colorsAllocated_ = true;
+
+	  if (paletteMode_) {
+		  int nFreeCols = GrNumFreeColors();
+		  assert(nFreeCols != 0);
+
+		  int nCols = 256;
+		  firstFreeColor_ = -1;
+		  GrColor oldCell = -1;
+
+		  while (nFreeCols > 0) {
+			  GrColor cell = GrAllocCell();
+			  assert(cell < nCols);
+			  nFreeCols--;
+			  if (0 <= cell && cell < 256 && firstFreeColor_ == -1) {
+				  firstFreeColor_ = cell;
+				  oldCell = cell;
+			  }
+			  else {
+				  assert(cell == oldCell + 1);
+			  }
+			  oldCell = cell;
+			  lastFreeColor_ = cell;
+		  }
+		  nFreeCols = GrNumFreeColors();
+		  assert(nFreeCols == 0);
+	  } else {
+		  firstFreeColor_ = Scene::nEgaCols;
+		  lastFreeColor_ = Scene::nCols - 1;
+	  }
+  }
+
+  // calculate new colors
+  makePalette(firstFreeColor_, lastFreeColor_);
+
+  // set palette
+  if (paletteMode_) {
+	  for (int i = firstFreeColor_; i <= lastFreeColor_; i++) {
+		  GrSetColor(i, ThePalette_[i * 3], ThePalette_[i * 3 + 1], ThePalette_[i * 3 + 2]);
+	  }
+  } else {
+	  for(int i=firstFreeColor_; i< nCols; i++) {
+		GrColor col = GrAllocColor( ThePalette_[i*3], ThePalette_[i*3+1], ThePalette_[i*3+2] );
+		TheGrxPalette_[i] = col;
+	  }
+  }
+}
+
+void Scene::setEgaColors(GrColor *egaColors) {
+	for (int i = 0; i < nEgaCols; i++) {
+		TheGrxPalette_[i] = egaColors[i];
+	}
 }
 
 } // namespace scene

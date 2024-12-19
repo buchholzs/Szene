@@ -11,6 +11,12 @@
 #include <string>
 #include <map>
 #include <PLUSH.H>
+#define GrContext GrContext2
+#define GrFont GrFont2
+#include <grx20.h>
+#include <grxkeys.h>
+#undef GrContext 
+#undef GrFont 
 #include "sc_tokens.h"
 
 /* itoa:  convert n to characters in s */
@@ -24,7 +30,6 @@ const pl_Float FOV = 90.0;
 
 // Forward decl
 struct sc_TokenPair;
-struct _GR_context;
 
 namespace scene {
 class Command;
@@ -35,6 +40,9 @@ class Hud;
 
 class Scene {
  public:
+  const static int nCols = 256;
+  const static int nEgaCols = 16;
+
   typedef std::map<std::string, pl_Cam*> CamMap;
   typedef std::map<std::string, pl_Light*> LightMap;
   typedef std::map<std::string, pl_Obj*> ObjMap;
@@ -236,13 +244,25 @@ class Scene {
   **  pstart : Startoffset, normal 0
   **  pend : Endoffset, normal 255
   */
-  void makePalette(pl_uChar *pal, pl_sInt pstart, pl_sInt pend);
+  void makePalette(pl_sInt pstart, pl_sInt pend);
+
+  void reloadPalette();
 
   // pausiert die Animationen bei false
   void	setPause(bool pause) { pause_ = pause;  }
 
   // liefert den Pause-Status
+  bool	getPaletteMode() { return paletteMode_; }
+
+  // pausiert die Animationen bei false
+  void	setPaletteMode(bool paletteMode) { paletteMode_ = paletteMode;  }
+
+  // liefert den Pause-Status
   bool	getPause() { return pause_; }
+
+  int LoadContextFromFramebuffer( _GR_context * ctx );
+
+  void setEgaColors(GrColor *egaColors);
 
  protected:
   Scene (const Scene& rhs);
@@ -268,12 +288,19 @@ class Scene {
   pl_uInt screenHeight_;	// Screen height
   pl_ZBuffer *zBuffer_; // Z Buffer
   pl_uChar *frameBuffer_; // Frame buffer (screenWidth_ * screenHeight_)
+  pl_uChar ThePalette_[nCols*3];
+	GrColor TheGrxPalette_[nCols];
+
   pl_Float aspectRatio_;	// Aspect ratio (normalerweise 1.0)
   pl_uChar background_;	// Hintergrundfarbe
   float moveSpeed_; // Bewegungsgeschwindigkeit
   float turnSpeed_; // Drehgeschwindigkeit
 
   bool pause_; // Pause
+  bool colorsAllocated_; // Palettenfarben allokiert
+  bool paletteMode_; // Palette or TrueColor?
+	GrColor firstFreeColor_;
+	GrColor lastFreeColor_;
 };
 
 } // scene

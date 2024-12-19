@@ -108,9 +108,7 @@ Controller::Controller (MoveMode *moveMode, Scene *scene, SceneDesktop * desktop
 	moveMode_(moveMode),
 	scene_(scene),
 	filename_(""),
-	desktop_(desktop),
-	colorsAllocated_(false),
-	firstFreeColor_(GrNOCOLOR)
+	desktop_(desktop)
 {
 }
 
@@ -177,7 +175,7 @@ void Controller::loadScene (const std::string &filename)
 	moveMode_->setTurnSpeed(desktop_->scn->getTurnSpeed());
 	mouse_reset(desktop_);
     filename_ = filename;
-	reloadPalette();
+	scene_->reloadPalette();
 	Scene::ActionMap *am = scene_->getAllActions();
 
     strcpy(desktop_->lastmessage, (std::string(filename) + " loaded.").c_str());
@@ -224,60 +222,6 @@ void Controller::resizeFileSelector(MxFileselector *fs) {
   MxGeomPosition(&fs->base.object, fs->base.object.position.x1, MxH(parent)/4);
   MxEventSendSimple(&fs->base.object, MxEventGeomChanged);
   MxEnqueueRefresh(&fs->base.object, MxTrue);
-}
-
-// ------------------------------------------------------------
-// Shows a editor window with key help
-// ------------------------------------------------------------
-void Controller::reloadPalette() 
-{
-  if (!colorsAllocated_) {
-	  colorsAllocated_ = true;
-
-	  if (desktop_->paletteMode) {
-		  int nFreeCols = GrNumFreeColors();
-		  assert(nFreeCols != 0);
-
-		  int nCols = 256;
-		  firstFreeColor_ = -1;
-		  GrColor oldCell = -1;
-
-		  while (nFreeCols > 0) {
-			  GrColor cell = GrAllocCell();
-			  assert(cell < nCols);
-			  nFreeCols--;
-			  if (0 <= cell && cell < 256 && firstFreeColor_ == -1) {
-				  firstFreeColor_ = cell;
-				  oldCell = cell;
-			  }
-			  else {
-				  assert(cell == oldCell + 1);
-			  }
-			  oldCell = cell;
-			  lastFreeColor_ = cell;
-		  }
-		  nFreeCols = GrNumFreeColors();
-		  assert(nFreeCols == 0);
-	  } else {
-		  firstFreeColor_ = nEgaCols;
-		  lastFreeColor_ = nCols - 1;
-	  }
-  }
-
-  // calculate new colors
-  scene_->makePalette(desktop_->ThePalette, firstFreeColor_, lastFreeColor_);
-
-  // set palette
-  if (desktop_->paletteMode) {
-	  for (int i = firstFreeColor_; i <= lastFreeColor_; i++) {
-		  GrSetColor(i, desktop_->ThePalette[i * 3], desktop_->ThePalette[i * 3 + 1], desktop_->ThePalette[i * 3 + 2]);
-	  }
-  } else {
-	  for(int i=firstFreeColor_; i< nCols; i++) {
-		GrColor col = GrAllocColor( desktop_->ThePalette[i*3],desktop_->ThePalette[i*3+1],desktop_->ThePalette[i*3+2] );
-		desktop_->TheGrxPalette[i] = col;
-	  }
-  }
 }
 
 // ------------------------------------------------------------

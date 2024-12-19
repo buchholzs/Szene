@@ -9,14 +9,14 @@ LIBOBJ=	sc_tokens.o Scene.o Controller.o SceneDesktop.o MoveMode.o \
 	WalkMode.o FlyMode.o Hud.o Command.o dbgprint.o \
 	Sequence.o SetMat.o TargetCommand.o Pause.o Rotator.o Mover.o XScreen_x11.o
 
-INCLUDE_DIRS += src ../contrib/grx243/include ../depui/include ../expat/lib ../plush/src
-LIBRARY_DIRS += ../contrib/grx243/lib/dj2 ../depui/lib ../expat/.libs ../plush
+INCLUDE_DIRS += src ../contrib/grx248/include ../depui/include ../expat/lib ../plush/src
+LIBRARY_DIRS += ../contrib/grx248/lib/dj2 ../depui/lib ../expat/.libs ../plush
 
 INCLUDES = $(addprefix -I,$(INCLUDE_DIRS))
 LIB_DIRS = $(addprefix -L,$(LIBRARY_DIRS))
 
 CC = gxx
-CPPFLAGS += $(INCLUDES)
+CPPFLAGS += $(INCLUDES) -DGRX_NATIVE_POINTER
 ifdef DEBUG
 CPPFLAGS += -ggdb -DDEBUG
 else

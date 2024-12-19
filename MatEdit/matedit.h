@@ -14,18 +14,20 @@ public:
 	MatEdit(std::string filename);
 	// Ausgabe der Szene und der GUI
 	void run();
-	// Szene löschen
+	// Szene lï¿½schen
 	void newScene();
 	// Szene neu laden
 	void loadScene(const std::string &filename);
-	// Textur des ausgewählten Materials neu laden
+	// Textur des ausgewï¿½hlten Materials neu laden
 	void loadTexture(const std::string &filename);
-	// Textur des ausgewählten Materials entfernen
+	// Textur des ausgewï¿½hlten Materials entfernen
 	void resetTexture();
-	// wählt ein Material zur Bearbeitung aus
+	// wï¿½hlt ein Material zur Bearbeitung aus
 	void setMaterial(pl_Mat *mat) {this->mat = mat;}
 	// MatWin aktualisieren
 	void OnChangedScene();
+	// liefert die Szene
+	scene::Scene *getScene() {return &scene;}
 private:
 	// erzeugt ein Fenster mit dem Materialeditor
 	void createMatWin(MxDesktop *desktop);
@@ -35,8 +37,6 @@ private:
 	void printLines(const pl_Cam *cam, const std::list<std::string> &lines);
 	// Ausgabe der Materialien in eine Liste
 	void dumpMaterial(pl_Mat *mat, std::list<std::string> &l);
-	// Palette neu laden
-	void reloadPalette();
 	// MatEdit aktualisieren
 	void updateMatWin();
 	// shadeMode -> Radio
