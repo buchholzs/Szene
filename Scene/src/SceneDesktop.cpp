@@ -210,7 +210,6 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	// set mousecolor
 #ifdef GRX_NATIVE_POINTER
 	GrMouseSetColors(egacolors[WHITE], egacolors[BLACK]);
-	GrMouseDisplayCursor();
 #endif
 
 	// create walk-, flymode

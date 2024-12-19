@@ -17,6 +17,29 @@
 static const char *mx_link_flag = "MxModule" __FILE__;
 #endif
 
+#ifdef GRX_NATIVE_POINTER
+#define MOUSE_H  16
+#define MOUSE_W  10
+static char mouse_pointer_native[] = {
+	 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+	 1, 2, 1, 0, 0, 0, 0, 0, 0, 0,
+	 1, 2, 2, 1, 0, 0, 0, 0, 0, 0,
+	 1, 2, 2, 2, 1, 0, 0, 0, 0, 0,
+	 1, 2, 2, 2, 2, 1, 0, 0, 0, 0,
+	 1, 2, 2, 2, 2, 2, 1, 0, 0, 0,
+	 1, 2, 2, 2, 2, 2, 2, 1, 0, 0,
+	 1, 2, 2, 2, 2, 2, 2, 2, 1, 0,
+	 1, 2, 2, 2, 2, 2, 2, 2, 2, 1,
+	 1, 2, 2, 2, 2, 2, 1, 1, 1, 0,
+	 1, 2, 2, 1, 2, 2, 1, 0, 0, 0,
+	 1, 2, 1, 0, 1, 2, 2, 1, 0, 0,
+	 0, 1, 0, 0, 1, 2, 2, 1, 0, 0,
+	 0, 0, 0, 0, 0, 1, 2, 2, 1, 0,
+	 0, 0, 0, 0, 0, 1, 2, 2, 1, 0,
+	 0, 0, 0, 0, 0, 0, 1, 1, 0, 0
+};
+#endif
+
 static int depth = 0;
 
 static int screen_context;
@@ -31,7 +54,15 @@ int mx_grx_gfx_init(MxDriverOutput * driver, int x, int y, int c, const char *ti
 	 GrMouseDetect();
 	 GrMouseInit();
 	 GrMouseEventEnable(1, 1);
-#ifndef GRX_NATIVE_POINTER
+#ifdef GRX_NATIVE_POINTER
+	 GrColor msc[3];
+	 msc[0] = 2;
+	 msc[1] = GrWhite();
+	 msc[2] = GrBlack();
+	 GrCursor *cur = GrBuildCursor(mouse_pointer_native,MOUSE_W,MOUSE_W,MOUSE_H,1,1,msc);
+	 GrMouseSetCursor(cur);
+	 GrMouseDisplayCursor();	 
+#else
 	 GrMouseEraseCursor();
 #endif
 	 GrSetRGBcolorMode();

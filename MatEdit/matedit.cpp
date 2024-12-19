@@ -440,7 +440,6 @@ int MatEdit::createDesktop(MxDesktop *desktop)
   // set mousecolor
 #ifdef GRX_NATIVE_POINTER
   GrMouseSetColors(egacolors[WHITE], egacolors[BLACK]);
-  GrMouseDisplayCursor();
 #endif
 
   /* Tell the desktop to use our handler */
@@ -476,6 +475,8 @@ void MatEdit::createMatWin(MxDesktop *desktop) {
   MxArgsInit(&windowargs);
   windowargs.caption = "Material";
   windowargs.unresizeable = MxTrue;
+	windowargs.unmovable = MxTrue;
+  windowargs.uncloseable = MxTrue;
 
   /* Add our window to the desktop  */
   matWin = MxWindowNew(&desktop->base.object, screen_w / 2, 0, screen_w / 2 - 1, screen_h - 1, &windowargs);

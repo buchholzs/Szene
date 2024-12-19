@@ -1,8 +1,0 @@
-test.exe: test.o grchart.a
-	gcc -o test.exe test.o grchart.a -L../lib/dj2 -lgrx20
-test.o: test.c grchart.h
-	gcc -isystem../include -c test.c
-grchart.a: grchart.o
-	ar -r grchart.a grchart.o
-grchart.o: grchart.c grchart.h
-	gcc -isystem../include -c grchart.c
