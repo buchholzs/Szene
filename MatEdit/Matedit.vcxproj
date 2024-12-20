@@ -14,7 +14,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <ProjectGuid>{2547E963-3F42-4FE0-A85D-C9DE5BD22A53}</ProjectGuid>
     <RootNamespace>Matedit2</RootNamespace>
-    <ProjectName>Matedit</ProjectName>
+    <ProjectName>MatEdit</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -86,7 +86,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>depui.lib;scene.lib;plush.lib;expat.lib;$(CoreLibraryDependencies);%(AdditionalDependencies);ucrtd.lib;vcruntime.lib;kernel32.lib</AdditionalDependencies>
-      <OutputFile>.\Debug/Matedit.exe</OutputFile>
+      <OutputFile>.\Debug/MatEdit.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>..\expat\lib\Debug;..\Depui\Lib\Debug;..\contrib\grx248\Debug;..\Scene\Debug;..\plush\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -134,7 +134,7 @@
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>grx20.lib;depui.lib;scene.lib;plush.lib;expat.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>.\Release/Matedit.exe</OutputFile>
+      <OutputFile>.\Release/MatEdit.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>..\expat\lib\Release;..\Depui\Lib\Release;..\contrib\grx248\Release;..\Scene\Release;..\plush\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ProgramDatabaseFile>.\Release/Matedit2.pdb</ProgramDatabaseFile>

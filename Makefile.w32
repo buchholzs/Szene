@@ -11,7 +11,7 @@ install:
 	if not exist $(Scenes) mkdir $(Scenes)
 	xcopy /s /y PlushPlayer\scenes $(Scenes)
 	xcopy /y PlushPlayer\Release\PlushPlayer.exe $(Release)
-	xcopy /y Matedit\Release\Matedit.exe $(Release)
+	xcopy /y Matedit\Release\MatEdit.exe $(Release)
 	xcopy /y Matedit\standard.scx $(Release)
 	powershell "((Get-Content -path .\releasetemplates\Readme.tmpl -Raw) -replace '{Version}', '$(Version)') | Set-Content -Path $(Release)\Readme.txt"
 	cd $(Release)
