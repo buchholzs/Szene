@@ -30,7 +30,6 @@ using namespace scene;
 //
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
 static void handleError(SceneDesktop * desktop, const string &msg);
-static int LoadContextFromFramebuffer( SceneDesktop * desktop );
 
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
@@ -295,9 +294,7 @@ void mouse_reset(SceneDesktop * desktop)
   if (desktop->mouseWarp) {
   	GrMouseWarp(screen_w / 2, screen_h / 2);
   }
-  do {
-    GrMouseGetEventT(GR_M_EVENT | GR_M_NOPAINT, &evt,0L);
-  } while (evt.flags != 0);
+  GrMouseGetEvent(GR_M_MOTION | GR_M_NOPAINT, &evt);
   desktop->old_mouse_x = evt.x;
   desktop->old_mouse_y = evt.y;
   desktop->mx = 0;
@@ -327,12 +324,7 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 #else
 			mx_output->MouseShow(0);
 #endif
-			// restore mouse pos
-			desktop->old_mouse_x = desktop->save_mouse_x;
-			desktop->old_mouse_y = desktop->save_mouse_y;
-			if (desktop->mouseWarp) {
-				GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
-			}
+			mouse_reset(desktop);
 		}
 		else {
 			// show mouse
@@ -341,9 +333,6 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 #else
 			mx_output->MouseShow(1);
 #endif
-			// save mouse pos
-			desktop->save_mouse_x = desktop->old_mouse_x;
-			desktop->save_mouse_y = desktop->old_mouse_y;
 		}
 		desktop->directDisplay = directDisplay;
 	}

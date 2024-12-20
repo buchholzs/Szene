@@ -173,7 +173,6 @@ void Controller::loadScene (const std::string &filename)
 #endif
 	moveMode_->setMoveSpeed(desktop_->scn->getMoveSpeed());
 	moveMode_->setTurnSpeed(desktop_->scn->getTurnSpeed());
-	mouse_reset(desktop_);
     filename_ = filename;
 	scene_->reloadPalette();
 	Scene::ActionMap *am = scene_->getAllActions();

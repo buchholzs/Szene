@@ -34,6 +34,7 @@ public:
 	const MoveMode* getMoveMode () { return moveMode_; }
 	void	openScene();
 	void	loadScene(const std::string &filename);
+	void	setFilename(const std::string &filename) { filename_ = filename; }
 	const std::string &getFilename() { return filename_; }
 	void	saveScene();
 	void	showHelp();

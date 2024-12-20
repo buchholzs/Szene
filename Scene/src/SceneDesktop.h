@@ -43,8 +43,6 @@ typedef struct SceneDesktop {
 		signed short int old_mouse_y;
 		signed short int mx;
 		signed short int my;
-		signed short int save_mouse_x;
-		signed short int save_mouse_y;
 
 		int frames; // count frames for calculating fps
 		clock_t prevtime; //

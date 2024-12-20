@@ -43,24 +43,9 @@ clean:
 	$(MAKE) $(DEBUGFLAG) -C MatEdit clean
 	$(MAKE) $(DEBUGFLAG) -C PlushPlayer clean
 
-install:
-	cmd /c rmdir /s/q redist
-	cmd /c md redist
-	cmd /c copy MatEdit2\matedit2.exe redist
-	cmd /c copy PlushPlayer\plushplr.exe redist
-	cmd /c copy MatEdit2\standard.scx redist
-	cmd /c copy MatEdit2\Release\matedit2.exe redist\matedit2_w32.exe
-	cmd /c copy PlushPlayer\Release\plushplr.exe redist\plushplr_w32.exe
-	cmd /c copy Archiv\CWSDPMI.EXE redist
-	cmd /c copy Readme.txt redist
-	cmd /c copy changelog.txt redist
-	cmd /c copy Expat-1.95.2\Libs\expat.dll redist
-	cmd /c mkdir redist\scenes
-	cmd /c copy "PlushPlayer\scenes\*.scx" redist\scenes
-	cmd /c copy "PlushPlayer\scenes\*.pcx" redist\scenes
-	cmd /c copy "PlushPlayer\scenes\*.JAW" redist\scenes
-	cmd /c mkdir redist\scenes\maps
-	cmd /c copy "PlushPlayer\scenes\Maps\*.pcx" redist\scenes\maps
+install:	
+	cp PlushPlayer/PlushPlayer PlushPlayer-MatEdit
+	cp MatEdit/MatEdit PlushPlayer-MatEdit
 
 # Dependencies
 
