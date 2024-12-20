@@ -225,8 +225,8 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->elapsedTime = 0;
 	desktop->difftime = 0;
 	desktop->prevtime = clock(); 
-	desktop->old_mouse_x = desktop->save_mouse_x = args.mxdesktop.desktop_w / 2;
-	desktop->old_mouse_y = desktop->save_mouse_y = args.mxdesktop.desktop_h / 2;
+	desktop->old_mouse_x = args.mxdesktop.desktop_w / 2;
+	desktop->old_mouse_y = args.mxdesktop.desktop_h / 2;
 	desktop->mx = 0;
 	desktop->my = 0;
 	if (desktop->mouseWarp) {
