@@ -1,6 +1,5 @@
 #pragma warning (disable : 4786)
 
-#include <assert.h>
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
@@ -218,10 +217,9 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->ignorePointerMove = false;
 
 	desktop->frames = 0;
-	desktop->prevtime = 0;
+	desktop->prevtime = chrono::system_clock::now();;
 	desktop->elapsedTime = 0;
 	desktop->difftime = 0;
-	desktop->prevtime = clock(); 
 	desktop->old_mouse_x = args.mxdesktop.desktop_w / 2;
 	desktop->old_mouse_y = args.mxdesktop.desktop_h / 2;
 	desktop->mx = 0;
@@ -235,17 +233,15 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 
 // Update desktop with new scene
 void updateScene(SceneDesktop * desktop) {
-  clock_t currtime = clock();
-  assert(desktop->prevtime <= currtime);
-  desktop->difftime = (float)(currtime - desktop->prevtime)*1000.0f / (float) CLOCKS_PER_SEC;
-  assert((long)difftime >= 0);
+  auto currtime = chrono::system_clock::now();
+  desktop->difftime = std::chrono::duration_cast<std::chrono::milliseconds>(currtime - desktop->prevtime).count();
   desktop->elapsedTime += desktop->difftime; // in msec
 
   desktop->prevtime = currtime;
   pl_Cam*	cam = desktop->scn->getCurrCamera ();
 
-  if (desktop->elapsedTime >= 1000.0) {
-	float fps = ((float)desktop->frames)*1000.0f / desktop->elapsedTime;
+  if (desktop->elapsedTime >= 1000) {
+	float fps = ((float)desktop->frames)*1000.0f / (float)desktop->elapsedTime;
 	desktop->hud->setFPS(fps);
 	desktop->frames = 0;
 	desktop->elapsedTime = 0.0f;

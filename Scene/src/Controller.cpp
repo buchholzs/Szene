@@ -5,6 +5,7 @@
 
 #include <sstream>
 #include <algorithm>
+#include <chrono>
 #include <depui/depui.h>
 #include "Scene.h"
 #include "SceneDesktop.h"
@@ -182,7 +183,7 @@ void Controller::loadScene (const std::string &filename)
 	desktop_->hud->setStatus(desktop_->lastmessage);
 
 	// reset time
-	desktop_->prevtime = clock();
+	desktop_->prevtime = std::chrono::system_clock::now();
 	setDirectDisplay(desktop_, true);
   } catch (Scene::IOError &) {
 	std::ostringstream msg;
