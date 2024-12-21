@@ -46,7 +46,7 @@ void Hud::display ()
 
   GrSetContext(ctx_);
 
-  str << setprecision(1) << fixed << "FPS=" << fps_;
+  str << setprecision(0) << fixed << "FPS=" << fps_;
   GrTextXY(5, ypos , (char*)str.str().c_str(), statusColor_, GrNOCOLOR);
   ypos += yinc;
 

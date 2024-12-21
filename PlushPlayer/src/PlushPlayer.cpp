@@ -35,8 +35,8 @@ using namespace scene;
 // Konstanten und Statische Variablen
 //
 
-const int screen_w = 640;
-const int screen_h = 480;
+const int screen_w = 800;
+const int screen_h = 600;
 
 const int refresh_ivl = 1;	// Refresh-Interval in msec
 const int input_ivl = 67;	// Input-Abfrage-Interval in msec
