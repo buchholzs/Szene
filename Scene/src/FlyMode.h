@@ -12,7 +12,7 @@ namespace scene {
 
 class FlyMode : public scene::MoveMode {
 public:
-	FlyMode(Scene *scene, const float moveSpeed, const float turnSpeed) : 
+	FlyMode(std::shared_ptr<Scene> scene, const float moveSpeed, const float turnSpeed) :
 	  MoveMode(scene, moveSpeed, turnSpeed) {}
 	virtual ~FlyMode ();
 	void	moveForward (const float timeDiff);

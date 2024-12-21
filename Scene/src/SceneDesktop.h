@@ -2,6 +2,7 @@
 #define SCENE_DESKTOP_H
 
 #include <string>
+#include <memory>
 #include "depui/object/object.h"
 #include "depui/desktop/desktop.h"
 #define GrContext GrContext2
@@ -31,11 +32,11 @@ typedef struct SceneDesktop {
 			MxObject object;
 			MxDesktop desktop;
 		} base;
-		scene::Controller *controller;
-		scene::FlyMode *flyMode;
-		scene::WalkMode *walkMode;
-		scene::Scene *scn;
-		scene::Hud *hud;
+		std::shared_ptr<scene::Controller> controller;
+		std::shared_ptr<scene::FlyMode> flyMode;
+		std::shared_ptr<scene::WalkMode> walkMode;
+		std::shared_ptr<scene::Scene> scn;
+		std::shared_ptr<scene::Hud> hud;
 
 		MxImage *ctx;
 		

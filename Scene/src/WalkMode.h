@@ -12,7 +12,7 @@ namespace scene {
 
 class WalkMode : public scene::MoveMode {
 public:
-	WalkMode(Scene *scene, const float moveSpeed, const float turnSpeed) : 
+	WalkMode(std::shared_ptr<Scene> scene, const float moveSpeed, const float turnSpeed) : 
 	  MoveMode(scene, moveSpeed, turnSpeed) {}
 	virtual ~WalkMode ();
 	void	moveForward (const float timeDiff);

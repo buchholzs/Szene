@@ -104,7 +104,7 @@ static void *helpHandler(struct MxObject * object, const MxEvent * const event) 
 // ------------------------------------------------------------
 // Constructor
 // ------------------------------------------------------------
-Controller::Controller (MoveMode *moveMode, Scene *scene, SceneDesktop * desktop) :
+Controller::Controller (std::shared_ptr<MoveMode> moveMode, std::shared_ptr<Scene> scene, SceneDesktop *desktop) :
 	moveMode_(moveMode),
 	scene_(scene),
 	filename_(""),
@@ -201,7 +201,7 @@ void Controller::loadScene (const std::string &filename)
 // ------------------------------------------------------------
 void Controller::handleError(const std::string &msg) {
 
-	setDirectDisplay(desktop_, false); 
+	setDirectDisplay(desktop_, false);
     desktop_->scn->clear();  // destroy all objects in scene and clear with black
     updateScene(desktop_); // shows blue background in scene
     strcpy(desktop_->lastmessage, msg.c_str());

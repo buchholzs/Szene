@@ -9,7 +9,7 @@
 using namespace scene;
 
 // ------------------------------------------------------------
-MoveMode::MoveMode (Scene *scene, const float moveSpeed, const float turnSpeed) :
+MoveMode::MoveMode (std::shared_ptr<Scene> scene, const float moveSpeed, const float turnSpeed) :
 	scene_(scene),
 	moveSpeed_(moveSpeed),
 	turnSpeed_(turnSpeed)

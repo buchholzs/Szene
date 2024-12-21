@@ -46,12 +46,7 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
  
   switch (event->type) {
   case MxEventDestroy:
-	  delete desktop->hud;
-	  delete desktop->scn;
 	  GrDestroyContext((struct _GR_context *)desktop->ctx);
-	  delete desktop->walkMode;
-	  delete desktop->flyMode;
-	  delete desktop->controller;
 	  break;
 
   case MxEventPointerEnter:
@@ -167,7 +162,7 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	DBGPRINTF(("Fenstermanager unterstützt kein GrMouseWarp!"));    
 #endif
 
-	desktop->scn = new scene::Scene(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h);
+	desktop->scn = std::make_shared<scene::Scene>(args.mxdesktop.desktop_w,args.mxdesktop.desktop_h);
 
 	GrResetColors(); // Palette mode
 	int nFreeCols = GrNumFreeColors();
@@ -204,7 +199,7 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	}
 
 	// create hud
-	desktop->hud = new Hud(egacolors[LIGHTGRAY], (struct _GR_context *)desktop->ctx);
+	desktop->hud = std::make_shared<Hud>(egacolors[LIGHTGRAY], (struct _GR_context*)desktop->ctx);
 
 	// set mousecolor
 #ifdef GRX_NATIVE_POINTER
@@ -212,11 +207,13 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 #endif
 
 	// create walk-, flymode
-	desktop->walkMode = new WalkMode(desktop->scn, desktop->scn->getMoveSpeed(), desktop->scn->getTurnSpeed());
-	desktop->flyMode = new FlyMode(desktop->scn, desktop->scn->getMoveSpeed(), desktop->scn->getTurnSpeed());
+	desktop->walkMode = std::make_shared<WalkMode>(desktop->scn, desktop->scn->getMoveSpeed(), desktop->scn->getTurnSpeed());
+	desktop->flyMode = std::make_shared<FlyMode>(desktop->scn, desktop->scn->getMoveSpeed(), desktop->scn->getTurnSpeed());
 
 	// create controller
-	desktop->controller = new Controller(desktop->walkMode, desktop->scn, desktop);
+	std::shared_ptr<MoveMode> moveMode = desktop->walkMode;
+	std::shared_ptr<Scene> scene = desktop->scn;
+	desktop->controller = std::make_shared<Controller>(moveMode, scene, desktop);
 
 	desktop->ignorePointerMove = false;
 

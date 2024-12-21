@@ -20,7 +20,7 @@ class Scene;
 
 class Controller {
 public:
-	Controller (MoveMode* moveMode, Scene *scene, SceneDesktop * desktop);
+	Controller (std::shared_ptr<MoveMode> moveMode, std::shared_ptr<Scene> scene, SceneDesktop *desktop);
 	virtual ~Controller ();
 	void	moveForward (const float timeDiff) { moveMode_->moveForward(timeDiff); }
 	void	moveLeft (const float timeDiff) {moveMode_->moveLeft(timeDiff); }
@@ -30,23 +30,22 @@ public:
 	bool	getPause();
 	void	panView (const float pan) {moveMode_->panView(pan); }
 	void	pitchView (const float pitch) {moveMode_->pitchView(pitch); }
-	void	setMoveMode (MoveMode* moveMode) { moveMode_ = moveMode; }
-	const MoveMode* getMoveMode () { return moveMode_; }
+	void	setMoveMode (std::shared_ptr<MoveMode> moveMode) { moveMode_ = moveMode; }
+	const	std::shared_ptr<MoveMode> getMoveMode () { return moveMode_; }
 	void	openScene();
 	void	loadScene(const std::string &filename);
 	void	setFilename(const std::string &filename) { filename_ = filename; }
 	const std::string &getFilename() { return filename_; }
-	void	saveScene();
 	void	showHelp();
 	void	refreshDesktop();
 	void handleError(const std::string& msg);
 private:
 	void resizeFileSelector(MxFileselector *fs);
 
-	MoveMode*	moveMode_;
-	Scene	*scene_;
+	std::shared_ptr<MoveMode> moveMode_;
+	std::shared_ptr<Scene> scene_;
     std::string filename_;
-	SceneDesktop * desktop_;
+	SceneDesktop *desktop_;
 };
 
 } // scene
