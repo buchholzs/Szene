@@ -52,6 +52,7 @@ typedef struct SceneDesktop {
 		bool ignorePointerMove; // ignore last MxEventPointerMove event
 		char lastmessage[256]; // status message
 		bool mouseWarp; // mouse warp on/off
+		bool hasPaused; // animations paused due to GUI interaction
 	 } SceneDesktop;
 
 	 typedef struct SceneDesktopArgs {

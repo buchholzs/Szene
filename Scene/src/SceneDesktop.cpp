@@ -229,6 +229,7 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 	desktop->old_mouse_y = args.mxdesktop.desktop_h / 2;
 	desktop->mx = 0;
 	desktop->my = 0;
+	desktop->hasPaused = false;
 	if (desktop->mouseWarp) {
 		GrMouseWarp(desktop->old_mouse_x, desktop->old_mouse_y);
 	}
@@ -261,7 +262,12 @@ void updateScene(SceneDesktop * desktop) {
   if (cam) {
 	desktop->scn->render();
 	desktop->frames++;
-	desktop->scn->execute(desktop->difftime);
+	if (desktop->hasPaused) {
+		desktop->hasPaused = false;
+	} else {
+		// only execute animations if not paused before
+		desktop->scn->execute(desktop->difftime);
+	}	
 	if (!desktop->scn->getPaletteMode()) {
 		desktop->scn->LoadContextFromFramebuffer((GrContext2*)desktop->ctx);
 	}
@@ -333,6 +339,7 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 #else
 			mx_output->MouseShow(1);
 #endif
+			desktop->hasPaused = true; // animations paused
 		}
 		desktop->directDisplay = directDisplay;
 	}
