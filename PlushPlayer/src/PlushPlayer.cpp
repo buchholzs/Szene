@@ -89,6 +89,7 @@ int main(int argc, char *argv[])
 	  bool desktopRun = true;
 	  long long lastInputPoll = 0;
 	  long long lastScreenRefresh = 0;
+	  const long long min_ivl = 0;
 
 	  updateScene(&desktop); // show the blue desktop
 	  while (desktopRun) {
@@ -123,8 +124,9 @@ int main(int argc, char *argv[])
 
 		auto end_t = chrono::system_clock::now();
 		auto busy_ivl = std::chrono::duration_cast<std::chrono::milliseconds>(end_t - start_t).count();
+		long long used_ivl = refresh_ivl - busy_ivl;
 
-		long long milliseconds = max(refresh_ivl - busy_ivl, 0LL);
+		long long milliseconds = max(used_ivl, min_ivl);
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 	  }
