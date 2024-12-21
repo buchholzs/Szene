@@ -1659,18 +1659,14 @@ void Scene::reloadPalette()
 	  colorsAllocated_ = true;
 
 	  if (paletteMode_) {
-		  int nFreeCols = GrNumFreeColors();
-		  assert(nFreeCols != 0);
-
-		  int nCols = 256;
 		  firstFreeColor_ = -1;
 		  GrColor oldCell = -1;
 
-		  while (nFreeCols > 0) {
+		  for (int i = Scene::nEgaCols; i < Scene::nCols; i++) {
 			  GrColor cell = GrAllocCell();
+			  assert(cell != GrNOCOLOR);
 			  assert(cell < nCols);
-			  nFreeCols--;
-			  if (0 <= cell && cell < 256 && firstFreeColor_ == -1) {
+			  if (0 <= cell && cell < nCols && firstFreeColor_ == -1) {
 				  firstFreeColor_ = cell;
 				  oldCell = cell;
 			  }
@@ -1680,8 +1676,6 @@ void Scene::reloadPalette()
 			  oldCell = cell;
 			  lastFreeColor_ = cell;
 		  }
-		  nFreeCols = GrNumFreeColors();
-		  assert(nFreeCols == 0);
 	  } else {
 		  firstFreeColor_ = Scene::nEgaCols;
 		  lastFreeColor_ = Scene::nCols - 1;
@@ -1697,7 +1691,7 @@ void Scene::reloadPalette()
 		  GrSetColor(i, ThePalette_[i * 3], ThePalette_[i * 3 + 1], ThePalette_[i * 3 + 2]);
 	  }
   } else {
-	  for(int i=firstFreeColor_; i< nCols; i++) {
+	  for(int i = firstFreeColor_; i < nCols; i++) {
 		GrColor col = GrAllocColor( ThePalette_[i*3], ThePalette_[i*3+1], ThePalette_[i*3+2] );
 		TheGrxPalette_[i] = col;
 	  }
