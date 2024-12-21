@@ -48,8 +48,8 @@ typedef struct SceneDesktop {
 
 		int frames; // count frames for calculating fps
 		std::chrono::system_clock::time_point prevtime; // previous time
-		long long elapsedTime; // for calculating fps, in msec
-		long long difftime; // diff (current frame - last frame) in msec
+		std::chrono::milliseconds elapsedTime; // for calculating fps, in msec
+		std::chrono::milliseconds difftime; // diff (current frame - last frame) in msec
 		bool directDisplay; // display indirect in event loop or direct in display
 		bool ignorePointerMove; // ignore last MxEventPointerMove event
 		char lastmessage[256]; // status message

@@ -3,10 +3,10 @@
 // NOTE: please use a PRESERVE:BEGIN/PRESERVE:END comment block
 //       to preserve your hand-coding across code generations.
 
-
+#include <chrono>
+#include "Scene.h"
 #include "WalkMode.h"
 
-#include "Scene.h"
 
 namespace scene {
 
@@ -15,61 +15,61 @@ namespace scene {
   {}
 
   // ------------------------------------------------------------
-  void WalkMode::moveForward (const float timeDiff)
+  void WalkMode::moveForward (const std::chrono::milliseconds timeDiff)
   {
     pl_Cam *cam = scene_->getCurrCamera();
     if (!cam) return;
 
     if (moveSpeed_ != 0.0) {
       cam->X -=
-        timeDiff*moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+        timeDiff.count() *moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
       cam->Z += 
-        timeDiff*moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+        timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
     }	
   }
 
 
   // ------------------------------------------------------------
-  void WalkMode::moveLeft (const float timeDiff)
+  void WalkMode::moveLeft (const std::chrono::milliseconds timeDiff)
   {
     pl_Cam *cam = scene_->getCurrCamera();
     if (!cam) return;
 
     if (moveSpeed_ != 0.0) {
       cam->X -=
-        timeDiff*moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+        timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
       cam->Z += 
-        timeDiff*moveSpeed_* -sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+        timeDiff.count() *moveSpeed_* -sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
     }	
   }
 
 
   // ------------------------------------------------------------
-  void WalkMode::moveRight (const float timeDiff)
+  void WalkMode::moveRight (const std::chrono::milliseconds timeDiff)
   {
     pl_Cam *cam = scene_->getCurrCamera();
     if (!cam) return;
 
     if (moveSpeed_ != 0.0) {
       cam->X -=
-        timeDiff*moveSpeed_* -cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+        timeDiff.count() *moveSpeed_* -cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
       cam->Z += 
-        timeDiff*moveSpeed_* sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+        timeDiff.count() *moveSpeed_* sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
     }	
   }
 
 
   // ------------------------------------------------------------
-  void WalkMode::moveBackward (const float timeDiff)
+  void WalkMode::moveBackward (const std::chrono::milliseconds timeDiff)
   {
     pl_Cam *cam = scene_->getCurrCamera();
     if (!cam) return;
 
     if (moveSpeed_ != 0.0) {
       cam->X -=
-        timeDiff*-moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+        timeDiff.count() *-moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
       cam->Z += 
-        timeDiff*-moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+        timeDiff.count() *-moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
     }	
   }
 

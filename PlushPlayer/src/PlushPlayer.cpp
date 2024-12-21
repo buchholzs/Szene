@@ -38,8 +38,8 @@ using namespace scene;
 const int screen_w = 800;
 const int screen_h = 600;
 
-const int refresh_ivl = 1;	// Refresh-Interval in msec
-const int input_ivl = 67;	// Input-Abfrage-Interval in msec
+const std::chrono::milliseconds refresh_ivl(1);	// Refresh-Interval in msec
+const std::chrono::milliseconds input_ivl(67);	// Input-Abfrage-Interval in msec
 
 int main(int argc, char *argv[])
 {
@@ -87,9 +87,9 @@ int main(int argc, char *argv[])
 	  bool sceneToLoad = filename[0] != '\0';
 	  bool initialLoad = true;
 	  bool desktopRun = true;
-	  long long lastInputPoll = 0;
-	  long long lastScreenRefresh = 0;
-	  const long long min_ivl = 0;
+	  std::chrono::milliseconds lastInputPoll(0);
+	  std::chrono::milliseconds lastScreenRefresh(0);
+	  const std::chrono::milliseconds min_ivl(0);
 
 	  updateScene(&desktop); // show the blue desktop
 	  while (desktopRun) {
@@ -98,15 +98,15 @@ int main(int argc, char *argv[])
 		auto tick_ivl = std::chrono::duration_cast<std::chrono::milliseconds>(start_t - oldclk).count();
 		oldclk = start_t;
 
-		lastInputPoll += tick_ivl;
-		lastScreenRefresh += tick_ivl;
+		lastInputPoll += std::chrono::milliseconds(tick_ivl);
+		lastScreenRefresh += std::chrono::milliseconds(tick_ivl);
 
 		if ((lastScreenRefresh > refresh_ivl) && desktop.directDisplay) {
-			lastScreenRefresh = 0;
+			lastScreenRefresh = std::chrono::milliseconds(0);
 			updateScene(&desktop);
 		}
 		if ((lastInputPoll > input_ivl) || !desktop.directDisplay) {
-			lastInputPoll = 0;
+			lastInputPoll = std::chrono::milliseconds(0);
 			desktopRun = MxDesktopRun(&desktop.base.desktop);
 		}
 
@@ -123,12 +123,12 @@ int main(int argc, char *argv[])
 		}
 
 		auto end_t = chrono::system_clock::now();
-		auto busy_ivl = std::chrono::duration_cast<std::chrono::milliseconds>(end_t - start_t).count();
-		long long used_ivl = refresh_ivl - busy_ivl;
+		std::chrono::milliseconds busy_ivl = std::chrono::duration_cast<std::chrono::milliseconds>(end_t - start_t);
+		std::chrono::milliseconds used_ivl = refresh_ivl - busy_ivl;
 
-		long long milliseconds = max(used_ivl, min_ivl);
+		std::chrono::milliseconds milliseconds = max(used_ivl, min_ivl);
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+		std::this_thread::sleep_for(milliseconds);
 	  }
 
 	 /* Close and go home */
@@ -136,4 +136,3 @@ int main(int argc, char *argv[])
 
 	 exit(0);
 }
-

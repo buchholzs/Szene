@@ -15,69 +15,69 @@ FlyMode::~FlyMode ()
 {}
 
 // ------------------------------------------------------------
-void FlyMode::moveForward (const float timeDiff)
+void FlyMode::moveForward (const std::chrono::milliseconds timeDiff)
 {
 	pl_Cam *cam = scene_->getCurrCamera();
 	if (!cam) return;
 
 	if (moveSpeed_ != 0.0) {
       cam->X -=
-		  timeDiff*moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  timeDiff.count() *moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
       cam->Z += 
-		timeDiff*moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
 	  cam->Y += 
-		timeDiff*moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
+		timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
 	}	
 }
 
 
 // ------------------------------------------------------------
-void FlyMode::moveLeft (const float timeDiff)
+void FlyMode::moveLeft (const std::chrono::milliseconds timeDiff)
 {
 	pl_Cam *cam = scene_->getCurrCamera();
 	if (!cam) return;
 
 	if (moveSpeed_ != 0.0) {
       cam->X -=
-		  timeDiff*moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
       cam->Z += 
-		timeDiff*moveSpeed_* -sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		timeDiff.count() *moveSpeed_* -sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
 	  cam->Y += 
-		timeDiff*moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
+		timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
 	}	
 }
 
 
 // ------------------------------------------------------------
-void FlyMode::moveRight (const float timeDiff)
+void FlyMode::moveRight (const std::chrono::milliseconds timeDiff)
 {
 	pl_Cam *cam = scene_->getCurrCamera();
 	if (!cam) return;
 
 	if (moveSpeed_ != 0.0) {
       cam->X -=
-		  timeDiff*moveSpeed_* -cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  timeDiff.count() *moveSpeed_* -cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
       cam->Z += 
-		timeDiff*moveSpeed_* sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		timeDiff.count() *moveSpeed_* sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
 	  cam->Y += 
-		timeDiff*moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
+		timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
 	}	
 }
 
 
 // ------------------------------------------------------------
-void FlyMode::moveBackward (const float timeDiff)
+void FlyMode::moveBackward (const std::chrono::milliseconds timeDiff)
 {
 	pl_Cam *cam = scene_->getCurrCamera();
 	if (!cam) return;
 
 	if (moveSpeed_ != 0.0) {
       cam->X -=
-		  timeDiff*-moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  timeDiff.count() *-moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
       cam->Z += 
-		timeDiff*-moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		timeDiff.count() *-moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
 	  cam->Y += 
-		timeDiff*-moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
+		timeDiff.count() *-moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
 	}	
 }
 

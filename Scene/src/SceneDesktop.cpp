@@ -218,8 +218,8 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 
 	desktop->frames = 0;
 	desktop->prevtime = chrono::system_clock::now();;
-	desktop->elapsedTime = 0;
-	desktop->difftime = 0;
+	desktop->elapsedTime = std::chrono::milliseconds(0);
+	desktop->difftime = std::chrono::milliseconds(0);
 	desktop->old_mouse_x = args.mxdesktop.desktop_w / 2;
 	desktop->old_mouse_y = args.mxdesktop.desktop_h / 2;
 	desktop->mx = 0;
@@ -234,17 +234,17 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 // Update desktop with new scene
 void updateScene(SceneDesktop * desktop) {
   auto currtime = chrono::system_clock::now();
-  desktop->difftime = std::chrono::duration_cast<std::chrono::milliseconds>(currtime - desktop->prevtime).count();
+  desktop->difftime = std::chrono::duration_cast<std::chrono::milliseconds>(currtime - desktop->prevtime);
   desktop->elapsedTime += desktop->difftime; // in msec
 
   desktop->prevtime = currtime;
   pl_Cam*	cam = desktop->scn->getCurrCamera ();
 
-  if (desktop->elapsedTime >= 1000) {
-	float fps = ((float)desktop->frames)*1000.0f / (float)desktop->elapsedTime;
+  if (desktop->elapsedTime.count() >= 1000) {
+	float fps = ((float)desktop->frames)*1000.0f / (float)desktop->elapsedTime.count();
 	desktop->hud->setFPS(fps);
 	desktop->frames = 0;
-	desktop->elapsedTime = 0.0f;
+	desktop->elapsedTime = std::chrono::milliseconds(0);
   }
   if (cam) {
 	  desktop->hud->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);
@@ -259,7 +259,7 @@ void updateScene(SceneDesktop * desktop) {
 		desktop->hasPaused = false;
 	} else {
 		// only execute animations if not paused before
-		desktop->scn->execute(desktop->difftime);
+		desktop->scn->execute(desktop->difftime.count());
 	}	
 	if (!desktop->scn->getPaletteMode()) {
 		desktop->scn->LoadContextFromFramebuffer((GrContext2*)desktop->ctx);

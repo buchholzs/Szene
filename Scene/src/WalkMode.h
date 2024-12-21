@@ -15,10 +15,10 @@ public:
 	WalkMode(std::shared_ptr<Scene> scene, const float moveSpeed, const float turnSpeed) : 
 	  MoveMode(scene, moveSpeed, turnSpeed) {}
 	virtual ~WalkMode ();
-	void	moveForward (const float timeDiff);
-	void	moveLeft (const float timeDiff);
-	void	moveRight (const float timeDiff);
-	void	moveBackward (const float timeDiff);
+	void	moveForward (const std::chrono::milliseconds timeDiff);
+	void	moveLeft (const std::chrono::milliseconds timeDiff);
+	void	moveRight (const std::chrono::milliseconds timeDiff);
+	void	moveBackward (const std::chrono::milliseconds timeDiff);
 	void	panView (const float pan);
 	void	pitchView (const float pitch);
 };

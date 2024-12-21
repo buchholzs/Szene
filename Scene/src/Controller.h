@@ -22,10 +22,10 @@ class Controller {
 public:
 	Controller (std::shared_ptr<MoveMode> moveMode, std::shared_ptr<Scene> scene, SceneDesktop *desktop);
 	virtual ~Controller ();
-	void	moveForward (const float timeDiff) { moveMode_->moveForward(timeDiff); }
-	void	moveLeft (const float timeDiff) {moveMode_->moveLeft(timeDiff); }
-	void	moveRight (const float timeDiff) {moveMode_->moveRight(timeDiff); }
-	void	moveBackward (const float timeDiff) {moveMode_->moveBackward(timeDiff); }
+	void	moveForward (const std::chrono::milliseconds timeDiff) { moveMode_->moveForward(timeDiff); }
+	void	moveLeft (const std::chrono::milliseconds timeDiff) {moveMode_->moveLeft(timeDiff); }
+	void	moveRight (const std::chrono::milliseconds timeDiff) {moveMode_->moveRight(timeDiff); }
+	void	moveBackward (const std::chrono::milliseconds timeDiff) {moveMode_->moveBackward(timeDiff); }
 	void	setPause (bool pause);
 	bool	getPause();
 	void	panView (const float pan) {moveMode_->panView(pan); }
