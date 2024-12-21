@@ -138,7 +138,8 @@ void Controller::openScene ()
   MxStatictextArgs textargs;
   MxArgsInit(&textargs);
   textargs.caption = (const char *)MxMalloc(MX_MAX_PATH);
-  *(char *)textargs.caption = '\0';
+  assert(textargs.caption);
+  *(char*)textargs.caption = '\0';
   textargs.len = 0;
   textargs.ownscaption = 1;
   MxStatictext *okSel = MxStatictextNew(&desktop_->base.object, 0, 0, 50, 50, &textargs);
@@ -227,7 +228,6 @@ void Controller::resizeFileSelector(MxFileselector *fs) {
 // Shows a editor window with key help
 // ------------------------------------------------------------
 void Controller::showHelp() {
-	MxEditorArgs editorargs;
 	const char* buffer = "    w        move forward\n"
 		"    a        move left\n"
 		"    s        move backward\n"

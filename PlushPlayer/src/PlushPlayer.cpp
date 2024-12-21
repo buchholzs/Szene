@@ -79,8 +79,7 @@ int main(int argc, char *argv[])
 	 MxExitButtonConstruct(&myexit, &desktop.base.object, 0, 0, MxDefault, MxDefault, 0);
 
 	  /* Run the desktop until it wants to exit */      
-	 auto oldclk = chrono::duration_cast<chrono::milliseconds>(
-        chrono::system_clock::now().time_since_epoch()).count();
+	 auto oldclk = chrono::system_clock::now();
 
 	  if (argc == 2) {
 		  filename = argv[1];
@@ -88,15 +87,14 @@ int main(int argc, char *argv[])
 	  bool sceneToLoad = filename[0] != '\0';
 	  bool initialLoad = true;
 	  bool desktopRun = true;
-	  int lastInputPoll = 0;
-	  int lastScreenRefresh = 0;
+	  long long lastInputPoll = 0;
+	  long long lastScreenRefresh = 0;
 
 	  updateScene(&desktop); // show the blue desktop
 	  while (desktopRun) {
 		// Convert the current time to time since epoch
-		auto start_t = chrono::duration_cast<chrono::milliseconds>(
-        	chrono::system_clock::now().time_since_epoch()).count();
-		const int tick_ivl = start_t - oldclk;
+		auto start_t = chrono::system_clock::now();
+		auto tick_ivl = std::chrono::duration_cast<std::chrono::milliseconds>(start_t - oldclk).count();
 		oldclk = start_t;
 
 		lastInputPoll += tick_ivl;
@@ -123,11 +121,10 @@ int main(int argc, char *argv[])
 			MxEnqueue(&desktop.base.object, &event, 0);
 		}
 
-		auto end_t = chrono::duration_cast<chrono::milliseconds>(
-        	chrono::system_clock::now().time_since_epoch()).count();
-		const int busy_ivl = end_t - start_t;
+		auto end_t = chrono::system_clock::now();
+		auto busy_ivl = std::chrono::duration_cast<std::chrono::milliseconds>(end_t - start_t).count();
 
-		const int milliseconds = max(refresh_ivl - busy_ivl, 0);
+		long long milliseconds = max(refresh_ivl - busy_ivl, 0LL);
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
 	  }

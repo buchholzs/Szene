@@ -122,7 +122,8 @@ static void fileOpenHandler(MxObject * object, void *data, unsigned int selected
   MxStatictextArgs textargs;
   MxArgsInit(&textargs);
   textargs.caption = (const char *)MxMalloc(MX_MAX_PATH);
-  strcpy((char *)textargs.caption, "");
+  assert(textargs.caption);
+  *(char*)textargs.caption = '\0';
   textargs.len = 0;
   textargs.ownscaption = 1;
   MxStatictext *okSel = MxStatictextNew(object, 0, 0, 0, 0, &textargs);
@@ -220,7 +221,7 @@ static void *MatEditHandler(MxObject * object, const MxEvent * const event)
     {
 
       /* Blit the Szene */
-      for (int i = 0; i < MxRegionNumber(mx_region); i++) {
+      for (unsigned int i = 0; i < MxRegionNumber(mx_region); i++) {
 	const MxRect *const s = MxRegionRect(mx_region, i);
 
 	int x1 = s->x1, y1 = s->y1, x2 = s->x2, y2 = s->y2;
@@ -735,7 +736,7 @@ void MatEdit::shadeType2Radio(int shadeType) {
 
 // Radio -> shadeType
 int MatEdit::radio2ShadeType() {
-	int shadeType;
+	int shadeType = PL_SHADE_NONE;
 	if (radioNone->pressed)
 		shadeType = PL_SHADE_NONE;
 	else if (radioFlat->pressed)
@@ -832,6 +833,7 @@ void MatEdit::loadScene(const string &filename) {
     mat = matMap->begin()->second; // material of object
 
 	MxListDef *def = (MxListDef *)malloc((matMap->size() + 1) * sizeof(MxListDef));
+	assert(def);
 	memset(def, 0, (matMap->size() + 1) * sizeof(MxListDef));
 	int i = 0;
 	Scene::MatMap::const_iterator it;
@@ -883,6 +885,7 @@ void MatEdit::loadTexture(const string &filename) {
 	int cutPos = MX_MAX(0,(int)(filename.length()-texTextLen));
     string texText = string(cutPos == 0 ? "" : "..") + filename.substr(cutPos);
     char *caption = (char *)MxMalloc(texText.length() + 1);
+	assert(caption);
     strcpy(caption, texText.c_str());
     MxStatictextSet(staticTextTexture, caption, 1);
 	MxEnqueueRefresh(&staticTextTexture->base.object, MxFalse);

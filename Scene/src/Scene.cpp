@@ -1491,7 +1491,7 @@ void Scene::createRotator(enum sc_Tokens tok, const char** attr)
 				break;
 			}
 			case TOK_angle:
-				angle = std::stoi(val);
+				angle = std::stof(val);
 				break;
 			case TOK_duration:
 				duration = std::stoi(val);
