@@ -218,8 +218,8 @@ void SceneDesktopConstruct(SceneDesktop * desktop, int x, int y, int w, int h, S
 
 	desktop->frames = 0;
 	desktop->prevtime = chrono::system_clock::now();;
-	desktop->elapsedTime = std::chrono::milliseconds(0);
-	desktop->difftime = std::chrono::milliseconds(0);
+	desktop->elapsedTime = std::chrono::milliseconds::zero();
+	desktop->difftime = std::chrono::milliseconds::zero();
 	desktop->old_mouse_x = args.mxdesktop.desktop_w / 2;
 	desktop->old_mouse_y = args.mxdesktop.desktop_h / 2;
 	desktop->mx = 0;
@@ -244,7 +244,7 @@ void updateScene(SceneDesktop * desktop) {
 	float fps = ((float)desktop->frames)*1000.0f / (float)desktop->elapsedTime.count();
 	desktop->hud->setFPS(fps);
 	desktop->frames = 0;
-	desktop->elapsedTime = std::chrono::milliseconds(0);
+	desktop->elapsedTime = std::chrono::milliseconds::zero();
   }
   if (cam) {
 	  desktop->hud->setPosition(cam->X, cam->Y, cam->Z, cam->Pitch, cam->Pan, cam->Roll);

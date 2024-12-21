@@ -102,11 +102,11 @@ int main(int argc, char *argv[])
 		lastScreenRefresh += std::chrono::milliseconds(tick_ivl);
 
 		if ((lastScreenRefresh > refresh_ivl) && desktop.directDisplay) {
-			lastScreenRefresh = std::chrono::milliseconds(0);
+			lastScreenRefresh = std::chrono::milliseconds::zero();
 			updateScene(&desktop);
 		}
 		if ((lastInputPoll > input_ivl) || !desktop.directDisplay) {
-			lastInputPoll = std::chrono::milliseconds(0);
+			lastInputPoll = std::chrono::milliseconds::zero();
 			desktopRun = MxDesktopRun(&desktop.base.desktop);
 		}
 
