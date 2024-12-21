@@ -13,7 +13,7 @@ public:
 	SetMat(pl_Obj* obj, pl_Mat *m, int duration, bool repeat);
 	virtual ~SetMat ();
     void resetOrigin(pl_Obj *obj, pl_Cam *cam, pl_Light *light) {}
-    void Execute(float timeDiff);
+    void Execute(int timeDiff);
 private:
     pl_Obj *obj_;
 	pl_Mat *m_;

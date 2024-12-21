@@ -406,7 +406,7 @@ void Scene::render ()
 // ------------------------------------------------------------
 // F�hrt die Aktionen der Szene aus
 
-void Scene::execute (float timeDiff)
+void Scene::execute (int timeDiff)
 {
 	if (!pause_) {
 		for (ActionMap::iterator action = actions_.begin();
@@ -558,7 +558,7 @@ void Scene::setBackground(const char **attr)
 		if (res) {
 		  switch (res->val) {
 		  case TOK_color:
-			  setBackground(atoi(val));
+			  setBackground(std::stoi(val));
 			  break;
 		  default:
 			  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -579,7 +579,7 @@ void Scene::setMoveSpeed(const char** attr)
 		if (res) {
 			switch (res->val) {
 			case TOK_speed:
-				setMoveSpeed(atof(val));
+				setMoveSpeed(std::stof(val));
 				break;
 			default:
 				throw domain_error(string("Unerwartetes Token: ") + name);
@@ -613,28 +613,28 @@ void Scene::createCamera(const char **attr)
 			  id = val;
 			  break;
 		  case TOK_fov:
-			  cam->Fov = atof(val);
+			  cam->Fov = std::stof(val);
 			  break;
 		  case TOK_sort:
-			  cam->Sort = atoi(val);
+			  cam->Sort = std::stoi(val);
 			  break;
 		  case TOK_x:
-			  cam->X = atof(val);
+			  cam->X = std::stof(val);
 			  break;
 		  case TOK_y:
-			  cam->Y = atof(val);
+			  cam->Y = std::stof(val);
 			  break;
 		  case TOK_z:
-			  cam->Z = atof(val);
+			  cam->Z = std::stof(val);
 			  break;
 		  case TOK_pitch:
-			  cam->Pitch = atof(val);
+			  cam->Pitch = std::stof(val);
 			  break;
 		  case TOK_pan:
-			  cam->Pan = atof(val);
+			  cam->Pan = std::stof(val);
 			  break;
 		  case TOK_roll:
-			  cam->Roll = atof(val);
+			  cam->Roll = std::stof(val);
 			  break;
 		  default:
 			  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -668,13 +668,13 @@ void Scene::setTarget(const char **attr)
 		if (res) {
 		  switch (res->val) {
 		  case TOK_x:
-			  x = atof(val);
+			  x = std::stof(val);
 			  break;
 		  case TOK_y:
-			  y = atof(val);
+			  y = std::stof(val);
 			  break;
 		  case TOK_z:
-			  z = atof(val);
+			  z = std::stof(val);
 			  break;
 		  default:
 			  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -717,7 +717,7 @@ void Scene::createSetMat(sc_Tokens tok, const char** attr)
 				repeat = toYesNo(val);
 				break;
 			case TOK_duration:
-				duration = atof(val);
+				duration = std::stoi(val);
 				break;
 			case TOK_material:
 			{
@@ -765,13 +765,13 @@ void Scene::setPoint(const char** attr)
 		if (res) {
 			switch (res->val) {
 			case TOK_xp:
-				x = atof(val);
+				x = std::stof(val);
 				break;
 			case TOK_yp:
-				y = atof(val);
+				y = std::stof(val);
 				break;
 			case TOK_zp:
-				z = atof(val);
+				z = std::stof(val);
 				break;
 			default:
 				throw domain_error(string("Unerwartetes Token: ") + name);
@@ -802,13 +802,13 @@ void Scene::setAngle(const char** attr)
 		if (res) {
 			switch (res->val) {
 			case TOK_xa:
-				x = atof(val);
+				x = std::stof(val);
 				break;
 			case TOK_ya:
-				y = atof(val);
+				y = std::stof(val);
 				break;
 			case TOK_za:
-				z = atof(val);
+				z = std::stof(val);
 				break;
 			default:
 				throw domain_error(string("Unerwartetes Token: ") + name);
@@ -871,19 +871,19 @@ default:
 			  }
 			  break;
 		  case TOK_xp:
-			  x = atof(val);
+			  x = std::stof(val);
 			  break;
 		  case TOK_yp:
-			  y = atof(val);
+			  y = std::stof(val);
 			  break;
 		  case TOK_zp:
-			  z = atof(val);
+			  z = std::stof(val);
 			  break;
 		  case TOK_intensity:
-			  intensity = atof(val);
+			  intensity = std::stof(val);
 			  break;
 		  case TOK_falloff:
-			  halfDist = atof(val);
+			  halfDist = std::stof(val);
 			  break;
 		  default:
 			  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -955,37 +955,37 @@ void Scene::createMaterial(const char **attr)
 			  id = val;
 			  break;			
 			case TOK_ambient0:
-mat->Ambient[0] = atoi(val);
+mat->Ambient[0] = std::stoi(val);
 break;
 			case TOK_ambient1:
-mat->Ambient[1] = atoi(val);
+mat->Ambient[1] = std::stoi(val);
 break;
 			case TOK_ambient2:
-mat->Ambient[2] = atoi(val);
+mat->Ambient[2] = std::stoi(val);
 break;
 			case TOK_diffuse0:
-mat->Diffuse[0] = atoi(val);
+mat->Diffuse[0] = std::stoi(val);
 break;
 			case TOK_diffuse1:
-mat->Diffuse[1] = atoi(val);
+mat->Diffuse[1] = std::stoi(val);
 break;
 			case TOK_diffuse2:
-mat->Diffuse[2] = atoi(val);
+mat->Diffuse[2] = std::stoi(val);
 break;
 			case TOK_specular0:
-mat->Specular[0] = atoi(val);
+mat->Specular[0] = std::stoi(val);
 break;
 			case TOK_specular1:
-mat->Specular[1] = atoi(val);
+mat->Specular[1] = std::stoi(val);
 break;
 			case TOK_specular2:
-mat->Specular[2] = atoi(val);
+mat->Specular[2] = std::stoi(val);
 break;
 			case TOK_shininess:
-mat->Shininess = atoi(val);
+mat->Shininess = std::stoi(val);
 break;
 			case TOK_fadedist:
-mat->FadeDist = atof(val);
+mat->FadeDist = std::stof(val);
 break;
 			case TOK_shadetype:
 {
@@ -1015,10 +1015,10 @@ break;
 }
 break;
 			case TOK_transparent:
-mat->Transparent = atoi(val);
+mat->Transparent = std::stoi(val);
 break;
 			case TOK_perspectivecorrect:
-mat->PerspectiveCorrect = atoi(val);
+mat->PerspectiveCorrect = std::stoi(val);
 break;
 			case TOK_texture: case TOK_environment:
 {
@@ -1037,10 +1037,10 @@ break;
 }
 break;
 			case TOK_texscaling:
-mat->TexScaling = atof(val);
+mat->TexScaling = std::stof(val);
 break;
 			case TOK_envscaling:
-mat->EnvScaling = atof(val);
+mat->EnvScaling = std::stof(val);
 break;
 			case TOK_texenvmode:
 {
@@ -1076,7 +1076,7 @@ break;
 }
 break;
 			case TOK_numgradients:
-mat->NumGradients = atoi(val);
+mat->NumGradients = std::stoi(val);
 break;
 			default:
 throw domain_error(string("Unerwartetes Token: ") + name);
@@ -1144,31 +1144,31 @@ material = mat;
 			  captop = toYesNo(val);
 			  break;
 		  case TOK_d:
-			  d = atof(val);
+			  d = std::stof(val);
 			  break;
 		  case TOK_divr:
-			  divr = atoi(val);
+			  divr = std::stoi(val);
 			  break;
 		  case TOK_divh:
-			  divh = atoi(val);
+			  divh = std::stoi(val);
 			  break;
 		  case TOK_h:
-			  h = atof(val);
+			  h = std::stof(val);
 			  break;
 		  case TOK_r:
-			  r = atof(val);
+			  r = std::stof(val);
 			  break;
 		  case TOK_r1:
-			  r1 = atof(val);
+			  r1 = std::stof(val);
 			  break;
 		  case TOK_r2:
-			  r2 = atof(val);
+			  r2 = std::stof(val);
 			  break;
 		  case TOK_res:
-			  resolution = atoi(val);
+			  resolution = std::stoi(val);
 			  break;
 		  case TOK_w:
-			  w = atof(val);
+			  w = std::stof(val);
 			  break;
 		  default:
 			  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -1281,22 +1281,22 @@ void Scene::createTransformation(enum sc_Tokens tok, const char **attr)
 			  relative = toYesNo(val);
 			  break;
 		  case TOK_xp:
-			  Xp = atof(val);
+			  Xp = std::stof(val);
 			  break;
 		  case TOK_yp:
-			  Yp = atof(val);
+			  Yp = std::stof(val);
 			  break;
 		  case TOK_zp:
-			  Zp = atof(val);
+			  Zp = std::stof(val);
 			  break;
 		  case TOK_xa:
-			  Xa = atof(val);
+			  Xa = std::stof(val);
 			  break;
 		  case TOK_ya:
-			  Ya = atof(val);
+			  Ya = std::stof(val);
 			  break;
 		  case TOK_za:
-			  Za = atof(val);
+			  Za = std::stof(val);
 			  break;
 		  default:
 			  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -1355,13 +1355,13 @@ void Scene::doScale(enum sc_Tokens tok, const char **attr)
 			  id = val;
 			  break;
 		  case TOK_x:
-			  X = atof(val);
+			  X = std::stof(val);
 			  break;
 		  case TOK_y:
-			  Y = atof(val);
+			  Y = std::stof(val);
 			  break;
 		  case TOK_z:
-			  Z = atof(val);
+			  Z = std::stof(val);
 			  break;
 		  default:
 			  throw domain_error(string("Unerwartetes Token: ") + name);
@@ -1402,7 +1402,7 @@ void Scene::createMover(enum sc_Tokens tok, const char** attr)
 				repeat = toYesNo(val);
 				break;
 			case TOK_duration:
-				duration = atof(val);
+				duration = std::stoi(val);
 				break;
 			case TOK_type:
 			{
@@ -1491,10 +1491,10 @@ void Scene::createRotator(enum sc_Tokens tok, const char** attr)
 				break;
 			}
 			case TOK_angle:
-				angle = atof(val);
+				angle = std::stoi(val);
 				break;
 			case TOK_duration:
-				duration = atof(val);
+				duration = std::stoi(val);
 				break;
 			case TOK_type:
 			{
@@ -1606,7 +1606,7 @@ void Scene::createPause(sc_Tokens tok, const char** attr)
 				id = val;
 				break;
 			case TOK_duration:
-				duration = atof(val);
+				duration = std::stoi(val);
 				break;
 			default:
 				throw domain_error(string("Unerwartetes Token: ") + name);
@@ -1687,11 +1687,11 @@ void Scene::reloadPalette()
 
   // set palette
   if (paletteMode_) {
-	  for (int i = firstFreeColor_; i <= lastFreeColor_; i++) {
+	  for (unsigned int i = firstFreeColor_; i <= lastFreeColor_; i++) {
 		  GrSetColor(i, ThePalette_[i * 3], ThePalette_[i * 3 + 1], ThePalette_[i * 3 + 2]);
 	  }
   } else {
-	  for(int i = firstFreeColor_; i < nCols; i++) {
+	  for(unsigned int i = firstFreeColor_; i < nCols; i++) {
 		GrColor col = GrAllocColor( ThePalette_[i*3], ThePalette_[i*3+1], ThePalette_[i*3+2] );
 		TheGrxPalette_[i] = col;
 	  }

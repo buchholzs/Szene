@@ -12,10 +12,10 @@ namespace scene {
 class Mover : public TargetCommand {
 
 public:
-	Mover(pl_Obj* obj, pl_Cam* cam, pl_Light* light, float duration, bool repeat);
+	Mover(pl_Obj* obj, pl_Cam* cam, pl_Light* light, int duration, bool repeat);
 	virtual ~Mover ();
     void resetOrigin(pl_Obj *obj, pl_Cam *cam, pl_Light *light);
-    void Execute(float timeDiff);
+    void Execute(int timeDiff);
     void addPoint(float x, float y, float z);
 	// return the point as an array
     std::array<float, 3> getPoint(size_t index) const;

@@ -21,7 +21,7 @@ SetMat::~SetMat ()
 {
 }
 
-void SetMat::Execute (float timeDiff) {
+void SetMat::Execute (int timeDiff) {
 	if (elapsedTime_ == 0) {
 		plObjSetMat(obj_, m_, true);
 	}

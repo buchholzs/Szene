@@ -175,7 +175,7 @@ class Scene {
   void	render ();
 
   // F�hrt die Aktionen der Szene aus
-  void	execute (float timeDiff);
+  void	execute (int timeDiff);
 
   // Gibt eine Beschreibung der Szene im Debug Log aus
   void	dump ();

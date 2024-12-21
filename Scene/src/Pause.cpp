@@ -19,7 +19,7 @@ Pause::~Pause ()
 {
 }
 
-void Pause::Execute (float timeDiff) {
+void Pause::Execute (int timeDiff) {
 	elapsedTime_+=timeDiff;
 	if (elapsedTime_ > duration_) {
 		if (!repeat_) {

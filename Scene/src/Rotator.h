@@ -21,7 +21,7 @@ public:
 	Rotator(pl_Obj* obj, pl_Cam* cam, int duration, bool repeat);
 	virtual ~Rotator ();
     void resetOrigin(pl_Obj *obj, pl_Cam *cam, pl_Light *light);
-	void Execute (float timeDiff) ;
+	void Execute (int timeDiff) ;
 	void addAngle(float x, float y, float z);
 	// return the point as an array
     std::array<float, 3> getAngle(size_t index) const;

@@ -12,7 +12,7 @@ class Command {
 public:
 	Command(int duration) : duration_(duration), elapsedTime_(0) {}
 	virtual ~Command ();
-	virtual void Execute (float timeDiff) = 0;
+	virtual void Execute (int timeDiff) = 0;
 	virtual void reset() {
 		elapsedTime_ = 0;
 	}

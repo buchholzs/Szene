@@ -16,7 +16,7 @@ class Sequence : public Command {
 public:
 	Sequence(pl_Obj* obj, bool repeat);
 	virtual ~Sequence ();
-	void Execute (float timeDiff) ;
+	void Execute (int timeDiff) ;
 	void addTargetCommand(std::pair<std::string, TargetCommand*> action);
 	// return the point as an array
     std::pair<std::string, TargetCommand*> getTargetCommand(size_t index) const;
@@ -27,7 +27,7 @@ private:
 	bool repeat_;
 	pl_Obj* obj_;
 	std::vector<std::pair<std::string, TargetCommand*> > targetCommands_;
-	int idx_;
+	unsigned int idx_;
 };
 
 } // scene

@@ -55,7 +55,7 @@ void Rotator::resetOrigin(pl_Obj* obj, pl_Cam* cam, pl_Light* light) {
 	 }
 }
 
-void Rotator::Execute (float timeDiff) {
+void Rotator::Execute (int timeDiff) {
 	elapsedTime_+=timeDiff;
 	// Calculate the current position based on the elapsed time
 	if (elapsedTime_ > duration_) {

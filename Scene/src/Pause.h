@@ -13,7 +13,7 @@ public:
 	Pause(int duration);
 	virtual ~Pause ();
     void resetOrigin(pl_Obj *obj, pl_Cam *cam, pl_Light *light) {}
-    void Execute(float timeDiff);
+    void Execute(int timeDiff);
 };
 
 } // scene

@@ -35,7 +35,7 @@ void Sequence::restorePosAndAngle(pl_Obj* other) {
 	other->Za = obj_->Za;
 }
 
-void Sequence::Execute (float timeDiff) {
+void Sequence::Execute (int timeDiff) {
 	elapsedTime_+=timeDiff;
 	std::pair<std::string, TargetCommand*> action;
 	bool resetOrigin = false;

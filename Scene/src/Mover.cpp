@@ -8,7 +8,7 @@ namespace scene {
 // ------------------------------------------------------------
 // Konstruktor
 //
-Mover::Mover (pl_Obj* obj, pl_Cam* cam, pl_Light* light, float duration, bool repeat) :
+Mover::Mover (pl_Obj* obj, pl_Cam* cam, pl_Light* light, int duration, bool repeat) :
 	TargetCommand(obj, cam, light, duration, repeat)
 {
 	resetOrigin(obj, cam, light);
@@ -38,7 +38,7 @@ void Mover::resetOrigin(pl_Obj* obj, pl_Cam* cam, pl_Light* light) {
 	}
 }
 
-void Mover::Execute (float timeDiff) {
+void Mover::Execute (int timeDiff) {
 	elapsedTime_+=timeDiff;
 	// Calculate the current position based on the elapsed time
 	std::array<float, 3> point = getPoint(0);
