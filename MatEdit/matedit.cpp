@@ -279,6 +279,7 @@ static void *MxSliderStaticTextHandler(MxObject * object, const MxEvent * const 
     itoa(sl->index, buffer);
 
     caption = (char *)MxMalloc(strlen(buffer)+1);
+    assert(caption);
     strcpy(caption, buffer);
     MxStatictextSet(st, caption, 1);
 
@@ -731,7 +732,9 @@ void MatEdit::shadeType2Radio(int shadeType) {
 			btn = radioGouraudDistance;
 			break;
 	}
-    MxEventSendSimple(&btn->base.object, MxEventSelect);
+	if (btn) {
+		MxEventSendSimple(&btn->base.object, MxEventSelect);
+	}
 }
 
 // Radio -> shadeType
