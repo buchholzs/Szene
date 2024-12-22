@@ -97,6 +97,13 @@ static void *helpHandler(struct MxObject * object, const MxEvent * const event) 
 		MxWindowHandler(object, event);
 	  }
 	break;
+  case MxEventKeyUnbound:
+	  switch (event->key.code) {
+	  case 0x1b:
+		  MxEnqueueSimple(&win->base.object, MxEventExit, 0);
+		  break;
+	  }
+	  break;
   default:
 	  return MxWindowHandler(object, event);
   }
@@ -243,20 +250,25 @@ void Controller::showHelp() {
 		;
 	MxWindowArgs winargs;
 	MxScrollTextareaArgs textargs;
+	int screen_w = ((GrContext2*)desktop_->ctx)->gc_xmax + 1;
+	int screen_h = ((GrContext2*)desktop_->ctx)->gc_ymax + 1;
+	const int group_w = 300;
+	const int group_h = 250;
+	int x = screen_w / 2 - group_w / 2;
+	int y = screen_h / 2 - group_h / 2;
+
+	MxArgsInit(&winargs);
+	winargs.caption = "Key Help";
+
+	MxWindow *helpWindow = MxWindowNew(&desktop_->base.object, x, y, group_w, group_h, &winargs);
+	helpWindow->base.object.handler = helpHandler;
 
 	MxArgsInit(&textargs);
 	textargs.textarea.caption = buffer;
 	textargs.textarea.endtest = MxLineEndWordwrap;
-	//textargs.scroll.border = -1;
 
-	MxScrollTextarea *text = MxScrollTextareaNew(NULL, 0, 0, 300, 250, &textargs);
+	MxScrollTextarea* text = MxScrollTextareaNew(helpWindow->client, 0, 0, 300, 250, &textargs);
 
-	MxArgsInit(&winargs);
-	winargs.caption = "Key Help";
-	winargs.client = &text->base.object;
-
-	MxWindow *win = MxWindowNew(&desktop_->base.object, 150, 150, 300, 250, &winargs);
-	win->base.object.handler = helpHandler;
 	refreshDesktop();
 }
 
@@ -264,7 +276,7 @@ void Controller::showHelp() {
 // Refreshes all the Children of the desktop
 // ------------------------------------------------------------
 void Controller::refreshDesktop() {
-	for (int i = 0; i < desktop_->base.object.children.data->num; i++) {
+	for (int i = 0; desktop_->base.object.children.data && i < desktop_->base.object.children.data->num; i++) {
 		MxEnqueueRefresh(desktop_->base.object.children.data->child[i], MxTrue);
 	}
 }

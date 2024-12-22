@@ -29,6 +29,11 @@ using namespace scene;
 //
 static void mouse_get(SceneDesktop * desktop, const MxEvent *event, int &mouse_x, int &mouse_y);
 static void handleError(SceneDesktop * desktop, const string &msg);
+static void* LoadHandler(MxObject* object, const MxEvent* const event);
+static void* HelpHandler(MxObject* object, const MxEvent* const event);
+static void ExitHandler(MxObject* object, void* data, unsigned int selected);
+static void createButtons(SceneDesktop* desktop);
+static void destroyChildren(SceneDesktop* desktop);
 
 const float mouse_sens  = 2.5 * 2048.0/32768.0;		// mouse sensitivity
 const int reset_area = 20;	// constraint mouse movement around center
@@ -72,8 +77,12 @@ void *SceneDesktopHandler(MxObject * object, const MxEvent * const event)
 		  case 0x1b:
 			setDirectDisplay(desktop, !desktop->directDisplay);
 			if (!desktop->directDisplay) {
-				// Show the exit button
+				// Create and show the buttons
+				createButtons(desktop);
 				desktop->controller->refreshDesktop();
+			} else {
+				// delete all childen
+				destroyChildren(desktop);
 			}
 			return object;
 		  case 0x3B: // f1
@@ -324,6 +333,9 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 			mx_output->MouseShow(0);
 #endif
 			mouse_reset(desktop);
+
+			// delete all children
+			destroyChildren(desktop);
 		}
 		else {
 			// show mouse
@@ -335,5 +347,91 @@ void setDirectDisplay(SceneDesktop* desktop, bool directDisplay)
 			desktop->hasPaused = true; // animations paused
 		}
 		desktop->directDisplay = directDisplay;
+	}
+}
+
+void createButtons(SceneDesktop* desktop)
+{
+	MxButton* button = NULL;
+	MxWindowArgs windowargs;
+	MxButtonArgs buttonargs;
+	int screen_w = ((GrContext2*)desktop->ctx)->gc_xmax + 1;
+	int screen_h = ((GrContext2*)desktop->ctx)->gc_ymax + 1;
+	const int button_w = 118;
+	const int group_h = 148;
+	const int button_h = 40;
+	const int padding = 14;
+	int x = screen_w / 2 - button_w / 2 - padding;
+	int y = screen_h / 2 - group_h / 2 - padding;
+
+	/* Prepare some window arguments */
+	MxArgsInit(&windowargs);
+	windowargs.caption = "PlushPlayer";
+	windowargs.uncloseable = MxTrue;
+	windowargs.unresizeable = MxTrue;
+
+	/* Add our window to the desktop */
+	MxWindow *buttonWindow = MxWindowNew(&desktop->base.object, x, y, button_w + 2 * padding, group_h + 3 * padding, &windowargs);
+
+
+	MxArgsInit(&buttonargs);
+	buttonargs.stext.caption = "Load scene";
+	button = MxPushButtonNew(buttonWindow->client, padding, padding, button_w, button_h, &buttonargs);
+	button->base.object.handler = LoadHandler;
+
+	MxArgsInit(&buttonargs);
+	buttonargs.stext.caption = "Help";
+	button = MxPushButtonNew(buttonWindow->client, padding, padding + button_h + padding, button_w, button_h, &buttonargs);
+	button->base.object.handler = HelpHandler;
+
+	MxArgsInit(&buttonargs);
+	buttonargs.stext.caption = "Exit";
+	buttonargs.callback = ExitHandler;
+	button = MxExitButtonNew(buttonWindow->client, padding, padding + 2 * button_h + 2 * padding, button_w, button_h, &buttonargs);
+}
+
+/* button handler to load a scene */
+void* LoadHandler(MxObject* object, const MxEvent* const event)
+{
+	if (event->type == MxEventSelect) {
+		// file open dialog
+		SceneDesktop* desktop = (SceneDesktop*)MxParent(MxParent(MxParent(object)));
+		destroyChildren(desktop);
+		desktop->controller->openScene();
+	}
+
+	/* Otherwise act just like a normal push botton */
+	return MxPushButtonHandler(object, event);
+}
+
+/* button handler to show help */
+void* HelpHandler(MxObject* object, const MxEvent* const event)
+{
+	if (event->type == MxEventSelect) {
+		// help window
+		SceneDesktop* desktop = (SceneDesktop*)MxParent(MxParent(MxParent(object)));
+		destroyChildren(desktop);
+		desktop->controller->showHelp();
+	}
+
+	/* Otherwise act just like a normal push botton */
+	return MxPushButtonHandler(object, event);
+}
+
+/* button handler to show help */
+void ExitHandler(MxObject* object, void* data, unsigned int selected)
+{
+	(void)object;
+	(void)data;
+	if (selected) {
+		SceneDesktop* desktop = (SceneDesktop*)MxParent(MxParent(MxParent(object)));
+		MxEnqueueSimple(&desktop->base.object, MxEventExit, 0);
+	}
+}
+
+void destroyChildren(SceneDesktop* desktop)
+{
+	for (int i = 0; desktop->base.object.children.data && i < desktop->base.object.children.data->num; i++) {
+		MxEnqueueSimple(desktop->base.object.children.data->child[i], MxEventExit, 0);
 	}
 }

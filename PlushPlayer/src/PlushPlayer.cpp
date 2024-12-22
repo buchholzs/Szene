@@ -46,9 +46,6 @@ int main(int argc, char *argv[])
 	 /* Place to put the selected filename */
 	 std::string filename;
 
-	 MxButton myexit;
-	 MxButtonArgs buttonargs;
-
 	 /* Create some drivers specific to the system */
 	 SceneDesktop desktop;
 	 SceneDesktopArgs desktopargs;
@@ -74,10 +71,6 @@ int main(int argc, char *argv[])
 		  return 1;
 	 FullScreen(true);
 	
-	 /* Make a nice exit button */
-	 MxArgsInit(&buttonargs);
-	 MxExitButtonConstruct(&myexit, &desktop.base.object, 0, 0, MxDefault, MxDefault, 0);
-
 	  /* Run the desktop until it wants to exit */      
 	 auto oldclk = chrono::system_clock::now();
 
