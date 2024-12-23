@@ -129,10 +129,10 @@ class Scene {
   // Liefert den Framebuffer
   pl_uChar*	getFrameBuffer () { return frameBuffer_; }
 
-  // L�dt eine Szenebeschreibung im XML-Format
+  // Lädt eine Szenebeschreibung im XML-Format
   void	loadXML (const std::string &fileName);
 
-  // L�scht die geladene Szene
+  // Löscht die geladene Szene
   void clear ();
 
   // Liefert eine Kamera aus der Szenebeschreibung
@@ -171,10 +171,10 @@ class Scene {
   //Liefert alle Aktionen aus der Szenebeschreibung
   Scene::ActionMap *getAllActions() { return &actions_; }
 
-  // Rendert eine Szene mit der ausgew�hlten Kamera 
+  // Rendert eine Szene mit der ausgewählten Kamera 
   void	render ();
 
-  // F�hrt die Aktionen der Szene aus
+  // Führt die Aktionen der Szene aus
   void	execute (int timeDiff);
 
   // Gibt eine Beschreibung der Szene im Debug Log aus
@@ -236,7 +236,7 @@ class Scene {
 
   /*
   ** Berechnet eine Palette aus den vorhandenen Materialien 
-  ** und mappt diese anschlie�end auf die Palette
+  ** und mappt diese anschließend auf die Palette
   ** 
   ** Parameter:
   **	pal : Palette, ein 768 byte-Array von unsigned chars,

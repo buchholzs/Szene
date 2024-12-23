@@ -59,7 +59,7 @@ using namespace std;
 namespace scene {
 
 /*
-** Ressourcemonitor, f�hrt Cleanup beim Verlassen der Methode "loadXML" durch
+** Ressourcemonitor, führt Cleanup beim Verlassen der Methode "loadXML" durch
 */
 class RessourceTracker {
   FILE *stream_;
@@ -75,7 +75,7 @@ public:
 };
 
 /*
-** Hilfsfunktion f�r for_each(). Wendet eine im Konstruktor �bergebene
+** Hilfsfunktion für for_each(). Wendet eine im Konstruktor übergebene
 ** Funktion auf den Value-Teil einer Map an.
 */
 template <typename map_value_type, typename Fun >
@@ -92,7 +92,7 @@ class applyMap
 };
 
 /**
-** Wandelt die Strings "yes" und "no" in ihre bool-�quivalente
+** Wandelt die Strings "yes" und "no" in ihre bool-Äquivalente
 ** 
 ** Parameter:
 **		val : String mit "yes" oder "no"
@@ -278,7 +278,7 @@ Sequence* Scene::getCurrSequence()
 }
 
 // ------------------------------------------------------------
-// L�dt eine Szenebeschreibung im XML-Format
+// Lädt eine Szenebeschreibung im XML-Format
 
 void Scene::loadXML (const string &fileName)
 {
@@ -289,7 +289,7 @@ void Scene::loadXML (const string &fileName)
 	RessourceTracker rt; // do cleanup on method end
 	try {
 	  if( (stream  = fopen( fileName.c_str(), "r" )) == NULL ) {
-	    throw IOError(string("Datei ") + fileName + " konnte nicht ge�ffnet werden.");
+	    throw IOError(string("Datei ") + fileName + " konnte nicht geöffnet werden.");
 	  }
 	  rt.setStream(stream);	// cleanup later
 	  clear();
@@ -374,7 +374,7 @@ pl_Texture*	Scene::findTexture (const string &name)
 }
 
 // ------------------------------------------------------------
-// Rendert eine Szene mit der ausgew�hlten Kamera 
+// Rendert eine Szene mit der ausgewählten Kamera 
 
 void Scene::render ()
 {
@@ -404,7 +404,7 @@ void Scene::render ()
 }
 
 // ------------------------------------------------------------
-// F�hrt die Aktionen der Szene aus
+// Führt die Aktionen der Szene aus
 
 void Scene::execute (int timeDiff)
 {

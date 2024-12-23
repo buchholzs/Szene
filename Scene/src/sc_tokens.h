@@ -4,7 +4,7 @@
 #define _Scenetok_H_
 
 /*
-** Aufz�hlung der Tokenwerte (scene.dtd)
+** Aufzählung der Tokenwerte (scene.dtd)
 */
 enum sc_Tokens {
   // sorted below this line
@@ -131,7 +131,7 @@ enum sc_Tokens {
 };
 
 /*
-** Schl�ssel-/Tokenwert-Typ. 
+** Schlüssel-/Tokenwert-Typ. 
 */
 extern "C" struct sc_TokenPair {
   const char *key;
@@ -139,7 +139,7 @@ extern "C" struct sc_TokenPair {
 };
 
 /*
-** Tabelle mit Schl�ssel-/Tokenwerten. Mittels bsearch kann diese Tabelle 
+** Tabelle mit Schlüssel-/Tokenwerten. Mittels bsearch kann diese Tabelle 
 ** durchsucht werden.
 */
 extern sc_TokenPair tokenMap[];
@@ -149,10 +149,10 @@ extern unsigned int tokenMapSize;
 
 
 /*
-** Sucht nach einem Schl�ssel in der Tokentabelle
+** Sucht nach einem Schlüssel in der Tokentabelle
 ** 
 ** Parameter:
-**		key : Suchschl�ssel
+**		key : Suchschlüssel
 ** Returns:
 **		Pointer auf den gefundenen Eintrag; oder NULL
 */

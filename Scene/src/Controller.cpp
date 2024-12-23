@@ -206,7 +206,7 @@ void Controller::loadScene (const std::string &filename)
 }
 
 // ------------------------------------------------------------
-// Szene mit Hintergrundfarbe l�schen und Fehlermeldung anzeigen
+// Szene mit Hintergrundfarbe löschen und Fehlermeldung anzeigen
 // ------------------------------------------------------------
 void Controller::handleError(const std::string &msg) {
 
