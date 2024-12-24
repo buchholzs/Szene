@@ -52,7 +52,7 @@ typedef struct SceneDesktop {
 		std::chrono::milliseconds difftime; // diff (current frame - last frame) in msec
 		bool directDisplay; // display indirect in event loop or direct in display
 		bool ignorePointerMove; // ignore last MxEventPointerMove event
-		char lastmessage[256]; // status message
+		std::string lastmessage; // status message
 		bool mouseWarp; // mouse warp on/off
 		bool hasPaused; // animations paused due to GUI interaction
 	 } SceneDesktop;

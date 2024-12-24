@@ -14,6 +14,7 @@ int   _scene_debug_line;
 const char *_scene_debug_function;
 # endif
 
+#pragma warning(disable:4996)
 void _scene_debug_printf(const char *fmt,...)
 {
 	FILE *dfp = NULL;

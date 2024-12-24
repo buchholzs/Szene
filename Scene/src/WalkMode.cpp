@@ -22,9 +22,9 @@ namespace scene {
 
     if (moveSpeed_ != 0.0) {
       cam->X -=
-        timeDiff.count() *moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+          static_cast<pl_Float>(timeDiff.count() *moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
       cam->Z += 
-        timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+          static_cast<pl_Float>(timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
     }	
   }
 
@@ -37,9 +37,9 @@ namespace scene {
 
     if (moveSpeed_ != 0.0) {
       cam->X -=
-        timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+          static_cast<pl_Float>(timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
       cam->Z += 
-        timeDiff.count() *moveSpeed_* -sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+          static_cast<pl_Float>(timeDiff.count() *moveSpeed_* -sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
     }	
   }
 
@@ -52,9 +52,9 @@ namespace scene {
 
     if (moveSpeed_ != 0.0) {
       cam->X -=
-        timeDiff.count() *moveSpeed_* -cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+          static_cast<pl_Float>(timeDiff.count() *moveSpeed_* -cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
       cam->Z += 
-        timeDiff.count() *moveSpeed_* sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+          static_cast<pl_Float>(timeDiff.count() *moveSpeed_* sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
     }	
   }
 
@@ -67,9 +67,9 @@ namespace scene {
 
     if (moveSpeed_ != 0.0) {
       cam->X -=
-        timeDiff.count() *-moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+          static_cast<pl_Float>(timeDiff.count() *-moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
       cam->Z += 
-        timeDiff.count() *-moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+          static_cast<pl_Float>(timeDiff.count() *-moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
     }	
   }
 

@@ -268,7 +268,7 @@ void updateScene(SceneDesktop * desktop) {
 		desktop->hasPaused = false;
 	} else {
 		// only execute animations if not paused before
-		desktop->scn->execute(desktop->difftime.count());
+		desktop->scn->execute(static_cast<int>(desktop->difftime.count()));
 	}	
 	if (!desktop->scn->getPaletteMode()) {
 		desktop->scn->LoadContextFromFramebuffer((GrContext2*)desktop->ctx);
@@ -277,7 +277,7 @@ void updateScene(SceneDesktop * desktop) {
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
 	GrClearContext( MxColorDesktop );
-	GrTextXY(5,((GrContext2*)desktop->ctx)->gc_ymax-15,desktop->lastmessage,GrBlack(),MxColorDesktop);
+	GrTextXY(5,((GrContext2*)desktop->ctx)->gc_ymax-15,const_cast<char*>(desktop->lastmessage.c_str()), GrBlack(), MxColorDesktop);
 	GrSetContext(NULL);
   }
   if (desktop->directDisplay) {

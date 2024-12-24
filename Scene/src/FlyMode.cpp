@@ -22,11 +22,11 @@ void FlyMode::moveForward (const std::chrono::milliseconds timeDiff)
 
 	if (moveSpeed_ != 0.0) {
       cam->X -=
-		  timeDiff.count() *moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
       cam->Z += 
-		timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
 	  cam->Y += 
-		timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0));
 	}	
 }
 
@@ -39,11 +39,11 @@ void FlyMode::moveLeft (const std::chrono::milliseconds timeDiff)
 
 	if (moveSpeed_ != 0.0) {
       cam->X -=
-		  timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
       cam->Z += 
-		timeDiff.count() *moveSpeed_* -sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_* -sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
 	  cam->Y += 
-		timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0));
 	}	
 }
 
@@ -56,11 +56,11 @@ void FlyMode::moveRight (const std::chrono::milliseconds timeDiff)
 
 	if (moveSpeed_ != 0.0) {
       cam->X -=
-		  timeDiff.count() *moveSpeed_* -cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_* -cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
       cam->Z += 
-		timeDiff.count() *moveSpeed_* sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_* sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
 	  cam->Y += 
-		timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *moveSpeed_*sin(cam->Pitch*PL_PI/180.0));
 	}	
 }
 
@@ -73,11 +73,11 @@ void FlyMode::moveBackward (const std::chrono::milliseconds timeDiff)
 
 	if (moveSpeed_ != 0.0) {
       cam->X -=
-		  timeDiff.count() *-moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *-moveSpeed_*sin(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
       cam->Z += 
-		timeDiff.count() *-moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *-moveSpeed_*cos(cam->Pan*PL_PI/180.0)*cos(cam->Pitch*PL_PI/180.0));
 	  cam->Y += 
-		timeDiff.count() *-moveSpeed_*sin(cam->Pitch*PL_PI/180.0);
+		  static_cast<pl_Float>(timeDiff.count() *-moveSpeed_*sin(cam->Pitch*PL_PI/180.0));
 	}	
 }
 
