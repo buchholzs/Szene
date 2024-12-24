@@ -280,6 +280,7 @@ Sequence* Scene::getCurrSequence()
 // ------------------------------------------------------------
 // Lädt eine Szenebeschreibung im XML-Format
 
+#pragma warning(disable:4996)
 void Scene::loadXML (const string &fileName)
 {
 	// PRESERVE:BEGIN
