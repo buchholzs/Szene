@@ -1,6 +1,10 @@
 #
 # Aufruf: nmake /f .\Makefile.w32 Version=0.x
 #
+!ifndef Version
+!error Please define Version=0.x
+!endif
+
 Release=.\PlushPlayer-Matedit
 Scenes=$(Release)\scenes
 
@@ -15,6 +19,7 @@ install:
 	xcopy /y Matedit\standard.scx $(Release)
 	powershell "((Get-Content -path .\releasetemplates\Readme.tmpl -Raw) -replace '{Version}', '$(Version)') | Set-Content -Path $(Release)\Readme.txt"
 	cd $(Release)
+	del $(Release)-$(Version).zip
 	powershell Compress-Archive * $(Release)-$(Version).zip
 
 clean:
