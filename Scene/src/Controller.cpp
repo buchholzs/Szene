@@ -66,10 +66,6 @@ static void *fileOpenOKSelectedHandler(struct MxObject * object, const MxEvent *
 			desktop->controller->handleError(error);
 		}
 		desktop->controller->loadScene(fileName.string());
-#ifndef WIN32
-		free(fileName);
-		free(pathcopy);
-#endif
 	  }
 	break;
   default:
