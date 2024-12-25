@@ -46,3 +46,7 @@ PlushPlayer/PlushPlayer
 PlushPlayer/scndebug.log
 PlushPlayer/scenes/scndebug.log
 PlushPlayer-MatEdit/
+MatEdit/MatEdit.aps
+PlushPlayer/PlushPlayer.aps
+PlushPlayer/RCa42108
+/**/*.vcxproj.filters

@@ -21,6 +21,18 @@
   <ItemGroup>
     <ClCompile Include="src\PlushPlayer.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\PlushPlayer-ico.ico" />
+    <Image Include="res\PlushPlayer-ico.png" />
+    <Image Include="res\PlushPlayer.ico" />
+    <Image Include="res\PlushPlayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PlushPlayer.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -96,6 +108,10 @@
       <EntryPointSymbol>
       </EntryPointSymbol>
     </Link>
+    <ResourceCompile />
+    <ResourceCompile>
+      <ResourceOutputFileName>.\Debug\PlushPlayer.res</ResourceOutputFileName>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
