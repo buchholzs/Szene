@@ -272,6 +272,9 @@ class Scene {
   // Initialisiert wichtige Attribute
   void init(pl_uInt screenWidth, pl_uInt screenHeight, pl_Float aspectRatio);
 
+  // Kopiert von Zeile startY bis endY aus dem Framebuffer in den GrxContext
+  bool CopyFramebuffer(int startY, int endY, int maxwidth);
+
   std::string fileName_;
   CamMap cameras_;
   LightMap lights_;

@@ -8,6 +8,8 @@
 #include <sstream>
 #include <iostream>
 #include <algorithm>
+#include <future>
+#include <thread>
 #include <expat.h>
 #include <grx20.h>
 #include "Command.h"
@@ -454,31 +456,46 @@ void Scene::dump ()
 // PRESERVE:END
 }
 
+bool Scene::CopyFramebuffer(int startY, int endY, int maxwidth) {
+  GrColor pColors[ maxwidth ];
+
+  for(int y=startY; y<endY; y++ ){
+    for(int x=0; x<maxwidth; x++ ){
+	  pl_uChar c = frameBuffer_[y*maxwidth+x];
+      pColors[x] = TheGrxPalette_[c];
+    }
+    GrPutScanline(0, maxwidth - 1, y, pColors, GrWRITE);
+  }
+  return true;
+}	
+
 int Scene::LoadContextFromFramebuffer( _GR_context * ctx )
 {
   int x, y;
   int maxwidth, maxheight;
-  GrColor *pColors=NULL;
   int res = 0;
 
   maxwidth = ctx->gc_xmax + 1;
   maxheight = ctx->gc_ymax + 1;
 
-  pColors = (GrColor *)malloc( maxwidth * sizeof(GrColor) );
-  if(pColors == NULL) { res = -1; goto salida; }
-
+  std::vector<std::future<bool>> futures;
+  const unsigned int minThreads = 1;
+  const int minPartition = 1;
+  int maxThreads = max(std::thread::hardware_concurrency()*3/4, minThreads); // use 75% of available threads
+  int partition = max(maxheight / maxThreads, minPartition);
   GrSetContext(ctx);
-  for( y=0; y<maxheight; y++ ){
-    for( x=0; x<maxwidth; x++ ){
-	  pl_uChar c = frameBuffer_[y*maxwidth+x];
-      pColors[x] = TheGrxPalette_[c];
-    }
-    GrPutScanline( 0,maxwidth-1,y,pColors,GrWRITE );
+  for( y=0; y<maxheight; y+=partition ) {
+	futures.push_back(std::async(std::launch::async, [this, y, partition, maxwidth, maxheight]() {
+		return this->CopyFramebuffer(y, min(y + partition, maxheight + 1), maxwidth);
+	}));
+  }
+  for (auto &f : futures) {
+	if (!f.get()) {
+	  res = -1;
+	}
   }
   GrSetContext(NULL);
 
-salida:
-  if( pColors != NULL ) free( pColors );
   return res;
 }
 
