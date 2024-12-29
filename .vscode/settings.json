@@ -105,7 +105,11 @@
         "stop_token": "cpp",
         "thread": "cpp",
         "cinttypes": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "codecvt": "cpp",
+        "condition_variable": "cpp",
+        "future": "cpp",
+        "mutex": "cpp"
     },
 "terminal.integrated.automationProfile.linux": null,
 "terminal.integrated.automationShell.linux": "true"
