@@ -280,7 +280,7 @@ void updateScene(SceneDesktop * desktop) {
 		const int width  = ((GrContext2*)desktop->ctx)->gc_xmax+1;
 		const int height = ((GrContext2*)desktop->ctx)->gc_ymax+1;
 		uint32_t *buf = reinterpret_cast<uint32_t*>(((GrContext2*)desktop->ctx)->gc_frame.gf_baseaddr[0]);
-		for (size_t i = 0; i < width * height; ++i) {
+		for (size_t i = 0; i < static_cast<size_t>(width * height); ++i) {
 			buf[i] = MxColorDesktop;
 		}
 	} else {
