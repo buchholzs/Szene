@@ -1,3 +1,4 @@
+#include <string.h>
 #include "depui/platform/platform.h"
 #include "depui/graphics/draw.h"
 #include "depui/graphics/clip.h"

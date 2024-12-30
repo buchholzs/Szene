@@ -276,7 +276,16 @@ void updateScene(SceneDesktop * desktop) {
 	desktop->hud->display(); // show Hud last
   } else {
 	GrSetContext((GrContext2*)desktop->ctx);
-	GrClearContext( MxColorDesktop );
+	if (!desktop->scn->getPaletteMode()) {
+		const int width  = ((GrContext2*)desktop->ctx)->gc_xmax+1;
+		const int height = ((GrContext2*)desktop->ctx)->gc_ymax+1;
+		uint32_t *buf = reinterpret_cast<uint32_t*>(((GrContext2*)desktop->ctx)->gc_frame.gf_baseaddr[0]);
+		for (size_t i = 0; i < width * height; ++i) {
+			buf[i] = MxColorDesktop;
+		}
+	} else {
+		GrClearContext(MxColorDesktop);
+	}
 	GrTextXY(5,((GrContext2*)desktop->ctx)->gc_ymax-15,const_cast<char*>(desktop->lastmessage.c_str()), GrBlack(), MxColorDesktop);
 	GrSetContext(NULL);
   }

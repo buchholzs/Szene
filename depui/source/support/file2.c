@@ -1,4 +1,5 @@
 /* This code has been taken from Allegro with minor modifications */
+#include <string.h>
 #include "depui/config.h"
 
 #ifdef MX_DEBUG_MODULES
