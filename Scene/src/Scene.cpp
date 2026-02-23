@@ -456,22 +456,23 @@ void Scene::dump ()
 // PRESERVE:END
 }
 
-bool Scene::CopyFramebuffer(int startY, int endY, int maxwidth) {
-  GrColor pColors[ maxwidth ];
+bool Scene::CopyFramebuffer(int startY, int endY) {
+  GrColor *pColors = new GrColor[ screenWidth_ ];
 
   for(int y=startY; y<endY; y++ ){
-    for(int x=0; x<maxwidth; x++ ){
-	  pl_uChar c = frameBuffer_[y*maxwidth+x];
+    for(unsigned int x=0; x < screenWidth_; x++ ){
+	  pl_uChar c = frameBuffer_[y* screenWidth_ +x];
       pColors[x] = TheGrxPalette_[c];
     }
-    GrPutScanline(0, maxwidth - 1, y, pColors, GrWRITE);
+    GrPutScanline(0, screenWidth_ - 1, y, pColors, GrWRITE);
   }
+  delete[] pColors;
   return true;
 }	
 
 int Scene::LoadContextFromFramebuffer( _GR_context * ctx )
 {
-  int x, y;
+  int y;
   int maxwidth, maxheight;
   int res = 0;
 
@@ -485,8 +486,8 @@ int Scene::LoadContextFromFramebuffer( _GR_context * ctx )
   int partition = max(maxheight / maxThreads, minPartition);
   GrSetContext(ctx);
   for( y=0; y<maxheight; y+=partition ) {
-	futures.push_back(std::async(std::launch::async, [this, y, partition, maxwidth, maxheight]() {
-		return this->CopyFramebuffer(y, min(y + partition, maxheight + 1), maxwidth);
+	futures.push_back(std::async(std::launch::async, [this, y, partition, maxheight]() {
+		return this->CopyFramebuffer(y, min(y + partition, maxheight + 1));
 	}));
   }
   for (auto &f : futures) {
